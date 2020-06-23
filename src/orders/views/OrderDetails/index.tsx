@@ -148,6 +148,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 onDraftFinalize={orderMessages.handleDraftFinalize}
                 onDraftCancel={orderMessages.handleDraftCancel}
                 onOrderMarkAsPaid={orderMessages.handleOrderMarkAsPaid}
+                onInvoiceRequest={() => null}
               >
                 {({
                   orderAddNote,
@@ -165,7 +166,8 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                   orderFulfillmentUpdateTracking,
                   orderDraftCancel,
                   orderDraftFinalize,
-                  orderPaymentMarkAsPaid
+                  orderPaymentMarkAsPaid,
+                  orderInvoiceRequest
                 }) => (
                   <>
                     {order?.status !== OrderStatus.DRAFT ? (
@@ -232,6 +234,12 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                           onClickInvoice={invoice =>
                             window.open(invoice.url, "_blank")
                           }
+                          onGenerateInvoice={() =>
+                            orderInvoiceRequest.mutate({
+                              orderId: id
+                            })
+                          }
+                          onSendInvoice={() => null}
                         />
                         <OrderCannotCancelOrderDialog
                           onClose={closeModal}
