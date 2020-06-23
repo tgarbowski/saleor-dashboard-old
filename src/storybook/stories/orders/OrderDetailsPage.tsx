@@ -24,6 +24,7 @@ const props: Omit<OrderDetailsPageProps, "classes"> = {
   onClickInvoice: () => undefined,
   onFulfillmentCancel: () => undefined,
   onFulfillmentTrackingNumberUpdate: () => undefined,
+  onGenerateInvoice: () => undefined,
   onNoteAdd: undefined,
   onOrderCancel: undefined,
   onOrderFulfill: undefined,
@@ -33,6 +34,7 @@ const props: Omit<OrderDetailsPageProps, "classes"> = {
   onPaymentVoid: undefined,
   onProductClick: undefined,
   onProfileView: () => undefined,
+  onSendInvoice: () => undefined,
   onShippingAddressEdit: undefined,
   order,
   userPermissions: adminUserPermissions
