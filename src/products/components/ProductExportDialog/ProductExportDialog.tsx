@@ -82,7 +82,7 @@ const ProductExportDialog: React.FC<ProductExportDialogProps> = ({
   return (
     <Dialog onClose={onClose} open={open} maxWidth="sm" fullWidth>
       <Form initial={initialForm} onSubmit={onSubmit}>
-        {({ change, data, submit }) => (
+        {({ change, data }) => (
           <>
             <DialogTitle>
               <FormattedMessage
@@ -121,7 +121,6 @@ const ProductExportDialog: React.FC<ProductExportDialogProps> = ({
                 <FormattedMessage {...buttonMessages.back} />
               </Button>
               <ConfirmButton
-                onClick={submit}
                 transitionState={confirmButtonState}
                 variant="contained"
                 type="submit"

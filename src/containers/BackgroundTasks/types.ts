@@ -1,5 +1,6 @@
 export enum Task {
-  CUSTOM
+  CUSTOM,
+  EXPORT
 }
 export enum TaskStatus {
   PENDING,
@@ -15,6 +16,7 @@ export interface QueuedTask {
 }
 
 export interface TaskData {
+  id?: string;
   handle?: () => Promise<boolean>;
   onCompleted?: () => void;
   onError?: () => void;
