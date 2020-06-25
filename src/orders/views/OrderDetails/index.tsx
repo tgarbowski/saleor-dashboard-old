@@ -378,7 +378,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                         <OrderInvoiceEmailSendDialog
                           confirmButtonState={orderInvoiceSend.opts.status}
                           errors={
-                            orderInvoiceSend.opts.data?.sendInvoiceEmail
+                            orderInvoiceSend.opts.data?.invoiceSendEmail
                               .errors || []
                           }
                           open={params.action === "invoice-send"}
