@@ -18,11 +18,7 @@ export const DEFAULT_INITIAL_PAGINATION_DATA: Pagination = {
 
 export const PAGINATE_BY = 20;
 
-export type ProductListColumns =
-  | "productType"
-  | "isPublished"
-  | "price"
-  | "updatedAt";
+export type ProductListColumns = "productType" | "isPublished" | "price" | "updatedAt";
 export interface AppListViewSettings {
   [ListViews.CATEGORY_LIST]: ListSettings;
   [ListViews.COLLECTION_LIST]: ListSettings;
