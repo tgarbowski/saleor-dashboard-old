@@ -282,23 +282,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
               />
             </TableCellHeader>
           </DisplayColumn>
-          <DisplayColumn column="updatedAt" displayColumns={settings.columns}>
-            <TableCellHeader
-              className={classes.colUpdatedAt}
-              direction={
-                sort.sort === ProductListUrlSortField.updatedAt
-                  ? getArrowDirection(sort.asc)
-                  : undefined
-              }
-              onClick={() => onSort(ProductListUrlSortField.updatedAt)}
-            >
-              <FormattedMessage
-                defaultMessage="Data aktualizacji"
-                description="Data aktualizacji"
-              />
-            </TableCellHeader>
-          </DisplayColumn>
-
           {gridAttributesFromSettings.map(gridAttributeFromSettings => {
             const attributeId = getAttributeIdFromColumnValue(
               gridAttributeFromSettings
@@ -453,38 +436,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
                           }
                           status={product.isPublished ? "success" : "error"}
                         />
-                      ) : (
-                        <Skeleton />
-                      )}
-                    </TableCell>
-                  </DisplayColumn>
-                  <DisplayColumn
-                    column="updatedAt"
-                    displayColumns={settings.columns}
-                  >
-                    <TableCell className={classes.colUpdatedAt}>
-                      {product && product.updatedAt ? (
-                        new Intl.DateTimeFormat("en-GB", {
-                          year: "numeric",
-                          month: "long",
-                          day: "2-digit"
-                        }).format(new Date(product.updatedAt))
-                      ) : (
-                        <Skeleton />
-                      )}
-                    </TableCell>
-                  </DisplayColumn>
-                  <DisplayColumn
-                    column="updatedAt"
-                    displayColumns={settings.columns}
-                  >
-                    <TableCell className={classes.colUpdatedAt}>
-                      {product && product.updatedAt ? (
-                        new Intl.DateTimeFormat("en-GB", {
-                          year: "numeric",
-                          month: "long",
-                          day: "2-digit"
-                        }).format(new Date(product.updatedAt))
                       ) : (
                         <Skeleton />
                       )}
