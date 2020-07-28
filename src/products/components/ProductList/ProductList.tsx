@@ -454,6 +454,22 @@ export const ProductList: React.FC<ProductListProps> = props => {
                       )}
                     </TableCell>
                   </DisplayColumn>
+                  <DisplayColumn
+                    column="updatedAt"
+                    displayColumns={settings.columns}
+                  >
+                    <TableCell className={classes.colUpdatedAt}>
+                      {product && product.updatedAt ? (
+                        new Intl.DateTimeFormat("en-GB", {
+                          year: "numeric",
+                          month: "long",
+                          day: "2-digit"
+                        }).format(new Date(product.updatedAt))
+                      ) : (
+                        <Skeleton />
+                      )}
+                    </TableCell>
+                  </DisplayColumn>
                   {gridAttributesFromSettings.map(gridAttribute => (
                     <TableCell
                       className={classes.colAttribute}
