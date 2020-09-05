@@ -35,6 +35,8 @@ import { getArrowDirection } from "@saleor/utils/sort";
 import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import ProductPublishReportDialog from "@saleor/products/components/ProductPublishReportDialog";
+import {Button} from "@material-ui/core";
 
 const useStyles = makeStyles(
   theme => ({
@@ -138,7 +140,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
   const gridAttributesFromSettings = settings.columns.filter(
     isAttributeColumnValue
   );
-  const numberOfColumns = 2 + settings.columns.length;
+  const numberOfColumns = 3 + settings.columns.length;
 
   const getProductPrice = (
     priceRangeUndiscounted: ProductList_products_edges_node_pricing_priceRangeUndiscounted
@@ -183,6 +185,14 @@ export const ProductList: React.FC<ProductListProps> = props => {
         </>
       );
     }
+  };
+
+  const [reportOpen, setReportOpen] = React.useState(false);
+  const handleReportOpen = () => {
+    setReportOpen(true);
+  };
+  const handleReportClose = () => {
+    setReportOpen(false);
   };
 
   return (
@@ -422,20 +432,25 @@ export const ProductList: React.FC<ProductListProps> = props => {
                     >
                       {product &&
                       maybe(() => product.isPublished !== undefined) ? (
-                        <StatusLabel
-                          label={
-                            product.isPublished
-                              ? intl.formatMessage({
+                        <Button onClick={event => {
+                          event.stopPropagation();
+                          handleReportOpen();
+                        }}>
+                          <StatusLabel
+                            label={
+                              product.isPublished
+                                ? intl.formatMessage({
                                   defaultMessage: "Published",
                                   description: "product status"
                                 })
-                              : intl.formatMessage({
+                                : intl.formatMessage({
                                   defaultMessage: "Not published",
                                   description: "product status"
                                 })
-                          }
-                          status={product.isPublished ? "success" : "error"}
-                        />
+                            }
+                            status={product.isPublished ? "success" : "error"}
+                          />
+                        </Button>
                       ) : (
                         <Skeleton />
                       )}
@@ -508,6 +523,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
           )}
         </TableBody>
       </ResponsiveTable>
+      <ProductPublishReportDialog open={reportOpen} onClose={handleReportClose} />
     </div>
   );
 };
