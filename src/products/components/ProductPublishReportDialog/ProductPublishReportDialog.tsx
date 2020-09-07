@@ -1,50 +1,37 @@
-import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import {Modal} from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-
-const useStyles = makeStyles(
-  theme => ({
-    modal: {
-      alignItems: "center",
-      display: "flex",
-      justifyContent: "center",
-      padding: theme.spacing(3)
-    },
-    paper: {
-      overflow: "hidden"
-    },
-    root: {
-      height: 500,
-      maxWidth: 600,
-      outline: 0,
-      width: "100%"
-    }
-  }),
-  { name: "ProductPublishReportDialog" }
-);
+import {Link, Dialog, DialogTitle, Grid} from "@material-ui/core";
+import { ProductList_products_edges_node_metadata } from "@saleor/products/types/ProductList";
 
 export interface ProductPublishReportDialogProps {
   open: boolean;
+  privateMetadata: ProductList_products_edges_node_metadata[];
   onClose?();
 }
 
 const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = props => {
-  const { open, onClose } = props;
-
-  const classes = useStyles(props);
+  const { open, onClose, privateMetadata } = props;
 
   return (
-    <Modal className={classes.modal} onClose={onClose} open={open}>
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
-          <h2>Raport publikacji</h2>
-          <p>
-            TODO: wyciągnąć z metadanych
-          </p>
-        </Paper>
-      </div>
-    </Modal>
+    <Dialog onClose={onClose} open={open}>
+      <DialogTitle>Raport publikacji</DialogTitle>
+      <Grid container>
+        <Grid item xs={4}>
+          Status allegro: XXX
+        </Grid>
+        <Grid item xs={4}>
+          Data publikacji: yyyy-MM-dd HH:mm
+        </Grid>
+        <Grid item xs={4}>
+          <Link href={"https://allegro.pl/oferta/aukcja-" + "123456789"}>
+            Przejdź do aukcji
+          </Link>
+        </Grid>
+      </Grid>
+      <p>
+        Lista błędów<br />
+        {privateMetadata}
+      </p>
+    </Dialog>
   );
 };
 ProductPublishReportDialog.displayName = "ProductPublishReportDialog";
