@@ -1,6 +1,16 @@
 import React from "react";
-import {Link, Dialog, DialogTitle, Grid} from "@material-ui/core";
+import {Link, Dialog, DialogTitle, Grid, Paper, makeStyles, createStyles, Theme} from "@material-ui/core";
 import { ProductList_products_edges_node_metadata } from "@saleor/products/types/ProductList";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      padding: theme.spacing(2),
+      maxWidth: 600,
+      width: 600
+    }
+  }),
+);
 
 export interface ProductPublishReportDialogProps {
   open: boolean;
@@ -10,27 +20,34 @@ export interface ProductPublishReportDialogProps {
 
 const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = props => {
   const { open, onClose, privateMetadata } = props;
+  const classes = useStyles();
 
   return (
     <Dialog onClose={onClose} open={open}>
       <DialogTitle>Raport publikacji</DialogTitle>
-      <Grid container>
-        <Grid item xs={4}>
-          Status allegro: XXX
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <strong>Status allegro</strong>
+            <br />
+            XXX
+          </Grid>
+          <Grid item xs={4}>
+            <strong>Data publikacji</strong>
+            <br />
+            yyyy-MM-dd HH:mm
+          </Grid>
+          <Grid item xs={4}>
+            <Link href={"https://allegro.pl/oferta/aukcja-" + "123456789"} target="_blank">
+              Przejdź do aukcji
+            </Link>
+          </Grid>
         </Grid>
-        <Grid item xs={4}>
-          Data publikacji: yyyy-MM-dd HH:mm
-        </Grid>
-        <Grid item xs={4}>
-          <Link href={"https://allegro.pl/oferta/aukcja-" + "123456789"}>
-            Przejdź do aukcji
-          </Link>
-        </Grid>
-      </Grid>
-      <p>
-        Lista błędów<br />
-        {privateMetadata}
-      </p>
+        <p>
+          Lista błędów<br />
+          {privateMetadata}
+        </p>
+      </Paper>
     </Dialog>
   );
 };

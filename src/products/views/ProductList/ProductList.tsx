@@ -63,6 +63,7 @@ import {DateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import plLocale from "date-fns/locale/pl";
 import FormSpacer from "@saleor/components/FormSpacer";
+import moment from "moment-timezone";
 
 
 interface ProductListProps {
@@ -479,7 +480,9 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
                                     productBulkPublish({
                                       variables: {
                                         ids: params.ids,
-                                        isPublished: true
+                                        isPublished: true,
+                                        offerType: auctionTypeVal,
+                                        startingAt: moment(auctionDate).format("YYYY-MM-DD HH:mm")
                                       }
                                     })
                                 }
@@ -496,7 +499,9 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
                             productBulkPublish({
                               variables: {
                                 ids: params.ids,
-                                isPublished: false
+                                isPublished: false,
+                                offerType: null,
+                                startingAt: null
                               }
                             })
                           }
