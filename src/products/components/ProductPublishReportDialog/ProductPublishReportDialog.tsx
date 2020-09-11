@@ -1,26 +1,27 @@
 import React from "react";
-import {Link, Dialog, DialogTitle, Grid, Paper, makeStyles, createStyles, Theme} from "@material-ui/core";
-import { ProductList_products_edges_node_metadata } from "@saleor/products/types/ProductList";
+import {Link, Dialog, DialogTitle, Grid, Paper, makeStyles, createStyles, Theme, Typography} from "@material-ui/core";
+import {renderCollection} from "@saleor/misc";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-      padding: theme.spacing(2),
       maxWidth: 600,
+      padding: theme.spacing(2),
       width: 600
     }
   }),
+  { name: "ProductPublishReportDialog" }
 );
 
 export interface ProductPublishReportDialogProps {
   open: boolean;
-  privateMetadata: ProductList_products_edges_node_metadata[];
+  privateMetadataMap: any;
   onClose?();
 }
 
 const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = props => {
-  const { open, onClose, privateMetadata } = props;
-  const classes = useStyles();
+  const { open, onClose, privateMetadataMap } = props;
+  const classes = useStyles(props);
 
   return (
     <Dialog onClose={onClose} open={open}>
@@ -30,22 +31,35 @@ const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = pr
           <Grid item xs={4}>
             <strong>Status allegro</strong>
             <br />
-            XXX
+            {privateMetadataMap && privateMetadataMap['publish.allegro.status'] ? privateMetadataMap['publish.allegro.status'] : '-'}
           </Grid>
           <Grid item xs={4}>
             <strong>Data publikacji</strong>
             <br />
-            yyyy-MM-dd HH:mm
+            {privateMetadataMap && privateMetadataMap['publish.allegro.date'] ? privateMetadataMap['publish.allegro.date'] : '-'}
           </Grid>
           <Grid item xs={4}>
-            <Link href={"https://allegro.pl/oferta/aukcja-" + "123456789"} target="_blank">
-              Przejdź do aukcji
-            </Link>
+            {privateMetadataMap && privateMetadataMap['publish.allegro.id'] !== undefined ?
+              <Link href={"https://allegro.pl/oferta/aukcja-" + privateMetadataMap['publish.allegro.id']} target="_blank">
+                Przejdź do aukcji
+              </Link>
+              : undefined}
           </Grid>
         </Grid>
         <p>
-          Lista błędów<br />
-          {privateMetadata}
+          <strong>Lista błędów</strong>
+          <br />
+          {privateMetadataMap && renderCollection(
+            privateMetadataMap['publish.allegro.errors'],
+            err => {
+              return (
+                <p>{err}</p>
+              );
+            },
+            () => (
+              <p>-</p>
+            )
+          )}
         </p>
       </Paper>
     </Dialog>

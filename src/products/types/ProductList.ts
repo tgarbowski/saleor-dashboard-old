@@ -87,7 +87,7 @@ export interface ProductList_products_edges_node {
   updatedAt: any | null;
   attributes: ProductList_products_edges_node_attributes[];
   pricing: ProductList_products_edges_node_pricing | null;
-  privateMetadata: ProductList_products_edges_node_metadata[];
+  jsonPrivateMetadata: string | null;
 }
 
 export interface ProductList_products_edges {

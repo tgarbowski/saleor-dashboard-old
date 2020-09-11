@@ -37,6 +37,7 @@ import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import ProductPublishReportDialog from "@saleor/products/components/ProductPublishReportDialog";
 import {Button} from "@material-ui/core";
+import WarningIcon from "@material-ui/icons/Warning";
 
 const useStyles = makeStyles(
   theme => ({
@@ -188,7 +189,9 @@ export const ProductList: React.FC<ProductListProps> = props => {
   };
 
   const [reportOpen, setReportOpen] = React.useState(false);
-  const handleReportOpen = () => {
+  const [privateMetadataMap, setPrivateMetadataMap] = React.useState(null);
+  const handleReportOpen = (privateMetadataMapVal: string) => {
+    setPrivateMetadataMap(privateMetadataMapVal)
     setReportOpen(true);
   };
   const handleReportClose = () => {
@@ -360,6 +363,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
             product => {
               const isSelected = product ? isChecked(product.id) : false;
 
+              const rowPrivateMetadataMap = product ? JSON.parse(product.jsonPrivateMetadata) : null;
+
               return (
                 <TableRow
                   selected={isSelected}
@@ -434,8 +439,11 @@ export const ProductList: React.FC<ProductListProps> = props => {
                       maybe(() => product.isPublished !== undefined) ? (
                         <Button onClick={event => {
                           event.stopPropagation();
-                          handleReportOpen();
+                          handleReportOpen(rowPrivateMetadataMap);
                         }}>
+                          {rowPrivateMetadataMap['publish.allegro.errors'] !== undefined && rowPrivateMetadataMap['publish.allegro.errors'].length > 0 &&
+                            <WarningIcon />
+                          }
                           <StatusLabel
                             label={
                               product.isPublished
@@ -523,7 +531,9 @@ export const ProductList: React.FC<ProductListProps> = props => {
           )}
         </TableBody>
       </ResponsiveTable>
-      <ProductPublishReportDialog open={reportOpen} onClose={handleReportClose} />
+      <ProductPublishReportDialog privateMetadataMap={privateMetadataMap}
+                                  open={reportOpen}
+                                  onClose={handleReportClose} />
     </div>
   );
 };
