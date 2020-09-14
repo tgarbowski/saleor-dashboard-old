@@ -1,9 +1,11 @@
+import {Button} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
+import WarningIcon from "@material-ui/icons/Warning";
 import Checkbox from "@saleor/components/Checkbox";
 import Money from "@saleor/components/Money";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
@@ -21,6 +23,7 @@ import {
   getAttributeIdFromColumnValue,
   isAttributeColumnValue
 } from "@saleor/products/components/ProductListPage/utils";
+import ProductPublishReportDialog from "@saleor/products/components/ProductPublishReportDialog";
 import { AvailableInGridAttributes_grid_edges_node } from "@saleor/products/types/AvailableInGridAttributes";
 import {
   ProductList_products_edges_node,
@@ -35,9 +38,6 @@ import { getArrowDirection } from "@saleor/utils/sort";
 import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import ProductPublishReportDialog from "@saleor/products/components/ProductPublishReportDialog";
-import {Button} from "@material-ui/core";
-import WarningIcon from "@material-ui/icons/Warning";
 
 const useStyles = makeStyles(
   theme => ({

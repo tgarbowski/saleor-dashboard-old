@@ -1,6 +1,6 @@
-import React from "react";
-import {Link, Dialog, DialogTitle, Grid, Paper, makeStyles, createStyles, Theme, Typography} from "@material-ui/core";
+import {createStyles, Dialog, DialogTitle, Grid, Link, makeStyles, Paper, Theme} from "@material-ui/core";
 import {renderCollection} from "@saleor/misc";
+import React from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,11 +51,9 @@ const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = pr
           <br />
           {privateMetadataMap && renderCollection(
             privateMetadataMap['publish.allegro.errors'],
-            err => {
-              return (
+            err => (
                 <p>{err}</p>
-              );
-            },
+              ),
             () => (
               <p>-</p>
             )
