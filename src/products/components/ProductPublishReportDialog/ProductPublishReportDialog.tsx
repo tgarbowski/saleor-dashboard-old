@@ -16,11 +16,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface ProductPublishReportDialogProps {
   open: boolean;
   privateMetadataMap: any;
+  isPublished: boolean;
   onClose?();
 }
 
 const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = props => {
-  const { open, onClose, privateMetadataMap } = props;
+  const { open, onClose, privateMetadataMap, isPublished } = props;
   const classes = useStyles(props);
 
   return (
@@ -40,7 +41,8 @@ const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = pr
           </Grid>
           <Grid item xs={4}>
             {privateMetadataMap && privateMetadataMap['publish.allegro.id'] !== undefined ?
-              <Link href={"https://allegro.pl/oferta/aukcja-" + privateMetadataMap['publish.allegro.id']} target="_blank">
+              <Link href={"https://allegro.pl/oferta/aukcja-" + privateMetadataMap['publish.allegro.id'] +
+              ((!isPublished && privateMetadataMap['publish.allegro.status'] === 'moderated') ? '/restore' : '')} target="_blank">
                 Przejdź do aukcji
               </Link>
               : undefined}

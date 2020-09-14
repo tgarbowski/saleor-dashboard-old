@@ -190,9 +190,11 @@ export const ProductList: React.FC<ProductListProps> = props => {
 
   const [reportOpen, setReportOpen] = React.useState(false);
   const [privateMetadataMap, setPrivateMetadataMap] = React.useState(null);
-  const handleReportOpen = (privateMetadataMapVal: string) => {
+  const [isPublished, setIsPublished] = React.useState(false);
+  const handleReportOpen = (privateMetadataMapVal: string, isPublishedVal: boolean) => {
     setPrivateMetadataMap(privateMetadataMapVal)
     setReportOpen(true);
+    setIsPublished(isPublishedVal);
   };
   const handleReportClose = () => {
     setReportOpen(false);
@@ -439,7 +441,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                       maybe(() => product.isPublished !== undefined) ? (
                         <Button onClick={event => {
                           event.stopPropagation();
-                          handleReportOpen(rowPrivateMetadataMap);
+                          handleReportOpen(rowPrivateMetadataMap, product.isPublished);
                         }}>
                           {rowPrivateMetadataMap['publish.allegro.errors'] !== undefined && rowPrivateMetadataMap['publish.allegro.errors'].length > 0 &&
                             <WarningIcon color="error" />
@@ -532,6 +534,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
         </TableBody>
       </ResponsiveTable>
       <ProductPublishReportDialog privateMetadataMap={privateMetadataMap}
+                                  isPublished={isPublished}
                                   open={reportOpen}
                                   onClose={handleReportClose} />
     </div>
