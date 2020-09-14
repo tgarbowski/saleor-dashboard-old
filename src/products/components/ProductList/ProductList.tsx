@@ -442,7 +442,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                           handleReportOpen(rowPrivateMetadataMap);
                         }}>
                           {rowPrivateMetadataMap['publish.allegro.errors'] !== undefined && rowPrivateMetadataMap['publish.allegro.errors'].length > 0 &&
-                            <WarningIcon />
+                            <WarningIcon color="error" />
                           }
                           <StatusLabel
                             label={
@@ -456,7 +456,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                                   description: "product status"
                                 })
                             }
-                            status={product.isPublished ? "success" : "error"}
+                            status={product.isPublished ? "success" : ""}
                           />
                         </Button>
                       ) : (
