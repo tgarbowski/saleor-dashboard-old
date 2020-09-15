@@ -2,6 +2,7 @@ import {createStyles, Dialog, DialogTitle, Grid, Link, makeStyles, Paper, Theme}
 import {renderCollection} from "@saleor/misc";
 import React from "react";
 
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
