@@ -192,6 +192,7 @@ export function getFilterOpts(
   };
 }
 
+// TODO: dodać obsługę allegroStatus
 export function getFilterVariables(
   params: ProductListUrlFilters
 ): ProductFilterInput {
