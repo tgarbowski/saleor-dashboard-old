@@ -14,6 +14,7 @@ import useFormset from "@saleor/hooks/useFormset";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { sectionNames } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
+import ProductBundleContent from "@saleor/products/components/ProductBundleContent";
 import { SearchCategories_search_edges_node } from "@saleor/searches/types/SearchCategories";
 import { SearchCollections_search_edges_node } from "@saleor/searches/types/SearchCollections";
 import { FetchMoreProps, ListActions } from "@saleor/types";
@@ -368,6 +369,8 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                       }
                     )}
                   />
+                  <CardSpacer />
+                  <ProductBundleContent content={[["salingo",123,50.20,45.50],["afryka",549,99.80,25.00],["odpad",5,50.00,3.00]]} />
                 </div>
               </Grid>
               <SaveButtonBar

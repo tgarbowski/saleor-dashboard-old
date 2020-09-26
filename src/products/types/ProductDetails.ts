@@ -168,6 +168,7 @@ export interface ProductDetails_product_variants {
   trackInventory: boolean;
 }
 
+//TODO: obsługa jsonPrivateMetadata
 export interface ProductDetails_product {
   __typename: "Product";
   id: string;
