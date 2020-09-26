@@ -370,7 +370,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                     )}
                   />
                   <CardSpacer />
-                  <ProductBundleContent content={[["salingo",123,50.20,45.50],["afryka",549,99.80,25.00],["odpad",5,50.00,3.00]]} />
+                  <ProductBundleContent content={maybe(() => JSON.parse(product.jsonPrivateMetadata)["bundle.content"])} />
                 </div>
               </Grid>
               <SaveButtonBar
