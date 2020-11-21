@@ -516,8 +516,8 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
                               variables: {
                                 ids: params.ids,
                                 isPublished: false,
-                                offerType: null,
-                                startingAt: null
+                                offerType: ProductPublishType.AUCTION, // nie powinno mieć znaczenia czym wypełniamy
+                                startingAt: moment(auctionDate).format("YYYY-MM-DD HH:mm")
                               }
                             })
                           }
