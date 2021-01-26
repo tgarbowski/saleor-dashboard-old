@@ -449,10 +449,10 @@ export const ProductList: React.FC<ProductListProps> = props => {
                             );
                           }}
                         >
-                          {rowPrivateMetadataMap["publish.allegro.errors"] !==
+                          {rowPrivateMetadataMap["publish.errors"] !==
                             undefined &&
-                            rowPrivateMetadataMap["publish.allegro.errors"]
-                              .length > 0 && <WarningIcon color="error" />}
+                            rowPrivateMetadataMap["publish.errors"].length >
+                              0 && <WarningIcon color="error" />}
                           <StatusLabel
                             label={
                               product.isPublished
@@ -468,12 +468,10 @@ export const ProductList: React.FC<ProductListProps> = props => {
                             status={
                               product.isPublished
                                 ? "success"
-                                : rowPrivateMetadataMap[
-                                    "publish.allegro.errors"
-                                  ] !== undefined &&
-                                  rowPrivateMetadataMap[
-                                    "publish.allegro.errors"
-                                  ].length > 0
+                                : rowPrivateMetadataMap["publish.errors"] !==
+                                    undefined &&
+                                  rowPrivateMetadataMap["publish.errors"]
+                                    .length > 0
                                 ? ""
                                 : "error"
                             }
