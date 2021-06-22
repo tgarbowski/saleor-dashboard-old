@@ -11,6 +11,7 @@ import {
   WarehouseDetailsVariables
 } from "./types/WarehouseDetails";
 import { WarehouseList, WarehouseListVariables } from "./types/WarehouseList";
+import { WMSDocumentList, WMSDocumentListVariables } from "./types/WMSDoucumentsList";
 
 const warehouseList = gql`
   ${warehouseWithShippingFragment}
@@ -59,3 +60,57 @@ export const useWarehouseDetails = makeQuery<
   WarehouseDetails,
   WarehouseDetailsVariables
 >(warehouseDetails);
+
+const WMSDocumentsList = gql`
+query WMSDocumentsList(
+  $first: Int
+  $after: String
+  $last: Int
+  $before: String
+  $filter: WMSDocumentFilterInput
+) {
+  wmsDocuments(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    filter: $filter
+  ) {
+    edges {
+      node {
+        number
+        createdAt
+        deliverer
+        warehouse {
+          id
+          name
+          slug
+        }
+        recipient {
+          id
+          email
+        }
+        documentType
+        createdBy {
+          email
+          firstName
+          id
+        }
+        status
+        id
+      }
+      cursor
+    }
+    totalCount
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}
+
+`
+
+export const useWMSDocumentsList = makeQuery<WMSDocumentList, WMSDocumentListVariables>(WMSDocumentsList);

@@ -182,6 +182,29 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
           permission: PermissionEnum.MANAGE_PLUGINS,
           title: intl.formatMessage(sectionNames.plugins),
           url: pluginListUrl()
+        },
+          /*
+        {
+          description: intl.formatMessage({
+            defaultMessage: "View and add shops.",
+            id: "configurationShopPages"
+          }),
+          icon: (
+              <SiteSettings fontSize="inherit" viewBox="0 0 44 44" />
+          ),
+          permission: PermissionEnum.MANAGE_SHOPS,
+          title: intl.formatMessage(sectionNames.shops),
+          url: pluginListUrl()
+        }*/
+        {
+          description: intl.formatMessage({
+            defaultMessage: "Manage hurt shops",
+            id: "configurationShopsAttributes"
+          }),
+          icon: <SiteSettings fontSize="inherit" viewBox="0 0 44 44" />,
+          permission: PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
+          title: intl.formatMessage(sectionNames.shops),
+          url: pageListUrl()
         }
       ]
     }

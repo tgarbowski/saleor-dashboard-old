@@ -23,6 +23,14 @@ export type ProductListColumns =
   | "isPublished"
   | "price"
   | "updatedAt";
+
+export type WMSDocumentsListColumns =
+ | "number"
+ | "documentType"
+ | "status"
+ | "updatedAt"
+ | "deliverer"
+
 export interface AppListViewSettings {
   [ListViews.APPS_LIST]: ListSettings;
   [ListViews.CATEGORY_LIST]: ListSettings;
@@ -41,6 +49,7 @@ export interface AppListViewSettings {
   [ListViews.VOUCHER_LIST]: ListSettings;
   [ListViews.WAREHOUSE_LIST]: ListSettings;
   [ListViews.WEBHOOK_LIST]: ListSettings;
+  [ListViews.WMS_DOCUMENTS_LIST]: ListSettings<WMSDocumentsListColumns>;
 }
 export const defaultListSettings: AppListViewSettings = {
   [ListViews.APPS_LIST]: {
@@ -94,7 +103,11 @@ export const defaultListSettings: AppListViewSettings = {
   },
   [ListViews.WEBHOOK_LIST]: {
     rowNumber: PAGINATE_BY
-  }
+  },
+  [ListViews.WMS_DOCUMENTS_LIST]: {
+    columns: ["number", "status", "documentType", "updatedAt"],
+    rowNumber: PAGINATE_BY
+  },
 };
 
 export const APP_VERSION = packageInfo.version;

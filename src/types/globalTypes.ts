@@ -1398,6 +1398,11 @@ export interface ProductFilterInput {
   warehouseLocation?: WarehouseLocationRangeInput | null;
 }
 
+export interface WMSDocumentsFilterInput {
+  documentType?: string | null;
+  search?: string | null;
+}
+
 export interface ProductInput {
   attributes?: (AttributeValueInput | null)[] | null;
   publicationDate?: any | null;

@@ -81,7 +81,7 @@ export function createGetSortQueryVariables<
   getSortQueryField: GetSortQueryField<TUrlField, TSortField>
 ): GetSortQueryVariables<TSortField, TParams> {
   return (params: TParams) => {
-    const field = getSortQueryField(params.sort);
+    const field = getSortQueryField(params?.sort);
 
     if (!!field) {
       return {

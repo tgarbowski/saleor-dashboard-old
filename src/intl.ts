@@ -239,6 +239,10 @@ export const sectionNames = defineMessages({
     defaultMessage: "Shipping Methods",
     description: "shipping section name"
   },
+  shops: {
+    defaultMessage: "Shops",
+    description: "shops section name"
+  },
   siteSettings: {
     defaultMessage: "Site Settings",
     description: "site settings section name"
@@ -266,6 +270,10 @@ export const sectionNames = defineMessages({
   webhooks: {
     defaultMessage: "Webhooks",
     description: "webhooks section name"
+  },
+  wmsDocuments: {
+    defaultMessage: "Warehouse documents",
+    description: "warehouse documents section name"
   }
 });
 
