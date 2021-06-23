@@ -3,6 +3,7 @@
 // This file was automatically generated and should not be edited.
 
 import { WMSDocumentsFilterInput } from "./../../types/globalTypes";
+import { WarehouseList_warehouses_edges_node } from "./WarehouseList";
 
 
 
@@ -13,6 +14,7 @@ export interface WMSDocumentList_documents_edges_node {
   createdAt: any | null;
   documentType: string;
   status: string;
+  warehouse: WarehouseList_warehouses_edges_node
 }
 
 export interface WMSDocumentList_documents_edges {

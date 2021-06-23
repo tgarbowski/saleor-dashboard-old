@@ -1,36 +1,15 @@
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  Dialog,
-  DialogContent,
-  FormControlLabel,
-  Radio,
-  RadioGroup
-} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import ActionDialog from "@saleor/components/ActionDialog";
-import ConfirmButton from "@saleor/components/ConfirmButton";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
-import FormSpacer from "@saleor/components/FormSpacer";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
 } from "@saleor/components/SaveFilterTabDialog";
 import {
   DEFAULT_INITIAL_PAGINATION_DATA,
-  DEFAULT_INITIAL_SEARCH_DATA,
   defaultListSettings,
-  ProductListColumns,
   WMSDocumentsListColumns
 } from "@saleor/config";
-import useBackgroundTask from "@saleor/hooks/useBackgroundTask";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
-import useNotifier from "@saleor/hooks/useNotifier";
 import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
@@ -40,35 +19,25 @@ import {
   getAttributeIdFromColumnValue,
   isAttributeColumnValue
 } from "@saleor/products/components/ProductListPage/utils";
-import { ProductListVariables } from "@saleor/products/types/ProductList";
-import useAttributeSearch from "@saleor/searches/useAttributeSearch";
-import useCategorySearch from "@saleor/searches/useCategorySearch";
-import useCollectionSearch from "@saleor/searches/useCollectionSearch";
-import useProductTypeSearch from "@saleor/searches/useProductTypeSearch";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
-import { getSortUrlVariables } from "@saleor/utils/sort";
 import WMSDocumentsListPage from "@saleor/warehouses/components/WarehouseDocumentsListPage";
-import {
-  useWarehouseList,
-  useWMSDocumentsList
-} from "@saleor/warehouses/queries";
+import { useWMSDocumentsList } from "@saleor/warehouses/queries";
 import { WMSDocumentListVariables } from "@saleor/warehouses/types/WMSDoucumentsList";
 import React from "react";
-import { useIntl } from "react-intl";
 
-import {
-  useAvailableInGridAttributesQuery,
-  useInitialProductFilterDataQuery
-} from "../../../products/queries";
+import { useAvailableInGridAttributesQuery } from "../../../products/queries";
 import {
   productAddUrl,
   ProductListUrlDialog,
   ProductListUrlQueryParams,
   productUrl
 } from "../../../products/urls";
-import { wmsDocumentsListUrl } from "../../urls";
+import {
+  wmsDocumentsListUrl,
+  WMSDocumentsListUrlQueryParams
+} from "../../urls";
 import {
   areFiltersApplied,
   deleteFilterTab,
@@ -80,60 +49,22 @@ import {
   saveFilterTab
 } from "./filters";
 
-interface ProductListProps {
-  params: ProductListUrlQueryParams;
+interface WMSDocumentsListProps {
+  params: WMSDocumentsListUrlQueryParams;
 }
 
-export const WMSDocumentsList: React.FC<ProductListProps> = ({ params }) => {
+export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
+  params
+}) => {
   const navigate = useNavigator();
-  const notify = useNotifier();
   const paginate = usePaginator();
-  const { queue } = useBackgroundTask();
   const shop = useShop();
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
     params.ids
   );
   const { updateListSettings, settings } = useListSettings<
     WMSDocumentsListColumns
-  >(ListViews.PRODUCT_LIST);
-  console.log(settings);
-  const intl = useIntl();
-  const { data: initialFilterData } = useInitialProductFilterDataQuery({
-    variables: {
-      categories: params.categories,
-      collections: params.collections,
-      productTypes: params.productTypes
-    }
-  });
-  const searchCategories = useCategorySearch({
-    variables: {
-      ...DEFAULT_INITIAL_SEARCH_DATA,
-      first: 5
-    }
-  });
-  const searchCollections = useCollectionSearch({
-    variables: {
-      ...DEFAULT_INITIAL_SEARCH_DATA,
-      first: 5
-    }
-  });
-  const searchProductTypes = useProductTypeSearch({
-    variables: {
-      ...DEFAULT_INITIAL_SEARCH_DATA,
-      first: 5
-    }
-  });
-  const searchAttributes = useAttributeSearch({
-    variables: {
-      ...DEFAULT_INITIAL_SEARCH_DATA,
-      first: 10
-    }
-  });
-  const warehouses = useWarehouseList({
-    variables: {
-      first: 100
-    }
-  });
+  >(ListViews.WMS_DOCUMENTS_LIST);
 
   React.useEffect(
     () =>
@@ -204,12 +135,10 @@ export const WMSDocumentsList: React.FC<ProductListProps> = ({ params }) => {
     }),
     [params, settings.rowNumber]
   );
-  const { data, loading, refetch } = useWMSDocumentsList({
+  const { data, loading } = useWMSDocumentsList({
     displayLoader: true,
     variables: queryVariables
   });
-
-  console.log(data);
 
   function filterColumnIds(columns: WMSDocumentsListColumns[]) {
     return columns
@@ -220,31 +149,7 @@ export const WMSDocumentsList: React.FC<ProductListProps> = ({ params }) => {
     variables: { first: 6, ids: filterColumnIds(settings.columns) }
   });
 
-  const filterOpts = getFilterOpts(
-    params,
-    maybe(() => initialFilterData.attributes.edges.map(edge => edge.node), []),
-    {
-      initial: maybe(
-        () => initialFilterData.categories.edges.map(edge => edge.node),
-        []
-      ),
-      search: searchCategories
-    },
-    {
-      initial: maybe(
-        () => initialFilterData.collections.edges.map(edge => edge.node),
-        []
-      ),
-      search: searchCollections
-    },
-    {
-      initial: maybe(
-        () => initialFilterData.productTypes.edges.map(edge => edge.node),
-        []
-      ),
-      search: searchProductTypes
-    }
-  );
+  const filterOpts = getFilterOpts(params);
 
   const { loadNextPage, loadPreviousPage, pageInfo } = paginate(
     maybe(() => data.wmsDocuments.pageInfo),
@@ -255,7 +160,6 @@ export const WMSDocumentsList: React.FC<ProductListProps> = ({ params }) => {
   return (
     <>
       <WMSDocumentsListPage
-        activeAttributeSortId={params.attributeId}
         sort={{
           asc: params.asc,
           sort: params.sort

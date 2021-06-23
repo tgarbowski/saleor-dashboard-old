@@ -1,41 +1,29 @@
-import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
-import WarningIcon from "@material-ui/icons/Warning";
 import Checkbox from "@saleor/components/Checkbox";
-import Money from "@saleor/components/Money";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
-import StatusLabel from "@saleor/components/StatusLabel";
-import TableCellAvatar, {
-  AVATAR_MARGIN
-} from "@saleor/components/TableCellAvatar";
+import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
 import { WMSDocumentsListColumns } from "@saleor/config";
 import { maybe, renderCollection } from "@saleor/misc";
-import {
-  getAttributeIdFromColumnValue,
-  isAttributeColumnValue
-} from "@saleor/products/components/ProductListPage/utils";
-import ProductPublishReportDialog from "@saleor/products/components/ProductPublishReportDialog";
+import { isAttributeColumnValue } from "@saleor/products/components/ProductListPage/utils";
 import { GridAttributes_grid_edges_node } from "@saleor/products/types/GridAttributes";
-import { ProductList_products_edges_node } from "@saleor/products/types/ProductList";
-import { ProductListUrlSortField } from "@saleor/products/urls";
 import { ListActions, ListProps, SortPage } from "@saleor/types";
 import TDisplayColumn, {
   DisplayColumnProps
 } from "@saleor/utils/columns/DisplayColumn";
 import { getArrowDirection } from "@saleor/utils/sort";
 import { WMSDocumentList_documents_edges_node } from "@saleor/warehouses/types/WMSDoucumentsList";
+import { WMSDocumentsListUrlSortField } from "@saleor/warehouses/urls";
 import classNames from "classnames";
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles(
   theme => ({
@@ -96,7 +84,7 @@ const useStyles = makeStyles(
       textAlign: "right"
     }
   }),
-  { name: "ProductList" }
+  { name: "WMSDocumentsList" }
 );
 
 const DisplayColumn = TDisplayColumn as React.FunctionComponent<
@@ -106,7 +94,7 @@ const DisplayColumn = TDisplayColumn as React.FunctionComponent<
 interface WMSDocumentsListProps
   extends ListProps<WMSDocumentsListColumns>,
     ListActions,
-    SortPage<ProductListUrlSortField> {
+    SortPage<WMSDocumentsListUrlSortField> {
   activeAttributeSortId: string;
   gridAttributes: GridAttributes_grid_edges_node[];
   products: WMSDocumentList_documents_edges_node[];
@@ -115,15 +103,12 @@ interface WMSDocumentsListProps
 
 export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
   const {
-    activeAttributeSortId,
     settings,
     disabled,
     isChecked,
-    gridAttributes,
     pageInfo,
     products,
     selected,
-    loading,
     sort,
     toggle,
     toggleAll,
@@ -134,9 +119,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
     onRowClick,
     onSort
   } = props;
-
   const classes = useStyles(props);
-  const intl = useIntl();
 
   const gridAttributesFromSettings = settings.columns.filter(
     isAttributeColumnValue
@@ -188,15 +171,15 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
               [classes.colNameFixed]: settings.columns.length > 4
             })}
             direction={
-              sort.sort === ProductListUrlSortField.name
+              sort.sort === WMSDocumentsListUrlSortField.name
                 ? getArrowDirection(sort.asc)
                 : undefined
             }
-            onClick={() => onSort(ProductListUrlSortField.name)}
+            onClick={() => onSort(WMSDocumentsListUrlSortField.name)}
           >
             <span className={classes.colNameHeader}>
               <FormattedMessage
-                defaultMessage="Number"
+                defaultMessage="Numer"
                 description="wmsDocument"
               />
             </span>
@@ -205,11 +188,11 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
             <TableCellHeader
               className={classes.colPublished}
               direction={
-                sort.sort === ProductListUrlSortField.status
+                sort.sort === WMSDocumentsListUrlSortField.name
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              onClick={() => onSort(ProductListUrlSortField.status)}
+              onClick={() => onSort(WMSDocumentsListUrlSortField.name)}
             >
               <FormattedMessage
                 defaultMessage="Status"
@@ -221,15 +204,15 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
             <TableCellHeader
               className={classes.colUpdatedAt}
               direction={
-                sort.sort === ProductListUrlSortField.updatedAt
+                sort.sort === WMSDocumentsListUrlSortField.name
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              onClick={() => onSort(ProductListUrlSortField.updatedAt)}
+              onClick={() => onSort(WMSDocumentsListUrlSortField.name)}
             >
               <FormattedMessage
-                defaultMessage="Data aktualizacji"
-                description="Data aktualizacji"
+                defaultMessage="Data utworzenia"
+                description="Data utworzenia"
               />
             </TableCellHeader>
           </DisplayColumn>
@@ -241,11 +224,11 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
             <TableCellHeader
               className={classes.colUpdatedAt}
               direction={
-                sort.sort === ProductListUrlSortField.updatedAt
+                sort.sort === WMSDocumentsListUrlSortField.name
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              onClick={() => onSort(ProductListUrlSortField.updatedAt)}
+              onClick={() => onSort(WMSDocumentsListUrlSortField.name)}
             >
               <FormattedMessage
                 defaultMessage="Typ dokumentu"
@@ -253,23 +236,23 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
               />
             </TableCellHeader>
           </DisplayColumn>
+
           <DisplayColumn
             column="documentType"
             displayColumns={settings.columns}
           >
             <TableCellHeader
-              className={classes.colPrice}
+              className={classes.colUpdatedAt}
               direction={
-                sort.sort === ProductListUrlSortField.price
+                sort.sort === WMSDocumentsListUrlSortField.name
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              textAlign="right"
-              onClick={() => onSort(ProductListUrlSortField.price)}
+              onClick={() => onSort(WMSDocumentsListUrlSortField.name)}
             >
               <FormattedMessage
-                defaultMessage="Typ dokumentu"
-                description="document type"
+                defaultMessage="Magazyn"
+                description="magazyn"
               />
             </TableCellHeader>
           </DisplayColumn>
@@ -314,11 +297,19 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
                     />
                   </TableCell>
                   <DisplayColumn
-                    column="price"
+                    column="number"
                     displayColumns={settings.columns}
                   >
                     <TableCell className={classes.colUpdatedAt}>
                       {product?.number}
+                    </TableCell>
+                  </DisplayColumn>
+                  <DisplayColumn
+                    column="status"
+                    displayColumns={settings.columns}
+                  >
+                    <TableCell className={classes.colUpdatedAt}>
+                      {product?.status}
                     </TableCell>
                   </DisplayColumn>
                   <DisplayColumn
@@ -335,6 +326,22 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
                       ) : (
                         <Skeleton />
                       )}
+                    </TableCell>
+                  </DisplayColumn>
+                  <DisplayColumn
+                    column="documentType"
+                    displayColumns={settings.columns}
+                  >
+                    <TableCell className={classes.colUpdatedAt}>
+                      {product?.documentType}
+                    </TableCell>
+                  </DisplayColumn>
+                  <DisplayColumn
+                    column="documentType"
+                    displayColumns={settings.columns}
+                  >
+                    <TableCell className={classes.colUpdatedAt}>
+                      {product?.warehouse.name}
                     </TableCell>
                   </DisplayColumn>
                 </TableRow>

@@ -1,16 +1,14 @@
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import Container from "@saleor/components/Container";
 import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
-import { ProductListColumns, WMSDocumentsListColumns } from "@saleor/config";
+import { WMSDocumentsListColumns } from "@saleor/config";
 import { sectionNames } from "@saleor/intl";
 import {
   GridAttributes_availableInGrid_edges_node,
   GridAttributes_grid_edges_node
 } from "@saleor/products/types/GridAttributes";
-import { ProductList_products_edges_node } from "@saleor/products/types/ProductList";
 import {
   FetchMoreProps,
   FilterPageProps,
@@ -18,6 +16,7 @@ import {
   PageListProps,
   SortPage
 } from "@saleor/types";
+import { WMSDocumentList_documents_edges_node } from "@saleor/warehouses/types/WMSDoucumentsList";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -25,14 +24,14 @@ import { ProductListUrlSortField } from "../../../products/urls";
 import WMSDocumentsList from "../WarehouseDocumentsList/WarehouseDocumentsList";
 import {
   createFilterStructure,
-  ProductFilterKeys,
-  ProductListFilterOpts
+  WMSDocumentsFilterKeys,
+  WMSDocumentsListFilterOpts
 } from "./filters";
 
-export interface ProductListPageProps
+export interface WMSDocumentsListPageProps
   extends PageListProps<WMSDocumentsListColumns>,
     ListActions,
-    FilterPageProps<ProductFilterKeys, ProductListFilterOpts>,
+    FilterPageProps<WMSDocumentsFilterKeys, WMSDocumentsListFilterOpts>,
     FetchMoreProps,
     SortPage<ProductListUrlSortField> {
   activeAttributeSortId: string;
@@ -40,20 +39,11 @@ export interface ProductListPageProps
   currencySymbol: string;
   gridAttributes: GridAttributes_grid_edges_node[];
   totalGridAttributes: number;
-  products: ProductList_products_edges_node[];
+  products: WMSDocumentList_documents_edges_node[];
   onExport: () => void;
 }
 
-const useStyles = makeStyles(
-  theme => ({
-    columnPicker: {
-      margin: theme.spacing(0, 3)
-    }
-  }),
-  { name: "ProductListPage" }
-);
-
-export const WMSDocumentsListPage: React.FC<ProductListPageProps> = props => {
+export const WMSDocumentsListPage: React.FC<WMSDocumentsListPageProps> = props => {
   const {
     currencySymbol,
     currentTab,
@@ -80,10 +70,6 @@ export const WMSDocumentsListPage: React.FC<ProductListPageProps> = props => {
     ...listProps
   } = props;
   const intl = useIntl();
-  const classes = useStyles(props);
-
-  const handleSave = (columns: WMSDocumentsListColumns[]) =>
-    onUpdateListSettings("columns", columns);
 
   const filterStructure = createFilterStructure(intl, filterOpts);
 

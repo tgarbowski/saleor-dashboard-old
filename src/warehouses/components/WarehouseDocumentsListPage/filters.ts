@@ -1,15 +1,7 @@
 import { IFilter } from "@saleor/components/Filter";
-import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
-import { sectionNames } from "@saleor/intl";
-import { AutocompleteFilterOpts, FilterOpts, MinMax } from "@saleor/types";
-import { StockAvailability } from "@saleor/types/globalTypes";
+import { FilterOpts } from "@saleor/types";
 import {
-  createAutocompleteField,
-  createDateField,
-  createOptionsField,
-  createPriceField,
-  createWarehouseField
-} from "@saleor/utils/filters/fields";
+  createOptionsField} from "@saleor/utils/filters/fields";
 import { defineMessages, IntlShape } from "react-intl";
 
 export enum WMSDocumentsFilterKeys {
@@ -27,21 +19,21 @@ export interface WMSDocumentsListFilterOpts {
 export enum DocumentType {
 
   GIN = "GIN",
-  GTD = "GTD"
+  GRN = "GRN"
 }
 const messages = defineMessages({
-  documentType: {
-    defaultMessage: "Document Type",
-    description: "document type"
-  },
   GIN: {
     defaultMessage: "GIN",
     description: "GIN"
   },
-  GTD: {
-    defaultMessage: "GTD",
-    description: "GTD"
-  }
+  GRN: {
+    defaultMessage: "GRN",
+    description: "GRN"
+  },
+  documentType: {
+    defaultMessage: "Document Type",
+    description: "document type"
+  },
 });
 
 export function createFilterStructure(
@@ -61,8 +53,8 @@ export function createFilterStructure(
             value: DocumentType.GIN
           },
           {
-            label: intl.formatMessage(messages.GTD),
-            value: DocumentType.GTD
+            label: intl.formatMessage(messages.GRN),
+            value: DocumentType.GRN
           }
         ]
       ),

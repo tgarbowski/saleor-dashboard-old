@@ -6,26 +6,27 @@ import CardTitle from "@saleor/components/CardTitle";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-export interface WarehouseInfoProps {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface WarehouseInfoProps {}
 
-}
-
-const useStyles = makeStyles({
-    name: {
-        marginBottom: '5vh',
-    },
+const useStyles = makeStyles(
+  {
     card: {
-        marginTop: '10%',
+      marginTop: "10%"
+    },
+    name: {
+      marginBottom: "5vh"
     }
-});
+  },
+  { name: "WarehouseAssignToShop" }
+);
 
-const WarehouseAssignToShop: React.FC<WarehouseInfoProps> = ({
-}) => {
+const WarehouseAssignToShop: React.FC<WarehouseInfoProps> = ({}) => {
   const classes = useStyles({});
   const intl = useIntl();
 
   return (
-    <Card className = {classes.card}>
+    <Card className={classes.card}>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Przydziel magazyn",
@@ -33,9 +34,9 @@ const WarehouseAssignToShop: React.FC<WarehouseInfoProps> = ({
         })}
       />
       <CardContent>
-          <Typography color="textSecondary">
-              <FormattedMessage defaultMessage="This warehouse has no shop assigned." />
-          </Typography>
+        <Typography color="textSecondary">
+          <FormattedMessage defaultMessage="This warehouse has no shop assigned." />
+        </Typography>
       </CardContent>
     </Card>
   );

@@ -1,13 +1,6 @@
-import { UseSearchResult } from "@saleor/hooks/makeSearch";
 import { findValueInEnum, maybe } from "@saleor/misc";
-import {
-  ProductFilterKeys,
-  ProductListFilterOpts,
-  ProductStatus
-} from "@saleor/products/components/ProductListPage";
 import { DocumentType, WMSDocumentsFilterKeys, WMSDocumentsListFilterOpts } from "@saleor/warehouses/components/WarehouseDocumentsListPage";
 import { WMSDocumentsListUrlFilters } from "@saleor/warehouses/urls";
-import isArray from "lodash-es/isArray";
 
 import { IFilterElement } from "../../../components/Filter";
 import {
@@ -18,20 +11,14 @@ import {
   ProductListUrlQueryParams
 } from "../../../products/urls";
 import {
-  ProductFilterInput,
-  StockAvailability,
   WMSDocumentsFilterInput
 } from "../../../types/globalTypes";
 import {
   createFilterTabUtils,
   createFilterUtils,
-  getGteLteVariables,
-  getMinMaxQueryParam,
-  getMultipleValueQueryParam,
-  getSingleEnumValueQueryParam
-} from "../../../utils/filters";
+  getMultipleValueQueryParam} from "../../../utils/filters";
 
-export const PRODUCT_FILTERS_KEY = "productFilters";
+export const WMSDOCUMENTS_FILTERS_KEY = "wmsDocumentsFilters";
 
 export function getFilterOpts(
   params: WMSDocumentsListUrlFilters,
@@ -55,21 +42,22 @@ export function getFilterVariables(
 
 export function getFilterQueryParam(
   filter: IFilterElement<WMSDocumentsFilterKeys>,
-  params: WMSDocumentsListUrlFilters
+//  params: WMSDocumentsListUrlFilters
 ): WMSDocumentsListUrlFilters {
-  const { active, group, name, value } = filter;
+  const { group, name } = filter;
 
   if (!!group) {
-    const rest = params && params[group] ? params[group] : undefined;
-
+//    const rest = params && params[group] ? params[group] : undefined;
+/*
     return {
       [group]: active
         ? {
-            ...(rest === undefined ? {} : rest),
+            ...(rest === undefined ? {} : rest) as {},
             [name]: value
           }
         : rest
     };
+    */
   }
 
   switch (name) {
@@ -85,7 +73,7 @@ export const {
   deleteFilterTab,
   getFilterTabs,
   saveFilterTab
-} = createFilterTabUtils<ProductListUrlFilters>(PRODUCT_FILTERS_KEY);
+} = createFilterTabUtils<ProductListUrlFilters>(WMSDOCUMENTS_FILTERS_KEY);
 
 export const { areFiltersApplied, getActiveFilters } = createFilterUtils<
   ProductListUrlQueryParams,

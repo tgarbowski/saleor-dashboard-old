@@ -26,25 +26,38 @@ export enum WMSDocumentsListUrlFiltersEnum {
   query = "query"
 }
 
+export enum WMSDocumentsListUrlSortEnum {
+  documentType = "documentType",
+  number = "number"
+}
+
 export type WMSDocumentsListUrlFilters = Filters<WMSDocumentsListUrlFiltersEnum>
 export type WarehouseListUrlFilters = Filters<WarehouseListUrlFiltersEnum>;
 export type WarehouseListUrlDialog = "delete" | TabActionDialog;
 export enum WarehouseListUrlSortField {
   name = "name"
 }
+export enum WMSDocumentsListUrlSortField {
+  name = "name"
+}
 export type WarehouseListUrlSort = Sort<WarehouseListUrlSortField>;
-export type WarehouseListUrlQueryParams = ActiveTab &
-  Dialog<WarehouseListUrlDialog> &
-  Pagination &
-  WarehouseListUrlFilters &
-  WarehouseListUrlSort &
-  SingleAction;
 
-  export type WMSDocumentsListUrlQueryParams = ActiveTab &
+export type WMSDocumentsListUrlSort = Sort<WMSDocumentsListUrlSortField>;
+
+export interface WarehouseListUrlQueryParams extends SingleAction,
+  Dialog<WarehouseListUrlDialog>,
+  Pagination,
+  WarehouseListUrlFilters,
+  WarehouseListUrlSort,
+  ActiveTab{
+      attributeId?: string;
+  }
+
+export type WMSDocumentsListUrlQueryParams = ActiveTab &
   Dialog<WarehouseListUrlDialog> &
   Pagination &
   WMSDocumentsListUrlFilters &
-  WarehouseListUrlSort &
+  WMSDocumentsListUrlSort &
   SingleAction;
 export const warehouseListUrl = (params?: WarehouseListUrlQueryParams) =>
   warehouseListPath + "?" + stringifyQs(params);

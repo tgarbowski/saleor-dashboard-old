@@ -7,7 +7,7 @@ import ordersIcon from "@assets/images/menu-orders-icon.svg";
 import translationIcon from "@assets/images/menu-translation-icon.svg";
 import warehouseIcon from "@assets/images/warehouse-icon.svg";
 import { commonMessages, sectionNames } from "@saleor/intl";
-import { warehouseListPath, warehouseListUrl, wmsDocumentsListPath } from "@saleor/warehouses/urls";
+import { warehouseListPath, wmsDocumentsListPath } from "@saleor/warehouses/urls";
 import { IntlShape } from "react-intl";
 
 import { appsListPath } from "../../apps/urls";

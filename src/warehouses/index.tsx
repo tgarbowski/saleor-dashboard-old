@@ -1,5 +1,4 @@
 import { sectionNames } from "@saleor/intl";
-import { ProductListUrlSortField } from "@saleor/products/urls";
 import { asSortParams } from "@saleor/utils/sort";
 import { getArrayQueryParam } from "@saleor/utils/urls";
 import { parse as parseQs } from "qs";
@@ -15,7 +14,9 @@ import {
   WarehouseListUrlSortField,
   warehousePath,
   WarehouseUrlQueryParams,
-  wmsDocumentsListPath
+  wmsDocumentsListPath,
+  WMSDocumentsListUrlQueryParams,
+  WMSDocumentsListUrlSortField
 } from "./urls";
 import WarehouseCreate from "./views/WarehouseCreate";
 import WarehouseDetailsComponent from "./views/WarehouseDetails";
@@ -35,7 +36,7 @@ const WarehouseDocumentsList: React.FC<RouteComponentProps<any>> = ({
   location
 }) => {
   const qs = parseQs(location.search.substr(1));
-  const params: WarehouseListUrlQueryParams = asSortParams(
+  const params: WMSDocumentsListUrlQueryParams = asSortParams(
     {
       ...qs,
       categories: getArrayQueryParam(qs.categories),
@@ -43,7 +44,7 @@ const WarehouseDocumentsList: React.FC<RouteComponentProps<any>> = ({
       ids: getArrayQueryParam(qs.ids),
       productTypes: getArrayQueryParam(qs.productTypes)
     },
-    ProductListUrlSortField
+    WMSDocumentsListUrlSortField
   );
 
   return <WarehouseDocumentsListComponent params={params} />;
