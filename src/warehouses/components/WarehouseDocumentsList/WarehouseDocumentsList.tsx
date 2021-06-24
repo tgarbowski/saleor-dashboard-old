@@ -188,11 +188,11 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
             <TableCellHeader
               className={classes.colPublished}
               direction={
-                sort.sort === WMSDocumentsListUrlSortField.name
+                sort.sort === WMSDocumentsListUrlSortField.status
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              onClick={() => onSort(WMSDocumentsListUrlSortField.name)}
+              onClick={() => onSort(WMSDocumentsListUrlSortField.status)}
             >
               <FormattedMessage
                 defaultMessage="Status"
@@ -204,11 +204,11 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
             <TableCellHeader
               className={classes.colUpdatedAt}
               direction={
-                sort.sort === WMSDocumentsListUrlSortField.name
+                sort.sort === WMSDocumentsListUrlSortField.createdAt
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              onClick={() => onSort(WMSDocumentsListUrlSortField.name)}
+              onClick={() => onSort(WMSDocumentsListUrlSortField.createdAt)}
             >
               <FormattedMessage
                 defaultMessage="Data utworzenia"
@@ -224,11 +224,11 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
             <TableCellHeader
               className={classes.colUpdatedAt}
               direction={
-                sort.sort === WMSDocumentsListUrlSortField.name
+                sort.sort === WMSDocumentsListUrlSortField.documentType
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              onClick={() => onSort(WMSDocumentsListUrlSortField.name)}
+              onClick={() => onSort(WMSDocumentsListUrlSortField.documentType)}
             >
               <FormattedMessage
                 defaultMessage="Typ dokumentu"
@@ -244,11 +244,11 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
             <TableCellHeader
               className={classes.colUpdatedAt}
               direction={
-                sort.sort === WMSDocumentsListUrlSortField.name
+                sort.sort === WMSDocumentsListUrlSortField.warehouse
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              onClick={() => onSort(WMSDocumentsListUrlSortField.name)}
+              onClick={() => onSort(WMSDocumentsListUrlSortField.warehouse)}
             >
               <FormattedMessage
                 defaultMessage="Magazyn"

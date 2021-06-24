@@ -42,7 +42,11 @@ export enum WarehouseListUrlSortField {
   name = "name"
 }
 export enum WMSDocumentsListUrlSortField {
-  name = "name"
+  createdAt = "createdAt",
+  documentType = "documentType",
+  name = "name",
+  status = "status",
+  warehouse = "warehouse"
 }
 export type WarehouseListUrlSort = Sort<WarehouseListUrlSortField>;
 
