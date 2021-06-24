@@ -15,23 +15,27 @@ export const warehouseSection = "/warehouses/";
 
 export const warehouseListPath = warehouseSection;
 
-export const wmsDocumentsListPath = warehouseListPath + "documents/"
+export const wmsDocumentsListPath = warehouseListPath + "documents/";
 
 export enum WarehouseListUrlFiltersEnum {
-  query = "query",
+  query = "query"
 }
 
 export enum WMSDocumentsListUrlFiltersEnum {
   documentType = "documentType",
+  status = "status",
   query = "query"
 }
 
 export enum WMSDocumentsListUrlSortEnum {
   documentType = "documentType",
+  status = "status",
   number = "number"
 }
 
-export type WMSDocumentsListUrlFilters = Filters<WMSDocumentsListUrlFiltersEnum>
+export type WMSDocumentsListUrlFilters = Filters<
+  WMSDocumentsListUrlFiltersEnum
+>;
 export type WarehouseListUrlFilters = Filters<WarehouseListUrlFiltersEnum>;
 export type WarehouseListUrlDialog = "delete" | TabActionDialog;
 export enum WarehouseListUrlSortField {
@@ -44,14 +48,15 @@ export type WarehouseListUrlSort = Sort<WarehouseListUrlSortField>;
 
 export type WMSDocumentsListUrlSort = Sort<WMSDocumentsListUrlSortField>;
 
-export interface WarehouseListUrlQueryParams extends SingleAction,
-  Dialog<WarehouseListUrlDialog>,
-  Pagination,
-  WarehouseListUrlFilters,
-  WarehouseListUrlSort,
-  ActiveTab{
-      attributeId?: string;
-  }
+export interface WarehouseListUrlQueryParams
+  extends SingleAction,
+    Dialog<WarehouseListUrlDialog>,
+    Pagination,
+    WarehouseListUrlFilters,
+    WarehouseListUrlSort,
+    ActiveTab {
+  attributeId?: string;
+}
 
 export type WMSDocumentsListUrlQueryParams = ActiveTab &
   Dialog<WarehouseListUrlDialog> &
