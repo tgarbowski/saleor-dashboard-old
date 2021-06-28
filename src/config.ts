@@ -25,11 +25,12 @@ export type ProductListColumns =
   | "updatedAt";
 
 export type WMSDocumentsListColumns =
- | "number"
- | "documentType"
- | "status"
- | "updatedAt"
- | "deliverer"
+  | "number"
+  | "documentType"
+  | "status"
+  | "updatedAt"
+  | "deliverer"
+  | "warehouse";
 
 export interface AppListViewSettings {
   [ListViews.APPS_LIST]: ListSettings;
@@ -107,7 +108,7 @@ export const defaultListSettings: AppListViewSettings = {
   [ListViews.WMS_DOCUMENTS_LIST]: {
     columns: ["number", "status", "documentType", "updatedAt"],
     rowNumber: PAGINATE_BY
-  },
+  }
 };
 
 export const APP_VERSION = packageInfo.version;

@@ -6,6 +6,9 @@
   "configurationMenuAttributes": {
     "string": "Określa atrybuty do stworzenia produktu"
   },
+  "configurationShopsAttributes":{
+    "string": "Zarządza i tworzy nowe sklepy hurtowników"
+  },
   "configurationMenuNavigation": {
     "string": "Zdefiniuj jak użytkownicy mogą poruszać się po twoim sklepie"
   },
@@ -6001,6 +6004,10 @@
   "src_dot_webhooks_dot_views_dot_3493926696": {
     "context": "window title",
     "string": "Stwórz Webhook"
+  },
+  "src_dot_wmsDocuments": {
+    "context": "warehouse documents section name",
+    "string": "Dokumenty magazynowe"
   },
   "src_dot_yes": {
     "string": "Tak"

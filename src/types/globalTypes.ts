@@ -748,6 +748,14 @@ export enum ProductOrderField {
   TYPE = "TYPE",
 }
 
+export enum WMSDocumentsOrderField {
+  CREATED_AT = "CREATED_AT",
+  DOCUMENT_TYPE = "DOCUMENT_TYPE",
+  NAME = "NAME",
+  STATUS = "STATUS",
+  WAREHOUSE = "WAREHOUSE",
+}
+
 export enum ProductTypeConfigurable {
   CONFIGURABLE = "CONFIGURABLE",
   SIMPLE = "SIMPLE",
@@ -1424,6 +1432,12 @@ export interface ProductInput {
 }
 
 export interface ProductOrder {
+  direction: OrderDirection;
+  attributeId?: string | null;
+  field?: ProductOrderField | null;
+}
+
+export interface WMSDocumentOrder {
   direction: OrderDirection;
   attributeId?: string | null;
   field?: ProductOrderField | null;

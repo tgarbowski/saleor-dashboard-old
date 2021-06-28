@@ -17,10 +17,10 @@ import {
   SortPage
 } from "@saleor/types";
 import { WMSDocumentList_documents_edges_node } from "@saleor/warehouses/types/WMSDoucumentsList";
+import { WMSDocumentsListUrlSortField } from "@saleor/warehouses/urls";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { ProductListUrlSortField } from "../../../products/urls";
 import WMSDocumentsList from "../WarehouseDocumentsList/WarehouseDocumentsList";
 import {
   createFilterStructure,
@@ -33,8 +33,7 @@ export interface WMSDocumentsListPageProps
     ListActions,
     FilterPageProps<WMSDocumentsFilterKeys, WMSDocumentsListFilterOpts>,
     FetchMoreProps,
-    SortPage<ProductListUrlSortField> {
-  activeAttributeSortId: string;
+    SortPage<WMSDocumentsListUrlSortField> {
   availableInGridAttributes: GridAttributes_availableInGrid_edges_node[];
   currencySymbol: string;
   gridAttributes: GridAttributes_grid_edges_node[];

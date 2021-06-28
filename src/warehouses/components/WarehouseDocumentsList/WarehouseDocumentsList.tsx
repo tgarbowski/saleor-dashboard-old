@@ -95,7 +95,6 @@ interface WMSDocumentsListProps
   extends ListProps<WMSDocumentsListColumns>,
     ListActions,
     SortPage<WMSDocumentsListUrlSortField> {
-  activeAttributeSortId: string;
   gridAttributes: GridAttributes_grid_edges_node[];
   products: WMSDocumentList_documents_edges_node[];
   loading: boolean;

@@ -12,11 +12,6 @@ import {
 } from "@saleor/warehouses/urls";
 
 import { IFilterElement } from "../../../components/Filter";
-import {
-  ProductListUrlFiltersAsDictWithMultipleValues,
-  ProductListUrlFiltersEnum,
-  ProductListUrlFiltersWithMultipleValues
-} from "../../../products/urls";
 import { WMSDocumentsFilterInput } from "../../../types/globalTypes";
 import {
   createFilterTabUtils,
@@ -50,23 +45,9 @@ export function getFilterVariables(
 }
 
 export function getFilterQueryParam(
-  filter: IFilterElement<WMSDocumentsFilterKeys>,
-  params: WMSDocumentsListUrlFilters
+  filter: IFilterElement<WMSDocumentsFilterKeys>
 ): WMSDocumentsListUrlFilters {
-  const { group, name } = filter;
-
-  if (!!group) {
-    const rest = params && params[group] ? params[group] : undefined;
-
-    return {
-      [group]: active
-        ? {
-            ...((rest === undefined ? {} : rest) as {}),
-            [name]: value
-          }
-        : rest
-    };
-  }
+  const { name } = filter;
 
   switch (name) {
     case WMSDocumentsFilterKeys.documentType:

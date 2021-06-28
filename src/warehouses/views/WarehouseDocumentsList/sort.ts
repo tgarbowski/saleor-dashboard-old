@@ -1,40 +1,37 @@
 import {
-  ProductListUrlQueryParams,
-  ProductListUrlSortField
-} from "@saleor/products/urls";
-import { ProductOrder, ProductOrderField } from "@saleor/types/globalTypes";
+  WMSDocumentOrder,
+  WMSDocumentsOrderField
+} from "@saleor/types/globalTypes";
 import { getOrderDirection } from "@saleor/utils/sort";
+import {
+  WMSDocumentsListUrlQueryParams,
+  WMSDocumentsListUrlSortField
+} from "@saleor/warehouses/urls";
 
 export function getSortQueryField(
-  sort: ProductListUrlSortField
-): ProductOrderField {
+  sort: WMSDocumentsListUrlSortField
+): WMSDocumentsOrderField {
   switch (sort) {
-    case ProductListUrlSortField.name:
-      return ProductOrderField.NAME;
-    case ProductListUrlSortField.price:
-      return ProductOrderField.PRICE;
-    case ProductListUrlSortField.productType:
-      return ProductOrderField.TYPE;
-    case ProductListUrlSortField.status:
-      return ProductOrderField.PUBLISHED;
-    case ProductListUrlSortField.updatedAt:
-      return ProductOrderField.DATE;
+    case WMSDocumentsListUrlSortField.name:
+      return WMSDocumentsOrderField.NAME;
+    case WMSDocumentsListUrlSortField.warehouse:
+      return WMSDocumentsOrderField.WAREHOUSE;
+    case WMSDocumentsListUrlSortField.documentType:
+      return WMSDocumentsOrderField.DOCUMENT_TYPE;
+    case WMSDocumentsListUrlSortField.status:
+      return WMSDocumentsOrderField.STATUS;
+    case WMSDocumentsListUrlSortField.createdAt:
+      return WMSDocumentsOrderField.CREATED_AT;
     default:
       return undefined;
   }
 }
 
 export function getSortQueryVariables(
-  params: ProductListUrlQueryParams
-): ProductOrder {
-  if (params.sort === ProductListUrlSortField.attribute) {
-    return {
-      attributeId: params.attributeId,
-      direction: getOrderDirection(params.asc)
-    };
-  }
+  params: WMSDocumentsListUrlQueryParams
+): WMSDocumentOrder {
   return {
-    direction: getOrderDirection(params.asc),
-    field: getSortQueryField(params.sort)
+    direction: getOrderDirection(params.asc)
+    // field: getSortQueryField(params.sort)
   };
 }

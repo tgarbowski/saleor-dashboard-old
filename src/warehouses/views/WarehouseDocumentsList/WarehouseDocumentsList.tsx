@@ -22,6 +22,7 @@ import {
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
+import { getSortUrlVariables } from "@saleor/utils/sort";
 import WMSDocumentsListPage from "@saleor/warehouses/components/WarehouseDocumentsListPage";
 import { useWMSDocumentsList } from "@saleor/warehouses/queries";
 import { WMSDocumentListVariables } from "@saleor/warehouses/types/WMSDoucumentsList";
@@ -36,7 +37,8 @@ import {
 } from "../../../products/urls";
 import {
   wmsDocumentsListUrl,
-  WMSDocumentsListUrlQueryParams
+  WMSDocumentsListUrlQueryParams,
+  WMSDocumentsListUrlSortField
 } from "../../urls";
 import {
   areFiltersApplied,
@@ -60,7 +62,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
   const paginate = usePaginator();
   const shop = useShop();
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
-    params.ids
+    []
   );
   const { updateListSettings, settings } = useListSettings<
     WMSDocumentsListColumns
@@ -103,6 +105,15 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
     navigate,
     params
   });
+
+  const handleSort = (field: WMSDocumentsListUrlSortField) =>
+    navigate(
+      wmsDocumentsListUrl({
+        ...params,
+        ...getSortUrlVariables(field, params),
+        ...DEFAULT_INITIAL_PAGINATION_DATA
+      })
+    );
 
   const handleTabChange = (tab: number) => {
     reset();
@@ -221,6 +232,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
         pageInfo={pageInfo}
         onRowClick={id => () => navigate(productUrl(id))}
         onAll={resetFilters}
+        onSort={handleSort}
         toolbar={null}
         isChecked={isSelected}
         selected={listElements.length}
