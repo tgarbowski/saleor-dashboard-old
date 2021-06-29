@@ -37,23 +37,28 @@ const messages = defineMessages({
   },
   FGTN: {
     defaultMessage: "Przyjęcie wewnętrzne",
-    description: "FGTN"
+    description: "FGTN",
+    id: "wmsDocumentFGTN"
   },
   GIN: {
-    defaultMessage: "Przychód zewnętrzny",
-    description: "GIN"
+    defaultMessage: "Wydanie zewnętrzne",
+    description: "GIN",
+    id: "wmsDocumentGIN"
   },
   GRN: {
-    defaultMessage: "Rozchód zewnętrzny",
-    description: "GRN"
+    defaultMessage: "Przyjęcie zewnętrzne",
+    description: "GRN",
+    id: "wmsDocumentGRN"
   },
   IO: {
     defaultMessage: "Rozchód wewnętrzny",
-    description: "IO"
+    description: "IO",
+    id: "wmsDocumentIO"
   },
   IWM: {
     defaultMessage: "Przesunięcie między magazynami",
-    description: "IWM"
+    description: "IWM",
+    id: "wmsDocumentIWM"
   },
   documentType: {
     defaultMessage: "Document Type",

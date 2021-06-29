@@ -332,7 +332,41 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
                     displayColumns={settings.columns}
                   >
                     <TableCell className={classes.colUpdatedAt}>
-                      {product?.documentType}
+                      {product?.documentType === "GIN" && (
+                        <FormattedMessage
+                          defaultMessage="Magazyn"
+                          description="magazyn"
+                          id="wmsDocumentGIN"
+                        />
+                      )}
+                      {product?.documentType === "GRN" && (
+                        <FormattedMessage
+                          defaultMessage="Magazyn"
+                          description="magazyn"
+                          id="wmsDocumentGRN"
+                        />
+                      )}
+                      {product?.documentType === "FGTN" && (
+                        <FormattedMessage
+                          defaultMessage="Magazyn"
+                          description="magazyn"
+                          id="wmsDocumentFGTN"
+                        />
+                      )}
+                      {product?.documentType === "IO" && (
+                        <FormattedMessage
+                          defaultMessage="Magazyn"
+                          description="magazyn"
+                          id="wmsDocumentIO"
+                        />
+                      )}
+                      {product?.documentType === "IWM" && (
+                        <FormattedMessage
+                          defaultMessage="Magazyn"
+                          description="magazyn"
+                          id="wmsDocumentIWM"
+                        />
+                      )}
                     </TableCell>
                   </DisplayColumn>
                   <DisplayColumn
@@ -349,7 +383,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = props => {
             () => (
               <TableRow>
                 <TableCell colSpan={numberOfColumns}>
-                  <FormattedMessage defaultMessage="No products found" />
+                  <FormattedMessage defaultMessage="No documents found" />
                 </TableCell>
               </TableRow>
             )

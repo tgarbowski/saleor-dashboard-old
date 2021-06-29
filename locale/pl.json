@@ -6023,5 +6023,26 @@
   "voucherDetailsUnassignProduct": {
     "context": "unassign product from voucher, button",
     "string": "Cofnij przypisanie"
+  },
+  "wmsDocumentGIN": {
+    "context": "wms documents gin",
+    "string": "WZ"
+  },
+  "wmsDocumentGRN": {
+    "context": "wms documents gin",
+    "string": "PZ"
+  },
+  "wmsDocumentFGTN": {
+    "context": "wms documents gin",
+    "string": "PW"
+  },
+  "wmsDocumentIO": {
+    "context": "wms documents gin",
+    "string": "RW"
+  },
+  "wmsDocumentIWM": {
+    "context": "wms documents gin",
+    "string": "MM"
   }
+  
 }

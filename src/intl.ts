@@ -277,6 +277,29 @@ export const sectionNames = defineMessages({
   }
 });
 
+export const wmsDocumentsNames = defineMessages({
+  FGTN: {
+    defaultMessage: "FGTN",
+    description: "fgtn name"
+  },
+  GIN: {
+    defaultMessage: "GIN",
+    description: "gin name"
+  },
+  GRN: {
+    defaultMessage: "GRN",
+    description: "grn name"
+  },
+  IO: {
+    defaultMessage: "IO",
+    description: "io name"
+  },
+  IWM: {
+    defaultMessage: "IWM",
+    description: "iwm name"
+  }
+});
+
 export function translateBoolean(value: boolean, intl: IntlShape): string {
   return value
     ? intl.formatMessage(commonMessages.yes)

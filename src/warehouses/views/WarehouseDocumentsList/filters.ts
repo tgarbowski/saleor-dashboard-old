@@ -55,6 +55,11 @@ export function getFilterQueryParam(
         filter,
         WMSDocumentsListUrlFiltersEnum.documentType
       );
+    case WMSDocumentsFilterKeys.status:
+      return getMultipleValueQueryParam(
+        filter,
+        WMSDocumentsListUrlFiltersEnum.status
+      );
   }
 }
 
