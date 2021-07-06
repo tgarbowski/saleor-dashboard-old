@@ -14,12 +14,15 @@ import {
   WarehouseListUrlSortField,
   warehousePath,
   WarehouseUrlQueryParams,
+  wmsDocumentPath,
   wmsDocumentsListPath,
   WMSDocumentsListUrlQueryParams,
-  WMSDocumentsListUrlSortField
+  WMSDocumentsListUrlSortField,
+  WMSDocumentUrlQueryparams
 } from "./urls";
 import WarehouseCreate from "./views/WarehouseCreate";
 import WarehouseDetailsComponent from "./views/WarehouseDetails";
+import WarehouseDocumentDetailsComponent from "./views/WarehouseDocumentDetails";
 import WarehouseDocumentsListComponent from "./views/WarehouseDocumentsList";
 import WarehouseListComponent from "./views/WarehouseList";
 
@@ -64,6 +67,19 @@ const WarehouseDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
   );
 };
 
+const WarehouseDocumentDetails: React.FC<RouteComponentProps<{
+  id: string;
+}>> = ({ location, match }) => {
+  const qs = parseQs(location.search.substr(1));
+  const params: WMSDocumentUrlQueryparams = qs;
+  return (
+    <WarehouseDocumentDetailsComponent
+      id={decodeURIComponent(match.params.id)}
+      params={params}
+    />
+  );
+};
+
 export const WarehouseSection: React.FC = () => {
   const intl = useIntl();
 
@@ -78,6 +94,11 @@ export const WarehouseSection: React.FC = () => {
           component={WarehouseDocumentsList}
         />
         <Route exact path={warehouseAddPath} component={WarehouseCreate} />
+        <Route
+          exact
+          path={wmsDocumentPath(":id")}
+          component={WarehouseDocumentDetails}
+        />
         <Route path={warehousePath(":id")} component={WarehouseDetails} />
       </Switch>
     </>

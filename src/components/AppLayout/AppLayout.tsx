@@ -251,7 +251,7 @@ const useStyles = makeStyles(
         padding: 0
       },
       background: theme.palette.background.paper,
-      padding: `0 ${theme.spacing(4)}px`
+      padding: `0 ${theme.spacing(3)}px`
     },
     spacer: {
       flex: 1

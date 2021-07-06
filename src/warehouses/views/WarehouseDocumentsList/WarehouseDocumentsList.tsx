@@ -32,13 +32,13 @@ import { useAvailableInGridAttributesQuery } from "../../../products/queries";
 import {
   productAddUrl,
   ProductListUrlDialog,
-  ProductListUrlQueryParams,
-  productUrl
+  ProductListUrlQueryParams
 } from "../../../products/urls";
 import {
   wmsDocumentsListUrl,
   WMSDocumentsListUrlQueryParams,
-  WMSDocumentsListUrlSortField
+  WMSDocumentsListUrlSortField,
+  wmsDocumentUrl
 } from "../../urls";
 import {
   areFiltersApplied,
@@ -230,7 +230,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
         onPreviousPage={loadPreviousPage}
         onUpdateListSettings={updateListSettings}
         pageInfo={pageInfo}
-        onRowClick={id => () => navigate(productUrl(id))}
+        onRowClick={id => () => navigate(wmsDocumentUrl(id))}
         onAll={resetFilters}
         onSort={handleSort}
         toolbar={null}

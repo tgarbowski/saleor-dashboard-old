@@ -75,10 +75,20 @@ export const wmsDocumentsListUrl = (params?: WMSDocumentsListUrlQueryParams) =>
   wmsDocumentsListPath + "?" + stringifyQs(params);
 
 export const warehousePath = (id: string) => urlJoin(warehouseSection, id);
+export const wmsDocumentPath = (id: string) =>
+  urlJoin(wmsDocumentsListPath, id);
 export type WarehouseUrlDialog = "delete";
 export type WarehouseUrlQueryParams = Dialog<WarehouseUrlDialog> & SingleAction;
 export const warehouseUrl = (id: string, params?: WarehouseUrlQueryParams) =>
   warehousePath(encodeURIComponent(id)) + "?" + stringifyQs(params);
+
+export type WMSDocumentUrlDialog = "delete";
+export type WMSDocumentUrlQueryparams = Dialog<WMSDocumentUrlDialog> &
+  SingleAction;
+export const wmsDocumentUrl = (
+  id: string,
+  params?: WMSDocumentUrlQueryparams
+) => wmsDocumentPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
 export const warehouseAddPath = urlJoin(warehouseSection, "add");
 export const warehouseAddUrl = warehouseAddPath;

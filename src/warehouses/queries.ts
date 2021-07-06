@@ -11,7 +11,15 @@ import {
   WarehouseDetailsVariables
 } from "./types/WarehouseDetails";
 import { WarehouseList, WarehouseListVariables } from "./types/WarehouseList";
-import { WMSDocumentList, WMSDocumentListVariables } from "./types/WMSDoucumentsList";
+import {
+  WMSDocPositions,
+  WMSDocPositionsVariables
+} from "./types/WMSDocPositions";
+import { WMSDocument, WMSDocumentVariables } from "./types/WMSDocument";
+import {
+  WMSDocumentList,
+  WMSDocumentListVariables
+} from "./types/WMSDoucumentsList";
 
 const warehouseList = gql`
   ${warehouseWithShippingFragment}
@@ -62,55 +70,121 @@ export const useWarehouseDetails = makeQuery<
 >(warehouseDetails);
 
 const WMSDocumentsList = gql`
-query WMSDocumentsList(
-  $first: Int
-  $after: String
-  $last: Int
-  $before: String
-  $filter: WMSDocumentFilterInput
-) {
-  wmsDocuments(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    filter: $filter
+  query wmsDocuments(
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
+    $filter: WmsDocumentFilterInput
   ) {
-    edges {
-      node {
-        number
-        createdAt
-        deliverer
-        warehouse {
+    wmsDocuments(
+      before: $before
+      after: $after
+      first: $first
+      last: $last
+      filter: $filter
+    ) {
+      edges {
+        node {
+          number
+          createdAt
+          deliverer
+          warehouse {
+            id
+            name
+            slug
+          }
+          recipient {
+            id
+            email
+          }
+          documentType
+          createdBy {
+            email
+            firstName
+            id
+          }
+          status
           id
-          name
-          slug
         }
-        recipient {
-          id
-          email
-        }
-        documentType
-        createdBy {
-          email
-          firstName
-          id
-        }
-        status
-        id
+        cursor
       }
-      cursor
-    }
-    totalCount
-    pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
+      totalCount
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
     }
   }
-}
+`;
 
-`
+export const useWMSDocumentsList = makeQuery<
+  WMSDocumentList,
+  WMSDocumentListVariables
+>(WMSDocumentsList);
 
-export const useWMSDocumentsList = makeQuery<WMSDocumentList, WMSDocumentListVariables>(WMSDocumentsList);
+const wmsDocumentQuery = gql`
+  query wmsDocument($id: ID, $number: String) {
+    wmsDocument(id: $id, number: $number) {
+      id
+      createdAt
+      updatedAt
+      warehouse {
+        id
+        name
+      }
+      warehouseSecond {
+        id
+        name
+      }
+      documentType
+      createdBy {
+        id
+        email
+      }
+      recipient {
+        id
+      }
+      deliverer
+      number
+      status
+    }
+  }
+`;
+
+export const useWMSDocumentQuery = makeQuery<WMSDocument, WMSDocumentVariables>(
+  wmsDocumentQuery
+);
+
+const wmsDocPositions = gql`
+  query wmsDocPosition($id: String) {
+    wmsDocPositions(first: 100, filter: { document: { document: $id } }) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+        __typename
+      }
+      edges {
+        node {
+          id
+          quantity
+          weight
+          productVariant {
+            id
+            name
+            sku
+          }
+        }
+      }
+    }
+  }
+`;
+export const useWMSDocPositions = makeQuery<
+  WMSDocPositions,
+  WMSDocPositionsVariables
+>(wmsDocPositions);
