@@ -10,6 +10,7 @@ import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
+import Skeleton from "@saleor/components/Skeleton";
 import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { AddressTypeInput } from "@saleor/customers/types";
@@ -128,7 +129,15 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
           <Card>
             <CardTitle className={classes.cardTitle} title="Data utworzenia" />
             <CardContent className={classes.content}>
-              {document?.wmsDocument?.createdAt}
+              {document?.wmsDocument && document?.wmsDocument?.createdAt ? (
+                new Intl.DateTimeFormat("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric"
+                }).format(new Date(document.wmsDocument.createdAt))
+              ) : (
+                <Skeleton />
+              )}
             </CardContent>
           </Card>
         </div>
@@ -137,7 +146,41 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
           <Card>
             <CardTitle className={classes.cardTitle} title="Typ dokumentu" />
             <CardContent className={classes.content}>
-              {document?.wmsDocument?.documentType}
+              {document?.wmsDocument?.documentType === "GIN" && (
+                <FormattedMessage
+                  defaultMessage="GIN"
+                  description="magazyn"
+                  id="wmsDocumentGIN"
+                />
+              )}
+              {document?.wmsDocument?.documentType === "GRN" && (
+                <FormattedMessage
+                  defaultMessage="GRN"
+                  description="magazyn"
+                  id="wmsDocumentGRN"
+                />
+              )}
+              {document?.wmsDocument?.documentType === "FGTN" && (
+                <FormattedMessage
+                  defaultMessage="FGTN"
+                  description="magazyn"
+                  id="wmsDocumentFGTN"
+                />
+              )}
+              {document?.wmsDocument?.documentType === "IO" && (
+                <FormattedMessage
+                  defaultMessage="IO"
+                  description="magazyn"
+                  id="wmsDocumentIO"
+                />
+              )}
+              {document?.wmsDocument?.documentType === "IWM" && (
+                <FormattedMessage
+                  defaultMessage="IWM"
+                  description="magazyn"
+                  id="wmsDocumentIWM"
+                />
+              )}
             </CardContent>
           </Card>
         </div>
@@ -186,7 +229,7 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
               position => (
                 <TableRow>
                   <TableCell className={classes.colUpdatedAt}>
-                    {position?.node.productVariant.sku}
+                    {position?.node?.productVariant?.product?.name}
                   </TableCell>
                   <TableCell className={classes.colUpdatedAt}>
                     {position?.node.quantity}

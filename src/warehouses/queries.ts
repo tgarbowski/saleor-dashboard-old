@@ -178,6 +178,9 @@ const wmsDocPositions = gql`
             id
             name
             sku
+            product {
+              name
+            }
           }
         }
       }
