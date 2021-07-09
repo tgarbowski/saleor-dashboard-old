@@ -4,6 +4,7 @@ import SaveFilterTabDialog, {
 } from "@saleor/components/SaveFilterTabDialog";
 import {
   DEFAULT_INITIAL_PAGINATION_DATA,
+  DEFAULT_INITIAL_SEARCH_DATA,
   defaultListSettings,
   WMSDocumentsListColumns
 } from "@saleor/config";
@@ -19,12 +20,17 @@ import {
   getAttributeIdFromColumnValue,
   isAttributeColumnValue
 } from "@saleor/products/components/ProductListPage/utils";
+import useWarehouseSearch from "@saleor/searches/useWarehouseSearch";
+import useWMSDeliverersSearch from "@saleor/searches/useWMSDeliverersSearch";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { getSortUrlVariables } from "@saleor/utils/sort";
 import WMSDocumentsListPage from "@saleor/warehouses/components/WarehouseDocumentsListPage";
-import { useWMSDocumentsList } from "@saleor/warehouses/queries";
+import {
+  useInitialFilterWMSDocuments,
+  useWMSDocumentsList
+} from "@saleor/warehouses/queries";
 import { WMSDocumentListVariables } from "@saleor/warehouses/types/WMSDoucumentsList";
 import React from "react";
 
@@ -159,8 +165,36 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
   const attributes = useAvailableInGridAttributesQuery({
     variables: { first: 6, ids: filterColumnIds(settings.columns) }
   });
-
-  const filterOpts = getFilterOpts(params);
+  const { data: initialFilterData } = useInitialFilterWMSDocuments({});
+  const searchWarehouses = useWarehouseSearch({
+    variables: {
+      ...DEFAULT_INITIAL_SEARCH_DATA,
+      first: 5
+    }
+  });
+  const searchWMSDeliverers = useWMSDeliverersSearch({
+    variables: {
+      ...DEFAULT_INITIAL_SEARCH_DATA,
+      first: 5
+    }
+  });
+  const filterOpts = getFilterOpts(
+    params,
+    {
+      initial: maybe(
+        () => initialFilterData.warehouses.edges.map(edge => edge.node),
+        []
+      ),
+      search: searchWarehouses
+    },
+    {
+      initial: maybe(
+        () => initialFilterData.wmsDeliverers.edges.map(edge => edge.node),
+        []
+      ),
+      search: searchWMSDeliverers
+    }
+  );
 
   const { loadNextPage, loadPreviousPage, pageInfo } = paginate(
     maybe(() => data.wmsDocuments.pageInfo),

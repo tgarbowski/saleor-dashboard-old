@@ -25,8 +25,11 @@ export enum WMSDocumentsListUrlFiltersEnum {
   createdAtFrom = "createdAtFrom",
   createdAtTo = "createdAtTo",
   documentType = "documentType",
+  location = "location",
   status = "status",
-  query = "query"
+  query = "query",
+  warehouse = "warehouse",
+  wmsDeliverer = "wmsDeliverer"
 }
 
 export enum WMSDocumentsListUrlSortEnum {

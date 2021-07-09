@@ -1407,10 +1407,13 @@ export interface ProductFilterInput {
 }
 
 export interface WMSDocumentsFilterInput {
+  deliverers?: string | null;
   documentType?: string | null;
   search?: string | null;
   status?: string | null;
   createdAt?: DateRangeInput | null;
+  location?: string | null;
+  warehouses?: string | null;
 }
 
 export interface ProductInput {

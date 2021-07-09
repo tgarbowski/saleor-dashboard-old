@@ -1,15 +1,20 @@
 import { IFilter } from "@saleor/components/Filter";
-import { FilterOpts, MinMax } from "@saleor/types";
+import { AutocompleteFilterOpts, FilterOpts, MinMax } from "@saleor/types";
 import {
+  createAutocompleteField,
   createDateField,
-  createOptionsField
+  createOptionsField,
+  createTextField
 } from "@saleor/utils/filters/fields";
 import { defineMessages, IntlShape } from "react-intl";
 
 export enum WMSDocumentsFilterKeys {
   documentType = "documentType",
   status = "status",
-  createdAt = "createdAt"
+  createdAt = "createdAt",
+  location = "location",
+  warehouse = "warehouse",
+  wmsDeliverer = "wmsDeliverer"
 }
 
 export enum DocumentType {
@@ -29,6 +34,9 @@ export interface WMSDocumentsListFilterOpts {
   documentType: FilterOpts<DocumentType>;
   status: FilterOpts<DocumentStatus>;
   createdAt: FilterOpts<MinMax>;
+  location: FilterOpts<string>;
+  warehouse: FilterOpts<string[]> & AutocompleteFilterOpts;
+  wmsDeliverer: FilterOpts<string[]> & AutocompleteFilterOpts;
 }
 
 const messages = defineMessages({
@@ -66,16 +74,28 @@ const messages = defineMessages({
     id: "wmsDocumentIWM"
   },
   createdAt: {
-    defaultMessage: "Utworzono",
+    defaultMessage: "Data utworzenia",
     description: "createdAt"
   },
+  deliverer: {
+    defaultMessage: "Dostawca",
+    description: "deliverer"
+  },
   documentType: {
-    defaultMessage: "Document Type",
+    defaultMessage: "Typ dokumentu",
     description: "document type"
+  },
+  location: {
+    defaultMessage: "Lokacja",
+    description: "location"
   },
   status: {
     defaultMessage: "Status",
     description: "status"
+  },
+  warehouse: {
+    defaultMessage: "Magazyn",
+    description: "warehouse"
   }
 });
 
@@ -141,6 +161,50 @@ export function createFilterStructure(
         opts.createdAt.value
       ),
       active: opts.createdAt.active
+    },
+    {
+      ...createTextField(
+        WMSDocumentsFilterKeys.location,
+        intl.formatMessage(messages.location),
+        opts.location.value
+      ),
+      active: opts.location.active
+    },
+    {
+      ...createAutocompleteField(
+        WMSDocumentsFilterKeys.warehouse,
+        intl.formatMessage(messages.warehouse),
+        opts.warehouse.value,
+        opts.warehouse.displayValues,
+        true,
+        opts.warehouse.choices,
+        {
+          hasMore: opts.warehouse.hasMore,
+          initialSearch: "",
+          loading: opts.warehouse.loading,
+          onFetchMore: opts.warehouse.onFetchMore,
+          onSearchChange: opts.warehouse.onSearchChange
+        }
+      ),
+      active: opts.warehouse.active
+    },
+    {
+      ...createAutocompleteField(
+        WMSDocumentsFilterKeys.wmsDeliverer,
+        intl.formatMessage(messages.deliverer),
+        opts.wmsDeliverer.value,
+        opts.wmsDeliverer.displayValues,
+        true,
+        opts.wmsDeliverer.choices,
+        {
+          hasMore: opts.wmsDeliverer.hasMore,
+          initialSearch: "",
+          loading: opts.wmsDeliverer.loading,
+          onFetchMore: opts.wmsDeliverer.onFetchMore,
+          onSearchChange: opts.wmsDeliverer.onSearchChange
+        }
+      ),
+      active: opts.wmsDeliverer.active
     }
   ];
 }

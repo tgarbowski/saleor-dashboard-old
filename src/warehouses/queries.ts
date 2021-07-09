@@ -7,6 +7,10 @@ import makeQuery from "@saleor/hooks/makeQuery";
 import gql from "graphql-tag";
 
 import {
+  InitialWMSDocumentFilterData,
+  InitialWMSDocumentFilterDataVariables
+} from "./types/InitialWMSDocumentsFilterData";
+import {
   WarehouseDetails,
   WarehouseDetailsVariables
 } from "./types/WarehouseDetails";
@@ -88,6 +92,7 @@ const WMSDocumentsList = gql`
         node {
           number
           createdAt
+          location
           warehouse {
             id
             name
@@ -139,6 +144,7 @@ const wmsDocumentQuery = gql`
         name
       }
       documentType
+      location
       createdBy {
         id
         email
@@ -192,3 +198,29 @@ export const useWMSDocPositions = makeQuery<
   WMSDocPositions,
   WMSDocPositionsVariables
 >(wmsDocPositions);
+
+const initialFilterWMSDocuments = gql`
+  query InitialProductFilterData($warehouses: [ID!]) {
+    warehouses(first: 100, filter: { ids: $warehouses }) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+    wmsDeliverers(first: 100) {
+      edges {
+        node {
+          id
+          companyName
+        }
+      }
+    }
+  }
+`;
+
+export const useInitialFilterWMSDocuments = makeQuery<
+  InitialWMSDocumentFilterData,
+  InitialWMSDocumentFilterDataVariables
+>(initialFilterWMSDocuments);
