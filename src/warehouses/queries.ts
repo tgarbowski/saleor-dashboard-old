@@ -88,7 +88,6 @@ const WMSDocumentsList = gql`
         node {
           number
           createdAt
-          deliverer
           warehouse {
             id
             name
@@ -147,7 +146,9 @@ const wmsDocumentQuery = gql`
       recipient {
         id
       }
-      deliverer
+      deliverer {
+        id
+      }
       number
       status
     }

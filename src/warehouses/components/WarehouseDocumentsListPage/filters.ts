@@ -1,11 +1,15 @@
 import { IFilter } from "@saleor/components/Filter";
-import { FilterOpts } from "@saleor/types";
-import { createOptionsField } from "@saleor/utils/filters/fields";
+import { FilterOpts, MinMax } from "@saleor/types";
+import {
+  createDateField,
+  createOptionsField
+} from "@saleor/utils/filters/fields";
 import { defineMessages, IntlShape } from "react-intl";
 
 export enum WMSDocumentsFilterKeys {
   documentType = "documentType",
-  status = "status"
+  status = "status",
+  createdAt = "createdAt"
 }
 
 export enum DocumentType {
@@ -24,6 +28,7 @@ export enum DocumentStatus {
 export interface WMSDocumentsListFilterOpts {
   documentType: FilterOpts<DocumentType>;
   status: FilterOpts<DocumentStatus>;
+  createdAt: FilterOpts<MinMax>;
 }
 
 const messages = defineMessages({
@@ -59,6 +64,10 @@ const messages = defineMessages({
     defaultMessage: "Przesunięcie między magazynami",
     description: "IWM",
     id: "wmsDocumentIWM"
+  },
+  createdAt: {
+    defaultMessage: "Utworzono",
+    description: "createdAt"
   },
   documentType: {
     defaultMessage: "Document Type",
@@ -124,6 +133,14 @@ export function createFilterStructure(
         ]
       ),
       active: opts.status.active
+    },
+    {
+      ...createDateField(
+        WMSDocumentsFilterKeys.createdAt,
+        intl.formatMessage(messages.createdAt),
+        opts.createdAt.value
+      ),
+      active: opts.createdAt.active
     }
   ];
 }

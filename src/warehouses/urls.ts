@@ -22,6 +22,8 @@ export enum WarehouseListUrlFiltersEnum {
 }
 
 export enum WMSDocumentsListUrlFiltersEnum {
+  createdAtFrom = "createdAtFrom",
+  createdAtTo = "createdAtTo",
   documentType = "documentType",
   status = "status",
   query = "query"

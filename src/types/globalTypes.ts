@@ -1410,6 +1410,7 @@ export interface WMSDocumentsFilterInput {
   documentType?: string | null;
   search?: string | null;
   status?: string | null;
+  createdAt?: DateRangeInput | null;
 }
 
 export interface ProductInput {
