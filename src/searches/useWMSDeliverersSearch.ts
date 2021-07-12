@@ -9,8 +9,12 @@ import {
 
 export const searchWMSDeliverers = gql`
   ${pageInfoFragment}
-  query SearchWMSDeliverers($after: String, $first: Int!) {
-    search: wmsDeliverers(after: $after, first: $first) {
+  query SearchWMSDeliverers($after: String, $first: Int!, $query: String!) {
+    search: wmsDeliverers(
+      after: $after
+      first: $first
+      filter: { search: $query }
+    ) {
       edges {
         node {
           id
