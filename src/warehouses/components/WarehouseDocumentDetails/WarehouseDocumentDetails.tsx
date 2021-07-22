@@ -109,11 +109,10 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
   positions
 }) => {
   const classes = useStyles(document);
-
-  return (
+    return (
     <Container>
       <PageHeader title={document?.wmsDocument?.number} />
-      <Grid>
+      <Grid variant="uniform">
         <div>
           <Card>
             <CardTitle className={classes.cardTitle} title="Użytkownik" />
@@ -150,35 +149,35 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
                 <FormattedMessage
                   defaultMessage="GIN"
                   description="magazyn"
-                  id="wmsDocumentGIN"
+                  id="documentGIN"
                 />
               )}
               {document?.wmsDocument?.documentType === "GRN" && (
                 <FormattedMessage
                   defaultMessage="GRN"
                   description="magazyn"
-                  id="wmsDocumentGRN"
+                  id="documentGRN"
                 />
               )}
               {document?.wmsDocument?.documentType === "FGTN" && (
                 <FormattedMessage
                   defaultMessage="FGTN"
                   description="magazyn"
-                  id="wmsDocumentFGTN"
+                  id="documentFGTN"
                 />
               )}
               {document?.wmsDocument?.documentType === "IO" && (
                 <FormattedMessage
                   defaultMessage="IO"
                   description="magazyn"
-                  id="wmsDocumentIO"
+                  id="documentIO"
                 />
               )}
               {document?.wmsDocument?.documentType === "IWM" && (
                 <FormattedMessage
                   defaultMessage="IWM"
                   description="magazyn"
-                  id="wmsDocumentIWM"
+                  id="documentIWM"
                 />
               )}
             </CardContent>
@@ -202,6 +201,30 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
             </CardContent>
           </Card>
         </div>
+          <div>
+              <CardSpacer />
+              <Card>
+                  <CardTitle className={classes.cardTitle} title="Odbiorca / Nadawca" />
+                  <CardContent className={classes.content}>
+
+                      {document?.wmsDocument?.documentType === "GIN" && (
+                          "Odbiorca: " + document?.wmsDocument.recipient.email
+                      )}
+                      {document?.wmsDocument?.documentType === "GRN" && (
+                          "Nadawca: " +  document?.wmsDocument.deliverer.companyName
+                      )}
+                      {document?.wmsDocument?.documentType === "FGTN" && (
+                          "Nadawca : " + document?.wmsDocument.deliverer.companyName
+                      )}
+                      {document?.wmsDocument?.documentType === "IO" && (
+                          "Nadawca: " + document?.wmsDocument.deliverer.companyName
+                      )}
+                      {document?.wmsDocument?.documentType === "IWM" && (
+                          "Nadawca: " + document?.wmsDocument.deliverer.companyName
+                      )}
+                  </CardContent>
+              </Card>
+          </div>
       </Grid>
       <div className={classes.tableContainer}>
         <ResponsiveTable className={classes.table}>

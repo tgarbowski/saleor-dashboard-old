@@ -6043,6 +6043,26 @@
   "wmsDocumentIWM": {
     "context": "wms documents gin",
     "string": "MM"
+  },
+  "documentGIN": {
+    "context": "wms documents gin",
+    "string": "Wydanie zewnętrzne"
+  },
+  "documentGRN": {
+    "context": "wms documents gin",
+    "string": "Przyjęcie zewnętrzne"
+  },
+  "documentFGTN": {
+    "context": "wms documents gin",
+    "string": "Przyjęcie wewnętrzne"
+  },
+  "documentIO": {
+    "context": "wms documents gin",
+    "string": "Rozchód wewnętrzny"
+  },
+  "documentIWM": {
+    "context": "wms documents gin",
+    "string": "Przesunięcie między magazynami"
   }
   
 }

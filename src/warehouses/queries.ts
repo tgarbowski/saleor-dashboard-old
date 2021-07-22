@@ -151,9 +151,11 @@ const wmsDocumentQuery = gql`
       }
       recipient {
         id
+        email
       }
       deliverer {
         id
+        companyName
       }
       number
       status
