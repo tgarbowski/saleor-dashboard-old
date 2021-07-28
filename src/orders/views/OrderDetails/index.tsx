@@ -38,6 +38,7 @@ import OrderFulfillmentCancelDialog from "../../components/OrderFulfillmentCance
 import OrderFulfillmentTrackingDialog from "../../components/OrderFulfillmentTrackingDialog";
 import OrderMarkAsPaidDialog from "../../components/OrderMarkAsPaidDialog/OrderMarkAsPaidDialog";
 import OrderPaymentDialog from "../../components/OrderPaymentDialog";
+import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
 import OrderPaymentVoidDialog from "../../components/OrderPaymentVoidDialog";
 import OrderProductAddDialog from "../../components/OrderProductAddDialog";
 import OrderShippingMethodEditDialog from "../../components/OrderShippingMethodEditDialog";
@@ -136,6 +137,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 onOrderVoid={orderMessages.handleOrderVoid}
                 onPaymentCapture={orderMessages.handlePaymentCapture}
                 onPaymentRefund={orderMessages.handlePaymentRefund}
+                onParcelDetails={orderMessages.handleParcelDetails}
                 onUpdate={orderMessages.handleUpdate}
                 onDraftUpdate={orderMessages.handleDraftUpdate}
                 onShippingMethodUpdate={
@@ -179,6 +181,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                   orderLineUpdate,
                   orderPaymentCapture,
                   orderPaymentRefund,
+                  orderParcelDetails,
                   orderVoid,
                   orderShippingMethodUpdate,
                   orderUpdate,
@@ -242,9 +245,10 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                           userPermissions={user?.userPermissions || []}
                           onOrderCancel={() => openModal("cancel")}
                           onOrderFulfill={() => navigate(orderFulfillUrl(id))}
+                          onParcelDetails={() => openModal("parcel")}
                           onFulfillmentCancel={fulfillmentId =>
                             navigate(
-                              orderUrl(id, {
+                                orderUrl(id, {
                                 action: "cancel-fulfillment",
                                 id: fulfillmentId
                               })
@@ -370,6 +374,32 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                               id
                             })
                           }
+                        />
+                        <OrderParcelDetails
+                            confirmButtonState={orderParcelDetails.opts.status}
+                            errors={
+                              orderParcelDetails.opts.data?.orderRefund.errors ||
+                              []
+                            }
+                            initial={order?.total.gross.amount}
+                            open={params.action === "parcel"}
+                            variant="parcel"
+                            onClose={closeModal}
+                            orderDetails = {order}
+                            productWeight = {order?.lines[0]?.variant?.product?.weight.value}
+                            orderFirstName = {order?.billingAddress?.customerFirstName}
+                            onSubmit={variables =>
+                                orderParcelDetails.mutate({
+                                  ...variables,
+                                  id
+                                })
+                            }
+                            countries={maybe(() => data.shop.countries, []).map(
+                                country => ({
+                                  code: country.code,
+                                  label: country.country
+                                })
+                            )}
                         />
                         <OrderFulfillmentCancelDialog
                           confirmButtonState={

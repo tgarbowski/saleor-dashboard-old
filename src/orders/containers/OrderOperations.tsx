@@ -18,6 +18,7 @@ import {
   TypedOrderLineUpdateMutation,
   TypedOrderMarkAsPaidMutation,
   TypedOrderRefundMutation,
+  TypedOrderParcelMutation,
   TypedOrderShippingMethodUpdateMutation,
   TypedOrderUpdateMutation,
   TypedOrderVoidMutation
@@ -73,6 +74,7 @@ import {
 } from "../types/OrderShippingMethodUpdate";
 import { OrderUpdate, OrderUpdateVariables } from "../types/OrderUpdate";
 import { OrderVoid, OrderVoidVariables } from "../types/OrderVoid";
+import {OrderParcel, OrderParcelVariables} from "@saleor/orders/types/OrderParcel";
 
 interface OrderOperationsProps {
   order: string;
@@ -100,6 +102,10 @@ interface OrderOperationsProps {
     orderPaymentRefund: PartialMutationProviderOutput<
       OrderRefund,
       OrderRefundVariables
+    >;
+    orderParcerDetails: PartialMutationProviderOutput<
+      OrderParcel,
+      OrderParcelVariables
     >;
     orderPaymentMarkAsPaid: PartialMutationProviderOutput<
       OrderMarkAsPaid,
@@ -154,6 +160,7 @@ interface OrderOperationsProps {
   onOrderMarkAsPaid: (data: OrderMarkAsPaid) => void;
   onNoteAdd: (data: OrderAddNote) => void;
   onPaymentCapture: (data: OrderCapture) => void;
+  onParcelDetails: (data: OrderParcel) => void;
   onPaymentRefund: (data: OrderRefund) => void;
   onUpdate: (data: OrderUpdate) => void;
   onDraftCancel: (data: OrderDraftCancel) => void;
@@ -178,6 +185,7 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
   onOrderVoid,
   onPaymentCapture,
   onPaymentRefund,
+  onParcelDetails,
   onShippingMethodUpdate,
   onUpdate,
   onDraftCancel,
@@ -196,6 +204,8 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
             {(...paymentCapture) => (
               <TypedOrderRefundMutation onCompleted={onPaymentRefund}>
                 {(...paymentRefund) => (
+                    <TypedOrderParcelMutation onCompleted={onParcelDetails}>
+                      {(...parcelDetails) => (
                   <TypedOrderAddNoteMutation onCompleted={onNoteAdd}>
                     {(...addNote) => (
                       <TypedOrderUpdateMutation onCompleted={onUpdate}>
@@ -225,7 +235,7 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                                   onOrderFulfillmentCancel
                                                 }
                                               >
-                                                {(...cancelFulfillment) => (
+                                                 {(...cancelFulfillment) => (
                                                   <TypedOrderFulfillmentUpdateTrackingMutation
                                                     onCompleted={
                                                       onOrderFulfillmentUpdate
@@ -319,6 +329,9 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                                                               orderPaymentRefund: getMutationProviderData(
                                                                                 ...paymentRefund
                                                                               ),
+                                                                              orderParcelDetails: getMutationProviderData(
+                                                                                  ...parcelDetails
+                                                                              ),
                                                                               orderShippingMethodUpdate: getMutationProviderData(
                                                                                 ...updateShippingMethod
                                                                               ),
@@ -358,6 +371,8 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                       </TypedOrderUpdateMutation>
                     )}
                   </TypedOrderAddNoteMutation>
+                    )}
+                    </TypedOrderParcelMutation>
                 )}
               </TypedOrderRefundMutation>
             )}

@@ -80,6 +80,7 @@ interface OrderFulfillmentProps {
   orderNumber: string;
   onOrderFulfillmentCancel: () => void;
   onTrackingCodeAdd: () => void;
+  onParcelDetails: () => void;
 }
 
 const numberOfColumns = 5;
@@ -89,7 +90,8 @@ const OrderFulfillment: React.FC<OrderFulfillmentProps> = props => {
     fulfillment,
     orderNumber,
     onOrderFulfillmentCancel,
-    onTrackingCodeAdd
+    onTrackingCodeAdd,
+    onParcelDetails
   } = props;
   const classes = useStyles(props);
 
@@ -284,7 +286,7 @@ const OrderFulfillment: React.FC<OrderFulfillmentProps> = props => {
       </ResponsiveTable>
       {status === FulfillmentStatus.FULFILLED && !fulfillment.trackingNumber && (
         <CardActions>
-          <Button color="primary" onClick={onTrackingCodeAdd}>
+          <Button color="primary" onClick={onParcelDetails}>
             <FormattedMessage
               defaultMessage="Add tracking"
               description="fulfillment group tracking number"

@@ -63,10 +63,11 @@ interface OrderUnfulfilledItemsProps {
   canFulfill: boolean;
   lines: OrderDetails_order_lines[];
   onFulfill: () => void;
+  onParcelDetails: () => void;
 }
 
 const OrderUnfulfilledItems: React.FC<OrderUnfulfilledItemsProps> = props => {
-  const { canFulfill, lines, onFulfill } = props;
+  const { canFulfill, lines, onFulfill, onParcelDetails } = props;
   const classes = useStyles(props);
 
   const intl = useIntl();

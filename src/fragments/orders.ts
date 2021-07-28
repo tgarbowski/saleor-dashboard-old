@@ -31,6 +31,9 @@ export const fragmentOrderLine = gql`
         id
         isAvailableForPurchase
         isPublished
+        weight {
+          value
+        }
       }
       quantityAvailable
     }

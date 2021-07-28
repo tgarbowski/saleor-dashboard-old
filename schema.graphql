@@ -4116,6 +4116,7 @@ type OrderLine implements Node {
   translatedProductName: String!
   translatedVariantName: String!
   allocations: [Allocation!]
+  product: Product
 }
 
 input OrderLineCreateInput {

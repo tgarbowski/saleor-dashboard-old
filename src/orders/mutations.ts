@@ -68,6 +68,7 @@ import {
 } from "./types/OrderShippingMethodUpdate";
 import { OrderUpdate, OrderUpdateVariables } from "./types/OrderUpdate";
 import { OrderVoid, OrderVoidVariables } from "./types/OrderVoid";
+import {OrderParcel, OrderParcelVariables} from "@saleor/orders/types/OrderParcel";
 
 const orderCancelMutation = gql`
   ${fragmentOrderDetails}
@@ -160,7 +161,7 @@ export const TypedOrderRefundMutation = TypedMutation<
   OrderRefundVariables
 >(orderRefundMutation);
 
-const orderVoidMutation = gql`
+const orderParcelMutation = gql`
   ${fragmentOrderDetails}
   ${orderErrorFragment}
   mutation OrderVoid($id: ID!) {
@@ -174,6 +175,30 @@ const orderVoidMutation = gql`
     }
   }
 `;
+
+export const TypedOrderParcelMutation = TypedMutation<
+    OrderParcel,
+    OrderParcelVariables
+    >(orderParcelMutation);
+
+
+
+const orderVoidMutation = gql`
+  ${fragmentOrderDetails}
+  ${orderErrorFragment}
+  mutation OrderVoid($id: ID!) {
+    orderVoid(id: $id) {
+      errors: orderErrors {
+        ...OrderErrorFragment
+      }
+      order {
+        ...OrderDetailsFragment
+      }
+    }
+  }
+`
+
+
 export const TypedOrderVoidMutation = TypedMutation<
   OrderVoid,
   OrderVoidVariables
