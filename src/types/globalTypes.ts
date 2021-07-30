@@ -748,6 +748,14 @@ export enum ProductOrderField {
   TYPE = "TYPE",
 }
 
+export enum WMSDocumentsOrderField {
+  CREATED_AT = "CREATED_AT",
+  DOCUMENT_TYPE = "DOCUMENT_TYPE",
+  NAME = "NAME",
+  STATUS = "STATUS",
+  WAREHOUSE = "WAREHOUSE",
+}
+
 export enum ProductTypeConfigurable {
   CONFIGURABLE = "CONFIGURABLE",
   SIMPLE = "SIMPLE",
@@ -1398,6 +1406,16 @@ export interface ProductFilterInput {
   warehouseLocation?: WarehouseLocationRangeInput | null;
 }
 
+export interface WMSDocumentsFilterInput {
+  deliverers?: string | null;
+  documentType?: string | null;
+  search?: string | null;
+  status?: string | null;
+  createdAt?: DateRangeInput | null;
+  location?: string | null;
+  warehouses?: string | null;
+}
+
 export interface ProductInput {
   attributes?: (AttributeValueInput | null)[] | null;
   publicationDate?: any | null;
@@ -1419,6 +1437,12 @@ export interface ProductInput {
 }
 
 export interface ProductOrder {
+  direction: OrderDirection;
+  attributeId?: string | null;
+  field?: ProductOrderField | null;
+}
+
+export interface WMSDocumentOrder {
   direction: OrderDirection;
   attributeId?: string | null;
   field?: ProductOrderField | null;

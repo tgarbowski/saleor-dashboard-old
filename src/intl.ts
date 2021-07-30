@@ -239,6 +239,10 @@ export const sectionNames = defineMessages({
     defaultMessage: "Shipping Methods",
     description: "shipping section name"
   },
+  shops: {
+    defaultMessage: "Shops",
+    description: "shops section name"
+  },
   siteSettings: {
     defaultMessage: "Site Settings",
     description: "site settings section name"
@@ -266,6 +270,33 @@ export const sectionNames = defineMessages({
   webhooks: {
     defaultMessage: "Webhooks",
     description: "webhooks section name"
+  },
+  wmsDocuments: {
+    defaultMessage: "Warehouse documents",
+    description: "warehouse documents section name"
+  }
+});
+
+export const wmsDocumentsNames = defineMessages({
+  FGTN: {
+    defaultMessage: "FGTN",
+    description: "fgtn name"
+  },
+  GIN: {
+    defaultMessage: "GIN",
+    description: "gin name"
+  },
+  GRN: {
+    defaultMessage: "GRN",
+    description: "grn name"
+  },
+  IO: {
+    defaultMessage: "IO",
+    description: "io name"
+  },
+  IWM: {
+    defaultMessage: "IWM",
+    description: "iwm name"
   }
 });
 

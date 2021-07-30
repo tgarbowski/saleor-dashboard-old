@@ -5,7 +5,9 @@ import discountsIcon from "@assets/images/menu-discounts-icon.svg";
 import homeIcon from "@assets/images/menu-home-icon.svg";
 import ordersIcon from "@assets/images/menu-orders-icon.svg";
 import translationIcon from "@assets/images/menu-translation-icon.svg";
+import warehouseIcon from "@assets/images/warehouse-icon.svg";
 import { commonMessages, sectionNames } from "@saleor/intl";
+import { warehouseListPath, wmsDocumentsListPath } from "@saleor/warehouses/urls";
 import { IntlShape } from "react-intl";
 
 import { appsListPath } from "../../apps/urls";
@@ -132,6 +134,26 @@ function createMenuStructure(intl: IntlShape): IMenuItem[] {
       permission: PermissionEnum.MANAGE_TRANSLATIONS,
       testingContextId: "translations",
       url: languageListUrl
+    },
+    {
+      ariaLabel: "warehouses",
+      children: [
+        {
+          ariaLabel: "warehouses_details",
+          label: intl.formatMessage(sectionNames.warehouses),
+          testingContextId: "warehouses_details",
+          url: warehouseListPath
+        },
+        {
+          ariaLabel: "wms_documents",
+          label: intl.formatMessage(sectionNames.wmsDocuments),
+          testingContextId: "wms_documents",
+          url: wmsDocumentsListPath
+        }],
+      icon: warehouseIcon,
+      label: intl.formatMessage(sectionNames.warehouses),
+      permission: PermissionEnum.MANAGE_PRODUCTS,
+      testingContextId: "warehouses",
     }
   ];
 }

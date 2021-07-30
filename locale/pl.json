@@ -6,6 +6,9 @@
   "configurationMenuAttributes": {
     "string": "Określa atrybuty do stworzenia produktu"
   },
+  "configurationShopsAttributes":{
+    "string": "Zarządza i tworzy nowe sklepy hurtowników"
+  },
   "configurationMenuNavigation": {
     "string": "Zdefiniuj jak użytkownicy mogą poruszać się po twoim sklepie"
   },
@@ -6002,6 +6005,10 @@
     "context": "window title",
     "string": "Stwórz Webhook"
   },
+  "src_dot_wmsDocuments": {
+    "context": "warehouse documents section name",
+    "string": "Dokumenty magazynowe"
+  },
   "src_dot_yes": {
     "string": "Tak"
   },
@@ -6016,5 +6023,46 @@
   "voucherDetailsUnassignProduct": {
     "context": "unassign product from voucher, button",
     "string": "Cofnij przypisanie"
+  },
+  "wmsDocumentGIN": {
+    "context": "wms documents gin",
+    "string": "WZ"
+  },
+  "wmsDocumentGRN": {
+    "context": "wms documents gin",
+    "string": "PZ"
+  },
+  "wmsDocumentFGTN": {
+    "context": "wms documents gin",
+    "string": "PW"
+  },
+  "wmsDocumentIO": {
+    "context": "wms documents gin",
+    "string": "RW"
+  },
+  "wmsDocumentIWM": {
+    "context": "wms documents gin",
+    "string": "MM"
+  },
+  "documentGIN": {
+    "context": "wms documents gin",
+    "string": "Wydanie zewnętrzne"
+  },
+  "documentGRN": {
+    "context": "wms documents gin",
+    "string": "Przyjęcie zewnętrzne"
+  },
+  "documentFGTN": {
+    "context": "wms documents gin",
+    "string": "Przyjęcie wewnętrzne"
+  },
+  "documentIO": {
+    "context": "wms documents gin",
+    "string": "Rozchód wewnętrzny"
+  },
+  "documentIWM": {
+    "context": "wms documents gin",
+    "string": "Przesunięcie między magazynami"
   }
+  
 }

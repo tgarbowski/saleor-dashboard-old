@@ -124,7 +124,6 @@ const WarehouseList: React.FC<WarehouseListProps> = ({ params }) => {
     paginationState,
     params
   );
-
   const handleSort = createSortHandler(navigate, warehouseListUrl, params);
 
   const deleteTransitionState = getMutationStatus(deleteWarehouseOpts);
