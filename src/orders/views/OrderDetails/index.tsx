@@ -6,10 +6,13 @@ import { Task } from "@saleor/containers/BackgroundTasks/types";
 import useBackgroundTask from "@saleor/hooks/useBackgroundTask";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
+import useShop from "@saleor/hooks/useShop";
+import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import useUser from "@saleor/hooks/useUser";
 import { commonMessages } from "@saleor/intl";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
 import OrderInvoiceEmailSendDialog from "@saleor/orders/components/OrderInvoiceEmailSendDialog";
+import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
 import { InvoiceRequest } from "@saleor/orders/types/InvoiceRequest";
 import useCustomerSearch from "@saleor/searches/useCustomerSearch";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -19,6 +22,7 @@ import {
   usePrivateMetadataUpdate
 } from "@saleor/utils/metadata/updateMetadata";
 import { useWarehouseList } from "@saleor/warehouses/queries";
+import { forceReRender } from "@storybook/react";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -38,7 +42,6 @@ import OrderFulfillmentCancelDialog from "../../components/OrderFulfillmentCance
 import OrderFulfillmentTrackingDialog from "../../components/OrderFulfillmentTrackingDialog";
 import OrderMarkAsPaidDialog from "../../components/OrderMarkAsPaidDialog/OrderMarkAsPaidDialog";
 import OrderPaymentDialog from "../../components/OrderPaymentDialog";
-import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
 import OrderPaymentVoidDialog from "../../components/OrderPaymentVoidDialog";
 import OrderProductAddDialog from "../../components/OrderProductAddDialog";
 import OrderShippingMethodEditDialog from "../../components/OrderShippingMethodEditDialog";
@@ -85,6 +88,38 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   });
   const { queue } = useBackgroundTask();
   const intl = useIntl();
+  const shop = useShop();
+
+  const initialPackageData: any = [
+    {
+      field: "ebebe",
+      weight: "",
+      size1: "",
+      size2: "",
+      size3: "",
+      content: "Ubrania",
+      fieldIndex: 0
+    }
+  ];
+
+  console.log(packageData);
+
+  const [packageData, setPackageData] = useStateFromProps(initialPackageData);
+
+  const autogenerateIndex = () => packageData.length - 1;
+
+  const updatePackageData = () => {
+    packageData.push({
+      weight: "",
+      size1: "",
+      size2: "",
+      size3: "",
+      content: "Ubrania",
+      fieldIndex: autogenerateIndex()
+    });
+    setPackageData(packageData);
+  };
+
   const [updateMetadata, updateMetadataOpts] = useMetadataUpdate({});
   const [
     updatePrivateMetadata,
@@ -248,7 +283,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                           onParcelDetails={() => openModal("parcel")}
                           onFulfillmentCancel={fulfillmentId =>
                             navigate(
-                                orderUrl(id, {
+                              orderUrl(id, {
                                 action: "cancel-fulfillment",
                                 id: fulfillmentId
                               })
@@ -376,30 +411,29 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                           }
                         />
                         <OrderParcelDetails
-                            confirmButtonState={orderParcelDetails.opts.status}
-                            errors={
-                              orderParcelDetails.opts.data?.orderRefund.errors ||
-                              []
-                            }
-                            initial={order?.total.gross.amount}
-                            open={params.action === "parcel"}
-                            variant="parcel"
-                            onClose={closeModal}
-                            orderDetails = {order}
-                            productWeight = {order?.lines[0]?.variant?.product?.weight.value}
-                            orderFirstName = {order?.billingAddress?.customerFirstName}
-                            onSubmit={variables =>
-                                orderParcelDetails.mutate({
-                                  ...variables,
-                                  id
-                                })
-                            }
-                            countries={maybe(() => data.shop.countries, []).map(
-                                country => ({
-                                  code: country.code,
-                                  label: country.country
-                                })
-                            )}
+                          confirmButtonState={orderParcelDetails.opts.status}
+                          errors={
+                            orderParcelDetails.opts.data?.orderRefund.errors ||
+                            []
+                          }
+                          initial={order?.total.gross.amount}
+                          open={params.action === "parcel"}
+                          variant="parcel"
+                          onClose={closeModal}
+                          orderDetails={order}
+                          packageData={packageData}
+                          productWeight={order?.lines}
+                          shopDetails={shop?.companyAddress}
+                          orderFirstName={
+                            order?.billingAddress?.customerFirstName
+                          }
+                          onSubmit={() => console.log("dupa")}
+                          countries={maybe(() => data.shop.countries, []).map(
+                            country => ({
+                              code: country.code,
+                              label: country.country
+                            })
+                          )}
                         />
                         <OrderFulfillmentCancelDialog
                           confirmButtonState={

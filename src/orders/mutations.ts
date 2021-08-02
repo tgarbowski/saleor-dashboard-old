@@ -8,6 +8,7 @@ import {
   invoiceFragment
 } from "@saleor/fragments/orders";
 import makeMutation from "@saleor/hooks/makeMutation";
+import {OrderParcel, OrderParcelVariables} from "@saleor/orders/types/OrderParcel";
 import gql from "graphql-tag";
 
 import { TypedMutation } from "../mutations";
@@ -68,7 +69,6 @@ import {
 } from "./types/OrderShippingMethodUpdate";
 import { OrderUpdate, OrderUpdateVariables } from "./types/OrderUpdate";
 import { OrderVoid, OrderVoidVariables } from "./types/OrderVoid";
-import {OrderParcel, OrderParcelVariables} from "@saleor/orders/types/OrderParcel";
 
 const orderCancelMutation = gql`
   ${fragmentOrderDetails}
@@ -521,3 +521,17 @@ export const TypedInvoiceEmailSendMutation = TypedMutation<
   InvoiceEmailSend,
   InvoiceEmailSendVariables
 >(invoiceEmailSendMutation);
+
+
+const dpdPackageCreateMutation = gql`
+  mutation dpdPackageCreate($input: DpdCreatePackageInput!){
+    dpdPackageCreate(input: $input){
+    packageId
+    parcelIds
+    waybills
+    status
+    }
+  }
+`
+
+export const useDpdPackageCreateMutation = makeMutation<any, any>(dpdPackageCreateMutation);
