@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import { MetadataFormData } from "@saleor/components/Metadata";
 import NotFoundPage from "@saleor/components/NotFoundPage";
 import { WindowTitle } from "@saleor/components/WindowTitle";
@@ -13,6 +14,8 @@ import { commonMessages } from "@saleor/intl";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
 import OrderInvoiceEmailSendDialog from "@saleor/orders/components/OrderInvoiceEmailSendDialog";
 import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
+import { useDpdPackageCreateMutation } from "@saleor/orders/mutations";
+import { DpdPackage_parcelData } from "@saleor/orders/types/DpdPackageCreate";
 import { InvoiceRequest } from "@saleor/orders/types/InvoiceRequest";
 import useCustomerSearch from "@saleor/searches/useCustomerSearch";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -22,7 +25,6 @@ import {
   usePrivateMetadataUpdate
 } from "@saleor/utils/metadata/updateMetadata";
 import { useWarehouseList } from "@saleor/warehouses/queries";
-import { forceReRender } from "@storybook/react";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -92,7 +94,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
 
   const initialPackageData: any = [
     {
-      field: "ebebe",
       weight: "",
       size1: "",
       size2: "",
@@ -102,23 +103,9 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
     }
   ];
 
-  console.log(packageData);
-
   const [packageData, setPackageData] = useStateFromProps(initialPackageData);
 
   const autogenerateIndex = () => packageData.length - 1;
-
-  const updatePackageData = () => {
-    packageData.push({
-      weight: "",
-      size1: "",
-      size2: "",
-      size3: "",
-      content: "Ubrania",
-      fieldIndex: autogenerateIndex()
-    });
-    setPackageData(packageData);
-  };
 
   const [updateMetadata, updateMetadataOpts] = useMetadataUpdate({});
   const [
@@ -133,6 +120,17 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   >(navigate, params => orderUrl(id, params), params);
 
   const handleBack = () => navigate(orderListUrl());
+
+  const [dpdPackageCreate, dpdPackageCreateOpts] = useDpdPackageCreateMutation({
+    onCompleted: data => {
+      if (data.packageId.errors.length === 0) {
+        notify({
+          status: "success",
+          text: "Package created"
+        });
+      }
+    }
+  });
 
   return (
     <TypedOrderDetailsQuery displayLoader variables={{ id }}>
@@ -160,6 +158,49 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           }
 
           return result;
+        };
+
+        const handleDpdPackageCreateSubmit = async (formData: any[]) => {
+          const result = await dpdPackageCreate({
+            variables: {
+              input: {
+                senderData: {
+                  company: shop?.companyAddress?.companyName,
+                  address:
+                    shop?.companyAddress?.streetAddress1 +
+                    shop?.companyAddress?.streetAddress2,
+                  city: shop?.companyAddress?.city,
+                  countryCode: order?.shippingAddress?.country?.code, // to do wyciagnac code ze sklepu
+                  email: order?.userEmail, // TO DO dostac dane z shop
+                  fid: "1495",
+                  phone: shop?.companyAddress?.phone,
+                  postalCode: shop?.companyAddress?.postalCode
+                },
+                receiverData: {
+                  address:
+                    order?.shippingAddress?.streetAddress1 +
+                    order?.shippingAddress?.streetAddress2,
+                  city: order?.shippingAddress?.city,
+                  company:
+                    order?.shippingAddress?.firstName +
+                    order?.shippingAddress?.lastName +
+                    order?.shippingAddress?.companyName,
+                  countryCode: order?.shippingAddress?.country?.code,
+                  email: order?.userEmail,
+                  phone: order?.shippingAddress?.phone,
+                  postalCode: order?.shippingAddress?.postalCode
+                },
+                fulfillment: order?.fulfillments[0]?.id,
+                packageData: formData.map(data => ({
+                  weight: parseFloat(data.weight),
+                  content: data.content,
+                  sizeX: parseInt(data.size1),
+                  sizeY: parseInt(data.size2),
+                  sizeZ: parseInt(data.size3)
+                }))
+              }
+            }
+          });
         };
 
         return (
@@ -427,7 +468,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                           orderFirstName={
                             order?.billingAddress?.customerFirstName
                           }
-                          onSubmit={() => console.log("dupa")}
+                          onSubmit={handleDpdPackageCreateSubmit}
                           countries={maybe(() => data.shop.countries, []).map(
                             country => ({
                               code: country.code,

@@ -25,10 +25,10 @@ import Form from "@saleor/components/Form";
 import { nameInputPrefix, nameSeparator } from "@saleor/components/Metadata";
 import { AddressTypeInput } from "@saleor/customers/types";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
-import useAddressValidation from "@saleor/hooks/useAddressValidation";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { buttonMessages } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
+import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { AddressInput } from "@saleor/types/globalTypes";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -121,6 +121,7 @@ export interface OrderParcelDetailsProps {
   errors: OrderErrorFragment[];
   data: any;
   open: boolean;
+  orderDetails: OrderDetails_order;
   initial: number;
   variant: "parcel";
   onClose: () => void;
@@ -145,7 +146,8 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
     errors = [],
     countries = [],
     onClose,
-    onConfirm
+    onConfirm,
+    onSubmit
   } = props;
   const classes = useStyles(props);
 
@@ -162,15 +164,15 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
     maybe(
       () =>
         countries.find(
-          country => orderDetails.billingAddress.country.code === country.code
+          country => orderDetails.shippingAddress.country.code === country.code
         ).label
     )
   );
 
-  //  const autogenerateIndex = () => packageData.length - 1;
+  const autogenerateIndex = () => packageData.length;
   const onParcelAdd = () => {
     packageData.push({
-      weight: "",
+      weight: productWeight[0]?.variant?.product?.weight?.value,
       size1: "",
       size2: "",
       size3: "",
@@ -181,16 +183,13 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   };
 
   const onParcelDelete = event => {
-    console.log(event);
     packageData.splice(event, 1);
-    console.log(packageData);
     setState({ ...state });
   };
 
-  const {
-    errors: validationErrors,
-    submit: handleSubmit
-  } = useAddressValidation(onConfirm);
+  const onParcelChange = (index, value, inputType) => {
+    packageData[index][inputType] = value;
+  };
 
   return (
     <Dialog
@@ -200,7 +199,10 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
       maxWidth="md"
       fullWidth
     >
-      <Form initial={orderDetails?.billingAddress} onSubmit={handleSubmit}>
+      <Form
+        initial={orderDetails?.shippingAddress}
+        onSubmit={() => onSubmit(packageData)}
+      >
         {() => (
           <>
             <DialogTitle>
@@ -246,36 +248,36 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                 <CardTitle title="Adres wysyłki" />
                 <CardContent>
                   <>
-                    {orderDetails?.billingAddress?.companyName && (
+                    {orderDetails?.shippingAddress?.companyName && (
                       <Typography>
-                        {orderDetails?.billingAddress?.companyName}
+                        {orderDetails?.shippingAddress?.companyName}
                       </Typography>
                     )}
                     <Typography>
-                      {orderDetails?.billingAddress?.firstName}{" "}
-                      {orderDetails?.billingAddress?.lastName}
+                      {orderDetails?.shippingAddress?.firstName}{" "}
+                      {orderDetails?.shippingAddress?.lastName}
                     </Typography>
                     <Typography>
-                      {orderDetails?.billingAddress?.streetAddress1}
+                      {orderDetails?.shippingAddress?.streetAddress1}
                       <br />
-                      {orderDetails?.billingAddress?.streetAddress2}
+                      {orderDetails?.shippingAddress?.streetAddress2}
                     </Typography>
                     <Typography>
-                      {orderDetails?.billingAddress?.postalCode}{" "}
-                      {orderDetails?.billingAddress?.city}
-                      {orderDetails?.billingAddress?.cityArea
-                        ? ", " + orderDetails?.billingAddress?.cityArea
+                      {orderDetails?.shippingAddress?.postalCode}{" "}
+                      {orderDetails?.shippingAddress?.city}
+                      {orderDetails?.shippingAddress?.cityArea
+                        ? ", " + orderDetails?.shippingAddress?.cityArea
                         : ""}
                     </Typography>
                     <Typography>
-                      {orderDetails?.billingAddress?.countryArea
-                        ? orderDetails?.billingAddress?.countryArea +
+                      {orderDetails?.shippingAddress?.countryArea
+                        ? orderDetails?.shippingAddress?.countryArea +
                           ", " +
-                          orderDetails?.billingAddress?.country.country
-                        : orderDetails?.billingAddress?.country.country}
+                          orderDetails?.shippingAddress?.country.country
+                        : orderDetails?.shippingAddress?.country.country}
                     </Typography>
                     <Typography>
-                      {orderDetails?.billingAddress?.phone}
+                      {orderDetails?.shippingAddress?.phone}
                     </Typography>
                   </>
                 </CardContent>
@@ -336,8 +338,16 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={() => console.log("dupa")}
-                          defaultValue={element.weight}
+                          onChange={event =>
+                            onParcelChange(
+                              element.fieldIndex,
+                              event.target.value,
+                              "weight"
+                            )
+                          }
+                          defaultValue={
+                            productWeight[0]?.variant?.product?.weight?.value
+                          }
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>
@@ -349,7 +359,13 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={() => console.log("dupa")}
+                          onChange={event =>
+                            onParcelChange(
+                              element.fieldIndex,
+                              event.target.value,
+                              "content"
+                            )
+                          }
                           defaultValue={element.content}
                         />
                       </TableCell>
@@ -362,7 +378,13 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={() => console.log("dupa")}
+                          onChange={event =>
+                            onParcelChange(
+                              element.fieldIndex,
+                              event.target.value,
+                              "size1"
+                            )
+                          }
                           defaultValue={element.size1}
                         />
                       </TableCell>
@@ -375,7 +397,13 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={() => console.log("dupa")}
+                          onChange={event =>
+                            onParcelChange(
+                              element.fieldIndex,
+                              event.target.value,
+                              "size2"
+                            )
+                          }
                           defaultValue={element.size2}
                         />
                       </TableCell>
@@ -388,7 +416,13 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={() => console.log("dupa")}
+                          onChange={event =>
+                            onParcelChange(
+                              element.fieldIndex,
+                              event.target.value,
+                              "size3"
+                            )
+                          }
                           defaultValue={element.size3}
                         />
                       </TableCell>
@@ -396,7 +430,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                         <IconButton
                           color="primary"
                           data-test="deleteField"
-                          data-test-id={1}
+                          data-test-id={element.fieldIndex}
                           onClick={() => onParcelDelete(element.fieldIndex)}
                         >
                           <DeleteIcon />
