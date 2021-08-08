@@ -298,6 +298,13 @@ const OrderFulfillment: React.FC<OrderFulfillmentProps> = props => {
         <CardActions>
           <Button color="primary" onClick={onTrackingCodeAdd}>
             <FormattedMessage
+              defaultMessage="Download tracking label"
+              description="Download tracking label"
+              id="generateLabel"
+            />
+          </Button>
+          <Button color="primary" onClick={onTrackingCodeAdd}>
+            <FormattedMessage
               defaultMessage="Edit tracking"
               description="fulfillment group tracking number"
             />

@@ -6063,6 +6063,10 @@
   "documentIWM": {
     "context": "wms documents gin",
     "string": "Przesunięcie między magazynami"
+  },
+  "generateLabel": {
+    "context": "Download tracking label",
+    "string": "Pobierz etykietę"
   }
   
 }

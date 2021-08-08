@@ -201,7 +201,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
     >
       <Form
         initial={orderDetails?.shippingAddress}
-        onSubmit={() => onSubmit(packageData)}
+        onSubmit={() => onSubmit(packageData, state.generateReport)}
       >
         {() => (
           <>
@@ -216,8 +216,8 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                 <CardTitle title="Adres nadawcy" />
                 <CardContent>
                   <>
-                    {shopDetails.companyName && (
-                      <Typography>{shopDetails.companyName}</Typography>
+                    {shopDetails?.companyName && (
+                      <Typography>{shopDetails?.companyName}</Typography>
                     )}
                     <Typography>
                       {shopDetails?.firstName} {shopDetails?.lastName}

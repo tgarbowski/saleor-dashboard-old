@@ -15,6 +15,7 @@ import {
 import gql from "graphql-tag";
 
 import { TypedMutation } from "../mutations";
+import { DpdLabel, DpdLabelVariables } from "./types/DpdLabelCreate";
 import { DpdPackage, DpdPackageVariables } from "./types/DpdPackageCreate";
 import { FulfillOrder, FulfillOrderVariables } from "./types/FulfillOrder";
 import {
@@ -538,3 +539,13 @@ export const useDpdPackageCreateMutation = makeMutation<
   DpdPackage,
   DpdPackageVariables
 >(dpdPackageCreateMutation);
+
+const dpdLabelCreateMutation = gql`
+  mutation DpdLabelCreate($input: DpdCreateLabelInput!){
+    dpdLabelCreate(input: $input){
+    label
+    }
+  }
+`
+
+export const useDpdLabelCreateMutation = makeMutation<DpdLabel, DpdLabelVariables>(dpdLabelCreateMutation);

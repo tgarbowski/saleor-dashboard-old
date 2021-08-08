@@ -14,7 +14,10 @@ import { commonMessages } from "@saleor/intl";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
 import OrderInvoiceEmailSendDialog from "@saleor/orders/components/OrderInvoiceEmailSendDialog";
 import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
-import { useDpdPackageCreateMutation } from "@saleor/orders/mutations";
+import {
+  useDpdLabelCreateMutation,
+  useDpdPackageCreateMutation
+} from "@saleor/orders/mutations";
 import { DpdPackage_parcelData } from "@saleor/orders/types/DpdPackageCreate";
 import { InvoiceRequest } from "@saleor/orders/types/InvoiceRequest";
 import useCustomerSearch from "@saleor/searches/useCustomerSearch";
@@ -121,14 +124,20 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
 
   const handleBack = () => navigate(orderListUrl());
 
+  const [dpdLabelCreate] = useDpdLabelCreateMutation({
+    onCompleted: data => {
+      console.log(data);
+    }
+  });
+
   const [dpdPackageCreate, dpdPackageCreateOpts] = useDpdPackageCreateMutation({
     onCompleted: data => {
-      if (data.packageId.errors.length === 0) {
-        notify({
-          status: "success",
-          text: "Package created"
-        });
-      }
+      notify({
+        status: "success",
+        text: "Package created"
+      });
+      closeModal();
+      return data;
     }
   });
 
@@ -160,7 +169,10 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           return result;
         };
 
-        const handleDpdPackageCreateSubmit = async (formData: any[]) => {
+        const handleDpdPackageCreateSubmit = async (
+          formData: any[],
+          generateLabel: boolean
+        ) => {
           const result = await dpdPackageCreate({
             variables: {
               input: {
@@ -201,6 +213,16 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               }
             }
           });
+          console.log(result);
+          if (generateLabel) {
+            const labelCreated = await dpdLabelCreate({
+              variables: {
+                input: {
+                  packageId: result.data.dpdPackageCreate.packageId
+                }
+              }
+            });
+          }
         };
 
         return (
