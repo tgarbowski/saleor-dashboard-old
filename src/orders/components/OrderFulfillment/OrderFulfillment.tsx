@@ -80,6 +80,7 @@ interface OrderFulfillmentProps {
   orderNumber: string;
   onOrderFulfillmentCancel: () => void;
   onTrackingCodeAdd: () => void;
+  onParcelLabelDownload: () => void;
   onParcelDetails: () => void;
 }
 
@@ -91,7 +92,8 @@ const OrderFulfillment: React.FC<OrderFulfillmentProps> = props => {
     orderNumber,
     onOrderFulfillmentCancel,
     onTrackingCodeAdd,
-    onParcelDetails
+    onParcelDetails,
+    onParcelLabelDownload
   } = props;
   const classes = useStyles(props);
 
@@ -296,7 +298,7 @@ const OrderFulfillment: React.FC<OrderFulfillmentProps> = props => {
       )}
       {status === FulfillmentStatus.FULFILLED && fulfillment.trackingNumber && (
         <CardActions>
-          <Button color="primary" onClick={onTrackingCodeAdd}>
+          <Button color="primary" onClick={onParcelLabelDownload}>
             <FormattedMessage
               defaultMessage="Download tracking label"
               description="Download tracking label"

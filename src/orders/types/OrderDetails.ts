@@ -129,6 +129,8 @@ export interface OrderDetails_order_fulfillments {
   __typename: "Fulfillment";
   id: string;
   lines: (OrderDetails_order_fulfillments_lines | null)[] | null;
+  metadata: (OrderDetails_order_metadata | null)[];
+  privateMetadata: (OrderDetails_order_privateMetadata | null)[];
   fulfillmentOrder: number;
   status: FulfillmentStatus;
   trackingNumber: string;

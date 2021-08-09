@@ -108,8 +108,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
 
   const [packageData, setPackageData] = useStateFromProps(initialPackageData);
 
-  const autogenerateIndex = () => packageData.length - 1;
-
   const [updateMetadata, updateMetadataOpts] = useMetadataUpdate({});
   const [
     updatePrivateMetadata,
@@ -124,13 +122,9 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
 
   const handleBack = () => navigate(orderListUrl());
 
-  const [dpdLabelCreate] = useDpdLabelCreateMutation({
-    onCompleted: data => {
-      console.log(data);
-    }
-  });
+  const [dpdLabelCreate] = useDpdLabelCreateMutation({});
 
-  const [dpdPackageCreate, dpdPackageCreateOpts] = useDpdPackageCreateMutation({
+  const [dpdPackageCreate] = useDpdPackageCreateMutation({
     onCompleted: data => {
       notify({
         status: "success",
@@ -141,11 +135,23 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
     }
   });
 
+  const downloadBase64File = (
+    contentType: string,
+    base64Data: string,
+    fileName: string
+  ) => {
+    const linkSource = `data:${contentType};base64,${base64Data}`;
+    const downloadLink = document.createElement("a");
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  };
+
   return (
     <TypedOrderDetailsQuery displayLoader variables={{ id }}>
       {({ data, loading }) => {
         const order = data?.order;
-
+        console.log(order);
         if (order === null) {
           return <NotFoundPage onBack={handleBack} />;
         }
@@ -213,7 +219,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               }
             }
           });
-          console.log(result);
           if (generateLabel) {
             const labelCreated = await dpdLabelCreate({
               variables: {
@@ -222,7 +227,33 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 }
               }
             });
+            downloadBase64File(
+              "application/pdf",
+              labelCreated.data.dpdLabelCreate.label,
+              result.data.dpdPackageCreate.packageId
+            );
           }
+          window.location.reload();
+        };
+
+        const handleLabelDownloadOnButton = async () => {
+          const packageIdentifier = JSON.parse(
+            order?.fulfillments[0]?.privateMetadata
+              ?.find(item => item.key === "package")
+              .value.replaceAll("'", '"')
+          ).id;
+          const labelCreated = await dpdLabelCreate({
+            variables: {
+              input: {
+                packageId: packageIdentifier
+              }
+            }
+          });
+          downloadBase64File(
+            "application/pdf",
+            labelCreated.data.dpdLabelCreate.label,
+            packageIdentifier
+          );
         };
 
         return (
@@ -360,6 +391,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                               })
                             )
                           }
+                          onParcelLabelDownload={handleLabelDownloadOnButton}
                           onPaymentCapture={() => openModal("capture")}
                           onPaymentVoid={() => openModal("void")}
                           onPaymentRefund={() => openModal("refund")}
