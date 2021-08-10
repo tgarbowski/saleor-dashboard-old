@@ -130,7 +130,6 @@ function loadStories() {
   require("./stories/orders/OrderListPage");
   require("./stories/orders/OrderMarkAsPaidDialog");
   require("./stories/orders/OrderPaymentDialog");
-  require("./stories/orders/OrderParcelDetails");
   require("./stories/orders/OrderPaymentVoidDialog");
   require("./stories/orders/OrderProductAddDialog");
   require("./stories/orders/OrderShippingMethodEditDialog");

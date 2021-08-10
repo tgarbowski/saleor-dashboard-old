@@ -1,6 +1,7 @@
 import messages from "@saleor/containers/BackgroundTasks/messages";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
+import { OrderParcel } from "@saleor/orders/types/OrderParcel";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -19,8 +20,7 @@ import { OrderLineDelete } from "../../types/OrderLineDelete";
 import { OrderLinesAdd } from "../../types/OrderLinesAdd";
 import { OrderLineUpdate } from "../../types/OrderLineUpdate";
 import { OrderMarkAsPaid } from "../../types/OrderMarkAsPaid";
-import { OrderRefund} from "../../types/OrderRefund";
-import { OrderParcel} from "@saleor/orders/types/OrderParcel";
+import { OrderRefund } from "../../types/OrderRefund";
 import { OrderShippingMethodUpdate } from "../../types/OrderShippingMethodUpdate";
 import { OrderUpdate } from "../../types/OrderUpdate";
 import { OrderVoid } from "../../types/OrderVoid";
@@ -327,9 +327,9 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
     handleOrderLinesAdd,
     handleOrderMarkAsPaid,
     handleOrderVoid,
+    handleParcelDetails,
     handlePaymentCapture,
     handlePaymentRefund,
-    handleParcelDetails,
     handleShippingMethodUpdate,
     handleUpdate
   });

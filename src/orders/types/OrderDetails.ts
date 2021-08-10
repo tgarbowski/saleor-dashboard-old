@@ -137,11 +137,16 @@ export interface OrderDetails_order_fulfillments {
   warehouse: OrderDetails_order_fulfillments_warehouse | null;
 }
 
+export interface OrderDetails_order_lines_variant_product_weight {
+  value: string | null;
+}
+
 export interface OrderDetails_order_lines_variant_product {
   __typename: "Product";
   id: string;
   isAvailableForPurchase: boolean | null;
   isPublished: boolean;
+  weight: OrderDetails_order_lines_variant_product_weight;
 }
 
 export interface OrderDetails_order_lines_variant {

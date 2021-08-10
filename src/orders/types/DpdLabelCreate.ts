@@ -6,8 +6,12 @@
 // GraphQL mutation operation: DpdLabelCreate
 // ====================================================
 
+export interface DpdLabel_dpdLabelCreate {
+  label: string;
+}
+
 export interface DpdLabel {
-  label:  string;
+  dpdLabelCreate:  DpdLabel_dpdLabelCreate;
 }
 
 export interface DpdLabel_input {

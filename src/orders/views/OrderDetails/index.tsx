@@ -8,7 +8,6 @@ import useBackgroundTask from "@saleor/hooks/useBackgroundTask";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import useShop from "@saleor/hooks/useShop";
-import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import useUser from "@saleor/hooks/useUser";
 import { commonMessages } from "@saleor/intl";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
@@ -18,7 +17,6 @@ import {
   useDpdLabelCreateMutation,
   useDpdPackageCreateMutation
 } from "@saleor/orders/mutations";
-import { DpdPackage_parcelData } from "@saleor/orders/types/DpdPackageCreate";
 import { InvoiceRequest } from "@saleor/orders/types/InvoiceRequest";
 import useCustomerSearch from "@saleor/searches/useCustomerSearch";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -68,6 +66,15 @@ interface OrderDetailsProps {
   params: OrderUrlQueryParams;
 }
 
+export interface PackageData {
+  weight: string;
+  content: string;
+  size1: string;
+  size2: string;
+  size3: string;
+  fieldIndex: number;
+}
+
 export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   const navigate = useNavigator();
   const { user } = useUser();
@@ -94,19 +101,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   const { queue } = useBackgroundTask();
   const intl = useIntl();
   const shop = useShop();
-
-  const initialPackageData: any = [
-    {
-      weight: "",
-      size1: "",
-      size2: "",
-      size3: "",
-      content: "Ubrania",
-      fieldIndex: 0
-    }
-  ];
-
-  const [packageData, setPackageData] = useStateFromProps(initialPackageData);
 
   const [updateMetadata, updateMetadataOpts] = useMetadataUpdate({});
   const [
@@ -135,6 +129,21 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
     }
   });
 
+  const checkIfParcelDialogCorrect = (formData: PackageData[]) => {
+    let dataCorrect: boolean = true;
+    formData.forEach(element => {
+      if (
+        isNaN(parseFloat(element.size1)) ||
+        isNaN(parseFloat(element.size2)) ||
+        isNaN(parseFloat(element.size3)) ||
+        isNaN(parseFloat(element.weight))
+      ) {
+        dataCorrect = false;
+      }
+    });
+    return dataCorrect;
+  };
+
   const downloadBase64File = (
     contentType: string,
     base64Data: string,
@@ -151,7 +160,16 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
     <TypedOrderDetailsQuery displayLoader variables={{ id }}>
       {({ data, loading }) => {
         const order = data?.order;
-        console.log(order);
+        const initialPackageData: PackageData[] = [
+          {
+            content: "Ubrania",
+            fieldIndex: 0,
+            size1: "",
+            size2: "",
+            size3: "",
+            weight: order?.lines[0]?.variant?.product?.weight?.value
+          }
+        ];
         if (order === null) {
           return <NotFoundPage onBack={handleBack} />;
         }
@@ -164,7 +182,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
             variables => updatePrivateMetadata({ variables })
           );
           const result = await update(data);
-
           if (result.length === 0) {
             notify({
               status: "success",
@@ -176,71 +193,82 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
         };
 
         const handleDpdPackageCreateSubmit = async (
-          formData: any[],
+          formData: PackageData[],
           generateLabel: boolean
         ) => {
-          const result = await dpdPackageCreate({
-            variables: {
-              input: {
-                senderData: {
-                  company: shop?.companyAddress?.companyName,
-                  address:
-                    shop?.companyAddress?.streetAddress1 +
-                    shop?.companyAddress?.streetAddress2,
-                  city: shop?.companyAddress?.city,
-                  countryCode: order?.shippingAddress?.country?.code, // to do wyciagnac code ze sklepu
-                  email: order?.userEmail, // TO DO dostac dane z shop
-                  fid: "1495",
-                  phone: shop?.companyAddress?.phone,
-                  postalCode: shop?.companyAddress?.postalCode
-                },
-                receiverData: {
-                  address:
-                    order?.shippingAddress?.streetAddress1 +
-                    order?.shippingAddress?.streetAddress2,
-                  city: order?.shippingAddress?.city,
-                  company:
-                    order?.shippingAddress?.firstName +
-                    order?.shippingAddress?.lastName +
-                    order?.shippingAddress?.companyName,
-                  countryCode: order?.shippingAddress?.country?.code,
-                  email: order?.userEmail,
-                  phone: order?.shippingAddress?.phone,
-                  postalCode: order?.shippingAddress?.postalCode
-                },
-                fulfillment: order?.fulfillments[0]?.id,
-                packageData: formData.map(data => ({
-                  weight: parseFloat(data.weight),
-                  content: data.content,
-                  sizeX: parseInt(data.size1),
-                  sizeY: parseInt(data.size2),
-                  sizeZ: parseInt(data.size3)
-                }))
-              }
-            }
-          });
-          if (generateLabel) {
-            const labelCreated = await dpdLabelCreate({
+          const dataCorrect = checkIfParcelDialogCorrect(formData);
+          if (dataCorrect) {
+            const result = await dpdPackageCreate({
               variables: {
                 input: {
-                  packageId: result.data.dpdPackageCreate.packageId
+                  fulfillment: order?.fulfillments[0]?.id,
+                  packageData: formData.map(data => ({
+                    content: data.content,
+                    sizeX: parseInt(data.size1),
+                    sizeY: parseInt(data.size2),
+                    sizeZ: parseInt(data.size3),
+                    weight: parseFloat(data.weight)
+                  })),
+                  receiverData: {
+                    address:
+                      order?.shippingAddress?.streetAddress1 +
+                      order?.shippingAddress?.streetAddress2,
+                    city: order?.shippingAddress?.city,
+                    company:
+                      order?.shippingAddress?.firstName +
+                      " " +
+                      order?.shippingAddress?.lastName +
+                      order?.shippingAddress?.companyName,
+                    countryCode: order?.shippingAddress?.country?.code,
+                    email: order?.userEmail,
+                    phone: order?.shippingAddress?.phone,
+                    postalCode: order?.shippingAddress?.postalCode
+                  },
+                  senderData: {
+                    address:
+                      shop?.companyAddress?.streetAddress1 +
+                      " " +
+                      shop?.companyAddress?.streetAddress2,
+                    city: shop?.companyAddress?.city,
+                    company: shop?.companyAddress?.companyName,
+                    countryCode: order?.shippingAddress?.country?.code,
+                    email: order?.userEmail,
+                    fid: "1495",
+                    phone: shop?.companyAddress?.phone,
+                    postalCode: shop?.companyAddress?.postalCode
+                  }
                 }
               }
             });
-            downloadBase64File(
-              "application/pdf",
-              labelCreated.data.dpdLabelCreate.label,
-              result.data.dpdPackageCreate.packageId
-            );
+            if (generateLabel) {
+              const labelCreated = await dpdLabelCreate({
+                variables: {
+                  input: {
+                    packageId: result.data.dpdPackageCreate.packageId
+                  }
+                }
+              });
+              downloadBase64File(
+                "application/pdf",
+                labelCreated.data.dpdLabelCreate.label,
+                result.data.dpdPackageCreate.packageId.toString()
+              );
+            }
+            window.location.reload();
+          } else {
+            notify({
+              status: "error",
+              text: "Dane do wysłania są niepoprawne"
+            });
+            closeModal();
           }
-          window.location.reload();
         };
 
         const handleLabelDownloadOnButton = async () => {
           const packageIdentifier = JSON.parse(
             order?.fulfillments[0]?.privateMetadata
               ?.find(item => item.key === "package")
-              .value.replaceAll("'", '"')
+              .value.replace(/'/g, '"')
           ).id;
           const labelCreated = await dpdLabelCreate({
             variables: {
@@ -308,9 +336,9 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                   orderLinesAdd,
                   orderLineDelete,
                   orderLineUpdate,
+                  orderParcelDetails,
                   orderPaymentCapture,
                   orderPaymentRefund,
-                  orderParcelDetails,
                   orderVoid,
                   orderShippingMethodUpdate,
                   orderUpdate,
@@ -507,28 +535,16 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                         />
                         <OrderParcelDetails
                           confirmButtonState={orderParcelDetails.opts.status}
-                          errors={
-                            orderParcelDetails.opts.data?.orderRefund.errors ||
-                            []
-                          }
+                          errors={orderParcelDetails.opts.data?.errors || []}
                           initial={order?.total.gross.amount}
                           open={params.action === "parcel"}
                           variant="parcel"
                           onClose={closeModal}
                           orderDetails={order}
-                          packageData={packageData}
+                          packageData={initialPackageData}
                           productWeight={order?.lines}
                           shopDetails={shop?.companyAddress}
-                          orderFirstName={
-                            order?.billingAddress?.customerFirstName
-                          }
                           onSubmit={handleDpdPackageCreateSubmit}
-                          countries={maybe(() => data.shop.countries, []).map(
-                            country => ({
-                              code: country.code,
-                              label: country.country
-                            })
-                          )}
                         />
                         <OrderFulfillmentCancelDialog
                           confirmButtonState={

@@ -67,7 +67,7 @@ interface OrderUnfulfilledItemsProps {
 }
 
 const OrderUnfulfilledItems: React.FC<OrderUnfulfilledItemsProps> = props => {
-  const { canFulfill, lines, onFulfill, onParcelDetails } = props;
+  const { canFulfill, lines, onFulfill } = props;
   const classes = useStyles(props);
 
   const intl = useIntl();

@@ -23,13 +23,10 @@ import ConfirmButton, {
 } from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
 import { nameInputPrefix, nameSeparator } from "@saleor/components/Metadata";
-import { AddressTypeInput } from "@saleor/customers/types";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
-import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { buttonMessages } from "@saleor/intl";
-import { maybe } from "@saleor/misc";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
-import { AddressInput } from "@saleor/types/globalTypes";
+import { PackageData } from "@saleor/orders/views/OrderDetails";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -91,11 +88,11 @@ const useStyles = makeStyles(
         padding: `13px 16px`
       },
       overflow: {
-        overflowY: "visible",
+        alignItems: "stretch",
         display: "flex",
         flexDirection: "row",
-        alignItems: "stretch",
-        gridGap: "20%"
+        gridGap: "20%",
+        overflowY: "visible"
       },
       table: {
         tableLayout: "fixed"
@@ -119,20 +116,15 @@ export interface FormData {
 export interface OrderParcelDetailsProps {
   confirmButtonState: ConfirmButtonTransitionState;
   errors: OrderErrorFragment[];
-  data: any;
   open: boolean;
   orderDetails: OrderDetails_order;
   initial: number;
   variant: "parcel";
+  productWeight: any;
+  shopDetails: any;
+  packageData: PackageData[];
+  onSubmit: (formData: PackageData[], generateLabel: boolean) => void;
   onClose: () => void;
-  onSubmit: (data: OrderParcelDetailsProps) => void;
-
-  address: AddressTypeInput;
-  countries?: Array<{
-    code: string;
-    label: string;
-  }>;
-  onConfirm(data: AddressInput);
 }
 
 const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
@@ -142,12 +134,9 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
     productWeight,
     shopDetails,
     packageData,
+    onSubmit,
     open,
-    errors = [],
-    countries = [],
-    onClose,
-    onConfirm,
-    onSubmit
+    onClose
   } = props;
   const classes = useStyles(props);
 
@@ -160,24 +149,16 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   };
 
   const intl = useIntl();
-  const [countryDisplayName, setCountryDisplayName] = useStateFromProps(
-    maybe(
-      () =>
-        countries.find(
-          country => orderDetails.shippingAddress.country.code === country.code
-        ).label
-    )
-  );
 
   const autogenerateIndex = () => packageData.length;
   const onParcelAdd = () => {
     packageData.push({
-      weight: productWeight[0]?.variant?.product?.weight?.value,
+      content: "Ubrania",
+      fieldIndex: autogenerateIndex(),
       size1: "",
       size2: "",
       size3: "",
-      content: "Ubrania",
-      fieldIndex: autogenerateIndex()
+      weight: productWeight[0]?.variant?.product?.weight?.value
     });
     setState({ ...state });
   };

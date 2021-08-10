@@ -8,11 +8,15 @@ import { CountryCode } from "@saleor/types/globalTypes";
 // GraphQL mutation operation: DpdPackageCreate
 // ====================================================
 
-export interface DpdPackage {
+export interface DpdPackage_packageCreated {
   packageId:  number;
   parcelIds: number[];
   waybills: string[];
   status: string;
+}
+
+export interface DpdPackage {
+  dpdPackageCreate: DpdPackage_packageCreated;
 }
 
 
@@ -39,11 +43,11 @@ export interface DpdPackage_receivedData {
 }
 
 export interface DpdPackage_parcelData{
-  weight: string;
+  weight: number;
   content: string;
-  sizeX: string;
-  sizeY: string;
-  sizeZ: string;
+  sizeX: number;
+  sizeY: number;
+  sizeZ: number;
 }
 
 export interface DpdPackage_input {

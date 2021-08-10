@@ -1,3 +1,7 @@
+import {
+  OrderParcel,
+  OrderParcelVariables
+} from "@saleor/orders/types/OrderParcel";
 import React from "react";
 
 import { getMutationProviderData } from "../../misc";
@@ -17,8 +21,8 @@ import {
   TypedOrderLinesAddMutation,
   TypedOrderLineUpdateMutation,
   TypedOrderMarkAsPaidMutation,
-  TypedOrderRefundMutation,
   TypedOrderParcelMutation,
+  TypedOrderRefundMutation,
   TypedOrderShippingMethodUpdateMutation,
   TypedOrderUpdateMutation,
   TypedOrderVoidMutation
@@ -74,7 +78,6 @@ import {
 } from "../types/OrderShippingMethodUpdate";
 import { OrderUpdate, OrderUpdateVariables } from "../types/OrderUpdate";
 import { OrderVoid, OrderVoidVariables } from "../types/OrderVoid";
-import {OrderParcel, OrderParcelVariables} from "@saleor/orders/types/OrderParcel";
 
 interface OrderOperationsProps {
   order: string;
@@ -103,7 +106,7 @@ interface OrderOperationsProps {
       OrderRefund,
       OrderRefundVariables
     >;
-    orderParcerDetails: PartialMutationProviderOutput<
+    orderParcelDetails: PartialMutationProviderOutput<
       OrderParcel,
       OrderParcelVariables
     >;
@@ -204,175 +207,177 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
             {(...paymentCapture) => (
               <TypedOrderRefundMutation onCompleted={onPaymentRefund}>
                 {(...paymentRefund) => (
-                    <TypedOrderParcelMutation onCompleted={onParcelDetails}>
-                      {(...parcelDetails) => (
-                  <TypedOrderAddNoteMutation onCompleted={onNoteAdd}>
-                    {(...addNote) => (
-                      <TypedOrderUpdateMutation onCompleted={onUpdate}>
-                        {(...update) => (
-                          <TypedOrderDraftUpdateMutation
-                            onCompleted={onDraftUpdate}
-                          >
-                            {(...updateDraft) => (
-                              <TypedOrderShippingMethodUpdateMutation
-                                onCompleted={onShippingMethodUpdate}
+                  <TypedOrderParcelMutation onCompleted={onParcelDetails}>
+                    {(...parcelDetails) => (
+                      <TypedOrderAddNoteMutation onCompleted={onNoteAdd}>
+                        {(...addNote) => (
+                          <TypedOrderUpdateMutation onCompleted={onUpdate}>
+                            {(...update) => (
+                              <TypedOrderDraftUpdateMutation
+                                onCompleted={onDraftUpdate}
                               >
-                                {(...updateShippingMethod) => (
-                                  <TypedOrderLineDeleteMutation
-                                    onCompleted={onOrderLineDelete}
+                                {(...updateDraft) => (
+                                  <TypedOrderShippingMethodUpdateMutation
+                                    onCompleted={onShippingMethodUpdate}
                                   >
-                                    {(...deleteOrderLine) => (
-                                      <TypedOrderLinesAddMutation
-                                        onCompleted={onOrderLinesAdd}
+                                    {(...updateShippingMethod) => (
+                                      <TypedOrderLineDeleteMutation
+                                        onCompleted={onOrderLineDelete}
                                       >
-                                        {(...addOrderLine) => (
-                                          <TypedOrderLineUpdateMutation
-                                            onCompleted={onOrderLineUpdate}
+                                        {(...deleteOrderLine) => (
+                                          <TypedOrderLinesAddMutation
+                                            onCompleted={onOrderLinesAdd}
                                           >
-                                            {(...updateOrderLine) => (
-                                              <TypedOrderFulfillmentCancelMutation
-                                                onCompleted={
-                                                  onOrderFulfillmentCancel
-                                                }
+                                            {(...addOrderLine) => (
+                                              <TypedOrderLineUpdateMutation
+                                                onCompleted={onOrderLineUpdate}
                                               >
-                                                 {(...cancelFulfillment) => (
-                                                  <TypedOrderFulfillmentUpdateTrackingMutation
+                                                {(...updateOrderLine) => (
+                                                  <TypedOrderFulfillmentCancelMutation
                                                     onCompleted={
-                                                      onOrderFulfillmentUpdate
+                                                      onOrderFulfillmentCancel
                                                     }
                                                   >
-                                                    {(
-                                                      ...updateTrackingNumber
-                                                    ) => (
-                                                      <TypedOrderDraftFinalizeMutation
+                                                    {(...cancelFulfillment) => (
+                                                      <TypedOrderFulfillmentUpdateTrackingMutation
                                                         onCompleted={
-                                                          onDraftFinalize
+                                                          onOrderFulfillmentUpdate
                                                         }
                                                       >
-                                                        {(...finalizeDraft) => (
-                                                          <TypedOrderDraftCancelMutation
+                                                        {(
+                                                          ...updateTrackingNumber
+                                                        ) => (
+                                                          <TypedOrderDraftFinalizeMutation
                                                             onCompleted={
-                                                              onDraftCancel
+                                                              onDraftFinalize
                                                             }
                                                           >
                                                             {(
-                                                              ...cancelDraft
+                                                              ...finalizeDraft
                                                             ) => (
-                                                              <TypedOrderMarkAsPaidMutation
+                                                              <TypedOrderDraftCancelMutation
                                                                 onCompleted={
-                                                                  onOrderMarkAsPaid
+                                                                  onDraftCancel
                                                                 }
                                                               >
                                                                 {(
-                                                                  ...markAsPaid
+                                                                  ...cancelDraft
                                                                 ) => (
-                                                                  <TypedInvoiceRequestMutation
+                                                                  <TypedOrderMarkAsPaidMutation
                                                                     onCompleted={
-                                                                      onInvoiceRequest
+                                                                      onOrderMarkAsPaid
                                                                     }
                                                                   >
                                                                     {(
-                                                                      ...invoiceRequest
+                                                                      ...markAsPaid
                                                                     ) => (
-                                                                      <TypedInvoiceEmailSendMutation
+                                                                      <TypedInvoiceRequestMutation
                                                                         onCompleted={
-                                                                          onInvoiceSend
+                                                                          onInvoiceRequest
                                                                         }
                                                                       >
                                                                         {(
-                                                                          ...invoiceEmailSend
-                                                                        ) =>
-                                                                          children(
-                                                                            {
-                                                                              orderAddNote: getMutationProviderData(
-                                                                                ...addNote
-                                                                              ),
-                                                                              orderCancel: getMutationProviderData(
-                                                                                ...orderCancel
-                                                                              ),
-                                                                              orderDraftCancel: getMutationProviderData(
-                                                                                ...cancelDraft
-                                                                              ),
-                                                                              orderDraftFinalize: getMutationProviderData(
-                                                                                ...finalizeDraft
-                                                                              ),
-                                                                              orderDraftUpdate: getMutationProviderData(
-                                                                                ...updateDraft
-                                                                              ),
-                                                                              orderFulfillmentCancel: getMutationProviderData(
-                                                                                ...cancelFulfillment
-                                                                              ),
-                                                                              orderFulfillmentUpdateTracking: getMutationProviderData(
-                                                                                ...updateTrackingNumber
-                                                                              ),
-                                                                              orderInvoiceRequest: getMutationProviderData(
-                                                                                ...invoiceRequest
-                                                                              ),
-                                                                              orderInvoiceSend: getMutationProviderData(
-                                                                                ...invoiceEmailSend
-                                                                              ),
-                                                                              orderLineDelete: getMutationProviderData(
-                                                                                ...deleteOrderLine
-                                                                              ),
-                                                                              orderLineUpdate: getMutationProviderData(
-                                                                                ...updateOrderLine
-                                                                              ),
-                                                                              orderLinesAdd: getMutationProviderData(
-                                                                                ...addOrderLine
-                                                                              ),
-                                                                              orderPaymentCapture: getMutationProviderData(
-                                                                                ...paymentCapture
-                                                                              ),
-                                                                              orderPaymentMarkAsPaid: getMutationProviderData(
-                                                                                ...markAsPaid
-                                                                              ),
-                                                                              orderPaymentRefund: getMutationProviderData(
-                                                                                ...paymentRefund
-                                                                              ),
-                                                                              orderParcelDetails: getMutationProviderData(
-                                                                                  ...parcelDetails
-                                                                              ),
-                                                                              orderShippingMethodUpdate: getMutationProviderData(
-                                                                                ...updateShippingMethod
-                                                                              ),
-                                                                              orderUpdate: getMutationProviderData(
-                                                                                ...update
-                                                                              ),
-                                                                              orderVoid: getMutationProviderData(
-                                                                                ...orderVoid
+                                                                          ...invoiceRequest
+                                                                        ) => (
+                                                                          <TypedInvoiceEmailSendMutation
+                                                                            onCompleted={
+                                                                              onInvoiceSend
+                                                                            }
+                                                                          >
+                                                                            {(
+                                                                              ...invoiceEmailSend
+                                                                            ) =>
+                                                                              children(
+                                                                                {
+                                                                                  orderAddNote: getMutationProviderData(
+                                                                                    ...addNote
+                                                                                  ),
+                                                                                  orderCancel: getMutationProviderData(
+                                                                                    ...orderCancel
+                                                                                  ),
+                                                                                  orderDraftCancel: getMutationProviderData(
+                                                                                    ...cancelDraft
+                                                                                  ),
+                                                                                  orderDraftFinalize: getMutationProviderData(
+                                                                                    ...finalizeDraft
+                                                                                  ),
+                                                                                  orderDraftUpdate: getMutationProviderData(
+                                                                                    ...updateDraft
+                                                                                  ),
+                                                                                  orderFulfillmentCancel: getMutationProviderData(
+                                                                                    ...cancelFulfillment
+                                                                                  ),
+                                                                                  orderFulfillmentUpdateTracking: getMutationProviderData(
+                                                                                    ...updateTrackingNumber
+                                                                                  ),
+                                                                                  orderInvoiceRequest: getMutationProviderData(
+                                                                                    ...invoiceRequest
+                                                                                  ),
+                                                                                  orderInvoiceSend: getMutationProviderData(
+                                                                                    ...invoiceEmailSend
+                                                                                  ),
+                                                                                  orderLineDelete: getMutationProviderData(
+                                                                                    ...deleteOrderLine
+                                                                                  ),
+                                                                                  orderLineUpdate: getMutationProviderData(
+                                                                                    ...updateOrderLine
+                                                                                  ),
+                                                                                  orderLinesAdd: getMutationProviderData(
+                                                                                    ...addOrderLine
+                                                                                  ),
+                                                                                  orderParcelDetails: getMutationProviderData(
+                                                                                    ...parcelDetails
+                                                                                  ),
+                                                                                  orderPaymentCapture: getMutationProviderData(
+                                                                                    ...paymentCapture
+                                                                                  ),
+                                                                                  orderPaymentMarkAsPaid: getMutationProviderData(
+                                                                                    ...markAsPaid
+                                                                                  ),
+                                                                                  orderPaymentRefund: getMutationProviderData(
+                                                                                    ...paymentRefund
+                                                                                  ),
+                                                                                  orderShippingMethodUpdate: getMutationProviderData(
+                                                                                    ...updateShippingMethod
+                                                                                  ),
+                                                                                  orderUpdate: getMutationProviderData(
+                                                                                    ...update
+                                                                                  ),
+                                                                                  orderVoid: getMutationProviderData(
+                                                                                    ...orderVoid
+                                                                                  )
+                                                                                }
                                                                               )
                                                                             }
-                                                                          )
-                                                                        }
-                                                                      </TypedInvoiceEmailSendMutation>
+                                                                          </TypedInvoiceEmailSendMutation>
+                                                                        )}
+                                                                      </TypedInvoiceRequestMutation>
                                                                     )}
-                                                                  </TypedInvoiceRequestMutation>
+                                                                  </TypedOrderMarkAsPaidMutation>
                                                                 )}
-                                                              </TypedOrderMarkAsPaidMutation>
+                                                              </TypedOrderDraftCancelMutation>
                                                             )}
-                                                          </TypedOrderDraftCancelMutation>
+                                                          </TypedOrderDraftFinalizeMutation>
                                                         )}
-                                                      </TypedOrderDraftFinalizeMutation>
+                                                      </TypedOrderFulfillmentUpdateTrackingMutation>
                                                     )}
-                                                  </TypedOrderFulfillmentUpdateTrackingMutation>
+                                                  </TypedOrderFulfillmentCancelMutation>
                                                 )}
-                                              </TypedOrderFulfillmentCancelMutation>
+                                              </TypedOrderLineUpdateMutation>
                                             )}
-                                          </TypedOrderLineUpdateMutation>
+                                          </TypedOrderLinesAddMutation>
                                         )}
-                                      </TypedOrderLinesAddMutation>
+                                      </TypedOrderLineDeleteMutation>
                                     )}
-                                  </TypedOrderLineDeleteMutation>
+                                  </TypedOrderShippingMethodUpdateMutation>
                                 )}
-                              </TypedOrderShippingMethodUpdateMutation>
+                              </TypedOrderDraftUpdateMutation>
                             )}
-                          </TypedOrderDraftUpdateMutation>
+                          </TypedOrderUpdateMutation>
                         )}
-                      </TypedOrderUpdateMutation>
+                      </TypedOrderAddNoteMutation>
                     )}
-                  </TypedOrderAddNoteMutation>
-                    )}
-                    </TypedOrderParcelMutation>
+                  </TypedOrderParcelMutation>
                 )}
               </TypedOrderRefundMutation>
             )}
