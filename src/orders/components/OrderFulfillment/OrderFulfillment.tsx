@@ -1,3 +1,4 @@
+import courierIcon from "@assets/images/courier.svg";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -18,6 +19,7 @@ import TableCellAvatar, {
 } from "@saleor/components/TableCellAvatar";
 import classNames from "classnames";
 import React from "react";
+import SVG from "react-inlinesvg";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { getStringOrPlaceholder, maybe, renderCollection } from "../../../misc";
@@ -60,6 +62,16 @@ const useStyles = makeStyles(
     },
     infoRow: {
       padding: theme.spacing(2, 3)
+    },
+    menuIcon: {
+      "& svg": {
+        fill: theme.palette.primary.main,
+        height: 25,
+        width: 25
+      },
+      display: "inline-block",
+      position: "relative",
+      right: 8
     },
     orderNumber: {
       display: "inline",
@@ -289,6 +301,7 @@ const OrderFulfillment: React.FC<OrderFulfillmentProps> = props => {
       {status === FulfillmentStatus.FULFILLED && !fulfillment.trackingNumber && (
         <CardActions>
           <Button color="primary" onClick={onParcelDetails}>
+            <SVG className={classes.menuIcon} src={courierIcon} />
             <FormattedMessage
               defaultMessage="Add tracking"
               description="fulfillment group tracking number"

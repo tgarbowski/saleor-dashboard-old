@@ -3026,7 +3026,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderFulfillment_dot_1119771899": {
     "context": "fulfillment group tracking number",
-    "string": "Dodaj numer przesyłki"
+    "string": "Zamów kuriera"
   },
   "src_dot_orders_dot_components_dot_OrderFulfillment_dot_1134347598": {
     "context": "product price",
@@ -6068,5 +6068,5 @@
     "context": "Download tracking label",
     "string": "Pobierz etykietę"
   }
-  
+
 }
