@@ -3503,7 +3503,6 @@ type Mutation {
     order: ID!
     input: OrderUpdateShippingInput
   ): OrderUpdateShipping
-  orderVoid(id: ID!): OrderVoid
   orderBulkCancel(ids: [ID]!): OrderBulkCancel
   deleteMetadata(id: ID!, keys: [String!]!): DeleteMetadata
   deletePrivateMetadata(id: ID!, keys: [String!]!): DeletePrivateMetadata
@@ -4116,6 +4115,7 @@ type OrderLine implements Node {
   translatedProductName: String!
   translatedVariantName: String!
   allocations: [Allocation!]
+  product: Product
 }
 
 input OrderLineCreateInput {

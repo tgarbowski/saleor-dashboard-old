@@ -100,6 +100,7 @@ export type OrderUrlDialog =
   | "mark-paid"
   | "refund"
   | "void"
+  | "parcel"
   | "invoice-send";
 export type OrderUrlQueryParams = Dialog<OrderUrlDialog> & SingleAction;
 export const orderUrl = (id: string, params?: OrderUrlQueryParams) =>

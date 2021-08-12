@@ -1,6 +1,7 @@
 import messages from "@saleor/containers/BackgroundTasks/messages";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
+import { OrderParcel } from "@saleor/orders/types/OrderParcel";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -43,6 +44,7 @@ interface OrderDetailsMessages {
     handleOrderVoid: (data: OrderVoid) => void;
     handlePaymentCapture: (data: OrderCapture) => void;
     handlePaymentRefund: (data: OrderRefund) => void;
+    handleParcelDetails: (data: OrderParcel) => void;
     handleShippingMethodUpdate: (data: OrderShippingMethodUpdate) => void;
     handleUpdate: (data: OrderUpdate) => void;
     handleInvoiceGeneratePending: (data: InvoiceRequest) => void;
@@ -87,6 +89,19 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
         status: "success",
         text: intl.formatMessage({
           defaultMessage: "Payment successfully refunded"
+        })
+      });
+      closeModal();
+    }
+  };
+  const handleParcelDetails = (data: OrderParcel) => {
+    const errs = data.orderParcel?.errors;
+
+    if (errs.length === 0) {
+      pushMessage({
+        status: "success",
+        text: intl.formatMessage({
+          defaultMessage: "Test123"
         })
       });
       closeModal();
@@ -312,6 +327,7 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
     handleOrderLinesAdd,
     handleOrderMarkAsPaid,
     handleOrderVoid,
+    handleParcelDetails,
     handlePaymentCapture,
     handlePaymentRefund,
     handleShippingMethodUpdate,

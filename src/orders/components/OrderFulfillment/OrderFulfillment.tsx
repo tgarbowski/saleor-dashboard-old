@@ -1,3 +1,4 @@
+import courierIcon from "@assets/images/courier.svg";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -18,6 +19,7 @@ import TableCellAvatar, {
 } from "@saleor/components/TableCellAvatar";
 import classNames from "classnames";
 import React from "react";
+import SVG from "react-inlinesvg";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { getStringOrPlaceholder, maybe, renderCollection } from "../../../misc";
@@ -61,6 +63,16 @@ const useStyles = makeStyles(
     infoRow: {
       padding: theme.spacing(2, 3)
     },
+    menuIcon: {
+      "& svg": {
+        fill: theme.palette.primary.main,
+        height: 25,
+        width: 25
+      },
+      display: "inline-block",
+      position: "relative",
+      right: 8
+    },
     orderNumber: {
       display: "inline",
       marginLeft: theme.spacing(1)
@@ -80,6 +92,8 @@ interface OrderFulfillmentProps {
   orderNumber: string;
   onOrderFulfillmentCancel: () => void;
   onTrackingCodeAdd: () => void;
+  onParcelLabelDownload: () => void;
+  onParcelDetails: () => void;
 }
 
 const numberOfColumns = 5;
@@ -89,7 +103,9 @@ const OrderFulfillment: React.FC<OrderFulfillmentProps> = props => {
     fulfillment,
     orderNumber,
     onOrderFulfillmentCancel,
-    onTrackingCodeAdd
+    onTrackingCodeAdd,
+    onParcelDetails,
+    onParcelLabelDownload
   } = props;
   const classes = useStyles(props);
 
@@ -284,7 +300,8 @@ const OrderFulfillment: React.FC<OrderFulfillmentProps> = props => {
       </ResponsiveTable>
       {status === FulfillmentStatus.FULFILLED && !fulfillment.trackingNumber && (
         <CardActions>
-          <Button color="primary" onClick={onTrackingCodeAdd}>
+          <Button color="primary" onClick={onParcelDetails}>
+            <SVG className={classes.menuIcon} src={courierIcon} />
             <FormattedMessage
               defaultMessage="Add tracking"
               description="fulfillment group tracking number"
@@ -294,6 +311,13 @@ const OrderFulfillment: React.FC<OrderFulfillmentProps> = props => {
       )}
       {status === FulfillmentStatus.FULFILLED && fulfillment.trackingNumber && (
         <CardActions>
+          <Button color="primary" onClick={onParcelLabelDownload}>
+            <FormattedMessage
+              defaultMessage="Download tracking label"
+              description="Download tracking label"
+              id="generateLabel"
+            />
+          </Button>
           <Button color="primary" onClick={onTrackingCodeAdd}>
             <FormattedMessage
               defaultMessage="Edit tracking"

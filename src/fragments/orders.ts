@@ -31,6 +31,9 @@ export const fragmentOrderLine = gql`
         id
         isAvailableForPurchase
         isPublished
+        weight {
+          value
+        }
       }
       quantityAvailable
     }
@@ -55,6 +58,7 @@ export const fragmentOrderLine = gql`
 `;
 export const fulfillmentFragment = gql`
   ${fragmentOrderLine}
+  ${metadataFragment}
   fragment FulfillmentFragment on Fulfillment {
     id
     lines {
@@ -64,6 +68,7 @@ export const fulfillmentFragment = gql`
         ...OrderLineFragment
       }
     }
+    ...MetadataFragment
     fulfillmentOrder
     status
     trackingNumber
@@ -100,6 +105,7 @@ export const fragmentOrderDetails = gql`
     canFinalize
     created
     customerNote
+    userEmail
     events {
       ...OrderEventFragment
     }

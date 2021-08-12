@@ -32,6 +32,22 @@ const shopInfo = gql`
         code
         name
       }
+      name
+      description
+      companyAddress{
+        firstName
+        lastName
+        companyName
+        streetAddress1
+        streetAddress2
+        city
+        cityArea
+        phone
+        postalCode
+        country{
+          country
+        }
+      }
     }
   }
 `;

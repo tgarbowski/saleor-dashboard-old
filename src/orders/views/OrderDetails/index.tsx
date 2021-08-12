@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import { MetadataFormData } from "@saleor/components/Metadata";
 import NotFoundPage from "@saleor/components/NotFoundPage";
 import { WindowTitle } from "@saleor/components/WindowTitle";
@@ -6,10 +7,16 @@ import { Task } from "@saleor/containers/BackgroundTasks/types";
 import useBackgroundTask from "@saleor/hooks/useBackgroundTask";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
+import useShop from "@saleor/hooks/useShop";
 import useUser from "@saleor/hooks/useUser";
 import { commonMessages } from "@saleor/intl";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
 import OrderInvoiceEmailSendDialog from "@saleor/orders/components/OrderInvoiceEmailSendDialog";
+import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
+import {
+  useDpdLabelCreateMutation,
+  useDpdPackageCreateMutation
+} from "@saleor/orders/mutations";
 import { InvoiceRequest } from "@saleor/orders/types/InvoiceRequest";
 import useCustomerSearch from "@saleor/searches/useCustomerSearch";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -59,6 +66,15 @@ interface OrderDetailsProps {
   params: OrderUrlQueryParams;
 }
 
+export interface PackageData {
+  weight: string;
+  content: string;
+  size1: string;
+  size2: string;
+  size3: string;
+  fieldIndex: number;
+}
+
 export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   const navigate = useNavigator();
   const { user } = useUser();
@@ -84,6 +100,8 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   });
   const { queue } = useBackgroundTask();
   const intl = useIntl();
+  const shop = useShop();
+
   const [updateMetadata, updateMetadataOpts] = useMetadataUpdate({});
   const [
     updatePrivateMetadata,
@@ -98,11 +116,60 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
 
   const handleBack = () => navigate(orderListUrl());
 
+  const [dpdLabelCreate] = useDpdLabelCreateMutation({});
+
+  const [dpdPackageCreate] = useDpdPackageCreateMutation({
+    onCompleted: data => {
+      notify({
+        status: "success",
+        text: "Package created"
+      });
+      closeModal();
+      return data;
+    }
+  });
+
+  const checkIfParcelDialogCorrect = (formData: PackageData[]) => {
+    let dataCorrect: boolean = true;
+    formData.forEach(element => {
+      if (
+        isNaN(parseFloat(element.size1)) ||
+        isNaN(parseFloat(element.size2)) ||
+        isNaN(parseFloat(element.size3)) ||
+        isNaN(parseFloat(element.weight))
+      ) {
+        dataCorrect = false;
+      }
+    });
+    return dataCorrect;
+  };
+
+  const downloadBase64File = (
+    contentType: string,
+    base64Data: string,
+    fileName: string
+  ) => {
+    const linkSource = `data:${contentType};base64,${base64Data}`;
+    const downloadLink = document.createElement("a");
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  };
+
   return (
     <TypedOrderDetailsQuery displayLoader variables={{ id }}>
       {({ data, loading }) => {
         const order = data?.order;
-
+        const initialPackageData: PackageData[] = [
+          {
+            content: "Ubrania",
+            fieldIndex: 0,
+            size1: "",
+            size2: "",
+            size3: "",
+            weight: order?.lines[0]?.variant?.product?.weight?.value
+          }
+        ];
         if (order === null) {
           return <NotFoundPage onBack={handleBack} />;
         }
@@ -115,7 +182,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
             variables => updatePrivateMetadata({ variables })
           );
           const result = await update(data);
-
           if (result.length === 0) {
             notify({
               status: "success",
@@ -124,6 +190,98 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           }
 
           return result;
+        };
+
+        const handleDpdPackageCreateSubmit = async (
+          formData: PackageData[],
+          generateLabel: boolean
+        ) => {
+          const dataCorrect = checkIfParcelDialogCorrect(formData);
+          if (dataCorrect) {
+            const result = await dpdPackageCreate({
+              variables: {
+                input: {
+                  fulfillment: order?.fulfillments[0]?.id,
+                  packageData: formData.map(data => ({
+                    content: data.content,
+                    sizeX: parseInt(data.size1),
+                    sizeY: parseInt(data.size2),
+                    sizeZ: parseInt(data.size3),
+                    weight: parseFloat(data.weight)
+                  })),
+                  receiverData: {
+                    address:
+                      order?.shippingAddress?.streetAddress1 +
+                      order?.shippingAddress?.streetAddress2,
+                    city: order?.shippingAddress?.city,
+                    company:
+                      order?.shippingAddress?.firstName +
+                      " " +
+                      order?.shippingAddress?.lastName +
+                      order?.shippingAddress?.companyName,
+                    countryCode: order?.shippingAddress?.country?.code,
+                    email: order?.userEmail,
+                    phone: order?.shippingAddress?.phone,
+                    postalCode: order?.shippingAddress?.postalCode
+                  },
+                  senderData: {
+                    address:
+                      shop?.companyAddress?.streetAddress1 +
+                      " " +
+                      shop?.companyAddress?.streetAddress2,
+                    city: shop?.companyAddress?.city,
+                    company: shop?.companyAddress?.companyName,
+                    countryCode: order?.shippingAddress?.country?.code,
+                    email: order?.userEmail,
+                    fid: "1495",
+                    phone: shop?.companyAddress?.phone,
+                    postalCode: shop?.companyAddress?.postalCode
+                  }
+                }
+              }
+            });
+            if (generateLabel) {
+              const labelCreated = await dpdLabelCreate({
+                variables: {
+                  input: {
+                    packageId: result.data.dpdPackageCreate.packageId
+                  }
+                }
+              });
+              downloadBase64File(
+                "application/pdf",
+                labelCreated.data.dpdLabelCreate.label,
+                result.data.dpdPackageCreate.packageId.toString()
+              );
+            }
+            window.location.reload();
+          } else {
+            notify({
+              status: "error",
+              text: "Dane do wysłania są niepoprawne"
+            });
+            closeModal();
+          }
+        };
+
+        const handleLabelDownloadOnButton = async () => {
+          const packageIdentifier = JSON.parse(
+            order?.fulfillments[0]?.privateMetadata
+              ?.find(item => item.key === "package")
+              .value.replace(/'/g, '"')
+          ).id;
+          const labelCreated = await dpdLabelCreate({
+            variables: {
+              input: {
+                packageId: packageIdentifier
+              }
+            }
+          });
+          downloadBase64File(
+            "application/pdf",
+            labelCreated.data.dpdLabelCreate.label,
+            packageIdentifier
+          );
         };
 
         return (
@@ -136,6 +294,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 onOrderVoid={orderMessages.handleOrderVoid}
                 onPaymentCapture={orderMessages.handlePaymentCapture}
                 onPaymentRefund={orderMessages.handlePaymentRefund}
+                onParcelDetails={orderMessages.handleParcelDetails}
                 onUpdate={orderMessages.handleUpdate}
                 onDraftUpdate={orderMessages.handleDraftUpdate}
                 onShippingMethodUpdate={
@@ -177,6 +336,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                   orderLinesAdd,
                   orderLineDelete,
                   orderLineUpdate,
+                  orderParcelDetails,
                   orderPaymentCapture,
                   orderPaymentRefund,
                   orderVoid,
@@ -242,6 +402,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                           userPermissions={user?.userPermissions || []}
                           onOrderCancel={() => openModal("cancel")}
                           onOrderFulfill={() => navigate(orderFulfillUrl(id))}
+                          onParcelDetails={() => openModal("parcel")}
                           onFulfillmentCancel={fulfillmentId =>
                             navigate(
                               orderUrl(id, {
@@ -258,6 +419,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                               })
                             )
                           }
+                          onParcelLabelDownload={handleLabelDownloadOnButton}
                           onPaymentCapture={() => openModal("capture")}
                           onPaymentVoid={() => openModal("void")}
                           onPaymentRefund={() => openModal("refund")}
@@ -370,6 +532,19 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                               id
                             })
                           }
+                        />
+                        <OrderParcelDetails
+                          confirmButtonState={orderParcelDetails.opts.status}
+                          errors={orderParcelDetails.opts.data?.errors || []}
+                          initial={order?.total.gross.amount}
+                          open={params.action === "parcel"}
+                          variant="parcel"
+                          onClose={closeModal}
+                          orderDetails={order}
+                          packageData={initialPackageData}
+                          productWeight={order?.lines}
+                          shopDetails={shop?.companyAddress}
+                          onSubmit={handleDpdPackageCreateSubmit}
                         />
                         <OrderFulfillmentCancelDialog
                           confirmButtonState={

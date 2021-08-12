@@ -960,6 +960,8 @@ export const order = (placeholder: string): OrderDetails_order => ({
           quantity: 1
         }
       ],
+      metadata: [],
+      privateMetadata: [],
       status: FulfillmentStatus.FULFILLED,
       trackingNumber: "",
       warehouse: warehouseList[1]
@@ -1012,6 +1014,8 @@ export const order = (placeholder: string): OrderDetails_order => ({
           quantity: 1
         }
       ],
+      metadata: [],
+      privateMetadata: [],
       status: FulfillmentStatus.FULFILLED,
       trackingNumber: "01nn12399su12nndfsy",
       warehouse: warehouseList[0]
@@ -1061,7 +1065,10 @@ export const order = (placeholder: string): OrderDetails_order => ({
           __typename: "Product",
           id: "345678393",
           isAvailableForPurchase: true,
-          isPublished: true
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
         },
         quantityAvailable: 10
       }
@@ -1098,7 +1105,10 @@ export const order = (placeholder: string): OrderDetails_order => ({
           __typename: "Product",
           id: "345678393",
           isAvailableForPurchase: true,
-          isPublished: true
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
         },
         quantityAvailable: 10
       }
@@ -1233,7 +1243,10 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
           __typename: "Product",
           id: "345678393",
           isAvailableForPurchase: true,
-          isPublished: true
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
         },
         quantityAvailable: 10
       }
@@ -1270,7 +1283,10 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
           __typename: "Product",
           id: "345678393",
           isAvailableForPurchase: true,
-          isPublished: true
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
         },
         quantityAvailable: 10
       }

@@ -8,9 +8,15 @@ import {
   invoiceFragment
 } from "@saleor/fragments/orders";
 import makeMutation from "@saleor/hooks/makeMutation";
+import {
+  OrderParcel,
+  OrderParcelVariables
+} from "@saleor/orders/types/OrderParcel";
 import gql from "graphql-tag";
 
 import { TypedMutation } from "../mutations";
+import { DpdLabel, DpdLabelVariables } from "./types/DpdLabelCreate";
+import { DpdPackage, DpdPackageVariables } from "./types/DpdPackageCreate";
 import { FulfillOrder, FulfillOrderVariables } from "./types/FulfillOrder";
 import {
   InvoiceEmailSend,
@@ -160,6 +166,26 @@ export const TypedOrderRefundMutation = TypedMutation<
   OrderRefundVariables
 >(orderRefundMutation);
 
+const orderParcelMutation = gql`
+  ${fragmentOrderDetails}
+  ${orderErrorFragment}
+  mutation OrderVoid($id: ID!) {
+    orderVoid(id: $id) {
+      errors: orderErrors {
+        ...OrderErrorFragment
+      }
+      order {
+        ...OrderDetailsFragment
+      }
+    }
+  }
+`;
+
+export const TypedOrderParcelMutation = TypedMutation<
+  OrderParcel,
+  OrderParcelVariables
+>(orderParcelMutation);
+
 const orderVoidMutation = gql`
   ${fragmentOrderDetails}
   ${orderErrorFragment}
@@ -174,6 +200,7 @@ const orderVoidMutation = gql`
     }
   }
 `;
+
 export const TypedOrderVoidMutation = TypedMutation<
   OrderVoid,
   OrderVoidVariables
@@ -496,3 +523,29 @@ export const TypedInvoiceEmailSendMutation = TypedMutation<
   InvoiceEmailSend,
   InvoiceEmailSendVariables
 >(invoiceEmailSendMutation);
+
+const dpdPackageCreateMutation = gql`
+  mutation dpdPackageCreate($input: DpdCreatePackageInput!) {
+    dpdPackageCreate(input: $input) {
+      packageId
+      parcelIds
+      waybills
+      status
+    }
+  }
+`;
+
+export const useDpdPackageCreateMutation = makeMutation<
+  DpdPackage,
+  DpdPackageVariables
+>(dpdPackageCreateMutation);
+
+const dpdLabelCreateMutation = gql`
+  mutation DpdLabelCreate($input: DpdCreateLabelInput!){
+    dpdLabelCreate(input: $input){
+    label
+    }
+  }
+`
+
+export const useDpdLabelCreateMutation = makeMutation<DpdLabel, DpdLabelVariables>(dpdLabelCreateMutation);
