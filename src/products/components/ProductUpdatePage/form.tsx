@@ -227,7 +227,6 @@ function useProductUpdateForm(
     ...getAvailabilityData(data),
     ...getStocksData(product, stocks.data),
     ...getMetadata(data, isMetadataModified, isPrivateMetadataModified),
-    addStocks: [],
     attributes: attributes.data
   };
 
