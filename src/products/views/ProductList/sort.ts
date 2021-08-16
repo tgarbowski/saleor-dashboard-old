@@ -17,7 +17,7 @@ export function getSortQueryField(
       return ProductOrderField.TYPE;
     case ProductListUrlSortField.status:
       return ProductOrderField.PUBLISHED;
-    case ProductListUrlSortField.updatedAt:
+    case ProductListUrlSortField.createdAt:
       return ProductOrderField.DATE;
     default:
       return undefined;

@@ -22,7 +22,7 @@ export type ProductListColumns =
   | "productType"
   | "isPublished"
   | "price"
-  | "updatedAt";
+  | "createdAt";
 
 export type WMSDocumentsListColumns =
   | "number"
@@ -81,7 +81,7 @@ export const defaultListSettings: AppListViewSettings = {
     rowNumber: PAGINATE_BY
   },
   [ListViews.PRODUCT_LIST]: {
-    columns: ["isPublished", "price", "productType", "updatedAt"],
+    columns: ["isPublished", "price", "productType", "createdAt"],
     rowNumber: PAGINATE_BY
   },
   [ListViews.SALES_LIST]: {
