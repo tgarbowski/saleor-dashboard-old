@@ -16,7 +16,7 @@ export enum ProductFilterKeys {
   attributes = "attributes",
   categories = "categories",
   collections = "collections",
-  updatedAt = "updatedAt",
+  createdAt = "createdAt",
   status = "status",
   price = "price",
   productType = "productType",
@@ -34,7 +34,7 @@ export interface ProductListFilterOpts {
   >;
   categories: FilterOpts<string[]> & AutocompleteFilterOpts;
   collections: FilterOpts<string[]> & AutocompleteFilterOpts;
-  updatedAt?: FilterOpts<MinMax>;
+  createdAt?: FilterOpts<MinMax>;
   price: FilterOpts<MinMax>;
   productType: FilterOpts<string[]> & AutocompleteFilterOpts;
   status: FilterOpts<ProductStatus>;
@@ -182,11 +182,11 @@ export function createFilterStructure(
     },
     {
       ...createDateField(
-        ProductFilterKeys.updatedAt,
+        ProductFilterKeys.createdAt,
         intl.formatMessage(messages.placed),
-        opts.updatedAt.value
+        opts.createdAt.value
       ),
-      active: opts.updatedAt.active
+      active: opts.createdAt.active
     },
     {
       ...createAutocompleteField(

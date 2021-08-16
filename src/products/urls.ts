@@ -33,8 +33,8 @@ export enum ProductListUrlFiltersEnum {
   stockStatus = "stockStatus",
   query = "query",
   allegroStatus = "allegroStatus",
-  updatedAtFrom = "updatedAtFrom",
-  updatedAtTo = "updatedAtTo",
+  createdAtFrom = "createdAtFrom",
+  createdAtTo = "createdAtTo",
   warehouseFrom = "warehouseFrom",
   warehouseTo = "warehouseTo"
 }
@@ -57,7 +57,7 @@ export enum ProductListUrlSortField {
   productType = "productType",
   status = "status",
   price = "price",
-  updatedAt = "updatedAt"
+  createdAt = "createdAt"
 }
 export type ProductListUrlSort = Sort<ProductListUrlSortField>;
 export interface ProductListUrlQueryParams
