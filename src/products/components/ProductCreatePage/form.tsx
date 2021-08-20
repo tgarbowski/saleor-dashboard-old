@@ -35,6 +35,7 @@ import {
   ProductAttributeInputData
 } from "../ProductAttributes";
 import { ProductStockInput } from "../ProductStocks";
+import { deleteSkusFieldFromPrivateMetadata } from "./utils";
 
 export interface ProductCreateFormData extends MetadataFormData {
   availableForPurchase: string;
@@ -228,12 +229,13 @@ function useProductCreateForm(
   );
   const changeMetadata = makeMetadataChangeHandler(handleChange);
 
-  React.useEffect(() => {
-    updateDataFromMegaPackValues(form.data, form.data.megaPackProduct);
-  }, [form.data.megaPackProduct]);
-
   if (productType?.slug === "mega-paka") {
+    updateDataFromMegaPackValues(form.data, form.data.megaPackProduct);
     form.data.sku = sku;
+  } else {
+    form.data.privateMetadata = deleteSkusFieldFromPrivateMetadata(
+      form.data.privateMetadata
+    );
   }
 
   const data: ProductCreateData = {

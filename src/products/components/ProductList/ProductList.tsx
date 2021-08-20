@@ -43,10 +43,10 @@ const useStyles = makeStyles(
         width: "auto"
       },
       colPrice: {
-        width: 100
+        width: 120
       },
       colPublished: {
-        width: 200
+        width: 180
       },
       colType: {
         width: 200
