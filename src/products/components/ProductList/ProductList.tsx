@@ -51,7 +51,7 @@ const useStyles = makeStyles(
       colType: {
         width: 200
       },
-      colUpdatedAt: {
+      colCreatedAt: {
         width: 200
       }
     },
@@ -214,8 +214,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
           <DisplayColumn column="isPublished" displayColumns={settings.columns}>
             <col className={classes.colPublished} />
           </DisplayColumn>
-          <DisplayColumn column="updatedAt" displayColumns={settings.columns}>
-            <col className={classes.colUpdatedAt} />
+          <DisplayColumn column="createdAt" displayColumns={settings.columns}>
+            <col className={classes.colCreatedAt} />
           </DisplayColumn>
           {gridAttributesFromSettings.map(gridAttribute => (
             <col className={classes.colAttribute} key={gridAttribute} />
@@ -280,19 +280,19 @@ export const ProductList: React.FC<ProductListProps> = props => {
               />
             </TableCellHeader>
           </DisplayColumn>
-          <DisplayColumn column="updatedAt" displayColumns={settings.columns}>
+          <DisplayColumn column="createdAt" displayColumns={settings.columns}>
             <TableCellHeader
-              className={classes.colUpdatedAt}
+              className={classes.colCreatedAt}
               direction={
-                sort.sort === ProductListUrlSortField.updatedAt
+                sort.sort === ProductListUrlSortField.createdAt
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              onClick={() => onSort(ProductListUrlSortField.updatedAt)}
+              onClick={() => onSort(ProductListUrlSortField.createdAt)}
             >
               <FormattedMessage
-                defaultMessage="Data aktualizacji"
-                description="Data aktualizacji"
+                defaultMessage="Data utworzenia"
+                description="Data utworzenia"
               />
             </TableCellHeader>
           </DisplayColumn>
@@ -485,16 +485,16 @@ export const ProductList: React.FC<ProductListProps> = props => {
                     </TableCell>
                   </DisplayColumn>
                   <DisplayColumn
-                    column="updatedAt"
+                    column="createdAt"
                     displayColumns={settings.columns}
                   >
-                    <TableCell className={classes.colUpdatedAt}>
-                      {product && product.updatedAt ? (
+                    <TableCell className={classes.colCreatedAt}>
+                      {product && product.createdAt ? (
                         new Intl.DateTimeFormat("en-GB", {
                           day: "2-digit",
                           month: "2-digit",
                           year: "numeric"
-                        }).format(new Date(product.updatedAt))
+                        }).format(new Date(product.createdAt))
                       ) : (
                         <Skeleton />
                       )}

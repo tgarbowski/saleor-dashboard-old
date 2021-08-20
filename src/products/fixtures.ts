@@ -400,7 +400,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -442,7 +442,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -485,7 +485,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -543,7 +543,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -601,7 +601,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -659,7 +659,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -717,7 +717,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -775,7 +775,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -833,7 +833,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -891,7 +891,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -949,7 +949,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -1007,7 +1007,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -1065,7 +1065,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -1123,7 +1123,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -1181,7 +1181,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -1239,7 +1239,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -1297,7 +1297,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -1355,7 +1355,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -1413,7 +1413,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   },
   {
     __typename: "Product",
@@ -1471,7 +1471,7 @@ export const products = (
       __typename: "Image",
       url: placeholderImage
     },
-    updatedAt: "2018-08-25T18:45:54.125Z"
+    createdAt: "2018-08-25T18:45:54.125Z"
   }
 ];
 

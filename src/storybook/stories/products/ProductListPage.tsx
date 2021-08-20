@@ -43,7 +43,7 @@ const props: ProductListPageProps = {
   products,
   settings: {
     ...pageListProps.default.settings,
-    columns: ["isPublished", "productType", "price", "updatedAt"]
+    columns: ["isPublished", "productType", "price", "createdAt"]
   },
   totalGridAttributes: attributes.length
 };
