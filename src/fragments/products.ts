@@ -114,7 +114,7 @@ export const productFragment = gql`
     channelListings {
       ...ChannelListingProductFragment
     }
-    createdAt
+    updatedAt
   }
 `;
 
@@ -235,7 +235,6 @@ export const productFragmentDetails = gql`
       id
       name
       hasVariants
-      slug
       taxType {
         ...TaxTypeFragment
       }

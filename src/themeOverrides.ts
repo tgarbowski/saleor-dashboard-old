@@ -26,8 +26,7 @@ const themeOverrides: Partial<Theme> = {
       main: "#FFFFFF",
       dark: "#FFFFFF",
       contrastText: "#FFCC07"
-    },
-    
-   }
+    }
+  }
 };
 export default themeOverrides;

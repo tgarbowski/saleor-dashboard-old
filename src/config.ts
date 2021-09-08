@@ -18,18 +18,10 @@ export const DEFAULT_INITIAL_PAGINATION_DATA: Pagination = {
   before: undefined
 };
 
-export type WMSDocumentsListColumns =
-  | "number"
-  | "documentType"
-  | "status"
-  | "updatedAt"
-  | "deliverer"
-  | "warehouse";
-
 export const PAGINATE_BY = 20;
 export const VALUES_PAGINATE_BY = 10;
 
-export type ProductListColumns = "isPublished" | "productType" | "price" | "createdAt";
+export type ProductListColumns = "isPublished" | "productType" | "price" | "updatedAt";
 
 export interface AppListViewSettings {
   [ListViews.APPS_LIST]: ListSettings;
@@ -52,7 +44,6 @@ export interface AppListViewSettings {
   [ListViews.WEBHOOK_LIST]: ListSettings;
   [ListViews.TRANSLATION_ATTRIBUTE_VALUE_LIST]: ListSettings;
   [ListViews.GIFT_CARD_LIST]: ListSettings;
-  [ListViews.WMS_DOCUMENTS_LIST]: ListSettings<WMSDocumentsListColumns>;
 }
 
 export const defaultListSettings: AppListViewSettings = {
@@ -87,7 +78,7 @@ export const defaultListSettings: AppListViewSettings = {
     rowNumber: PAGINATE_BY
   },
   [ListViews.PRODUCT_LIST]: {
-    columns: ["isPublished", "productType", "price", "createdAt"],
+    columns: ["isPublished", "productType", "price", "updatedAt"],
     rowNumber: PAGINATE_BY
   },
   [ListViews.SALES_LIST]: {
@@ -115,10 +106,6 @@ export const defaultListSettings: AppListViewSettings = {
     rowNumber: 10
   },
   [ListViews.GIFT_CARD_LIST]: {
-    rowNumber: PAGINATE_BY
-  },
-  [ListViews.WMS_DOCUMENTS_LIST]: {
-    columns: ["number", "status", "documentType", "updatedAt"],
     rowNumber: PAGINATE_BY
   }
 };
