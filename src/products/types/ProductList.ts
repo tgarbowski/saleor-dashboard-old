@@ -110,7 +110,6 @@ export interface ProductList_products_edges_node {
   productType: ProductList_products_edges_node_productType;
   channelListings: ProductList_products_edges_node_channelListings[] | null;
   attributes: ProductList_products_edges_node_attributes[];
-  updatedAt: any
 }
 
 export interface ProductList_products_edges {
