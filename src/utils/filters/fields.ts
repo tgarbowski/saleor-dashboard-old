@@ -42,7 +42,7 @@ export function createWarehouseField<T extends string>(
     label,
     multiple: defaultValue.min !== defaultValue.max,
     name,
-    type: FieldType.warehouseLocation,
+    type: FieldType.text,
     value: [defaultValue.min, defaultValue.max]
   };
 }

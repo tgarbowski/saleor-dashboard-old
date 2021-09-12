@@ -326,6 +326,9 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                               "weight"
                             )
                           }
+                          defaultValue={
+                            productWeight[0]?.variant?.product?.weight?.value
+                          }
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>

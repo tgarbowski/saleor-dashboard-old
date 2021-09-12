@@ -25,8 +25,7 @@ export enum ProductFilterKeys {
   productType = "productType",
   stock = "stock",
   channel = "channel",
-  warehouseLocation = "warehouseLocation",
-  createdAt = "createdAt"
+  warehouseLocation = "warehouseLocation"
 }
 
 export type AttributeFilterOpts = FilterOpts<string[]> & {
@@ -46,7 +45,6 @@ export interface ProductListFilterOpts {
   stockStatus: FilterOpts<StockAvailability>;
   channel: FilterOpts<string> & { choices: SingleAutocompleteChoiceType[] };
   warehouseLocation: FilterOpts<MinMax>;
-  createdAt?: FilterOpts<MinMax>;
 }
 
 const messages = defineMessages({
@@ -80,10 +78,6 @@ const messages = defineMessages({
   visible: {
     defaultMessage: "Visible",
     description: "product is visible"
-  },
-  createdAt: {
-    defaultMessage: "Utworzono",
-    description: "product"
   },
   warehouseLocation: {
     defaultMessage: "Lokacja magazynowa",
@@ -184,14 +178,6 @@ export function createFilterStructure(
         }
       ),
       active: opts.categories.active
-    },
-    {
-      ...createDateField(
-        ProductFilterKeys.createdAt,
-        intl.formatMessage(messages.createdAt),
-        opts.createdAt.value
-      ),
-      active: opts.createdAt.active
     },
     {
       ...createAutocompleteField(

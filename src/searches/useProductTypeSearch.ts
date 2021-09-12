@@ -19,6 +19,7 @@ export const searchProductTypes = gql`
         node {
           id
           name
+          slug
         }
       }
       pageInfo {

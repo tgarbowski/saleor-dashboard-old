@@ -56,9 +56,26 @@ import {
   ProductVariantCreateDataVariables
 } from "./types/ProductVariantCreateData";
 import {
+  ProductVariantsSkusData,
+  ProductVariantsSkusDataVariables
+} from "@saleor/products/types/ProductVariantSkus";
+import {
   ProductVariantDetails,
   ProductVariantDetailsVariables
 } from "./types/ProductVariantDetails";
+import {
+  UserWithMetadataData,
+  UserWithMetadataDataVariables
+} from "./types/UserWithMetadata";
+import {
+  ProductPrivateMetadataData,
+  ProductPrivateMetadataDataVariables
+} from "./types/ProductPrivateMetadata";
+import {
+  ProductsSkusData,
+  ProductsSkusDataVariables
+} from "./types/ProductSkus";
+import { ProductTypeData, ProductTypeDataVariables } from "./types/ProductType";
 
 const initialProductFilterAttributesQuery = gql`
   query InitialProductFilterAttributes {
@@ -441,3 +458,88 @@ export const useCreateMultipleVariantsData = makeQuery<
   CreateMultipleVariantsData,
   CreateMultipleVariantsDataVariables
 >(createMultipleVariantsData);
+
+const productVariantsSkus = gql`
+  query($sku: String!) {
+    productVariantsSkus(sku: $sku, first: 100) {
+      totalCount
+    }
+  }
+`;
+
+export const useProductVariantsSkus = makeQuery<
+  ProductVariantsSkusData,
+  ProductVariantsSkusDataVariables
+>(productVariantsSkus);
+
+const userWithMetadata = gql`
+  query getUserPrivateMetadata($id: ID!) {
+    user(id: $id) {
+      privateMetadata {
+        key
+        value
+      }
+    }
+  }
+`;
+
+export const useUserWithMetadata = makeQuery<
+  UserWithMetadataData,
+  UserWithMetadataDataVariables
+>(userWithMetadata);
+
+
+const productSkus = gql`
+  query getSkusFromProducts($ids: [ID]) {
+    products(first: 100, filter: { ids: $ids }) {
+      edges {
+        node {
+          name
+          defaultVariant {
+            sku
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const useProductSkus = makeQuery<
+  ProductsSkusData,
+  ProductsSkusDataVariables
+>(productSkus);
+
+const productPrivateMetadata = gql`
+  query getProductPrivateMetadata($id: ID!) {
+    product(id: $id) {
+      privateMetadata {
+        key
+        value
+      }
+    }
+  }
+`;
+
+export const useProductPrivateMetadata = makeQuery<
+  ProductPrivateMetadataData,
+  ProductPrivateMetadataDataVariables
+>(productPrivateMetadata);
+
+const getProductTypeId = gql`
+  query SearchProductTypes($first: Int!, $query: String!) {
+    search: productTypes(first: $first, filter: { search: $query }) {
+      edges {
+        node {
+          id
+          name
+          slug
+        }
+      }
+    }
+  }
+`;
+
+export const useProductType = makeQuery<
+  ProductTypeData,
+  ProductTypeDataVariables
+>(getProductTypeId);

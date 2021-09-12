@@ -13,6 +13,7 @@ const shopInfo = gql`
         country
         code
       }
+      channelCurrencies
       defaultCountry {
         code
         country
@@ -34,7 +35,22 @@ const shopInfo = gql`
         code
         name
       }
-      version
+      name
+      description
+      companyAddress{
+        firstName
+        lastName
+        companyName
+        streetAddress1
+        streetAddress2
+        city
+        cityArea
+        phone
+        postalCode
+        country{
+          country
+        }
+      }
     }
   }
 `;

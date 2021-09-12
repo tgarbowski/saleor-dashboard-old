@@ -25,7 +25,8 @@ import { ProductDetails_product } from "@saleor/products/types/ProductDetails";
 import {
   getAttributeInputFromProduct,
   getProductUpdatePageFormData,
-  getStockInputFromProduct
+  getStockInputFromProduct,
+  updateDataFromMegaPackValues
 } from "@saleor/products/utils/data";
 import {
   createChannelsChangeHandler,
@@ -47,7 +48,7 @@ import createSingleAutocompleteSelectHandler from "@saleor/utils/handlers/single
 import getMetadata from "@saleor/utils/metadata/getMetadata";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import useRichText from "@saleor/utils/richText/useRichText";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { ProductStockFormsetData, ProductStockInput } from "../ProductStocks";
 
@@ -60,6 +61,7 @@ export interface ProductUpdateFormData extends MetadataFormData {
   chargeTaxes: boolean;
   collections: string[];
   isAvailable: boolean;
+  megaPackProduct: string;
   name: string;
   rating: number;
   slug: string;
@@ -217,6 +219,10 @@ function useProductUpdateForm(
     initial: product?.description,
     triggerChange
   });
+
+  useEffect(() => {
+    updateDataFromMegaPackValues(form.data, form.data.megaPackProduct);
+  }, [form.data.megaPackProduct]);
 
   const {
     isMetadataModified,

@@ -53,6 +53,7 @@ import {
 import { getChoices, ProductUpdatePageFormData } from "../../utils/data";
 import ProductDetailsForm from "../ProductDetailsForm";
 import ProductMedia from "../ProductMedia";
+import ProductMegaPack from "../ProductMegaPack";
 import ProductOrganization from "../ProductOrganization";
 import ProductShipping from "../ProductShipping/ProductShipping";
 import ProductStocks, { ProductStockInput } from "../ProductStocks";
@@ -131,6 +132,7 @@ export interface ProductUpdatePageSubmitData extends ProductUpdatePageFormData {
   description: OutputData;
   removeStocks: string[];
   updateStocks: ProductStockInput[];
+  stocks: ProductStockInput[];
 }
 
 export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
@@ -303,6 +305,14 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                   onImageUpload={onImageUpload}
                   openMediaUrlModal={() => setMediaUrlModalStatus(true)}
                 />
+                <CardSpacer />
+                {product?.productType?.slug === "mega-paka" && (
+                  <ProductMegaPack
+                    data={data}
+                    disabled={disabled}
+                    onChange={handlers.changeMetadata}
+                  />
+                )}
                 <CardSpacer />
                 {data.attributes.length > 0 && (
                   <Attributes

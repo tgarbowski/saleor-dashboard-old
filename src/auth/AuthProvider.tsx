@@ -32,7 +32,8 @@ export const useAuth = () => {
     isAuthenticated,
     tokenAuthLoading: user.tokenAuthLoading,
     tokenVerifyLoading: user.tokenVerifyLoading,
-    user: user.user
+    user: user.user,
+    id: user.user?.id
   };
 };
 

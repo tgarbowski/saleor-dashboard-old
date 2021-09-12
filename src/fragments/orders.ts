@@ -82,6 +82,9 @@ export const fragmentOrderLine = gql`
       id
       quantityAvailable
     }
+    weight {
+          value
+        }
     productName
     productSku
     quantity
@@ -141,6 +144,7 @@ export const fragmentRefundOrderLine = gql`
 
 export const fulfillmentFragment = gql`
   ${fragmentOrderLine}
+  ${metadataFragment}
   fragment FulfillmentFragment on Fulfillment {
     id
     lines {

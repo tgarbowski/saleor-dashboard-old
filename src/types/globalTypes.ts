@@ -2518,9 +2518,7 @@ export interface ProductFilterInput {
   productTypes?: (string | null)[] | null;
   ids?: (string | null)[] | null;
   channel?: string | null;
-  warehouseLocation?: WarehouseLocationRangeInput | null;
-  createdAt?: DateRangeInput | null;
-}
+  warehouseLocation?: WarehouseLocationRangeInput | null;}
 
 export interface ProductInput {
   attributes?: AttributeValueInput[] | null;

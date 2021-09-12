@@ -246,10 +246,10 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                     onAttributeSelectBlur={onAttributeSelectBlur}
                   />
                 )}
-                {data.productType?.name === "Mega Paka" && (
+                {data.productType?.slug === "mega-paka" && (
                   <ProductMegaPack
                     data={data}
-                    disabled={false}
+                    disabled={disabled}
                     onChange={change}
                   />
                 )}
