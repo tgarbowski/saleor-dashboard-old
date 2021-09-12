@@ -1364,6 +1364,7 @@ export enum MetadataErrorCode {
   INVALID = "INVALID",
   NOT_FOUND = "NOT_FOUND",
   REQUIRED = "REQUIRED",
+  MEGAPACK_ASSIGNED = "MEGAPACK_ASSIGNED",
 }
 
 export enum OrderAction {
@@ -2497,6 +2498,11 @@ export interface ProductCreateInput {
   productType: string;
 }
 
+export interface WarehouseLocationRangeInput {
+  gte?: string | null;
+  lte?: string | null;
+}
+
 export interface ProductFilterInput {
   isPublished?: boolean | null;
   collections?: (string | null)[] | null;
@@ -2512,7 +2518,7 @@ export interface ProductFilterInput {
   productTypes?: (string | null)[] | null;
   ids?: (string | null)[] | null;
   channel?: string | null;
-}
+  warehouseLocation?: WarehouseLocationRangeInput | null;}
 
 export interface ProductInput {
   attributes?: AttributeValueInput[] | null;
@@ -2885,6 +2891,34 @@ export interface WebhookUpdateInput {
   isActive?: boolean | null;
   secretKey?: string | null;
 }
+
+
+export enum WMSDocumentsOrderField {
+  CREATED_AT = "CREATED_AT",
+  DOCUMENT_TYPE = "DOCUMENT_TYPE",
+  NAME = "NAME",
+  STATUS = "STATUS",
+  WAREHOUSE = "WAREHOUSE",
+}
+
+
+export interface WMSDocumentsFilterInput {
+  deliverers?: string | null;
+  documentType?: string | null;
+  search?: string | null;
+  status?: string | null;
+  createdAt?: DateRangeInput | null;
+  location?: string | null;
+  warehouses?: string | null;
+}
+
+export interface WMSDocumentOrder {
+  direction: OrderDirection;
+  attributeId?: string | null;
+  field?: ProductOrderField | null;
+}
+
+
 
 //==============================================================
 // END Enums and Input Objects

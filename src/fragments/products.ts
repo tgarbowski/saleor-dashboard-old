@@ -235,6 +235,7 @@ export const productFragmentDetails = gql`
       id
       name
       hasVariants
+      slug
       taxType {
         ...TaxTypeFragment
       }

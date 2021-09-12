@@ -3,6 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { SiteSettings_shop_companyAddress } from "@saleor/siteSettings/types/SiteSettings";
 import { WeightUnitsEnum, LanguageCodeEnum, PermissionEnum } from "./../../../types/globalTypes";
 
 // ====================================================
@@ -52,6 +53,7 @@ export interface ShopInfo_shop {
   name: string;
   trackInventoryByDefault: boolean | null;
   permissions: (ShopInfo_shop_permissions | null)[];
+  companyAddress: SiteSettings_shop_companyAddress | null;
 }
 
 export interface ShopInfo {

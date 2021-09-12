@@ -25,6 +25,7 @@ import { Backlink } from "@saleor/macaw-ui";
 import ProductVariantPrice from "@saleor/products/components/ProductVariantPrice";
 import { ProductType_productType } from "@saleor/products/types/ProductType";
 import { getChoices } from "@saleor/products/utils/data";
+import ProductMegaPack from "../ProductMegaPack";
 import { SearchAttributeValues_attribute_choices_edges_node } from "@saleor/searches/types/SearchAttributeValues";
 import { SearchCategories_search_edges_node } from "@saleor/searches/types/SearchCategories";
 import { SearchCollections_search_edges_node } from "@saleor/searches/types/SearchCollections";
@@ -243,6 +244,13 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                     fetchAttributeValues={fetchAttributeValues}
                     fetchMoreAttributeValues={fetchMoreAttributeValues}
                     onAttributeSelectBlur={onAttributeSelectBlur}
+                  />
+                )}
+                {data.productType?.slug === "mega-paka" && (
+                  <ProductMegaPack
+                    data={data}
+                    disabled={disabled}
+                    onChange={change}
                   />
                 )}
                 <CardSpacer />

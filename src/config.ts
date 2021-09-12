@@ -18,6 +18,14 @@ export const DEFAULT_INITIAL_PAGINATION_DATA: Pagination = {
   before: undefined
 };
 
+export type WMSDocumentsListColumns =
+  | "number"
+  | "documentType"
+  | "status"
+  | "updatedAt"
+  | "deliverer"
+  | "warehouse";
+
 export const PAGINATE_BY = 20;
 export const VALUES_PAGINATE_BY = 10;
 
@@ -44,6 +52,7 @@ export interface AppListViewSettings {
   [ListViews.WEBHOOK_LIST]: ListSettings;
   [ListViews.TRANSLATION_ATTRIBUTE_VALUE_LIST]: ListSettings;
   [ListViews.GIFT_CARD_LIST]: ListSettings;
+  [ListViews.WMS_DOCUMENTS_LIST]: ListSettings<WMSDocumentsListColumns>;
 }
 
 export const defaultListSettings: AppListViewSettings = {
@@ -106,6 +115,10 @@ export const defaultListSettings: AppListViewSettings = {
     rowNumber: 10
   },
   [ListViews.GIFT_CARD_LIST]: {
+    rowNumber: PAGINATE_BY
+  },
+  [ListViews.WMS_DOCUMENTS_LIST]: {
+    columns: ["number", "status", "documentType", "updatedAt"],
     rowNumber: PAGINATE_BY
   }
 };

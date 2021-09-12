@@ -6,6 +6,8 @@ import discountsIcon from "@assets/images/menu-discounts-icon.svg";
 import homeIcon from "@assets/images/menu-home-icon.svg";
 import ordersIcon from "@assets/images/menu-orders-icon.svg";
 import translationIcon from "@assets/images/menu-translation-icon.svg";
+import warehouseIcon from "@assets/images/warehouse-icon.svg";
+import { warehouseListPath, wmsDocumentsListPath } from "@saleor/warehouses/urls";
 import {
   configurationMenuUrl,
   createConfigurationMenu
@@ -160,7 +162,27 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
         .map(section => section.permission),
       id: "configure",
       url: configurationMenuUrl
-    }
+    },
+    {
+      ariaLabel: "warehouses",
+      children: [
+        {
+          ariaLabel: "warehouses_details",
+          label: intl.formatMessage(sectionNames.warehouses),
+          testingContextId: "warehouses_details",
+          url: warehouseListPath
+        },
+        {
+          ariaLabel: "wms_documents",
+          label: intl.formatMessage(sectionNames.wmsDocuments),
+          testingContextId: "wms_documents",
+          url: wmsDocumentsListPath
+        }],
+      icon: warehouseIcon,
+      label: intl.formatMessage(sectionNames.warehouses),
+      permission: PermissionEnum.MANAGE_PRODUCTS,
+      testingContextId: "warehouses",
+      }
   ];
 
   const isMenuItemPermitted = (menuItem: FilterableMenuItem) =>

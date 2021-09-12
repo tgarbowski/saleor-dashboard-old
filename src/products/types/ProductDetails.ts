@@ -146,6 +146,7 @@ export interface ProductDetails_product_productType {
   name: string;
   hasVariants: boolean;
   taxType: ProductDetails_product_productType_taxType | null;
+  slug: string;
 }
 
 export interface ProductDetails_product_channelListings_channel {

@@ -10,8 +10,8 @@ const useStyles = makeStyles(
   theme => ({
     logo: {
       display: "block",
-      height: 40,
-      marginBottom: theme.spacing(4)
+      height: 100,
+      marginBottom: theme.spacing(2)
     },
     mainPanel: {
       [theme.breakpoints.down("sm")]: {

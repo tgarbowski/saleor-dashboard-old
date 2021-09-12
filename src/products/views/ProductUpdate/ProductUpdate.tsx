@@ -159,7 +159,19 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
   });
   const shop = useShop();
   const [updateMetadata] = useMetadataUpdate({});
-  const [updatePrivateMetadata] = usePrivateMetadataUpdate({});
+  const [updatePrivateMetadata] = usePrivateMetadataUpdate({
+    onCompleted: data => {
+      const megaPackError = data.updatePrivateMetadata.errors.find(
+        error => error.code === "MEGAPACK_ASSIGNED"
+      );
+      if (megaPackError) {
+        notify({
+          status: "error",
+          text: megaPackError.message
+        });
+      }
+    }
+  });
   const [
     productVariantCreate,
     productVariantCreateOpts

@@ -40,6 +40,7 @@ import {
   useProductListQuery
 } from "@saleor/products/queries";
 import { ProductListVariables } from "@saleor/products/types/ProductList";
+import ProductAddToMegaPackDialog from "@saleor/products/components/ProductAddToMegaPackDialog";
 import {
   productAddUrl,
   productListUrl,
@@ -438,16 +439,31 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         onRowClick={id => () => navigate(productUrl(id))}
         onAll={resetFilters}
         toolbar={
-          <IconButton
-            color="primary"
-            onClick={() =>
-              openModal("delete", {
-                ids: listElements
-              })
-            }
-          >
-            <DeleteIcon />
-          </IconButton>
+          <>
+            <IconButton
+              color="primary"
+              onClick={() =>
+                openModal("addToMegaPack", {
+                  ids: listElements
+                })
+              }
+            >
+              <FormattedMessage
+                defaultMessage="Dodaj do megapaki"
+                description="dodaj do megapaki, button"
+              />
+            </IconButton>
+            <IconButton
+              color="primary"
+              onClick={() =>
+                openModal("delete", {
+                  ids: listElements
+                })
+              }
+            >
+              <DeleteIcon />
+            </IconButton>
+          </>
         }
         isChecked={isSelected}
         selected={listElements.length}
@@ -491,6 +507,14 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           />
         </DialogContentText>
       </ActionDialog>
+      <ProductAddToMegaPackDialog
+        params={params}
+        onClose={closeModal}
+        open={params.action === "addToMegaPack"}
+        hasMore={searchAttributes.result.data?.search.pageInfo.hasNextPage}
+        loading={searchAttributes.result.loading}
+        onFetchMore={searchAttributes.loadMore}
+      />
       <ProductExportDialog
         attributes={
           mapEdgesToItems(searchAttributes?.result?.data?.search) || []

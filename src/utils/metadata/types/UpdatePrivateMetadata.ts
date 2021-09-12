@@ -24,6 +24,8 @@ export interface UpdatePrivateMetadata_deletePrivateMetadata_errors {
   __typename: "MetadataError";
   code: MetadataErrorCode;
   field: string | null;
+  params: string | null;
+  message: string | null;
 }
 
 export interface UpdatePrivateMetadata_deletePrivateMetadata_item_metadata {

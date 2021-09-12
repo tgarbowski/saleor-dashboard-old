@@ -11,6 +11,7 @@ export interface SearchProductTypes_search_edges_node {
   __typename: "ProductType";
   id: string;
   name: string;
+  slug: string;
 }
 
 export interface SearchProductTypes_search_edges {

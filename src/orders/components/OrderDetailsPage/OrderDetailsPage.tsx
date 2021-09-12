@@ -77,6 +77,8 @@ export interface OrderDetailsPageProps extends UserPermissionProps {
   onFulfillmentCancel(id: string);
   onFulfillmentTrackingNumberUpdate(id: string);
   onOrderFulfill();
+  onParcelDetails();
+  onParcelLabelDownload();
   onProductClick?(id: string);
   onPaymentCapture();
   onPaymentPaid();
@@ -123,6 +125,8 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
     onNoteAdd,
     onOrderCancel,
     onOrderFulfill,
+    onParcelDetails,
+    onParcelLabelDownload,
     onPaymentCapture,
     onPaymentPaid,
     onPaymentRefund,
@@ -244,6 +248,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                     notAllowedToFulfillUnpaid={notAllowedToFulfillUnpaid}
                     lines={unfulfilled}
                     onFulfill={onOrderFulfill}
+                    onParcelDetails={onParcelDetails}
                   />
                 ) : (
                   <>
@@ -273,6 +278,8 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       onOrderFulfillmentApprove={() =>
                         onFulfillmentApprove(fulfillment.id)
                       }
+                      onParcelLabelDownload={() => onParcelLabelDownload()}
+                      onParcelDetails={onParcelDetails}
                     />
                   </React.Fragment>
                 ))}
