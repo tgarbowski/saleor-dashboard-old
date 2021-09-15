@@ -166,6 +166,10 @@ const productListQuery = gql`
               ...AttributeValueFragment
             }
           }
+          privateMetadata {
+            key
+            value
+          }
         }
       }
       pageInfo {

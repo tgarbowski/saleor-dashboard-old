@@ -34,7 +34,12 @@ import TDisplayColumn, {
 import { getArrowDirection } from "@saleor/utils/sort";
 import classNames from "classnames";
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
+import ProductPublishReportDialog from "@saleor/products/components/ProductPublishReportDialog";
+import {Button} from "@material-ui/core";
+import WarningIcon from "@material-ui/icons/Warning";
+import StatusLabel from "@saleor/components/StatusLabel";
+import { mapMetadataItemToInput } from "@saleor/utils/maps";
 
 import { messages } from "./messages";
 
@@ -141,6 +146,21 @@ export const ProductList: React.FC<ProductListProps> = props => {
     isAttributeColumnValue
   );
   const numberOfColumns = 2 + settings.columns.length;
+  const [reportOpen, setReportOpen] = React.useState(false);
+  const [privateMetadataMap, setPrivateMetadataMap] = React.useState(null);
+  const [isPublished, setIsPublished] = React.useState(false);
+  const handleReportOpen = (
+    privateMetadataMapVal: string,
+    isPublishedVal: boolean
+  ) => {
+    setPrivateMetadataMap(privateMetadataMapVal);
+    setReportOpen(true);
+    setIsPublished(isPublishedVal);
+  };
+  const handleReportClose = () => {
+    setReportOpen(false);
+  };
+  const intl = useIntl();
 
   return (
     <div className={classes.tableContainer}>
@@ -306,6 +326,14 @@ export const ProductList: React.FC<ProductListProps> = props => {
               const channel = product?.channelListings.find(
                 listing => listing.channel.id === selectedChannelId
               );
+              //const rowPrivateMetadataMap = product ? JSON.parse(product.privateMetadata) : null;
+              const rowPrivateMetadataMap = {};
+
+              if (product !== undefined){
+                for (const x of product.privateMetadata) {
+                  rowPrivateMetadataMap[x.key] = x.value;
+                }
+              }
 
               return (
                 <TableRow
@@ -351,6 +379,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
                       <Skeleton />
                     )}
                   </TableCellAvatar>
+
+                  
                   <DisplayColumn
                     column="productType"
                     displayColumns={settings.columns}
@@ -362,6 +392,67 @@ export const ProductList: React.FC<ProductListProps> = props => {
                       {product?.productType?.name || <Skeleton />}
                     </TableCell>
                   </DisplayColumn>
+                  
+
+
+
+                  <DisplayColumn
+                    column="isPublished"
+                    displayColumns={settings.columns}
+                  >
+                    <TableCell
+                      className={classes.colType}
+                      data-test="isPublished"
+                      data-test-is-published={maybe(() => channel.isPublished)}
+                    >
+                      {channel &&
+                      maybe(() => channel.isPublished !== undefined) ? (
+                        <Button
+                          onClick={event => {
+                            event.stopPropagation();
+                            handleReportOpen(
+                              rowPrivateMetadataMap,
+                              channel.isPublished
+                            );
+                          }}
+                        > 
+                          {rowPrivateMetadataMap["publish.allegro.errors"] !==
+                            undefined &&
+                            rowPrivateMetadataMap["publish.allegro.errors"] !== '[]'
+                              && <WarningIcon color="error" />}
+                          <StatusLabel
+                            label={
+                              channel.isPublished
+                                ? intl.formatMessage({
+                                    defaultMessage: "Published",
+                                    description: "product status"
+                                  })
+                                : intl.formatMessage({
+                                    defaultMessage: "Not published",
+                                    description: "product status"
+                                  })
+                            }
+                            status={
+                              channel.isPublished
+                                ? "success"
+                                : rowPrivateMetadataMap[
+                                    "publish.allegro.errors"
+                                  ] !== undefined &&
+                                  rowPrivateMetadataMap[
+                                    "publish.allegro.errors"
+                                  ] !== '[]'
+                                ? ""
+                                : "error"
+                            }
+                          />
+                        </Button>
+                      ) : (
+                        <Skeleton />
+                      )}
+                    </TableCell>
+                  </DisplayColumn>
+
+
                   <DisplayColumn
                     column="availability"
                     displayColumns={settings.columns}
@@ -441,6 +532,10 @@ export const ProductList: React.FC<ProductListProps> = props => {
           )}
         </TableBody>
       </ResponsiveTable>
+      <ProductPublishReportDialog privateMetadataMap={privateMetadataMap}
+                                  isPublished={isPublished}
+                                  open={reportOpen}
+                                  onClose={handleReportClose} />
     </div>
   );
 };

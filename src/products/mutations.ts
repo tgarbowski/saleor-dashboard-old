@@ -82,6 +82,26 @@ import { VariantCreate, VariantCreateVariables } from "./types/VariantCreate";
 import { VariantDelete, VariantDeleteVariables } from "./types/VariantDelete";
 import { VariantUpdate, VariantUpdateVariables } from "./types/VariantUpdate";
 
+import {
+  productBulkPublish,
+  productBulkPublishVariables
+} from "./types/productBulkPublish";
+
+export const productBulkPublishMutation = gql`
+  ${productErrorFragment}
+  mutation productBulkPublish($ids: [ID!]!, $isPublished: Boolean!, $offerType: String!, $startingAt: String!) {
+    productBulkPublish(ids: $ids, isPublished: $isPublished, offerType: $offerType, startingAt: $startingAt) {
+      errors: productErrors {
+        ...ProductErrorFragment
+      }
+    }
+  }
+`;
+export const useProductBulkPublishMutation = makeMutation<
+  productBulkPublish,
+  productBulkPublishVariables
+>(productBulkPublishMutation);
+
 export const productMediaCreateMutation = gql`
   ${productErrorFragment}
   ${fragmentProductMedia}
