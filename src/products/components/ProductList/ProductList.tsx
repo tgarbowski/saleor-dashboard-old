@@ -171,6 +171,9 @@ export const ProductList: React.FC<ProductListProps> = props => {
           <DisplayColumn column="productType" displayColumns={settings.columns}>
             <col className={classes.colType} />
           </DisplayColumn>
+          <DisplayColumn column="isPublished" displayColumns={settings.columns}>
+            <col className={classes.colPublished} />
+          </DisplayColumn>
           <DisplayColumn
             column="availability"
             displayColumns={settings.columns}
@@ -223,6 +226,22 @@ export const ProductList: React.FC<ProductListProps> = props => {
               <FormattedMessage
                 defaultMessage="Type"
                 description="product type"
+              />
+            </TableCellHeader>
+          </DisplayColumn>
+          <DisplayColumn column="isPublished" displayColumns={settings.columns}>
+            <TableCellHeader
+              className={classes.colPublished}
+              direction={
+                sort.sort === ProductListUrlSortField.status
+                  ? getArrowDirection(sort.asc)
+                  : undefined
+              }
+              onClick={() => onSort(ProductListUrlSortField.status)}
+            >
+              <FormattedMessage
+                defaultMessage="Published"
+                description="product status"
               />
             </TableCellHeader>
           </DisplayColumn>
