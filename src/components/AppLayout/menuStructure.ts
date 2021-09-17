@@ -178,7 +178,7 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           testingContextId: "wms_documents",
           url: wmsDocumentsListPath
         }],
-      icon: warehouseIcon,
+      iconSrc: warehouseIcon,
       label: intl.formatMessage(sectionNames.warehouses),
       permission: PermissionEnum.MANAGE_PRODUCTS,
       testingContextId: "warehouses",

@@ -26,14 +26,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 export const useAuth = () => {
   const user = useContext(UserContext);
   const isAuthenticated = !!user.user;
-
+  console.log(user.user);
   return {
     hasToken: !!getTokens().auth,
     isAuthenticated,
     tokenAuthLoading: user.tokenAuthLoading,
     tokenVerifyLoading: user.tokenVerifyLoading,
-    user: user.user,
-    id: user.user?.id
+    user: user.user
   };
 };
 

@@ -88,6 +88,7 @@ export function createVariantChannelsChangeHandler(
 
 export function createProductTypeSelectHandler(
   setProductType: (productTypeId: string) => void,
+  productTypeChoiceList: ProductType[],
   setSkuCode: (sku: string) => void,
   skusCount: any,
   userData: any,
@@ -96,8 +97,11 @@ export function createProductTypeSelectHandler(
   return (event: React.ChangeEvent<any>) => {
     const id = event.target.value;
     setProductType(id);
-       /* eslint no-unused-expressions: ["error", { "allowTernary": true }]*/ 
-    id.slug === "mega-paka" ? setSkuCode(generateSkuCode(skusCount.productVariantsSkus.totalCount, userData)) : setSkuCode("");
+    const selectedProductType = productTypeChoiceList.find(
+      productType => productType.id === id
+    );
+    /* eslint no-unused-expressions: ["error", { "allowTernary": true }]*/ 
+    selectedProductType.name === "Mega Paka" ? setSkuCode(generateSkuCode(skusCount.productVariantsSkus.totalCount, userData)) : setSkuCode("");
     triggerChange();
   };
 }

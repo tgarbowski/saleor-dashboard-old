@@ -197,6 +197,7 @@ function useProductCreateForm(
   });
 
   const [sku, setSkuCode] = React.useState(form?.data?.sku);
+  console.log(sku);
 
   const attributes = useFormset<AttributeInputData>(
     opts.selectedProductType
@@ -268,6 +269,7 @@ function useProductCreateForm(
   );
   const handleProductTypeSelect = createProductTypeSelectHandler(
     opts.onSelectProductType,
+    opts.productTypes,
     setSkuCode,
     skusCount,
     userData,
@@ -322,6 +324,7 @@ function useProductCreateForm(
     productType: opts.selectedProductType,
     stocks: stocks.data
   });
+  console.log(sku);
   const data = getData();
   const submit = () => onSubmit(data);
 
@@ -338,6 +341,7 @@ function useProductCreateForm(
   }, [form.data.megaPackProduct]);
 
   form.data.sku = sku;
+  console.log(form);
 
   return {
     change: handleChange,
