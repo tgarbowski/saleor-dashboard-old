@@ -6,9 +6,15 @@ import discountsIcon from "@assets/images/menu-discounts-icon.svg";
 import homeIcon from "@assets/images/menu-home-icon.svg";
 import ordersIcon from "@assets/images/menu-orders-icon.svg";
 import translationIcon from "@assets/images/menu-translation-icon.svg";
-import { configurationMenuUrl } from "@saleor/configuration";
-import { getConfigMenuItemsPermissions } from "@saleor/configuration/utils";
+import warehouseIcon from "@assets/images/warehouse-icon.svg";
+import { warehouseListPath, wmsDocumentsListPath } from "@saleor/warehouses/urls";
+import {
+  configurationMenuUrl,
+  createConfigurationMenu
+} from "@saleor/configuration";
+import { MenuItem } from "@saleor/configuration/ConfigurationPage";
 import { User } from "@saleor/fragments/types/User";
+import { giftCardsListUrl } from "@saleor/giftCards/urls";
 import { commonMessages, sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
 import { IntlShape } from "react-intl";
@@ -29,6 +35,8 @@ interface FilterableMenuItem extends Omit<SidebarMenuItem, "children"> {
 }
 
 function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
+  const configurationMenu = createConfigurationMenu(intl);
+
   const menuItems: FilterableMenuItem[] = [
     {
       ariaLabel: "home",
@@ -44,24 +52,33 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           ariaLabel: "products",
           label: intl.formatMessage(sectionNames.products),
           id: "products",
-          url: productListUrl()
+          url: productListUrl(),
+          permissions: [PermissionEnum.MANAGE_PRODUCTS]
         },
         {
           ariaLabel: "categories",
           label: intl.formatMessage(sectionNames.categories),
           id: "categories",
-          url: categoryListUrl()
+          url: categoryListUrl(),
+          permissions: [PermissionEnum.MANAGE_PRODUCTS]
         },
         {
           ariaLabel: "collections",
           label: intl.formatMessage(sectionNames.collections),
           id: "collections",
-          url: collectionListUrl()
+          url: collectionListUrl(),
+          permissions: [PermissionEnum.MANAGE_PRODUCTS]
+        },
+        {
+          ariaLabel: "giftCards",
+          label: intl.formatMessage(sectionNames.giftCards),
+          id: "giftCards",
+          url: giftCardsListUrl(),
+          permissions: [PermissionEnum.MANAGE_GIFT_CARD]
         }
       ],
       iconSrc: catalogIcon,
       label: intl.formatMessage(commonMessages.catalog),
-      permissions: [PermissionEnum.MANAGE_PRODUCTS],
       id: "catalogue"
     },
     {
@@ -137,18 +154,61 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
       ariaLabel: "configure",
       iconSrc: configurationIcon,
       label: intl.formatMessage(sectionNames.configuration),
-      permissions: getConfigMenuItemsPermissions(intl),
+      permissions: configurationMenu
+        .reduce(
+          (sections, section) => [...sections, ...section.menuItems],
+          [] as MenuItem[]
+        )
+        .map(section => section.permission),
       id: "configure",
       url: configurationMenuUrl
-    }
+    },
+    {
+      ariaLabel: "warehouses",
+      children: [
+        {
+          ariaLabel: "warehouses_details",
+          label: intl.formatMessage(sectionNames.warehouses),
+          testingContextId: "warehouses_details",
+          url: warehouseListPath
+        },
+        {
+          ariaLabel: "wms_documents",
+          label: intl.formatMessage(sectionNames.wmsDocuments),
+          testingContextId: "wms_documents",
+          url: wmsDocumentsListPath
+        }],
+      iconSrc: warehouseIcon,
+      label: intl.formatMessage(sectionNames.warehouses),
+      permission: PermissionEnum.MANAGE_PRODUCTS,
+      testingContextId: "warehouses",
+      }
   ];
 
-  return menuItems.filter(
-    menuItem =>
-      !menuItem.permissions ||
-      (user?.userPermissions || []).some(permission =>
-        menuItem.permissions.includes(permission.code)
-      )
+  const isMenuItemPermitted = (menuItem: FilterableMenuItem) =>
+    !menuItem.permissions ||
+    (user?.userPermissions || []).some(permission =>
+      menuItem.permissions.includes(permission.code)
+    );
+
+  const getFilteredMenuItems = (menuItems: FilterableMenuItem[]) =>
+    menuItems.filter(isMenuItemPermitted);
+
+  return menuItems.reduce(
+    (resultItems: FilterableMenuItem[], menuItem: FilterableMenuItem) => {
+      const { children } = menuItem;
+
+      if (!isMenuItemPermitted(menuItem)) {
+        return resultItems;
+      }
+
+      const filteredChildren = children
+        ? getFilteredMenuItems(children)
+        : undefined;
+
+      return [...resultItems, { ...menuItem, children: filteredChildren }];
+    },
+    [] as FilterableMenuItem[]
   );
 }
 

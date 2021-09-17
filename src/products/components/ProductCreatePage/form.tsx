@@ -1,4 +1,11 @@
+import { getTokens } from "@saleor/auth";
 import { OutputData } from "@editorjs/editorjs";
+import {
+  useProductVariantsSkus,
+  useUserWithMetadata
+} from "@saleor/products/queries";
+import { ProductVariantsSkusData } from "@saleor/products/types/ProductVariantSkus";
+import { UserWithMetadataData } from "@saleor/products/types/UserWithMetadata";
 import { getAttributesDisplayData } from "@saleor/attributes/utils/data";
 import {
   createAttributeChangeHandler,
@@ -14,6 +21,12 @@ import {
   AttributeInput,
   AttributeInputData
 } from "@saleor/components/Attributes";
+import {
+  generateSkuNumberToQuery,
+  getAttributeInputFromProductType,
+  ProductType,
+  updateDataFromMegaPackValues
+} from "@saleor/products/utils/data";
 import { MetadataFormData } from "@saleor/components/Metadata";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import { RichTextEditorChange } from "@saleor/components/RichTextEditor";
@@ -24,10 +37,6 @@ import useFormset, {
   FormsetData
 } from "@saleor/hooks/useFormset";
 import { ProductType_productType } from "@saleor/products/types/ProductType";
-import {
-  getAttributeInputFromProductType,
-  ProductType
-} from "@saleor/products/utils/data";
 import {
   createChannelsChangeHandler,
   createChannelsPriceChangeHandler,
@@ -69,6 +78,7 @@ export interface ProductCreateFormData extends MetadataFormData {
   taxCode: string;
   trackInventory: boolean;
   weight: string;
+  megaPackProduct: string;
 }
 export interface ProductCreateData extends ProductCreateFormData {
   attributes: AttributeInput[];
@@ -148,6 +158,8 @@ export interface ProductCreateFormProps extends UseProductCreateFormOpts {
 
 function useProductCreateForm(
   initial: Partial<ProductCreateFormData>,
+  skusCount: ProductVariantsSkusData,
+  userData: UserWithMetadataData,
   onSubmit: (data: ProductCreateData) => Promise<boolean>,
   opts: UseProductCreateFormOpts
 ): UseProductCreateFormResult {
@@ -160,6 +172,7 @@ function useProductCreateForm(
     collections: [],
     description: null,
     isAvailable: false,
+    megaPackProduct: "",
     metadata: [],
     name: "",
     privateMetadata: [],
@@ -174,6 +187,7 @@ function useProductCreateForm(
     trackInventory: false,
     weight: ""
   };
+
   const [changed, setChanged] = React.useState(false);
   const triggerChange = () => setChanged(true);
 
@@ -181,6 +195,10 @@ function useProductCreateForm(
     ...initial,
     ...defaultInitialFormData
   });
+
+  const [sku, setSkuCode] = React.useState(form?.data?.sku);
+  console.log(sku);
+
   const attributes = useFormset<AttributeInputData>(
     opts.selectedProductType
       ? getAttributeInputFromProductType(opts.selectedProductType)
@@ -251,6 +269,10 @@ function useProductCreateForm(
   );
   const handleProductTypeSelect = createProductTypeSelectHandler(
     opts.onSelectProductType,
+    opts.productTypes,
+    setSkuCode,
+    skusCount,
+    userData,
     triggerChange
   );
   const handleStockChange: FormsetChange<string> = (id, value) => {
@@ -302,6 +324,7 @@ function useProductCreateForm(
     productType: opts.selectedProductType,
     stocks: stocks.data
   });
+  console.log(sku);
   const data = getData();
   const submit = () => onSubmit(data);
 
@@ -311,8 +334,14 @@ function useProductCreateForm(
       data.channelListings.some(
         channel =>
           validatePrice(channel.price) || validateCostPrice(channel.costPrice)
-      ) ||
-      !data.category);
+      ));
+
+  React.useEffect(() => {
+    updateDataFromMegaPackValues(form.data, form.data.megaPackProduct);
+  }, [form.data.megaPackProduct]);
+
+  form.data.sku = sku;
+  console.log(form);
 
   return {
     change: handleChange,
@@ -349,7 +378,25 @@ const ProductCreateForm: React.FC<ProductCreateFormProps> = ({
   onSubmit,
   ...rest
 }) => {
-  const props = useProductCreateForm(initial || {}, onSubmit, rest);
+  const { ...values } = useUserWithMetadata({
+    displayLoader: true,
+    variables: {
+      id: getTokens().id
+    }
+  });
+
+  const { data } = useProductVariantsSkus({
+    displayLoader: true,
+    variables: { sku: generateSkuNumberToQuery(values.data) }
+  });
+
+  const props = useProductCreateForm(
+    initial || {},
+    data,
+    values.data,
+    onSubmit,
+    rest
+  );
 
   return <form onSubmit={props.submit}>{children(props)}</form>;
 };

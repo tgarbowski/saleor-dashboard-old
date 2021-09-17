@@ -4,6 +4,7 @@ import {
   ChannelPriceData
 } from "@saleor/channels/utils";
 import { FormChange } from "@saleor/hooks/useForm";
+import { generateSkuCode, getAttributeInputFromProductType, ProductType } from "./data";
 
 export function createChannelsPriceChangeHandler(
   channelListings: ChannelData[],
@@ -87,11 +88,20 @@ export function createVariantChannelsChangeHandler(
 
 export function createProductTypeSelectHandler(
   setProductType: (productTypeId: string) => void,
+  productTypeChoiceList: ProductType[],
+  setSkuCode: (sku: string) => void,
+  skusCount: any,
+  userData: any,
   triggerChange: () => void
 ): FormChange {
   return (event: React.ChangeEvent<any>) => {
     const id = event.target.value;
     setProductType(id);
+    const selectedProductType = productTypeChoiceList.find(
+      productType => productType.id === id
+    );
+    /* eslint no-unused-expressions: ["error", { "allowTernary": true }]*/ 
+    selectedProductType.name === "Mega Paka" ? setSkuCode(generateSkuCode(skusCount.productVariantsSkus.totalCount, userData)) : setSkuCode("");
     triggerChange();
   };
 }

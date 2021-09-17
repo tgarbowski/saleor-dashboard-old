@@ -105,7 +105,7 @@ export function useSaleorAuthProvider({
 
       setUserContext(user);
       if (user) {
-        setTokens(tokenCreate.token, tokenCreate.csrfToken, persistToken);
+        setTokens(tokenCreate.token, tokenCreate.csrfToken, user.id, persistToken);
       }
     },
     onError: logout
@@ -168,7 +168,7 @@ export function useSaleorAuthProvider({
   const loginByToken = (auth: string, refresh: string, user: User) => {
     setAuthPlugin(undefined);
     setUserContext(user);
-    setTokens(auth, refresh, persistToken);
+    setTokens(auth, refresh, user.id, persistToken);
   };
 
   const refreshToken = (): Promise<boolean> => {
