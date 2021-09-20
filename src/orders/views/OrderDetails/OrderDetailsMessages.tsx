@@ -1,6 +1,8 @@
 import messages from "@saleor/containers/BackgroundTasks/messages";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
+import { OrderParcel } from "@saleor/orders/types/OrderParcel";
+import { OrderFulfillmentApprove } from "@saleor/orders/types/OrderFulfillmentApprove";
 import getOrderErrorMessage from "@saleor/utils/errors/order";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import React from "react";
@@ -32,6 +34,7 @@ interface OrderDetailsMessages {
     handleDraftUpdate: (data: OrderDraftUpdate) => void;
     handleNoteAdd: (data: OrderAddNote) => void;
     handleOrderCancel: (data: OrderCancel) => void;
+    handleOrderFulfillmentApprove: (data: OrderFulfillmentApprove) => void;
     handleOrderFulfillmentCancel: (data: OrderFulfillmentCancel) => void;
     handleOrderFulfillmentUpdate: (
       data: OrderFulfillmentUpdateTracking
@@ -41,6 +44,7 @@ interface OrderDetailsMessages {
     handleOrderLineUpdate: (data: OrderLineUpdate) => void;
     handleOrderMarkAsPaid: (data: OrderMarkAsPaid) => void;
     handleOrderVoid: (data: OrderVoid) => void;
+    handleParcelDetails: (data: OrderParcel) => void;
     handlePaymentCapture: (data: OrderCapture) => void;
     handleShippingMethodUpdate: (data: OrderShippingMethodUpdate) => void;
     handleUpdate: (data: OrderUpdate) => void;
@@ -110,6 +114,19 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
         status: "success",
         text: intl.formatMessage({
           defaultMessage: "Order successfully cancelled"
+        })
+      });
+      closeModal();
+    }
+  };
+  const handleParcelDetails = (data: OrderParcel) => {
+    const errs = data.orderParcel?.errors;
+
+    if (errs.length === 0) {
+      pushMessage({
+        status: "success",
+        text: intl.formatMessage({
+          defaultMessage: "Test123"
         })
       });
       closeModal();
@@ -215,6 +232,18 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
       );
     }
   };
+  const handleOrderFulfillmentApprove = (data: OrderFulfillmentApprove) => {
+    const errs = data.orderFulfillmentApprove?.errors;
+    if (errs.length === 0) {
+      pushMessage({
+        status: "success",
+        text: intl.formatMessage({
+          defaultMessage: "Fulfillment successfully approved"
+        })
+      });
+      closeModal();
+    }
+  };
   const handleOrderFulfillmentCancel = (data: OrderFulfillmentCancel) => {
     const errs = data.orderFulfillmentCancel?.errors;
     if (errs.length === 0) {
@@ -299,6 +328,7 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
     handleInvoiceSend,
     handleNoteAdd,
     handleOrderCancel,
+    handleOrderFulfillmentApprove,
     handleOrderFulfillmentCancel,
     handleOrderFulfillmentUpdate,
     handleOrderLineDelete,
@@ -306,6 +336,7 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
     handleOrderLinesAdd,
     handleOrderMarkAsPaid,
     handleOrderVoid,
+    handleParcelDetails,
     handlePaymentCapture,
     handleShippingMethodUpdate,
     handleUpdate

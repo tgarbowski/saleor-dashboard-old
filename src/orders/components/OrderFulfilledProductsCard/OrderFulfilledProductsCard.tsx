@@ -30,6 +30,8 @@ interface OrderFulfilledProductsCardProps {
   orderNumber?: string;
   onOrderFulfillmentCancel: () => void;
   onTrackingCodeAdd: () => void;
+  onParcelLabelDownload: () => void;
+  onParcelDetails: () => void;
   onRefund: () => void;
 }
 
@@ -39,9 +41,25 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
     orderNumber,
     onOrderFulfillmentCancel,
     onTrackingCodeAdd,
+    onParcelDetails,
+    onParcelLabelDownload,
     onRefund
   } = props;
-  const classes = useStyles(props);
+  const classes = makeStyles(
+    theme => ({
+      menuIcon: {
+        "& svg": {
+          fill: theme.palette.primary.main,
+          height: 25,
+          width: 25
+        },
+        display: "inline-block",
+        position: "relative",
+        right: 8
+      }
+    }),
+    { name: "OrderFulfillment" }
+  );
 
   const intl = useIntl();
 
@@ -100,9 +118,12 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           <ExtraInfoLines fulfillment={fulfillment} />
         </ResponsiveTable>
         <ActionButtons
+          classes={classes}
           status={fulfillment?.status}
           trackingNumber={fulfillment?.trackingNumber}
           onTrackingCodeAdd={onTrackingCodeAdd}
+          onParcelDetails={onParcelDetails}
+          onParcelLabelDownload={onParcelLabelDownload}
           onRefund={onRefund}
         />
       </Card>

@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import WarningIcon from "@material-ui/icons/Warning";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
@@ -36,7 +35,6 @@ import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
-import { usePaginationReset } from "@saleor/hooks/usePaginationReset";
 import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
@@ -59,6 +57,7 @@ import {
   useProductListQuery
 } from "@saleor/products/queries";
 import { ProductListVariables } from "@saleor/products/types/ProductList";
+import ProductAddToMegaPackDialog from "@saleor/products/components/ProductAddToMegaPackDialog";
 import {
   productAddUrl,
   productListUrl,
@@ -119,15 +118,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   const { updateListSettings, settings } = useListSettings<ProductListColumns>(
     ListViews.PRODUCT_LIST
   );
-
-  usePaginationReset(
-    productListUrl({
-      ...params,
-      ...DEFAULT_INITIAL_PAGINATION_DATA
-    }),
-    settings.rowNumber
-  );
-
   const intl = useIntl();
   const {
     data: initialFilterAttributes
@@ -210,6 +200,19 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     ProductListUrlDialog,
     ProductListUrlQueryParams
   >(navigate, productListUrl, params);
+
+  // Reset pagination
+  React.useEffect(
+    () =>
+      navigate(
+        productListUrl({
+          ...params,
+          ...DEFAULT_INITIAL_PAGINATION_DATA
+        }),
+        true
+      ),
+    [settings.rowNumber]
+  );
 
   const tabs = getFilterTabs();
 
@@ -419,7 +422,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     );
   };
 
-  const [auctionDate, auctionHandleDateChange] = React.useState(new Date())
+  const [auctionDate, auctionHandleDateChange] = React.useState(new Date());
 
   return (
     <>
@@ -490,43 +493,66 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         onAll={resetFilters}
         toolbar={
           <>
-          <Button
-          color="primary"
-          onClick={() =>
-            openModal("unpublish", {
-              ids: listElements
-            })
-          }
-        >
-          <FormattedMessage
-            defaultMessage="Unpublish"
-            description="unpublish product, button"
-          />
-        </Button>
-        <Button
-          color="primary"
-          onClick={() =>
-            openModal("publish", {
-              ids: listElements
-            })
-          }
-        >
-          <FormattedMessage
-            defaultMessage="Publish"
-            description="publish product, button"
-          />
-        </Button>
-          <IconButton
-            color="primary"
-            onClick={() =>
-              openModal("delete", {
-                ids: listElements
-              })
-            }
-          >
-            <DeleteIcon />
-          </IconButton>
-        </>
+            <IconButton
+              color="primary"
+              onClick={() =>
+                openModal("addToMegaPack", {
+                  ids: listElements
+                })
+              }
+            >
+              <FormattedMessage
+                defaultMessage="Dodaj do megapaki"
+                description="dodaj do megapaki, button"
+              />
+            </IconButton>
+            <IconButton
+              color="primary"
+              onClick={() =>
+                openModal("delete", {
+                  ids: listElements
+                })
+              }
+            >
+              <DeleteIcon />
+            </IconButton>
+            <Button
+              color="primary"
+              onClick={() =>
+                openModal("unpublish", {
+                  ids: listElements
+                })
+              }
+            >
+              <FormattedMessage
+                defaultMessage="Unpublish"
+                description="unpublish product, button"
+              />
+            </Button>
+            <Button
+              color="primary"
+              onClick={() =>
+                openModal("publish", {
+                  ids: listElements
+                })
+              }
+            >
+              <FormattedMessage
+                defaultMessage="Publish"
+                description="publish product, button"
+              />
+            </Button>
+            <IconButton
+              color="primary"
+              onClick={() =>
+                openModal("delete", {
+                  ids: listElements
+                })
+              }
+            >
+              <DeleteIcon />
+            </IconButton>
+          </>
         }
         isChecked={isSelected}
         selected={listElements.length}
@@ -570,6 +596,14 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           />
         </DialogContentText>
       </ActionDialog>
+      <ProductAddToMegaPackDialog
+        params={params}
+        onClose={closeModal}
+        open={params.action === "addToMegaPack"}
+        hasMore={searchAttributes.result.data?.search.pageInfo.hasNextPage}
+        loading={searchAttributes.result.loading}
+        onFetchMore={searchAttributes.loadMore}
+      />
       <Dialog
         open={params.action === "publish"}
         onClose={closeModal}

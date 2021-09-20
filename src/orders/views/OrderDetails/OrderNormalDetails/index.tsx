@@ -2,7 +2,14 @@ import { WindowTitle } from "@saleor/components/WindowTitle";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
+import OrderFulfillmentApproveDialog from "@saleor/orders/components/OrderFulfillmentApproveDialog";
 import OrderInvoiceEmailSendDialog from "@saleor/orders/components/OrderInvoiceEmailSendDialog";
+import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
+import {
+  OrderFulfillmentApprove,
+  OrderFulfillmentApproveVariables
+} from "@saleor/orders/types/OrderFulfillmentApprove";
+import { PartialMutationProviderOutput } from "@saleor/types";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { useWarehouseList } from "@saleor/warehouses/queries";
 import React from "react";
@@ -32,13 +39,21 @@ interface OrderNormalDetailsProps {
   id: string;
   params: OrderUrlQueryParams;
   data: any;
+  initialPackageData: any;
   orderAddNote: any;
   orderInvoiceRequest: any;
+  handleDpdPackageCreate: any;
   handleSubmit: any;
+  onParcelLabelDownload: () => void;
   orderCancel: any;
+  orderParcelDetails: any;
   orderPaymentMarkAsPaid: any;
   orderVoid: any;
   orderPaymentCapture: any;
+  orderFulfillmentApprove: PartialMutationProviderOutput<
+    OrderFulfillmentApprove,
+    OrderFulfillmentApproveVariables
+  >;
   orderFulfillmentCancel: any;
   orderFulfillmentUpdateTracking: any;
   orderInvoiceSend: any;
@@ -52,15 +67,20 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
   id,
   params,
   data,
+  initialPackageData,
   orderAddNote,
   orderInvoiceRequest,
   handleSubmit,
+  handleDpdPackageCreate,
   orderCancel,
   orderPaymentMarkAsPaid,
   orderVoid,
   orderPaymentCapture,
+  orderParcelDetails,
+  orderFulfillmentApprove,
   orderFulfillmentCancel,
   orderFulfillmentUpdateTracking,
+  onParcelLabelDownload,
   orderInvoiceSend,
   updateMetadataOpts,
   updatePrivateMetadataOpts,
@@ -68,6 +88,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
   closeModal
 }) => {
   const order = data?.order;
+  const shop = data?.shop;
   const navigate = useNavigator();
   const { user } = useUser();
 
@@ -108,6 +129,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
         }
         onBack={handleBack}
         order={order}
+        shop={shop}
         saveButtonBarState={getMutationState(
           updateMetadataOpts.called || updatePrivateMetadataOpts.called,
           updateMetadataOpts.loading || updatePrivateMetadataOpts.loading,
@@ -124,6 +146,14 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
         userPermissions={user?.userPermissions || []}
         onOrderCancel={() => openModal("cancel")}
         onOrderFulfill={() => navigate(orderFulfillUrl(id))}
+        onFulfillmentApprove={fulfillmentId =>
+          navigate(
+            orderUrl(id, {
+              action: "approve-fulfillment",
+              id: fulfillmentId
+            })
+          )
+        }
         onFulfillmentCancel={fulfillmentId =>
           navigate(
             orderUrl(id, {
@@ -140,6 +170,8 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
             })
           )
         }
+        onParcelDetails={() => openModal("parcel")}
+        onParcelLabelDownload={onParcelLabelDownload}
         onPaymentCapture={() => openModal("capture")}
         onPaymentVoid={() => openModal("void")}
         onPaymentRefund={() => navigate(orderRefundUrl(id))}
@@ -219,6 +251,21 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
           })
         }
       />
+      <OrderFulfillmentApproveDialog
+        confirmButtonState={orderFulfillmentApprove.opts.status}
+        errors={
+          orderFulfillmentApprove.opts.data?.orderFulfillmentApprove.errors ||
+          []
+        }
+        open={params.action === "approve-fulfillment"}
+        onConfirm={({ notifyCustomer }) =>
+          orderFulfillmentApprove.mutate({
+            id: params.id,
+            notifyCustomer
+          })
+        }
+        onClose={closeModal}
+      />
       <OrderFulfillmentCancelDialog
         confirmButtonState={orderFulfillmentCancel.opts.status}
         errors={
@@ -256,6 +303,19 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
           })
         }
         onClose={closeModal}
+      />
+      <OrderParcelDetails
+        confirmButtonState={orderParcelDetails.opts.status}
+        errors={orderParcelDetails.opts.data?.errors || []}
+        initial={order?.total.gross.amount}
+        open={params.action === "parcel"}
+        variant="parcel"
+        onClose={closeModal}
+        orderDetails={order}
+        packageData={initialPackageData}
+        productWeight={order?.lines}
+        shopDetails={shop?.companyAddress}
+        onSubmit={handleDpdPackageCreate}
       />
       <OrderInvoiceEmailSendDialog
         confirmButtonState={orderInvoiceSend.opts.status}
