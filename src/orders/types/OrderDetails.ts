@@ -251,10 +251,24 @@ export interface OrderDetails_order_fulfillments {
   __typename: "Fulfillment";
   id: string;
   lines: (OrderDetails_order_fulfillments_lines | null)[] | null;
+  metadata: (OrderDetails_order_metadata | null)[];
+  privateMetadata: (OrderDetails_order_privateMetadata | null)[];
   fulfillmentOrder: number;
   status: FulfillmentStatus;
   trackingNumber: string;
   warehouse: OrderDetails_order_fulfillments_warehouse | null;
+}
+
+export interface OrderDetails_order_lines_variant_product_weight {
+  value: string | null;
+}
+
+export interface OrderDetails_order_lines_variant_product {
+  __typename: "Product";
+  id: string;
+  isAvailableForPurchase: boolean | null;
+  isPublished: boolean;
+  weight: OrderDetails_order_lines_variant_product_weight;
 }
 
 export interface OrderDetails_order_lines_variant {

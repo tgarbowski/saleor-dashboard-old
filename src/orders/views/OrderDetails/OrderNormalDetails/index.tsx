@@ -4,6 +4,7 @@ import useUser from "@saleor/hooks/useUser";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
 import OrderFulfillmentApproveDialog from "@saleor/orders/components/OrderFulfillmentApproveDialog";
 import OrderInvoiceEmailSendDialog from "@saleor/orders/components/OrderInvoiceEmailSendDialog";
+import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
 import {
   OrderFulfillmentApprove,
   OrderFulfillmentApproveVariables
@@ -38,10 +39,14 @@ interface OrderNormalDetailsProps {
   id: string;
   params: OrderUrlQueryParams;
   data: any;
+  initialPackageData: any;
   orderAddNote: any;
   orderInvoiceRequest: any;
+  handleDpdPackageCreate: any;
   handleSubmit: any;
+  onParcelLabelDownload: () => void;
   orderCancel: any;
+  orderParcelDetails: any;
   orderPaymentMarkAsPaid: any;
   orderVoid: any;
   orderPaymentCapture: any;
@@ -62,16 +67,20 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
   id,
   params,
   data,
+  initialPackageData,
   orderAddNote,
   orderInvoiceRequest,
   handleSubmit,
+  handleDpdPackageCreate,
   orderCancel,
   orderPaymentMarkAsPaid,
   orderVoid,
   orderPaymentCapture,
+  orderParcelDetails,
   orderFulfillmentApprove,
   orderFulfillmentCancel,
   orderFulfillmentUpdateTracking,
+  onParcelLabelDownload,
   orderInvoiceSend,
   updateMetadataOpts,
   updatePrivateMetadataOpts,
@@ -161,6 +170,8 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
             })
           )
         }
+        onParcelDetails={() => openModal("parcel")}
+        onParcelLabelDownload={onParcelLabelDownload}
         onPaymentCapture={() => openModal("capture")}
         onPaymentVoid={() => openModal("void")}
         onPaymentRefund={() => navigate(orderRefundUrl(id))}
@@ -292,6 +303,19 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
           })
         }
         onClose={closeModal}
+      />
+      <OrderParcelDetails
+        confirmButtonState={orderParcelDetails.opts.status}
+        errors={orderParcelDetails.opts.data?.errors || []}
+        initial={order?.total.gross.amount}
+        open={params.action === "parcel"}
+        variant="parcel"
+        onClose={closeModal}
+        orderDetails={order}
+        packageData={initialPackageData}
+        productWeight={order?.lines}
+        shopDetails={shop?.companyAddress}
+        onSubmit={handleDpdPackageCreate}
       />
       <OrderInvoiceEmailSendDialog
         confirmButtonState={orderInvoiceSend.opts.status}

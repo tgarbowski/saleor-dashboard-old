@@ -110,6 +110,7 @@ export type OrderUrlDialog =
   | "finalize"
   | "mark-paid"
   | "void"
+  | "parcel"
   | "invoice-send";
 
 export type OrderUrlQueryParams = Dialog<OrderUrlDialog> & SingleAction;

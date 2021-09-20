@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import WarningIcon from "@material-ui/icons/Warning";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
@@ -423,7 +422,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     );
   };
 
-  const [auctionDate, auctionHandleDateChange] = React.useState(new Date())
+  const [auctionDate, auctionHandleDateChange] = React.useState(new Date());
 
   return (
     <>
@@ -517,43 +516,43 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
             >
               <DeleteIcon />
             </IconButton>
-          <Button
-          color="primary"
-          onClick={() =>
-            openModal("unpublish", {
-              ids: listElements
-            })
-          }
-        >
-          <FormattedMessage
-            defaultMessage="Unpublish"
-            description="unpublish product, button"
-          />
-        </Button>
-        <Button
-          color="primary"
-          onClick={() =>
-            openModal("publish", {
-              ids: listElements
-            })
-          }
-        >
-          <FormattedMessage
-            defaultMessage="Publish"
-            description="publish product, button"
-          />
-        </Button>
-          <IconButton
-            color="primary"
-            onClick={() =>
-              openModal("delete", {
-                ids: listElements
-              })
-            }
-          >
-            <DeleteIcon />
-          </IconButton>
-        </>
+            <Button
+              color="primary"
+              onClick={() =>
+                openModal("unpublish", {
+                  ids: listElements
+                })
+              }
+            >
+              <FormattedMessage
+                defaultMessage="Unpublish"
+                description="unpublish product, button"
+              />
+            </Button>
+            <Button
+              color="primary"
+              onClick={() =>
+                openModal("publish", {
+                  ids: listElements
+                })
+              }
+            >
+              <FormattedMessage
+                defaultMessage="Publish"
+                description="publish product, button"
+              />
+            </Button>
+            <IconButton
+              color="primary"
+              onClick={() =>
+                openModal("delete", {
+                  ids: listElements
+                })
+              }
+            >
+              <DeleteIcon />
+            </IconButton>
+          </>
         }
         isChecked={isSelected}
         selected={listElements.length}

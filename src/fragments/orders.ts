@@ -82,9 +82,6 @@ export const fragmentOrderLine = gql`
       id
       quantityAvailable
     }
-    weight {
-          value
-        }
     productName
     productSku
     quantity
@@ -216,21 +213,10 @@ export const fragmentOrderDetails = gql`
     shippingAddress {
       ...AddressFragment
     }
-    deliveryMethod {
-      __typename
-      ... on ShippingMethod {
-        id
-      }
-      ... on Warehouse {
-        id
-        clickAndCollectOption
-      }
-    }
     shippingMethod {
       id
     }
     shippingMethodName
-    collectionPointName
     shippingPrice {
       gross {
         amount
