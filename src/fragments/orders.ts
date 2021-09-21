@@ -82,9 +82,6 @@ export const fragmentOrderLine = gql`
       id
       quantityAvailable
     }
-    weight {
-          value
-        }
     productName
     productSku
     quantity
