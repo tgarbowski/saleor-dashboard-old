@@ -32,6 +32,7 @@ interface OrderUnfulfilledProductsCardProps {
   notAllowedToFulfillUnpaid: boolean;
   lines: OrderDetails_order_lines[];
   onFulfill: () => void;
+  onParcelDetails: () => void;
 }
 
 const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> = props => {
