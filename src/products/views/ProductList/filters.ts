@@ -201,9 +201,23 @@ export function getFilterOpts(
     stockStatus: {
       active: maybe(() => params.stockStatus !== undefined, false),
       value: maybe(() => findValueInEnum(params.stockStatus, StockAvailability))
-    }
-  };
+    },
+    warehouseLocation: {
+      active: maybe(
+        () =>
+          [params.warehouseFrom, params.warehouseTo].some(
+            field => field !== undefined
+          ),
+        false
+      ),
+      value: {
+        max: maybe(() => params.warehouseTo, "0"),
+        min: maybe(() => params.warehouseFrom, "0")
+      }
+    } 
+  }
 }
+
 
 const parseFilterValue = (
   params: ProductListUrlFilters,
@@ -316,9 +330,12 @@ export function getFilterVariables(
     stockAvailability:
       params.stockStatus !== undefined
         ? findValueInEnum(params.stockStatus, StockAvailability)
-        : null
-  };
-}
+        : null,
+    warehouseLocation: getGteLteVariables({
+        gte: params.warehouseFrom,
+        lte: params.warehouseTo
+  })
+}};
 
 export function getFilterQueryParam(
   filter: IFilterElement<ProductFilterKeys>,
@@ -372,13 +389,19 @@ export function getFilterQueryParam(
         StockAvailability
       );
 
+    case ProductFilterKeys.warehouseLocation:
+      return getMinMaxQueryParam(
+        filter,
+        ProductListUrlFiltersEnum.warehouseTo,
+        ProductListUrlFiltersEnum.warehouseFrom
+      );
+
     case ProductFilterKeys.channel:
       return getSingleValueQueryParam(
         filter,
         ProductListUrlFiltersEnum.channel
       );
-  }
-}
+}};
 
 export const {
   deleteFilterTab,
