@@ -395,6 +395,12 @@ export function getFilterQueryParam(
         ProductListUrlFiltersEnum.warehouseTo,
         ProductListUrlFiltersEnum.warehouseFrom
       );
+
+    case ProductFilterKeys.channel:
+      return getSingleValueQueryParam(
+        filter,
+        ProductListUrlFiltersEnum.channel
+      );
 }};
 
 export const {
