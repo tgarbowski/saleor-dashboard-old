@@ -57,6 +57,9 @@ const useStyles = makeStyles(
       },
       colType: {
         width: 200
+      },
+      colCreatedAt: {
+        width: 200
       }
     },
     colAttribute: {
@@ -167,12 +170,15 @@ export const ProductList: React.FC<ProductListProps> = props => {
       <ResponsiveTable className={classes.table}>
         <colgroup>
           <col />
-          <col className={classes.colName} />
+          <col className={classes.colName} />\
           <DisplayColumn column="productType" displayColumns={settings.columns}>
             <col className={classes.colType} />
           </DisplayColumn>
           <DisplayColumn column="isPublished" displayColumns={settings.columns}>
             <col className={classes.colPublished} />
+          </DisplayColumn>
+          <DisplayColumn column="createdAt" displayColumns={settings.columns}>
+            <col className={classes.colCreatedAt} />
           </DisplayColumn>
           <DisplayColumn
             column="availability"
@@ -242,6 +248,22 @@ export const ProductList: React.FC<ProductListProps> = props => {
               <FormattedMessage
                 defaultMessage="Published"
                 description="product status"
+              />
+            </TableCellHeader>
+          </DisplayColumn>
+          <DisplayColumn column="createdAt" displayColumns={settings.columns}>
+            <TableCellHeader
+              className={classes.colCreatedAt}
+              direction={
+                sort.sort === ProductListUrlSortField.createdAt
+                  ? getArrowDirection(sort.asc)
+                  : undefined
+              }
+              onClick={() => onSort(ProductListUrlSortField.createdAt)}
+            >
+              <FormattedMessage
+                defaultMessage="Data utworzenia"
+                description="Data utworzenia"
               />
             </TableCellHeader>
           </DisplayColumn>
@@ -345,7 +367,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
               const channel = product?.channelListings.find(
                 listing => listing.channel.id === selectedChannelId
               );
-              //const rowPrivateMetadataMap = product ? JSON.parse(product.privateMetadata) : null;
+
               const rowPrivateMetadataMap = {};
 
               if (product !== undefined){
@@ -399,7 +421,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                     )}
                   </TableCellAvatar>
 
-                  
+
                   <DisplayColumn
                     column="productType"
                     displayColumns={settings.columns}
@@ -411,9 +433,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
                       {product?.productType?.name || <Skeleton />}
                     </TableCell>
                   </DisplayColumn>
-                  
-
-
 
                   <DisplayColumn
                     column="isPublished"
@@ -470,8 +489,22 @@ export const ProductList: React.FC<ProductListProps> = props => {
                       )}
                     </TableCell>
                   </DisplayColumn>
-
-
+                  <DisplayColumn
+                    column="createdAt"
+                    displayColumns={settings.columns}
+                  >
+                    <TableCell className={classes.colCreatedAt}>
+                      {product && product.createdAt ? (
+                        new Intl.DateTimeFormat("en-GB", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric"
+                        }).format(new Date(product.createdAt))
+                      ) : (
+                        <Skeleton />
+                      )}
+                    </TableCell>
+                  </DisplayColumn>
                   <DisplayColumn
                     column="availability"
                     displayColumns={settings.columns}

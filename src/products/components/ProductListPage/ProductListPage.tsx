@@ -132,7 +132,14 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
     ...availableInGridAttributes.map(attribute => ({
       label: attribute.name,
       value: `attribute:${attribute.id}`
-    }))
+    })),
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Utworzono",
+        description: "created at"
+      }),
+      value: "createdAt" as ProductListColumns
+    }
   ];
 
   const limitReached = isLimitReached(limits, "productVariants");

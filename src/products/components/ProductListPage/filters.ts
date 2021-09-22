@@ -12,7 +12,8 @@ import {
   createDateField,
   createDateTimeField,
   createOptionsField,
-  createPriceField
+  createPriceField,
+  createWarehouseField
 } from "@saleor/utils/filters/fields";
 import { defineMessages, IntlShape } from "react-intl";
 
@@ -23,7 +24,9 @@ export enum ProductFilterKeys {
   price = "price",
   productType = "productType",
   stock = "stock",
-  channel = "channel"
+  channel = "channel",
+  warehouseLocation = "warehouseLocation",
+  createdAt = "createdAt"
 }
 
 export type AttributeFilterOpts = FilterOpts<string[]> & {
@@ -42,6 +45,8 @@ export interface ProductListFilterOpts {
   productType: FilterOpts<string[]> & AutocompleteFilterOpts;
   stockStatus: FilterOpts<StockAvailability>;
   channel: FilterOpts<string> & { choices: SingleAutocompleteChoiceType[] };
+  warehouseLocation: FilterOpts<MinMax>;
+  createdAt?: FilterOpts<MinMax>;
 }
 
 const messages = defineMessages({
@@ -75,7 +80,15 @@ const messages = defineMessages({
   visible: {
     defaultMessage: "Visible",
     description: "product is visible"
-  }
+  },
+  createdAt: {
+    defaultMessage: "Utworzono",
+    description: "product"
+  },
+  warehouseLocation: {
+    defaultMessage: "Lokacja magazynowa",
+    description: "Find product by warehouse location"
+}
 });
 
 const filterByType = (type: AttributeInputTypeEnum) => (
@@ -139,6 +152,14 @@ export function createFilterStructure(
       dependencies: [ProductFilterKeys.channel]
     },
     {
+      ...createWarehouseField(
+        ProductFilterKeys.warehouseLocation,
+        intl.formatMessage(messages.warehouseLocation),
+        opts.warehouseLocation.value
+      ),
+      active: opts.warehouseLocation.active
+    },
+    {
       ...createPriceField(
         ProductFilterKeys.price,
         intl.formatMessage(messages.price),
@@ -163,6 +184,14 @@ export function createFilterStructure(
         }
       ),
       active: opts.categories.active
+    },
+    {
+      ...createDateField(
+        ProductFilterKeys.createdAt,
+        intl.formatMessage(messages.createdAt),
+        opts.createdAt.value
+      ),
+      active: opts.createdAt.active
     },
     {
       ...createAutocompleteField(
