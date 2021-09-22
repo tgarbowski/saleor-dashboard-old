@@ -114,7 +114,7 @@ export const productFragment = gql`
     channelListings {
       ...ChannelListingProductFragment
     }
-    updatedAt
+    createdAt
   }
 `;
 

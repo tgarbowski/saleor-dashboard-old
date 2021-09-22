@@ -202,6 +202,19 @@ export function getFilterOpts(
       active: maybe(() => params.stockStatus !== undefined, false),
       value: maybe(() => findValueInEnum(params.stockStatus, StockAvailability))
     },
+    createdAt: {
+      active: maybe(
+        () =>
+          [params.createdAtFrom, params.createdAtTo].some(
+            field => field !== undefined
+          ),
+        false
+      ),
+      value: {
+        max: maybe(() => params.createdAtTo, ""),
+        min: maybe(() => params.createdAtFrom, "")
+      }
+    },
     warehouseLocation: {
       active: maybe(
         () =>
@@ -334,6 +347,10 @@ export function getFilterVariables(
     warehouseLocation: getGteLteVariables({
         gte: params.warehouseFrom,
         lte: params.warehouseTo
+  }),
+  createdAt: getGteLteVariables({
+    gte: params.createdAtFrom,
+    lte: params.createdAtTo
   })
 }};
 
@@ -400,6 +417,13 @@ export function getFilterQueryParam(
       return getSingleValueQueryParam(
         filter,
         ProductListUrlFiltersEnum.channel
+      );
+
+    case ProductFilterKeys.createdAt:
+      return getMinMaxQueryParam(
+        filter,
+        ProductListUrlFiltersEnum.createdAtFrom,
+        ProductListUrlFiltersEnum.createdAtTo
       );
 }};
 

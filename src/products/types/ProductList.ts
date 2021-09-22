@@ -112,6 +112,7 @@ export interface ProductList_products_edges_node {
   attributes: ProductList_products_edges_node_attributes[];
   updatedAt: any;
   jsonPrivateMetadata: any;
+  createdAt: any | null;
 }
 
 export interface ProductList_products_edges {
