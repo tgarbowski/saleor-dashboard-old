@@ -688,8 +688,8 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
             variables: {
               ids: params.ids,
               isPublished: false,
-              offerType: null,
-              startingAt: null
+              offerType: 'null',
+              startingAt: 'null'
             }
           })
         }
