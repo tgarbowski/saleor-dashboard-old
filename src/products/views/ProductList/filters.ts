@@ -3,7 +3,8 @@ import { UseSearchResult } from "@saleor/hooks/makeSearch";
 import { findValueInEnum, maybe } from "@saleor/misc";
 import {
   ProductFilterKeys,
-  ProductListFilterOpts
+  ProductListFilterOpts,
+  ProductStatus
 } from "@saleor/products/components/ProductListPage";
 import { InitialProductFilterAttributes_attributes_edges_node } from "@saleor/products/types/InitialProductFilterAttributes";
 import { InitialProductFilterCategories_categories_edges_node } from "@saleor/products/types/InitialProductFilterCategories";
@@ -198,6 +199,10 @@ export function getFilterOpts(
       onSearchChange: productTypes.search.search,
       value: dedupeFilter(params.productTypes || [])
     },
+    status: {
+      active: maybe(() => params.status !== undefined, false),
+      value: maybe(() => findValueInEnum(params.status, ProductStatus))
+    },
     stockStatus: {
       active: maybe(() => params.stockStatus !== undefined, false),
       value: maybe(() => findValueInEnum(params.stockStatus, StockAvailability))
@@ -318,6 +323,10 @@ export function getFilterVariables(
     attributes: getFilteredAttributeValue(params),
     categories: params.categories !== undefined ? params.categories : null,
     collections: params.collections !== undefined ? params.collections : null,
+    isPublished:
+      params.status !== undefined
+        ? params.status === ProductStatus.PUBLISHED
+        : null,
     price: isChannelSelected
       ? getGteLteVariables({
           gte: parseFloat(params.priceFrom),
@@ -380,6 +389,13 @@ export function getFilterQueryParam(
       return getMultipleValueQueryParam(
         filter,
         ProductListUrlFiltersWithMultipleValues.productTypes
+      );
+    
+    case ProductFilterKeys.status:
+      return getSingleEnumValueQueryParam(
+        filter,
+        ProductListUrlFiltersEnum.status,
+        ProductStatus
       );
 
     case ProductFilterKeys.stock:
