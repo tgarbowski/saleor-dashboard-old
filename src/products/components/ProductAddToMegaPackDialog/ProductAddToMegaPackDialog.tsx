@@ -119,13 +119,6 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
     }
   });
 
-  const { ...megaPackMetadata } = useProductPrivateMetadata({
-    displayLoader: true,
-    variables: {
-      id: selectedProduct ? selectedProduct : "does_not_exist"
-    }
-  });
-
   const handleProductSelect = id => {
     setSelectedProduct(id);
   };
@@ -133,6 +126,12 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
   const handleSearch = value => {
     setSearchValue(value);
   };
+  const { ...megaPackMetadata } = useProductPrivateMetadata({
+    displayLoader: true,
+    variables: {
+      id: selectedProduct ? selectedProduct : ""
+    }
+  });
 
   const [updatePrivateMetadata] = usePrivateMetadataUpdate({
     onCompleted: data => {
