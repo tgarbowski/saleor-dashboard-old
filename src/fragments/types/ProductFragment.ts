@@ -77,4 +77,5 @@ export interface ProductFragment {
   thumbnail: ProductFragment_thumbnail | null;
   productType: ProductFragment_productType;
   channelListings: ProductFragment_channelListings[] | null;
+  createdAt: any | null;
 }

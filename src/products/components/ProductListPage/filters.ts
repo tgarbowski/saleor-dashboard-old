@@ -25,7 +25,9 @@ export enum ProductFilterKeys {
   productType = "productType",
   stock = "stock",
   channel = "channel",
-  warehouseLocation = "warehouseLocation"
+  warehouseLocation = "warehouseLocation",
+  createdAt = "createdAt",
+  status = "status"
 }
 
 export type AttributeFilterOpts = FilterOpts<string[]> & {
@@ -45,6 +47,13 @@ export interface ProductListFilterOpts {
   stockStatus: FilterOpts<StockAvailability>;
   channel: FilterOpts<string> & { choices: SingleAutocompleteChoiceType[] };
   warehouseLocation: FilterOpts<MinMax>;
+  createdAt?: FilterOpts<MinMax>;
+  status: FilterOpts<ProductStatus>;
+}
+
+export enum ProductStatus {
+  PUBLISHED = "published",
+  HIDDEN = "hidden"
 }
 
 const messages = defineMessages({
@@ -78,6 +87,10 @@ const messages = defineMessages({
   visible: {
     defaultMessage: "Visible",
     description: "product is visible"
+  },
+  createdAt: {
+    defaultMessage: "Utworzono",
+    description: "product"
   },
   warehouseLocation: {
     defaultMessage: "Lokacja magazynowa",
@@ -115,6 +128,25 @@ export function createFilterStructure(
   );
 
   return [
+    {
+      ...createOptionsField(
+        ProductFilterKeys.status,
+        intl.formatMessage(messages.visibility),
+        [opts.status.value],
+        false,
+        [
+          {
+            label: intl.formatMessage(messages.visible),
+            value: ProductStatus.PUBLISHED
+          },
+          {
+            label: intl.formatMessage(messages.hidden),
+            value: ProductStatus.HIDDEN
+          }
+        ]
+      ),
+      active: opts.status.active
+    },
     {
       ...createOptionsField(
         ProductFilterKeys.channel,
@@ -178,6 +210,14 @@ export function createFilterStructure(
         }
       ),
       active: opts.categories.active
+    },
+    {
+      ...createDateField(
+        ProductFilterKeys.createdAt,
+        intl.formatMessage(messages.createdAt),
+        opts.createdAt.value
+      ),
+      active: opts.createdAt.active
     },
     {
       ...createAutocompleteField(

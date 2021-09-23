@@ -679,6 +679,36 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           </ConfirmButton>
         </DialogActions>
       </Dialog>
+      <ActionDialog
+        open={params.action === "unpublish"}
+        confirmButtonState={productBulkPublishOpts.status}
+        onClose={closeModal}
+        onConfirm={() =>
+          productBulkPublish({
+            variables: {
+              ids: params.ids,
+              isPublished: false,
+              offerType: 'null',
+              startingAt: 'null'
+            }
+          })
+        }
+        title={intl.formatMessage({
+          defaultMessage: "Unpublish Products",
+          description: "dialog header"
+        })}
+      >
+        <DialogContentText>
+          <FormattedMessage
+            defaultMessage="{counter,plural,one{Are you sure you want to unpublish this product?} other{Are you sure you want to unpublish {displayQuantity} products?}}"
+            description="dialog content"
+            values={{
+              counter: maybe(() => params.ids.length),
+              displayQuantity: <strong>{maybe(() => params.ids.length)}</strong>
+            }}
+          />
+        </DialogContentText>
+      </ActionDialog>
       <ProductExportDialog
         attributes={
           mapEdgesToItems(searchAttributes?.result?.data?.search) || []
