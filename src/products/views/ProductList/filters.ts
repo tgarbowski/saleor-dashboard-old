@@ -392,8 +392,8 @@ export function getFilterQueryParam(
     case ProductFilterKeys.warehouseLocation:
       return getMinMaxQueryParam(
         filter,
-        ProductListUrlFiltersEnum.warehouseTo,
-        ProductListUrlFiltersEnum.warehouseFrom
+        ProductListUrlFiltersEnum.warehouseFrom,
+        ProductListUrlFiltersEnum.warehouseTo
       );
 
     case ProductFilterKeys.channel:
