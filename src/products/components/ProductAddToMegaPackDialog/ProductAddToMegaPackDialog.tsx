@@ -112,6 +112,13 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
     variables: queryVariables
   });
 
+  let firstMegapack = null;
+  if (data) {
+    firstMegapack = data.products.edges[0].node.id;
+  } 
+
+  //let firstMegapack = data ? data.products.edges[0].node.id : null;
+
   const { ...productsSkus } = useProductSkus({
     displayLoader: true,
     variables: {
@@ -122,7 +129,7 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
   const { ...megaPackMetadata } = useProductPrivateMetadata({
     displayLoader: true,
     variables: {
-      id: selectedProduct ? selectedProduct : "does_not_exist"
+      id: selectedProduct ? selectedProduct : firstMegapack
     }
   });
 
