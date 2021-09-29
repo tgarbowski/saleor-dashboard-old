@@ -2,6 +2,7 @@ import { FormControlLabel, Radio, TextField } from "@material-ui/core";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { FilterDateTimeField } from "@saleor/components/Filter/FilterContent/FilterDateTimeField";
 import { FilterNumericField } from "@saleor/components/Filter/FilterContent/FilterNumericField";
+import { FilterWarehouseLocationField } from "@saleor/components/Filter/FilterContent/FilterWarehouseLocation";
 import { FilterSingleSelectField } from "@saleor/components/Filter/FilterContent/FilterSingleSelectField";
 import { useCommonStyles } from "@saleor/components/Filter/FilterContent/utils";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
@@ -66,7 +67,9 @@ const FilterContentBody: React.FC<FilterContentBodyProps> = ({
   const isNumericField = [FieldType.price, FieldType.number].includes(
     filter.type
   );
-
+  const isWarehouseLocationField = [FieldType.warehouseLocation].includes(
+    filter.type
+  );
   return (
     <div className={classes.filterSettings}>
       {children}
@@ -113,6 +116,19 @@ const FilterContentBody: React.FC<FilterContentBodyProps> = ({
             filter={filter}
             onFilterPropertyChange={onFilterPropertyChange}
             currencySymbol={currencySymbol}
+          />
+        </>
+      )}
+
+      {isWarehouseLocationField && (
+        <>
+          <FilterSingleSelectField
+            filter={filter}
+            onFilterPropertyChange={onFilterPropertyChange}
+          />
+          <FilterWarehouseLocationField
+            filter={filter}
+            onFilterPropertyChange={onFilterPropertyChange}
           />
         </>
       )}

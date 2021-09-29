@@ -37,7 +37,10 @@ import {
   VariantMediaUnassignVariables
 } from "@saleor/products/types/VariantMediaUnassign";
 import gql from "graphql-tag";
-
+import {
+  ProductBulkClearWarehouseLocation,
+  ProductBulkClearWarehouseLocationVariables
+} from "./types/ProductBulkClearWarehouseLocation";
 import {
   productBulkDelete,
   productBulkDeleteVariables
@@ -648,6 +651,20 @@ export const ProductChannelListingUpdateMutation = gql`
     }
   }
 `;
+export const productBulkClearWarehouseLocation = gql`
+  ${productErrorFragment}
+  mutation productBulkWarehouseLocation($skus: [String!]!) {
+    productBulkClearWarehouseLocation(skus: $skus) {
+      errors: productErrors {
+        ...ProductErrorFragment
+      }
+    }
+  }
+`;
+export const useProductBulkClearWarehouseLocation = makeMutation<
+ProductBulkClearWarehouseLocation,
+ProductBulkClearWarehouseLocationVariables
+>(productBulkClearWarehouseLocation);
 
 const productVariantReorder = gql`
   ${productErrorFragment}
