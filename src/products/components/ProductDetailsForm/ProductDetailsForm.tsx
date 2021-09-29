@@ -34,6 +34,7 @@ export const ProductDetailsForm: React.FC<ProductDetailsFormProps> = ({
   onChange
 }) => {
   const intl = useIntl();
+  console.log(data);
 
   const formErrors = getFormErrors(["name", "description", "rating"], errors);
 

@@ -111,6 +111,7 @@ interface ProductUpdateProps {
 }
 
 export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
+  console.log(id, params);
   const navigate = useNavigator();
   const notify = useNotifier();
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
@@ -588,6 +589,8 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
         onImageUpload={handleImageUpload}
         onImageEdit={handleImageEdit}
         onImageDelete={handleImageDelete}
+        params={params}
+        id={id}
         toolbar={
           <IconButton
             color="primary"

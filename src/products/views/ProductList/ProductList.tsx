@@ -596,6 +596,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           />
         </DialogContentText>
       </ActionDialog>
+      {params.action === "addToMegaPack" &&
       <ProductAddToMegaPackDialog
         params={params}
         onClose={closeModal}
@@ -604,6 +605,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         loading={searchAttributes.result.loading}
         onFetchMore={searchAttributes.loadMore}
       />
+      }
       <Dialog
         open={params.action === "publish"}
         onClose={closeModal}

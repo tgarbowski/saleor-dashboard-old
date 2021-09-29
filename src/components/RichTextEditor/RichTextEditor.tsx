@@ -33,10 +33,16 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const editorContainer = React.useRef<HTMLDivElement>();
   const prevTogglePromise = React.useRef<Promise<boolean>>(); // used to await subsequent toggle invocations
   const initialMount = React.useRef(true);
+  console.log(data);
 
   React.useEffect(
     () => {
       if (data !== undefined) {
+        data.blocks.forEach(element => {
+          element.type = 'header';
+          element.data.text = element.text;
+        });
+        console.log(data);
         editor.current = new EditorJS({
           data,
           holder: editorContainer.current,

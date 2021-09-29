@@ -23,7 +23,7 @@ import { WarehouseFragment } from "@saleor/fragments/types/WarehouseFragment";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { FormsetData } from "@saleor/hooks/useFormset";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
-import { sectionNames } from "@saleor/intl";
+import { commonMessages, sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
 import ProductExternalMediaDialog from "@saleor/products/components/ProductExternalMediaDialog";
@@ -63,6 +63,11 @@ import ProductUpdateForm, {
   ProductUpdateData,
   ProductUpdateHandlers
 } from "./form";
+import ProductBundleContent from "@saleor/products/components/ProductBundleContent";
+import { ProductUrlQueryParams } from "@saleor/products/urls";
+import { useProductBulkClearWarehouseLocation } from "@saleor/products/mutations";
+import useNotifier from "@saleor/hooks/useNotifier";
+import { ProductPrivateMetadataData_privateMetadata } from "@saleor/products/types/ProductPrivateMetadata";
 
 export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   channelsWithVariantsData: ChannelsWithVariantsData;
@@ -91,6 +96,8 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   saveButtonBarState: ConfirmButtonTransitionState;
   warehouses: WarehouseFragment[];
   taxTypes: TaxTypeFragment[];
+  params: ProductUrlQueryParams;
+  id: string;
   referencePages?: SearchPages_search_edges_node[];
   referenceProducts?: SearchProducts_search_edges_node[];
   assignReferencesAttributeId?: string;
@@ -134,6 +141,17 @@ export interface ProductUpdatePageSubmitData extends ProductUpdatePageFormData {
   updateStocks: ProductStockInput[];
   stocks: ProductStockInput[];
 }
+
+const getPrivateMetadataFromProduct = product => {
+  const findProducts: ProductPrivateMetadataData_privateMetadata = product?.privateMetadata.find(
+    privateMetadataField => privateMetadataField.key === "skus"
+  );
+  const products: any[] =
+    findProducts?.value !== undefined
+      ? JSON.parse(findProducts.value.replaceAll("'", '"'))
+      : [""];
+  return products;
+};
 
 export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   defaultWeightUnit,
@@ -198,9 +216,12 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onCloseDialog,
   channelsWithVariantsData,
   onChannelsChange,
-  onAttributeSelectBlur
+  onAttributeSelectBlur,
+  params,
+  id
 }) => {
   const intl = useIntl();
+  const notify = useNotifier();
 
   const [selectedCategory, setSelectedCategory] = useStateFromProps(
     product?.category?.name || ""
@@ -217,6 +238,15 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   const [selectedTaxType, setSelectedTaxType] = useStateFromProps(
     product?.taxType.description
   );
+
+  const [clearWarehouseLocations] = useProductBulkClearWarehouseLocation({
+    onCompleted: () => {
+      notify({
+        status: "success",
+        text: intl.formatMessage(commonMessages.savedChanges)
+      });
+    }
+  });
 
   const categories = getChoices(categoryChoiceList);
   const collections = getChoices(collectionChoiceList);
@@ -472,6 +502,21 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                   />
                 )}
                 <CardSpacer />
+                <ProductBundleContent
+                  content={maybe(
+                    () =>
+                      JSON.parse(product.jsonPrivateMetadata)["bundle.content"]
+                  )}
+                  id={id}
+                  params={params}
+                  on_modal_click={() =>
+                    clearWarehouseLocations({
+                      variables: {
+                        skus: getPrivateMetadataFromProduct(product)
+                      }
+                    })
+                  }
+                />
                 <ProductTaxes
                   data={data}
                   disabled={disabled}

@@ -239,6 +239,7 @@ export const productFragmentDetails = gql`
         ...TaxTypeFragment
       }
     }
+    jsonPrivateMetadata
     weight {
       ...WeightFragment
     }
