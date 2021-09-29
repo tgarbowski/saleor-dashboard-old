@@ -58,6 +58,7 @@ import useRichText from "@saleor/utils/richText/useRichText";
 import React from "react";
 
 import { ProductStockFormsetData, ProductStockInput } from "../ProductStocks";
+import { deleteSkusFieldFromPrivateMetadata } from "./utils";
 
 export interface ProductCreateFormData extends MetadataFormData {
   category: string;
@@ -333,9 +334,7 @@ function useProductCreateForm(
       ) ||
       !data.category);
 
-  React.useEffect(() => {
-    updateDataFromMegaPackValues(form.data, form.data.megaPackProduct);
-  }, [form.data.megaPackProduct]);
+  updateDataFromMegaPackValues(form.data, form.data.megaPackProduct);
 
   form.data.sku = sku;
 

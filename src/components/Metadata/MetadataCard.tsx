@@ -55,7 +55,8 @@ const MetadataCard: React.FC<MetadataCardProps> = ({
       }
     }
   }, [data === undefined]);
-
+  console.log("metadatacard");
+  console.log(data);
   return (
     <Card
       data-test="metadataEditor"
