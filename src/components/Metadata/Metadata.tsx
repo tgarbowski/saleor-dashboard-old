@@ -18,7 +18,6 @@ const Metadata: React.FC<MetadataProps> = ({ data, onChange }) => {
     const { action, field, fieldIndex, value } = parseEventData(event);
     const key = getDataKey(isPrivate);
     const dataToUpdate = data[key];
-
     onChange({
       target: {
         name: key,

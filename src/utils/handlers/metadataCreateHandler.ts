@@ -24,7 +24,7 @@ function createMetadataCreateHandler<T extends MetadataFormData>(
     if (id === null) {
       return null;
     }
-
+    console.log(data)
     if (data.metadata.length > 0) {
       const updateMetaResult = await setMetadata({
         variables: {

@@ -250,7 +250,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                   <ProductMegaPack
                     data={data}
                     disabled={false}
-                    onChange={change}
+                    onChange={handlers.changeMetadata}
                   />
                 )}
                 <CardSpacer />
