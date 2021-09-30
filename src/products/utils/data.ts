@@ -298,7 +298,6 @@ export function mapFormsetStockToStockInput(
 const makeMegaPackProductsList = (megaPackProducts: string) => {
   let productsList: string[] | string;
   /* eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
-
   megaPackProducts === undefined
     ? (productsList = null)
     : (productsList = megaPackProducts.split("\n"));
@@ -314,7 +313,7 @@ export const updateDataFromMegaPackValues = (
       x => x.key === "skus"
     );
     /* eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
-
+    console.log("updejt megapaki")
     skusAlreadyInPrivateMetadata
       ? (data.privateMetadata.find(
           x => x.key === "skus"
@@ -333,7 +332,6 @@ function findUserUID(data): string {
     const uid: MetadataItem = data?.user?.privateMetadata?.find(
       item => item.key === "uid"
     );
-    console.log(data)
     return uid.value;
   }
   return "00";
