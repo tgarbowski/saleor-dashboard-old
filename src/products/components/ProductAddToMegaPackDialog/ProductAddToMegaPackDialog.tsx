@@ -126,12 +126,6 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
   const handleSearch = value => {
     setSearchValue(value);
   };
-  const { ...megaPackMetadata } = useProductPrivateMetadata({
-    displayLoader: true,
-    variables: {
-      id: selectedProduct ? selectedProduct : ""
-    }
-  });
 
   const { ...megaPackMetadata } = useProductPrivateMetadata({
     displayLoader: true,
