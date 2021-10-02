@@ -18,7 +18,6 @@ import {
 } from "@saleor/utils/metadata/updateMetadata";
 import React from "react";
 import { useIntl } from "react-intl";
-import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
 import {
   useDpdLabelCreateMutation,
   useDpdPackageCreateMutation

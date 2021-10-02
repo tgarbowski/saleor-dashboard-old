@@ -271,6 +271,7 @@ export interface OrderDetails_order_lines_variant_product {
 }
 
 export interface OrderDetails_order_lines_variant {
+  product: any;
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
