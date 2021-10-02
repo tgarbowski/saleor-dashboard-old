@@ -48,8 +48,7 @@ export const FilterWarehouseLocationField: React.FC<FilterWarehouseLocationField
             classes: {
               input: classes.input
             },
-            type: "text",
-            endAdornment: filter.type === FieldType.warehouseLocation
+            type: "text"
           }}
           value={filter.value[0]}
           onChange={({ target: { value } }) =>
@@ -80,8 +79,7 @@ export const FilterWarehouseLocationField: React.FC<FilterWarehouseLocationField
                 classes: {
                   input: classes.input
                 },
-                type: "text",
-                endAdornment: filter.type === FieldType.warehouseLocation
+                type: "text"
               }}
               value={filter.value[1]}
               onChange={event =>
