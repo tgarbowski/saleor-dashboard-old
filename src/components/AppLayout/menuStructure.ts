@@ -7,7 +7,6 @@ import homeIcon from "@assets/images/menu-home-icon.svg";
 import ordersIcon from "@assets/images/menu-orders-icon.svg";
 import translationIcon from "@assets/images/menu-translation-icon.svg";
 import warehouseIcon from "@assets/images/warehouse-icon.svg";
-import { warehouseListPath, wmsDocumentsListPath } from "@saleor/warehouses/urls";
 import {
   configurationMenuUrl,
   createConfigurationMenu
@@ -17,6 +16,7 @@ import { User } from "@saleor/fragments/types/User";
 import { giftCardsListUrl } from "@saleor/giftCards/urls";
 import { commonMessages, sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
+import { warehouseListPath, wmsDocumentsListPath } from "@saleor/warehouses/urls";
 import { IntlShape } from "react-intl";
 
 import { appsListPath } from "../../apps/urls";
