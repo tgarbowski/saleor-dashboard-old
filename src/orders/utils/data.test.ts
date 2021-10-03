@@ -1067,6 +1067,8 @@ describe("Get the total value of all replaced products", () => {
             warehouse: null,
             trackingNumber: "",
             lines: fulfilledLines,
+            metadata: null,
+            privateMetadata: null,
             __typename: "Fulfillment"
           }
         ]
@@ -1534,6 +1536,8 @@ describe("Get the total value of all selected products", () => {
             warehouse: null,
             trackingNumber: "",
             lines: fulfilledLines,
+            metadata: null,
+            privateMetadata: null,
             __typename: "Fulfillment"
           }
         ]

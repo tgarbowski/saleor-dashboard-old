@@ -37,7 +37,7 @@ const shopInfo = gql`
       }
       name
       description
-      companyAddress{
+      companyAddress {
         firstName
         lastName
         companyName
@@ -47,7 +47,7 @@ const shopInfo = gql`
         cityArea
         phone
         postalCode
-        country{
+        country {
           country
         }
       }

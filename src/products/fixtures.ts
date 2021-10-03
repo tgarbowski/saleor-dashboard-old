@@ -450,6 +450,7 @@ export const product: (
         }
       }
     ],
+    slug: "versatile",
     taxType: {
       __typename: "TaxType",
       description: "standard",
@@ -715,6 +716,10 @@ export const products = (
   {
     __typename: "Product",
     attributes: [],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -750,7 +755,7 @@ export const products = (
           }
         },
         publicationDate: "2020-07-14",
-        visibleInListings: true
+        visibleInListings: true,
       },
       {
         __typename: "ProductChannelListing",
@@ -786,7 +791,8 @@ export const products = (
           }
         },
         publicationDate: "2020-07-30",
-        visibleInListings: true
+        visibleInListings: true,
+        
       }
     ],
     id: "UHJvZHVjdDo2MQ==",
@@ -805,6 +811,11 @@ export const products = (
   {
     __typename: "Product",
     attributes: [],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
+
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -895,6 +906,10 @@ export const products = (
   {
     __typename: "Product",
     attributes: [],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -1007,6 +1022,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -1119,6 +1138,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -1231,6 +1254,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -1344,6 +1371,11 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
+
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -1456,6 +1488,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -1568,6 +1604,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -1680,6 +1720,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -1792,6 +1836,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -1904,6 +1952,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -2016,6 +2068,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -2128,6 +2184,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -2240,6 +2300,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -2352,6 +2416,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -2464,6 +2532,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -2576,6 +2648,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -2688,6 +2764,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",
@@ -2800,6 +2880,10 @@ export const products = (
         ]
       }
     ],
+    createdAt: "2020-07-14",
+    updatedAt: "2020-07-14",
+    jsonPrivateMetadata: null,
+    privateMetadata: null,
     channelListings: [
       {
         __typename: "ProductChannelListing",

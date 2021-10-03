@@ -16,7 +16,7 @@ import {
   PageListProps,
   SortPage
 } from "@saleor/types";
-import { WMSDocumentList_documents_edges_node } from "@saleor/warehouses/types/WMSDoucumentsList";
+import { WMSDocumentList_documents_edges_node } from "@saleor/warehouses/types/WMSDocumentsList";
 import { WMSDocumentsListUrlSortField } from "@saleor/warehouses/urls";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";

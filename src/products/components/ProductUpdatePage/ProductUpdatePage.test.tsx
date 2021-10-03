@@ -63,6 +63,8 @@ const props: ProductUpdatePageProps = {
   openChannelsModal: () => undefined,
   placeholderImage,
   product,
+  params: null,
+  id: null,
   referencePages: [],
   referenceProducts: [],
   saveButtonBarState: "default",

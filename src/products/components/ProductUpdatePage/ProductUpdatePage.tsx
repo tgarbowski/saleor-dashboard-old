@@ -22,12 +22,17 @@ import { TaxTypeFragment } from "@saleor/fragments/types/TaxTypeFragment";
 import { WarehouseFragment } from "@saleor/fragments/types/WarehouseFragment";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { FormsetData } from "@saleor/hooks/useFormset";
+import useNotifier from "@saleor/hooks/useNotifier";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { commonMessages, sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
+import ProductBundleContent from "@saleor/products/components/ProductBundleContent";
 import ProductExternalMediaDialog from "@saleor/products/components/ProductExternalMediaDialog";
 import ProductVariantPrice from "@saleor/products/components/ProductVariantPrice";
+import { useProductBulkClearWarehouseLocation } from "@saleor/products/mutations";
+import { ProductPrivateMetadataData_privateMetadata } from "@saleor/products/types/ProductPrivateMetadata";
+import { ProductUrlQueryParams } from "@saleor/products/urls";
 import { ChannelsWithVariantsData } from "@saleor/products/views/ProductUpdate/types";
 import { SearchAttributeValues_attribute_choices_edges_node } from "@saleor/searches/types/SearchAttributeValues";
 import { SearchCategories_search_edges_node } from "@saleor/searches/types/SearchCategories";
@@ -63,11 +68,6 @@ import ProductUpdateForm, {
   ProductUpdateData,
   ProductUpdateHandlers
 } from "./form";
-import ProductBundleContent from "@saleor/products/components/ProductBundleContent";
-import { ProductUrlQueryParams } from "@saleor/products/urls";
-import { useProductBulkClearWarehouseLocation } from "@saleor/products/mutations";
-import useNotifier from "@saleor/hooks/useNotifier";
-import { ProductPrivateMetadataData_privateMetadata } from "@saleor/products/types/ProductPrivateMetadata";
 
 export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   channelsWithVariantsData: ChannelsWithVariantsData;
@@ -503,9 +503,10 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                 )}
                 <CardSpacer />
                 <ProductBundleContent
-                  content={maybe(
-                    () =>
-                      JSON.parse(product.jsonPrivateMetadata)["bundle.content"]
+                  content={maybe(() =>
+                    JSON.parse(
+                      String(product.privateMetadata)["bundle.content"]
+                    )
                   )}
                   id={id}
                   params={params}

@@ -179,6 +179,8 @@ export const OrderUnconfirmedDetails: React.FC<OrderUnconfirmedDetailsProps> = (
             onBillingAddressEdit={() => openModal("edit-billing-address")}
             onShippingAddressEdit={() => openModal("edit-shipping-address")}
             onPaymentPaid={() => openModal("mark-paid")}
+            onParcelDetails={() => openModal("parcel-details")}
+            onParcelLabelDownload={null}
             onProfileView={() => navigate(customerUrl(order.user.id))}
             onInvoiceClick={id =>
               window.open(

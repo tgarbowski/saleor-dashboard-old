@@ -1090,9 +1090,11 @@ export const order = (placeholder: string): OrderDetails_order => ({
           quantity: 1
         }
       ],
+      warehouse: warehouseList[1],
+      metadata: null,
+      privateMetadata: null,
       status: FulfillmentStatus.FULFILLED,
       trackingNumber: "",
-      warehouse: warehouseList[1]
     },
     {
       __typename: "Fulfillment",
@@ -1158,9 +1160,11 @@ export const order = (placeholder: string): OrderDetails_order => ({
           quantity: 1
         }
       ],
+      metadata: null,
+      privateMetadata: null,
       status: FulfillmentStatus.FULFILLED,
       trackingNumber: "01nn12399su12nndfsy",
-      warehouse: warehouseList[0]
+      warehouse: warehouseList[0],
     }
   ],
   id: "T3JkZXI6OQ==",
@@ -1227,7 +1231,7 @@ export const order = (placeholder: string): OrderDetails_order => ({
       variant: {
         __typename: "ProductVariant",
         id: "dsfsfuhb",
-        quantityAvailable: 10
+        quantityAvailable: 10,
       }
     },
     {

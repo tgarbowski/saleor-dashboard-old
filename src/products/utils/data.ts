@@ -24,7 +24,7 @@ import { StockInput } from "@saleor/types/globalTypes";
 import { mapEdgesToItems, mapMetadataItemToInput } from "@saleor/utils/maps";
 
 import { ProductStockInput } from "../components/ProductStocks";
-import { ProductType_productType_productAttributes } from "../types/ProductType";
+import { ProductType_productType, ProductType_productType_productAttributes } from "../types/ProductType";
 import { ProductVariantCreateData_product } from "../types/ProductVariantCreateData";
 import { ChannelsWithVariantsData } from "../views/ProductUpdate/types";
 
@@ -67,7 +67,7 @@ export function getAttributeInputFromProduct(
 }
 
 export function getAttributeInputFromProductType(
-  productType: ProductType
+  productType: ProductType_productType
 ): AttributeInput[] {
   return productType.productAttributes.map(attribute => ({
     data: {
@@ -230,7 +230,6 @@ export interface ProductUpdatePageFormData extends MetadataFormData {
   weight: string;
 }
 
-
 function getSkusFromMetadata(metadata: MetadataItem[]): string {
   return metadata
     .find(item => item.key === "skus")
@@ -240,8 +239,6 @@ function getSkusFromMetadata(metadata: MetadataItem[]): string {
     .replace(/ /g, "\n")
     .replace(/,/g, "");
 }
-
-
 
 export function getProductUpdatePageFormData(
   product: ProductDetails_product,
@@ -294,7 +291,6 @@ export function mapFormsetStockToStockInput(
   };
 }
 
-
 const makeMegaPackProductsList = (megaPackProducts: string) => {
   let productsList: string[] | string;
   /* eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
@@ -313,7 +309,6 @@ export const updateDataFromMegaPackValues = (
       x => x.key === "skus"
     );
     /* eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
-    console.log("updejt megapaki")
     skusAlreadyInPrivateMetadata
       ? (data.privateMetadata.find(
           x => x.key === "skus"

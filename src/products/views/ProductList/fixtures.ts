@@ -95,5 +95,16 @@ export const productListFilterOpts: ProductListFilterOpts = {
   stockStatus: {
     active: false,
     value: StockAvailability.IN_STOCK
+  },
+  warehouseLocation: {
+    active: false,
+    value: {
+      max: "#L10K1",
+      min: "#L10K1"
+    }
+  },
+  status: {
+     active: false,
+     value: null
   }
 };

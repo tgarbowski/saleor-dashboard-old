@@ -39,5 +39,6 @@ export interface AvailableInGridAttributes {
 
 export interface AvailableInGridAttributesVariables {
   first: number;
+  ids?: any;
   after?: string | null;
 }

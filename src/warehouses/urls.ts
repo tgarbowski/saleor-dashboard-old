@@ -1,6 +1,6 @@
-
 import { stringify as stringifyQs } from "qs";
 import urlJoin from "url-join";
+
 import {
   ActiveTab,
   Dialog,
@@ -86,7 +86,7 @@ export type WarehouseUrlQueryParams = Dialog<WarehouseUrlDialog> & SingleAction;
 export const warehouseUrl = (id: string, params?: WarehouseUrlQueryParams) =>
   warehousePath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
-export type WMSDocumentUrlDialog = "delete";
+export type WMSDocumentUrlDialog = "save-search";
 export type WMSDocumentUrlQueryparams = Dialog<WMSDocumentUrlDialog> &
   SingleAction;
 export const wmsDocumentUrl = (

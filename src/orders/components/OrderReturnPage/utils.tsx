@@ -1,7 +1,7 @@
-import { OrderDetailsFragment_fulfillments_lines } from "@saleor/fragments/types/OrderDetailsFragment";
 import {
   OrderDetails_order,
-  OrderDetails_order_fulfillments
+  OrderDetails_order_fulfillments,
+  OrderDetails_order_fulfillments_lines
 } from "@saleor/orders/types/OrderDetails";
 import { Node } from "@saleor/types";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
@@ -82,7 +82,7 @@ export const getParsedLinesOfFulfillments = (
   );
 
 export const getParsedFulfiledLines = (
-  lines: OrderDetailsFragment_fulfillments_lines[]
+  lines: OrderDetails_order_fulfillments_lines[]
 ) =>
   lines.map(({ id, quantity, orderLine }) => ({
     ...orderLine,

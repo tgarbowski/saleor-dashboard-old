@@ -1,8 +1,8 @@
 import messages from "@saleor/containers/BackgroundTasks/messages";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
-import { OrderParcel } from "@saleor/orders/types/OrderParcel";
 import { OrderFulfillmentApprove } from "@saleor/orders/types/OrderFulfillmentApprove";
+import { OrderParcel } from "@saleor/orders/types/OrderParcel";
 import getOrderErrorMessage from "@saleor/utils/errors/order";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import React from "react";

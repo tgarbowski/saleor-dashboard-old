@@ -1,3 +1,4 @@
+/* eslint-disable */
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
@@ -31,20 +32,16 @@ import {
   useInitialFilterWMSDocuments,
   useWMSDocumentsList
 } from "@saleor/warehouses/queries";
-import { WMSDocumentListVariables } from "@saleor/warehouses/types/WMSDoucumentsList";
+import { WMSDocumentListVariables } from "@saleor/warehouses/types/WMSDocumentsList";
 import React from "react";
 
 import { useAvailableInGridAttributesQuery } from "../../../products/queries";
 import {
-  productAddUrl,
-  ProductListUrlDialog,
-  ProductListUrlQueryParams
-} from "../../../products/urls";
-import {
   wmsDocumentsListUrl,
-  WMSDocumentsListUrlQueryParams,
   WMSDocumentsListUrlSortField,
-  wmsDocumentUrl
+  wmsDocumentUrl,
+  WMSDocumentUrlDialog,
+  WMSDocumentUrlQueryparams
 } from "../../urls";
 import {
   areFiltersApplied,
@@ -58,7 +55,7 @@ import {
 } from "./filters";
 
 interface WMSDocumentsListProps {
-  params: WMSDocumentsListUrlQueryParams;
+  params: any;
 }
 
 export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
@@ -96,8 +93,8 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
       : parseInt(params.activeTab, 0);
 
   const [openModal, closeModal] = createDialogActionHandlers<
-    ProductListUrlDialog,
-    ProductListUrlQueryParams
+    WMSDocumentUrlDialog,
+    WMSDocumentUrlQueryparams
   >(navigate, wmsDocumentsListUrl, params);
 
   const [
@@ -218,7 +215,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
         defaultSettings={defaultListSettings[ListViews.WMS_DOCUMENTS_LIST]}
         filterOpts={filterOpts}
         gridAttributes={maybe(
-          () => attributes.data.grid.edges.map(edge => edge.node),
+          () => attributes.data.availableInGrid.edges.map(edge => edge.node),
           []
         )}
         totalGridAttributes={maybe(
@@ -231,7 +228,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
           () => attributes.data.availableInGrid.pageInfo.hasNextPage,
           false
         )}
-        onAdd={() => navigate(productAddUrl)}
+        onAdd={() => navigate("")}
         disabled={loading}
         products={maybe(() => data.wmsDocuments.edges.map(edge => edge.node))}
         onFetchMore={() =>
@@ -275,11 +272,11 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
         onSearchChange={handleSearchChange}
         onFilterChange={changeFilters}
         onTabSave={() => openModal("save-search")}
-        onTabDelete={() => openModal("delete-search")}
+        onTabDelete={() => openModal("save-search")}
         onTabChange={handleTabChange}
         initialSearch={params.query || ""}
         tabs={getFilterTabs().map(tab => tab.name)}
-        onExport={() => openModal("export")}
+        onExport={() => openModal("save-search")}
       />
       <SaveFilterTabDialog
         open={params.action === "save-search"}

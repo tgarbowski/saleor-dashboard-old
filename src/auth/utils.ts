@@ -24,7 +24,12 @@ export const getTokens = () => ({
     sessionStorage.getItem(TOKEN_STORAGE_KEY.CSRF)
 });
 
-export const setTokens = (auth: string, csrf: string, id: string, persist: boolean) => {
+export const setTokens = (
+  auth: string,
+  csrf: string,
+  id: string,
+  persist: boolean
+) => {
   if (persist) {
     localStorage.setItem(TOKEN_STORAGE_KEY.AUTH, auth);
     localStorage.setItem(TOKEN_STORAGE_KEY.CSRF, csrf);

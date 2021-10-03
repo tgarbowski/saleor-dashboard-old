@@ -2,8 +2,8 @@ import { FormControlLabel, Radio, TextField } from "@material-ui/core";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { FilterDateTimeField } from "@saleor/components/Filter/FilterContent/FilterDateTimeField";
 import { FilterNumericField } from "@saleor/components/Filter/FilterContent/FilterNumericField";
-import { FilterWarehouseLocationField } from "@saleor/components/Filter/FilterContent/FilterWarehouseLocation";
 import { FilterSingleSelectField } from "@saleor/components/Filter/FilterContent/FilterSingleSelectField";
+import { FilterWarehouseLocationField } from "@saleor/components/Filter/FilterContent/FilterWarehouseLocation";
 import { useCommonStyles } from "@saleor/components/Filter/FilterContent/utils";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -129,6 +129,7 @@ const FilterContentBody: React.FC<FilterContentBodyProps> = ({
           <FilterWarehouseLocationField
             filter={filter}
             onFilterPropertyChange={onFilterPropertyChange}
+            currencySymbol={currencySymbol}
           />
         </>
       )}

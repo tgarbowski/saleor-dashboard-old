@@ -13,6 +13,7 @@ export interface UpdatePrivateMetadata_updatePrivateMetadata_errors {
   __typename: "MetadataError";
   code: MetadataErrorCode;
   field: string | null;
+  message: string | null;
 }
 
 export interface UpdatePrivateMetadata_updatePrivateMetadata {

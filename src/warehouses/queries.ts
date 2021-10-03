@@ -5,6 +5,7 @@ import {
 } from "@saleor/fragments/warehouses";
 import makeQuery from "@saleor/hooks/makeQuery";
 import gql from "graphql-tag";
+
 import {
   InitialWMSDocumentFilterData,
   InitialWMSDocumentFilterDataVariables
@@ -22,8 +23,7 @@ import { WMSDocument, WMSDocumentVariables } from "./types/WMSDocument";
 import {
   WMSDocumentList,
   WMSDocumentListVariables
-} from "./types/WMSDoucumentsList";
-
+} from "./types/WMSDocumentsList";
 
 const warehouseList = gql`
   ${warehouseWithShippingFragment}

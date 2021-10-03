@@ -6,7 +6,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
-import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
@@ -19,7 +18,7 @@ import TDisplayColumn, {
   DisplayColumnProps
 } from "@saleor/utils/columns/DisplayColumn";
 import { getArrowDirection } from "@saleor/utils/sort";
-import { WMSDocumentList_documents_edges_node } from "@saleor/warehouses/types/WMSDoucumentsList";
+import { WMSDocumentList_documents_edges_node } from "@saleor/warehouses/types/WMSDocumentsList";
 import { WMSDocumentsListUrlSortField } from "@saleor/warehouses/urls";
 import classNames from "classnames";
 import React from "react";
@@ -58,7 +57,7 @@ const useStyles = makeStyles(
     },
     colNameFixed: {},
     colNameHeader: {
-      marginLeft: AVATAR_MARGIN
+      marginLeft: 0
     },
     colNameWrapper: {
       display: "block"

@@ -5,12 +5,15 @@ import {
   TableRow,
   Typography
 } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import WarningIcon from "@material-ui/icons/Warning";
 import AvailabilityStatusLabel from "@saleor/components/AvailabilityStatusLabel";
 import { ChannelsAvailabilityDropdown } from "@saleor/components/ChannelsAvailabilityDropdown";
 import Checkbox from "@saleor/components/Checkbox";
 import MoneyRange from "@saleor/components/MoneyRange";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
+import StatusLabel from "@saleor/components/StatusLabel";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar/Avatar";
 import TableCellHeader from "@saleor/components/TableCellHeader";
@@ -23,6 +26,7 @@ import {
   getAttributeIdFromColumnValue,
   isAttributeColumnValue
 } from "@saleor/products/components/ProductListPage/utils";
+import ProductPublishReportDialog from "@saleor/products/components/ProductPublishReportDialog";
 import { GridAttributes_grid_edges_node } from "@saleor/products/types/GridAttributes";
 import { ProductList_products_edges_node } from "@saleor/products/types/ProductList";
 import { ProductListUrlSortField } from "@saleor/products/urls";
@@ -35,11 +39,6 @@ import { getArrowDirection } from "@saleor/utils/sort";
 import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import ProductPublishReportDialog from "@saleor/products/components/ProductPublishReportDialog";
-import {Button} from "@material-ui/core";
-import WarningIcon from "@material-ui/icons/Warning";
-import StatusLabel from "@saleor/components/StatusLabel";
-import { mapMetadataItemToInput } from "@saleor/utils/maps";
 
 import { messages } from "./messages";
 
@@ -371,9 +370,9 @@ export const ProductList: React.FC<ProductListProps> = props => {
                 listing => listing.channel.id === selectedChannelId
               );
 
-              const rowPrivateMetadataMap = {};
+              const rowPrivateMetadataMap: any = {};
 
-              if (product !== undefined){
+              if (product !== undefined) {
                 for (const x of product.privateMetadata) {
                   rowPrivateMetadataMap[x.key] = x.value;
                 }
@@ -424,7 +423,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
                     )}
                   </TableCellAvatar>
 
-
                   <DisplayColumn
                     column="productType"
                     displayColumns={settings.columns}
@@ -456,11 +454,11 @@ export const ProductList: React.FC<ProductListProps> = props => {
                               channel.isPublished
                             );
                           }}
-                        > 
+                        >
                           {rowPrivateMetadataMap["publish.allegro.errors"] !==
                             undefined &&
-                            rowPrivateMetadataMap["publish.allegro.errors"] !== '[]'
-                              && <WarningIcon color="error" />}
+                            rowPrivateMetadataMap["publish.allegro.errors"] !==
+                              "[]" && <WarningIcon color="error" />}
                           <StatusLabel
                             label={
                               channel.isPublished
@@ -481,8 +479,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
                                   ] !== undefined &&
                                   rowPrivateMetadataMap[
                                     "publish.allegro.errors"
-                                  ] !== '[]'
-                                ? ""
+                                  ] !== "[]"
+                                ? "success"
                                 : "error"
                             }
                           />
@@ -587,10 +585,12 @@ export const ProductList: React.FC<ProductListProps> = props => {
           )}
         </TableBody>
       </ResponsiveTable>
-      <ProductPublishReportDialog privateMetadataMap={privateMetadataMap}
-                                  isPublished={isPublished}
-                                  open={reportOpen}
-                                  onClose={handleReportClose} />
+      <ProductPublishReportDialog
+        privateMetadataMap={privateMetadataMap}
+        isPublished={isPublished}
+        open={reportOpen}
+        onClose={handleReportClose}
+      />
     </div>
   );
 };
