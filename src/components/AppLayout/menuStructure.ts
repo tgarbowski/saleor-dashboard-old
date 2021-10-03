@@ -16,7 +16,10 @@ import { User } from "@saleor/fragments/types/User";
 import { giftCardsListUrl } from "@saleor/giftCards/urls";
 import { commonMessages, sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
-import { warehouseListPath, wmsDocumentsListPath } from "@saleor/warehouses/urls";
+import {
+  warehouseListPath,
+  wmsDocumentsListPath
+} from "@saleor/warehouses/urls";
 import { IntlShape } from "react-intl";
 
 import { appsListPath } from "../../apps/urls";
@@ -165,6 +168,9 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
     },
     {
       ariaLabel: "warehouses",
+      iconSrc: warehouseIcon,
+      label: intl.formatMessage(sectionNames.warehouses),
+      permission: [PermissionEnum.MANAGE_PRODUCTS],
       children: [
         {
           ariaLabel: "warehouses_details",
@@ -177,12 +183,9 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           label: intl.formatMessage(sectionNames.wmsDocuments),
           testingContextId: "wms_documents",
           url: wmsDocumentsListPath
-        }],
-      iconSrc: warehouseIcon,
-      label: intl.formatMessage(sectionNames.warehouses),
-      permission: PermissionEnum.MANAGE_PRODUCTS,
-      testingContextId: "warehouses",
-      }
+        }
+      ],
+    }
   ];
 
   const isMenuItemPermitted = (menuItem: FilterableMenuItem) =>

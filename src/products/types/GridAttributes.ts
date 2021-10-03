@@ -7,6 +7,12 @@
 // GraphQL query operation: GridAttributes
 // ====================================================
 
+export interface GridAttributes_availableInGrid_edges_node {
+  __typename: "Attribute";
+  id: string;
+  name: string | null;
+}
+
 export interface GridAttributes_grid_edges_node {
   __typename: "Attribute";
   id: string;

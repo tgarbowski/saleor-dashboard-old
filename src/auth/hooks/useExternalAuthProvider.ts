@@ -136,6 +136,7 @@ export function useExternalAuthProvider({
         setTokens(
           externalObtainAccessTokens.token,
           externalObtainAccessTokens.csrfToken,
+          externalObtainAccessTokens.user.id,
           persistToken
         );
       }

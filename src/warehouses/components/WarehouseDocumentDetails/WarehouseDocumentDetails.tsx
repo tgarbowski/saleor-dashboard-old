@@ -11,7 +11,6 @@ import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
-import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { AddressTypeInput } from "@saleor/customers/types";
 import { renderCollection } from "@saleor/misc";
@@ -50,7 +49,7 @@ const useStyles = makeStyles(
     },
     colNameFixed: {},
     colNameHeader: {
-      marginLeft: AVATAR_MARGIN
+      marginLeft: 0
     },
     colNameWrapper: {
       display: "block"

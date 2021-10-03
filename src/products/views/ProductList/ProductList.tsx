@@ -1,24 +1,22 @@
 import DateFnsUtils from "@date-io/date-fns";
-import plLocale from "date-fns/locale/pl";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import ConfirmButton from "@saleor/components/ConfirmButton";
 import {
-  DialogContentText,
-  IconButton,
   Dialog,
   DialogContent,
+  DialogContentText,
   FormControlLabel,
+  IconButton,
   Radio,
   RadioGroup
 } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import DialogActions from "@material-ui/core/DialogActions";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
+import ConfirmButton from "@saleor/components/ConfirmButton";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
 import FormSpacer from "@saleor/components/FormSpacer";
-import moment from "moment-timezone";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
 } from "@saleor/components/SaveFilterTabDialog";
@@ -40,12 +38,12 @@ import usePaginator, {
 } from "@saleor/hooks/usePaginator";
 import { buttonMessages, commonMessages } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
+import ProductAddToMegaPackDialog from "@saleor/products/components/ProductAddToMegaPackDialog";
 import ProductExportDialog from "@saleor/products/components/ProductExportDialog";
 import {
   getAttributeIdFromColumnValue,
   isAttributeColumnValue
 } from "@saleor/products/components/ProductListPage/utils";
-import ProductPublishReportDialog from "@saleor/products/components/ProductPublishReportDialog";
 import {
   useAvailableInGridAttributesQuery,
   useGridAttributesQuery,
@@ -57,7 +55,6 @@ import {
   useProductListQuery
 } from "@saleor/products/queries";
 import { ProductListVariables } from "@saleor/products/types/ProductList";
-import ProductAddToMegaPackDialog from "@saleor/products/components/ProductAddToMegaPackDialog";
 import {
   productAddUrl,
   productListUrl,
@@ -77,14 +74,16 @@ import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems, mapNodeToChoice } from "@saleor/utils/maps";
 import { getSortUrlVariables } from "@saleor/utils/sort";
 import { useWarehouseList } from "@saleor/warehouses/queries";
+import plLocale from "date-fns/locale/pl";
+import moment from "moment-timezone";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import ProductListPage from "../../components/ProductListPage";
 import {
   useProductBulkDeleteMutation,
-  useProductExport,
-  useProductBulkPublishMutation
+  useProductBulkPublishMutation,
+  useProductExport
 } from "../../mutations";
 import {
   areFiltersApplied,
@@ -596,16 +595,16 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           />
         </DialogContentText>
       </ActionDialog>
-      {params.action === "addToMegaPack" &&
-      <ProductAddToMegaPackDialog
-        params={params}
-        onClose={closeModal}
-        open={params.action === "addToMegaPack"}
-        hasMore={searchAttributes.result.data?.search.pageInfo.hasNextPage}
-        loading={searchAttributes.result.loading}
-        onFetchMore={searchAttributes.loadMore}
-      />
-      }
+      {params.action === "addToMegaPack" && (
+        <ProductAddToMegaPackDialog
+          params={params}
+          onClose={closeModal}
+          open={params.action === "addToMegaPack"}
+          hasMore={searchAttributes.result.data?.search.pageInfo.hasNextPage}
+          loading={searchAttributes.result.loading}
+          onFetchMore={searchAttributes.loadMore}
+        />
+      )}
       <Dialog
         open={params.action === "publish"}
         onClose={closeModal}
@@ -690,8 +689,8 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
             variables: {
               ids: params.ids,
               isPublished: false,
-              offerType: 'null',
-              startingAt: 'null'
+              offerType: "null",
+              startingAt: "null"
             }
           })
         }

@@ -165,6 +165,7 @@ export interface OrderDetailsFragment_fulfillments_lines_orderLine_variant {
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
+  product: any;
 }
 
 export interface OrderDetailsFragment_fulfillments_lines_orderLine_unitDiscount {

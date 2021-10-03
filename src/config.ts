@@ -29,7 +29,12 @@ export type WMSDocumentsListColumns =
 export const PAGINATE_BY = 20;
 export const VALUES_PAGINATE_BY = 10;
 
-export type ProductListColumns = "isPublished" | "productType" | "price" | "createdAt";
+export type ProductListColumns =
+  | "availability"
+  | "isPublished"
+  | "productType"
+  | "price"
+  | "createdAt";
 
 export interface AppListViewSettings {
   [ListViews.APPS_LIST]: ListSettings;

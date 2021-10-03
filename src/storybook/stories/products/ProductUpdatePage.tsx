@@ -72,6 +72,8 @@ const props: ProductUpdatePageProps = {
   onWarehouseConfigure: () => undefined,
   openChannelsModal: () => undefined,
   placeholderImage,
+  params: null,
+  id: null,
   product,
   referencePages: [],
   referenceProducts: [],

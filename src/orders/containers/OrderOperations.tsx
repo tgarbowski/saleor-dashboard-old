@@ -1,8 +1,9 @@
-import React from "react";
 import {
   OrderParcel,
   OrderParcelVariables
 } from "@saleor/orders/types/OrderParcel";
+import React from "react";
+
 import { getMutationProviderData } from "../../misc";
 import { PartialMutationProviderOutput } from "../../types";
 import {

@@ -12,15 +12,16 @@ import {
   fulfillmentFragment,
   invoiceFragment
 } from "@saleor/fragments/orders";
+import makeMutation from "@saleor/hooks/makeMutation";
 import {
   OrderParcel,
   OrderParcelVariables
 } from "@saleor/orders/types/OrderParcel";
-import makeMutation from "@saleor/hooks/makeMutation";
 import gql from "graphql-tag";
+
+import { TypedMutation } from "../mutations";
 import { DpdLabel, DpdLabelVariables } from "./types/DpdLabelCreate";
 import { DpdPackage, DpdPackageVariables } from "./types/DpdPackageCreate";
-import { TypedMutation } from "../mutations";
 import {
   FulfillmentReturnProducts,
   FulfillmentReturnProductsVariables
@@ -178,7 +179,6 @@ export const TypedOrderParcelMutation = TypedMutation<
   OrderParcel,
   OrderParcelVariables
 >(orderParcelMutation);
-
 
 const orderDiscountDeleteMutation = gql`
   ${orderErrorFragment}
@@ -815,7 +815,6 @@ export const useOrderSettingsUpdateMutation = makeMutation<
   OrderSettingsUpdateVariables
 >(orderSettingsUpdateMutation);
 
-
 const dpdPackageCreateMutation = gql`
   mutation dpdPackageCreate($input: DpdCreatePackageInput!) {
     dpdPackageCreate(input: $input) {
@@ -833,11 +832,14 @@ export const useDpdPackageCreateMutation = makeMutation<
 >(dpdPackageCreateMutation);
 
 const dpdLabelCreateMutation = gql`
-  mutation DpdLabelCreate($input: DpdCreateLabelInput!){
-    dpdLabelCreate(input: $input){
-    label
+  mutation DpdLabelCreate($input: DpdCreateLabelInput!) {
+    dpdLabelCreate(input: $input) {
+      label
     }
   }
-`
+`;
 
-export const useDpdLabelCreateMutation = makeMutation<DpdLabel, DpdLabelVariables>(dpdLabelCreateMutation);
+export const useDpdLabelCreateMutation = makeMutation<
+  DpdLabel,
+  DpdLabelVariables
+>(dpdLabelCreateMutation);

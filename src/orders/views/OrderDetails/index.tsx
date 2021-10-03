@@ -4,11 +4,14 @@ import { Task } from "@saleor/containers/BackgroundTasks/types";
 import useBackgroundTask from "@saleor/hooks/useBackgroundTask";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
+import useShop from "@saleor/hooks/useShop";
 import { commonMessages } from "@saleor/intl";
 import { useOrderConfirmMutation } from "@saleor/orders/mutations";
+import {
+  useDpdLabelCreateMutation,
+  useDpdPackageCreateMutation
+} from "@saleor/orders/mutations";
 import { InvoiceRequest } from "@saleor/orders/types/InvoiceRequest";
-import useShop from "@saleor/hooks/useShop";
-
 import getOrderErrorMessage from "@saleor/utils/errors/order";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createMetadataUpdateHandler from "@saleor/utils/handlers/metadataUpdateHandler";
@@ -18,10 +21,7 @@ import {
 } from "@saleor/utils/metadata/updateMetadata";
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  useDpdLabelCreateMutation,
-  useDpdPackageCreateMutation
-} from "@saleor/orders/mutations";
+
 import { JobStatusEnum, OrderStatus } from "../../../types/globalTypes";
 import OrderOperations from "../../containers/OrderOperations";
 import { TypedOrderDetailsQuery } from "../../queries";
@@ -158,9 +158,9 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                   fulfillment: order?.fulfillments[0]?.id,
                   packageData: formData.map(data => ({
                     content: data.content,
-                    sizeX: parseInt(data.size1),
-                    sizeY: parseInt(data.size2),
-                    sizeZ: parseInt(data.size3),
+                    sizeX: parseInt(data.size1, 5),
+                    sizeY: parseInt(data.size2, 5),
+                    sizeZ: parseInt(data.size3, 5),
                     weight: parseFloat(data.weight)
                   })),
                   receiverData: {

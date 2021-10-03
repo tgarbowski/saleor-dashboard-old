@@ -1,16 +1,24 @@
-import {createStyles, Dialog, DialogTitle, Grid, Link, makeStyles, Paper, Theme} from "@material-ui/core";
-import {renderCollection} from "@saleor/misc";
+import {
+  createStyles,
+  Dialog,
+  DialogTitle,
+  Grid,
+  Link,
+  makeStyles,
+  Paper,
+  Theme
+} from "@material-ui/core";
 import React from "react";
 
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paper: {
-      maxWidth: 600,
-      padding: theme.spacing(2),
-      width: 600
-    }
-  }),
+const useStyles = makeStyles(
+  (theme: Theme) =>
+    createStyles({
+      paper: {
+        maxWidth: 600,
+        padding: theme.spacing(2),
+        width: 600
+      }
+    }),
   { name: "ProductPublishReportDialog" }
 );
 
@@ -24,9 +32,13 @@ export interface ProductPublishReportDialogProps {
 const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = props => {
   const { open, onClose, privateMetadataMap, isPublished } = props;
   const classes = useStyles(props);
-  
-  const offerUrlPart = (!isPublished && privateMetadataMap &&
-    privateMetadataMap['publish.allegro.status'] === "moderated") ? "offer" : "oferta";
+
+  const offerUrlPart =
+    !isPublished &&
+    privateMetadataMap &&
+    privateMetadataMap["publish.allegro.status"] === "moderated"
+      ? "offer"
+      : "oferta";
 
   return (
     <Dialog onClose={onClose} open={open}>
@@ -36,26 +48,48 @@ const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = pr
           <Grid item xs={4}>
             <strong>Status allegro</strong>
             <br />
-            {privateMetadataMap && privateMetadataMap['publish.allegro.status'] ? privateMetadataMap['publish.allegro.status'] : '-'}
+            {privateMetadataMap && privateMetadataMap["publish.allegro.status"]
+              ? privateMetadataMap["publish.allegro.status"]
+              : "-"}
           </Grid>
           <Grid item xs={4}>
             <strong>Data publikacji</strong>
             <br />
-            {privateMetadataMap && privateMetadataMap['publish.allegro.date'] ? privateMetadataMap['publish.allegro.date'] : '-'}
+            {privateMetadataMap && privateMetadataMap["publish.allegro.date"]
+              ? privateMetadataMap["publish.allegro.date"]
+              : "-"}
           </Grid>
           <Grid item xs={4}>
-            {privateMetadataMap && privateMetadataMap['publish.allegro.id'] !== undefined ?
-              <Link href={"https://allegro.pl/" + offerUrlPart + "/" + privateMetadataMap['publish.allegro.id'] +
-              ((!isPublished && privateMetadataMap['publish.allegro.status'] === 'moderated') ? '/restore' : '')} target="_blank">
+            {privateMetadataMap &&
+            privateMetadataMap["publish.allegro.id"] !== undefined ? (
+              <Link
+                href={
+                  "https://allegro.pl/" +
+                  offerUrlPart +
+                  "/" +
+                  privateMetadataMap["publish.allegro.id"] +
+                  (!isPublished &&
+                  privateMetadataMap["publish.allegro.status"] === "moderated"
+                    ? "/restore"
+                    : "")
+                }
+                target="_blank"
+              >
                 Przejdź do aukcji
               </Link>
-              : undefined}
+            ) : (
+              undefined
+            )}
           </Grid>
         </Grid>
         <p>
           <strong>Lista błędów</strong>
           <br />
-          <p>{privateMetadataMap && privateMetadataMap['publish.allegro.errors'] ? privateMetadataMap['publish.allegro.errors'] : '-'}</p>
+          <p>
+            {privateMetadataMap && privateMetadataMap["publish.allegro.errors"]
+              ? privateMetadataMap["publish.allegro.errors"]
+              : "-"}
+          </p>
         </p>
       </Paper>
     </Dialog>

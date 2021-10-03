@@ -47,7 +47,6 @@ export function createWarehouseField<T extends string>(
   };
 }
 
-
 export function createDateTimeField<T extends string>(
   name: T,
   label: string,

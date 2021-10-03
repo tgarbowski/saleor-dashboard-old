@@ -4,7 +4,11 @@ import {
   ChannelPriceData
 } from "@saleor/channels/utils";
 import { FormChange } from "@saleor/hooks/useForm";
-import { generateSkuCode, getAttributeInputFromProductType, ProductType } from "./data";
+import { SearchProductTypes_search_edges_node } from "@saleor/searches/types/SearchProductTypes";
+
+import {
+  generateSkuCode
+} from "./data";
 
 export function createChannelsPriceChangeHandler(
   channelListings: ChannelData[],
@@ -88,7 +92,7 @@ export function createVariantChannelsChangeHandler(
 
 export function createProductTypeSelectHandler(
   setProductType: (productTypeId: string) => void,
-  productTypeChoiceList: ProductType[],
+  productTypeChoiceList: SearchProductTypes_search_edges_node[],
   setSkuCode: (sku: string) => void,
   skusCount: any,
   userData: any,
@@ -100,8 +104,13 @@ export function createProductTypeSelectHandler(
     const selectedProductType = productTypeChoiceList.find(
       productType => productType.id === id
     );
-    /* eslint no-unused-expressions: ["error", { "allowTernary": true }]*/ 
-    selectedProductType.name === "Mega Paka" ? setSkuCode(generateSkuCode(skusCount.productVariantsSkus.totalCount, userData)) : setSkuCode("");
+    /* eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
+
+    selectedProductType.name === "Mega Paka"
+      ? setSkuCode(
+          generateSkuCode(skusCount.productVariantsSkus.totalCount, userData)
+        )
+      : setSkuCode("");
     triggerChange();
   };
 }

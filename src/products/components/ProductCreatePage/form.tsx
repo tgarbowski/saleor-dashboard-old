@@ -1,11 +1,4 @@
-import { getTokens } from "@saleor/auth";
 import { OutputData } from "@editorjs/editorjs";
-import {
-  useProductVariantsSkus,
-  useUserWithMetadata
-} from "@saleor/products/queries";
-import { ProductVariantsSkusData } from "@saleor/products/types/ProductVariantSkus";
-import { UserWithMetadataData } from "@saleor/products/types/UserWithMetadata";
 import { getAttributesDisplayData } from "@saleor/attributes/utils/data";
 import {
   createAttributeChangeHandler,
@@ -16,17 +9,12 @@ import {
   createFetchMoreReferencesHandler,
   createFetchReferencesHandler
 } from "@saleor/attributes/utils/handlers";
+import { getTokens } from "@saleor/auth";
 import { ChannelData, ChannelPriceArgs } from "@saleor/channels/utils";
 import {
   AttributeInput,
   AttributeInputData
 } from "@saleor/components/Attributes";
-import {
-  generateSkuNumberToQuery,
-  getAttributeInputFromProductType,
-  ProductType,
-  updateDataFromMegaPackValues
-} from "@saleor/products/utils/data";
 import { MetadataFormData } from "@saleor/components/Metadata";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import { RichTextEditorChange } from "@saleor/components/RichTextEditor";
@@ -36,7 +24,18 @@ import useFormset, {
   FormsetChange,
   FormsetData
 } from "@saleor/hooks/useFormset";
+import {
+  useProductVariantsSkus,
+  useUserWithMetadata
+} from "@saleor/products/queries";
 import { ProductType_productType } from "@saleor/products/types/ProductType";
+import { ProductVariantsSkusData } from "@saleor/products/types/ProductVariantSkus";
+import { UserWithMetadataData } from "@saleor/products/types/UserWithMetadata";
+import {
+  generateSkuNumberToQuery,
+  getAttributeInputFromProductType,
+  updateDataFromMegaPackValues
+} from "@saleor/products/utils/data";
 import {
   createChannelsChangeHandler,
   createChannelsPriceChangeHandler,
@@ -58,7 +57,6 @@ import useRichText from "@saleor/utils/richText/useRichText";
 import React from "react";
 
 import { ProductStockFormsetData, ProductStockInput } from "../ProductStocks";
-import { deleteSkusFieldFromPrivateMetadata } from "./utils";
 
 export interface ProductCreateFormData extends MetadataFormData {
   category: string;
@@ -69,7 +67,7 @@ export interface ProductCreateFormData extends MetadataFormData {
   description: OutputData;
   isAvailable: boolean;
   name: string;
-  productType: ProductType;
+  productType: ProductType_productType;
   rating: number;
   seoDescription: string;
   seoTitle: string;

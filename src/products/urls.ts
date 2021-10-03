@@ -22,7 +22,13 @@ export const productAddUrl = (params?: ProductCreateUrlQueryParams) =>
   productAddPath + "?" + stringifyQs(params);
 
 export const productListPath = productSection;
-export type ProductListUrlDialog = "delete" | "export" | "addToMegaPack" | TabActionDialog;
+export type ProductListUrlDialog =
+  | "delete"
+  | "export"
+  | "publish"
+  | "unpublish"
+  | "addToMegaPack"
+  | TabActionDialog;
 export enum ProductListUrlFiltersEnum {
   priceFrom = "priceFrom",
   priceTo = "priceTo",
@@ -77,6 +83,7 @@ export type ProductUrlDialog =
   | "remove"
   | "remove-variants"
   | "assign-attribute-value"
+  | "submit"
   | ChannelsAction;
 export type ProductUrlQueryParams = BulkAction &
   Dialog<ProductUrlDialog> &

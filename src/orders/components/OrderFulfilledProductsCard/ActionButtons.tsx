@@ -3,8 +3,8 @@ import { Button, CardActions, Typography } from "@material-ui/core";
 import { buttonMessages, commonMessages } from "@saleor/intl";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
 import React from "react";
-import { FormattedMessage } from "react-intl";
 import SVG from "react-inlinesvg";
+import { FormattedMessage } from "react-intl";
 
 import { actionButtonsMessages } from "./messages";
 

@@ -17,6 +17,10 @@ import {
   ProductMediaById,
   ProductMediaByIdVariables
 } from "@saleor/products/types/ProductMediaById";
+import {
+  ProductVariantsSkusData,
+  ProductVariantsSkusDataVariables
+} from "@saleor/products/types/ProductVariantSkus";
 import gql from "graphql-tag";
 
 import {
@@ -50,23 +54,6 @@ import {
   ProductDetailsVariables
 } from "./types/ProductDetails";
 import { ProductList, ProductListVariables } from "./types/ProductList";
-import { ProductType, ProductTypeVariables } from "./types/ProductType";
-import {
-  ProductVariantCreateData,
-  ProductVariantCreateDataVariables
-} from "./types/ProductVariantCreateData";
-import {
-  ProductVariantsSkusData,
-  ProductVariantsSkusDataVariables
-} from "@saleor/products/types/ProductVariantSkus";
-import {
-  ProductVariantDetails,
-  ProductVariantDetailsVariables
-} from "./types/ProductVariantDetails";
-import {
-  UserWithMetadataData,
-  UserWithMetadataDataVariables
-} from "./types/UserWithMetadata";
 import {
   ProductPrivateMetadataData,
   ProductPrivateMetadataDataVariables
@@ -75,7 +62,20 @@ import {
   ProductsSkusData,
   ProductsSkusDataVariables
 } from "./types/ProductSkus";
+import { ProductType, ProductTypeVariables } from "./types/ProductType";
 import { ProductTypeData, ProductTypeDataVariables } from "./types/ProductType";
+import {
+  ProductVariantCreateData,
+  ProductVariantCreateDataVariables
+} from "./types/ProductVariantCreateData";
+import {
+  ProductVariantDetails,
+  ProductVariantDetailsVariables
+} from "./types/ProductVariantDetails";
+import {
+  UserWithMetadataData,
+  UserWithMetadataDataVariables
+} from "./types/UserWithMetadata";
 
 const initialProductFilterAttributesQuery = gql`
   query InitialProductFilterAttributes {
@@ -487,7 +487,6 @@ export const useUserWithMetadata = makeQuery<
   UserWithMetadataData,
   UserWithMetadataDataVariables
 >(userWithMetadata);
-
 
 const productSkus = gql`
   query getSkusFromProducts($ids: [ID]) {

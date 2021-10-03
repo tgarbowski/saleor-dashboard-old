@@ -106,7 +106,12 @@ export function useSaleorAuthProvider({
 
       setUserContext(user);
       if (user) {
-        setTokens(tokenCreate.token, tokenCreate.csrfToken, user.id, persistToken);
+        setTokens(
+          tokenCreate.token,
+          tokenCreate.csrfToken,
+          user.id,
+          persistToken
+        );
       }
     },
     onError: logout

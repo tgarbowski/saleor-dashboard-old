@@ -95,7 +95,7 @@ const messages = defineMessages({
   warehouseLocation: {
     defaultMessage: "Lokacja magazynowa",
     description: "Find product by warehouse location"
-}
+  }
 });
 
 const filterByType = (type: AttributeInputTypeEnum) => (

@@ -4,6 +4,7 @@
 // This file was automatically generated and should not be edited.
 
 import { ProductFilterInput, ProductOrder } from "./../../types/globalTypes";
+import { ProductPrivateMetadataData_privateMetadata } from "./ProductPrivateMetadata";
 
 // ====================================================
 // GraphQL query operation: ProductList
@@ -113,6 +114,7 @@ export interface ProductList_products_edges_node {
   updatedAt: any;
   jsonPrivateMetadata: any;
   createdAt: any | null;
+  privateMetadata: ProductPrivateMetadataData_privateMetadata[];
 }
 
 export interface ProductList_products_edges {

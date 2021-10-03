@@ -25,7 +25,6 @@ import { Backlink } from "@saleor/macaw-ui";
 import ProductVariantPrice from "@saleor/products/components/ProductVariantPrice";
 import { ProductType_productType } from "@saleor/products/types/ProductType";
 import { getChoices } from "@saleor/products/utils/data";
-import ProductMegaPack from "../ProductMegaPack";
 import { SearchAttributeValues_attribute_choices_edges_node } from "@saleor/searches/types/SearchAttributeValues";
 import { SearchCategories_search_edges_node } from "@saleor/searches/types/SearchCategories";
 import { SearchCollections_search_edges_node } from "@saleor/searches/types/SearchCollections";
@@ -39,6 +38,7 @@ import { useIntl } from "react-intl";
 
 import { FetchMoreProps } from "../../../types";
 import ProductDetailsForm from "../ProductDetailsForm";
+import ProductMegaPack from "../ProductMegaPack";
 import ProductOrganization from "../ProductOrganization";
 import ProductShipping from "../ProductShipping/ProductShipping";
 import ProductStocks from "../ProductStocks";
