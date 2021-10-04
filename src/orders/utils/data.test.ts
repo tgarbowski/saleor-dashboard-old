@@ -530,6 +530,15 @@ describe("Get the total value of all replaced products", () => {
         isShippingRequired: false,
         variant: {
           id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+          product: {
+            __typename: "Product",
+            id: "345678393",
+            isAvailableForPurchase: true,
+            isPublished: true,
+            weight: {
+              value: "12"
+            }
+          },
           quantityAvailable: 50,
           __typename: "ProductVariant"
         },
@@ -585,6 +594,15 @@ describe("Get the total value of all replaced products", () => {
         isShippingRequired: false,
         variant: {
           id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+          product: {
+            __typename: "Product",
+            id: "345678393",
+            isAvailableForPurchase: true,
+            isPublished: true,
+            weight: {
+              value: "12"
+            }
+          },
           quantityAvailable: 50,
           __typename: "ProductVariant"
         },
@@ -640,6 +658,15 @@ describe("Get the total value of all replaced products", () => {
         isShippingRequired: true,
         variant: {
           id: "UHJvZHVjdFZhcmlhbnQ6Mjg2",
+          product: {
+            __typename: "Product",
+            id: "345678393",
+            isAvailableForPurchase: true,
+            isPublished: true,
+            weight: {
+              value: "12"
+            }
+          },
           quantityAvailable: 50,
           __typename: "ProductVariant"
         },
@@ -701,6 +728,15 @@ describe("Get the total value of all replaced products", () => {
           isShippingRequired: false,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -761,6 +797,15 @@ describe("Get the total value of all replaced products", () => {
           isShippingRequired: false,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -821,6 +866,15 @@ describe("Get the total value of all replaced products", () => {
           isShippingRequired: true,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6Mjg2",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -881,6 +935,15 @@ describe("Get the total value of all replaced products", () => {
           isShippingRequired: false,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -941,6 +1004,15 @@ describe("Get the total value of all replaced products", () => {
           isShippingRequired: false,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -1137,6 +1209,15 @@ describe("Get the total value of all selected products", () => {
         isShippingRequired: false,
         variant: {
           id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+          product: {
+            __typename: "Product",
+            id: "345678393",
+            isAvailableForPurchase: true,
+            isPublished: true,
+            weight: {
+              value: "12"
+            }
+          },
           quantityAvailable: 50,
           __typename: "ProductVariant"
         },
@@ -1192,6 +1273,15 @@ describe("Get the total value of all selected products", () => {
         isShippingRequired: false,
         variant: {
           id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+          product: {
+            __typename: "Product",
+            id: "345678393",
+            isAvailableForPurchase: true,
+            isPublished: true,
+            weight: {
+              value: "12"
+            }
+          },
           quantityAvailable: 50,
           __typename: "ProductVariant"
         },
@@ -1247,6 +1337,15 @@ describe("Get the total value of all selected products", () => {
         isShippingRequired: true,
         variant: {
           id: "UHJvZHVjdFZhcmlhbnQ6Mjg2",
+          product: {
+            __typename: "Product",
+            id: "345678393",
+            isAvailableForPurchase: true,
+            isPublished: true,
+            weight: {
+              value: "12"
+            }
+          },
           quantityAvailable: 50,
           __typename: "ProductVariant"
         },
@@ -1308,6 +1407,15 @@ describe("Get the total value of all selected products", () => {
           isShippingRequired: false,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -1368,6 +1476,15 @@ describe("Get the total value of all selected products", () => {
           isShippingRequired: false,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -1428,6 +1545,15 @@ describe("Get the total value of all selected products", () => {
           isShippingRequired: true,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6Mjg2",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -1615,6 +1741,15 @@ describe("Merge repeated order lines of fulfillment lines", () => {
           isShippingRequired: false,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -1675,6 +1810,15 @@ describe("Merge repeated order lines of fulfillment lines", () => {
           isShippingRequired: false,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6MzE3",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },
@@ -1735,6 +1879,15 @@ describe("Merge repeated order lines of fulfillment lines", () => {
           isShippingRequired: true,
           variant: {
             id: "UHJvZHVjdFZhcmlhbnQ6Mjg2",
+            product: {
+              __typename: "Product",
+              id: "345678393",
+              isAvailableForPurchase: true,
+              isPublished: true,
+              weight: {
+                value: "12"
+              }
+            },
             quantityAvailable: 50,
             __typename: "ProductVariant"
           },

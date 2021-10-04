@@ -41,6 +41,31 @@ const cancelableStatuses = [
   FulfillmentStatus.WAITING_FOR_APPROVAL
 ];
 
+const useStyles = makeStyles(
+  theme => ({
+    menuIcon: {
+      "& svg": {
+        fill: theme.palette.primary.main,
+        height: 25,
+        width: 25
+      },
+      display: "inline-block",
+      position: "relative",
+      right: 8
+    },
+    table: {
+      tableLayout: "fixed"
+    },
+    deleteIcon: {
+      height: 40,
+      paddingRight: 0,
+      paddingLeft: theme.spacing(1),
+      width: 40
+    }
+  }),
+  { name: "OrderFulfillment" }
+);
+
 const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = props => {
   const {
     fulfillment,
@@ -53,34 +78,12 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
     onParcelLabelDownload,
     onRefund
   } = props;
-  const classes = makeStyles(
-    theme => ({
-      menuIcon: {
-        "& svg": {
-          fill: theme.palette.primary.main,
-          height: 25,
-          width: 25
-        },
-        display: "inline-block",
-        position: "relative",
-        right: 8
-      },
-      table: {
-        tableLayout: "fixed"
-      },
-      deleteIcon: {
-        height: 40,
-        paddingRight: 0,
-        paddingLeft: theme.spacing(1),
-        width: 40
-      }
-    }),
-    { name: "OrderFulfillment" }
-  );
 
   if (!fulfillment) {
     return null;
   }
+
+  const classes = useStyles(props);
 
   const getLines = () => {
     if (statusesToMergeLines.includes(fulfillment?.status)) {
