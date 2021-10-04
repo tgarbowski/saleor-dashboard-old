@@ -1,6 +1,6 @@
-import { ThemeOptions } from "@material-ui/core/styles/createMuiTheme";
+import { Theme } from "@material-ui/core/styles";
 
-const themeOverrides: Partial<ThemeOptions> = {
+const themeOverrides: Partial<Theme> = {
   overrides: {
     MuiTableCell: {
       body: {
@@ -13,6 +13,7 @@ const themeOverrides: Partial<ThemeOptions> = {
       }
     }
   },
+  //@ts-ignore
   palette: {
     primary: {
       light: "#FFCC07",
@@ -25,20 +26,6 @@ const themeOverrides: Partial<ThemeOptions> = {
       main: "#FFFFFF",
       dark: "#FFFFFF",
       contrastText: "#FFCC07"
-    },
-    error:{
-      light: "#FFFFFF",
-      main: "#FFFFFF",
-      dark: "#FFFFFF",
-      contrastText: "#FFCC07"
-    },
-    type:  "light",
-    tonalOffset: 0,
-    contrastThreshold: 0, 
-    background: {
-      default: "#FFFFFF",
-      paper: "#FFFFFF",
-
     }
   }
 };

@@ -168,20 +168,21 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
     },
     {
       ariaLabel: "warehouses",
+      id: "warehouses",
       iconSrc: warehouseIcon,
       label: intl.formatMessage(sectionNames.warehouses),
-      permission: [PermissionEnum.MANAGE_PRODUCTS],
+      permissions: [PermissionEnum.MANAGE_PRODUCTS],
       children: [
         {
           ariaLabel: "warehouses_details",
           label: intl.formatMessage(sectionNames.warehouses),
-          testingContextId: "warehouses_details",
+          id: "warehouses_details",
           url: warehouseListPath
         },
         {
           ariaLabel: "wms_documents",
           label: intl.formatMessage(sectionNames.wmsDocuments),
-          testingContextId: "wms_documents",
+          id: "wms_documents",
           url: wmsDocumentsListPath
         }
       ],

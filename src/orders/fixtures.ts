@@ -1084,6 +1084,15 @@ export const order = (placeholder: string): OrderDetails_order => ({
             variant: {
               __typename: "ProductVariant",
               id: "dsfsfuhb",
+              product: {
+                __typename: "Product",
+                id: "345678393",
+                isAvailableForPurchase: true,
+                isPublished: true,
+                weight: {
+                  value: "12"
+                }
+              },
               quantityAvailable: 10
             }
           },
@@ -1153,6 +1162,15 @@ export const order = (placeholder: string): OrderDetails_order => ({
             },
             variant: {
               __typename: "ProductVariant",
+              product: {
+                __typename: "Product",
+                id: "345678393",
+                isAvailableForPurchase: true,
+                isPublished: true,
+                weight: {
+                  value: "12"
+                }
+              },
               id: "dsfsfuhb",
               quantityAvailable: 10
             }
@@ -1231,6 +1249,15 @@ export const order = (placeholder: string): OrderDetails_order => ({
       variant: {
         __typename: "ProductVariant",
         id: "dsfsfuhb",
+        product: {
+          __typename: "Product",
+          id: "345678393",
+          isAvailableForPurchase: true,
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
+        },
         quantityAvailable: 10,
       }
     },
@@ -1285,6 +1312,15 @@ export const order = (placeholder: string): OrderDetails_order => ({
       variant: {
         __typename: "ProductVariant",
         id: "dsfsfuhb",
+        product: {
+          __typename: "Product",
+          id: "345678393",
+          isAvailableForPurchase: true,
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
+        },
         quantityAvailable: 10
       }
     }
@@ -1469,6 +1505,15 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
       variant: {
         __typename: "ProductVariant",
         id: "dsfsfuhb",
+        product: {
+          __typename: "Product",
+          id: "345678393",
+          isAvailableForPurchase: true,
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
+        },
         quantityAvailable: 10
       }
     },
@@ -1521,6 +1566,15 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
       },
       variant: {
         __typename: "ProductVariant",
+        product: {
+          __typename: "Product",
+          id: "345678393",
+          isAvailableForPurchase: true,
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
+        },
         id: "dsfsfuhb",
         quantityAvailable: 10
       }
