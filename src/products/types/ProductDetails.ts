@@ -331,6 +331,7 @@ export interface ProductDetails_product {
   variants: (ProductDetails_product_variants | null)[] | null;
   weight: ProductDetails_product_weight | null;
   taxType: ProductDetails_product_taxType | null;
+  jsonPrivateMetadata: string | null;
 }
 
 export interface ProductDetails_taxTypes {

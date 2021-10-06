@@ -504,9 +504,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                 <CardSpacer />
                 <ProductBundleContent
                   content={maybe(() =>
-                    JSON.parse(
-                      String(product.privateMetadata)["bundle.content"]
-                    )
+                    JSON.parse((product.jsonPrivateMetadata))['bundle.content']
                   )}
                   id={id}
                   params={params}
