@@ -13,7 +13,7 @@ const themeOverrides: Partial<Theme> = {
       }
     }
   },
-  //@ts-ignore
+  // @ts-ignore
   palette: {
     primary: {
       light: "#FFCC07",
