@@ -18,6 +18,7 @@ export const product: (
 ) => ProductDetails_product &
   ProductVariantCreateData_product = placeholderImage => ({
   __typename: "Product" as "Product",
+  jsonPrivateMetadata: "test_string",
   attributes: [
     {
       __typename: "SelectedAttribute",
