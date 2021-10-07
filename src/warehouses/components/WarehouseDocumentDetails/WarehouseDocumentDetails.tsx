@@ -211,13 +211,13 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
               {document?.wmsDocument?.documentType === "GIN" &&
                 "Odbiorca: " + document?.wmsDocument.recipient.email}
               {document?.wmsDocument?.documentType === "GRN" &&
-                "Nadawca: " + document?.wmsDocument.deliverer.companyName}
+                "Nadawca: " + document?.wmsDocument.deliverer?.companyName}
               {document?.wmsDocument?.documentType === "FGTN" &&
-                "Nadawca : " + document?.wmsDocument.deliverer.companyName}
+                "Nadawca : " + document?.wmsDocument.deliverer?.companyName}
               {document?.wmsDocument?.documentType === "IO" &&
-                "Nadawca: " + document?.wmsDocument.deliverer.companyName}
+                "Nadawca: " + document?.wmsDocument.deliverer?.companyName}
               {document?.wmsDocument?.documentType === "IWM" &&
-                "Nadawca: " + document?.wmsDocument.deliverer.companyName}
+                "Nadawca: " + document?.wmsDocument.deliverer?.companyName}
             </CardContent>
           </Card>
         </div>
