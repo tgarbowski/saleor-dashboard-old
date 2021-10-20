@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { OrderDiscountCommonInput, OrderErrorCode, AddressTypeEnum, OrderDiscountType, DiscountValueTypeEnum, OrderEventsEmailsEnum, OrderEventsEnum, FulfillmentStatus, PaymentChargeStatusEnum, WarehouseClickAndCollectOptionEnum, OrderStatus, OrderAction, JobStatusEnum } from "./../../types/globalTypes";
+import { OrderDiscountCommonInput, OrderErrorCode, AddressTypeEnum, OrderDiscountType, DiscountValueTypeEnum, OrderEventsEmailsEnum, OrderEventsEnum, FulfillmentStatus, PaymentChargeStatusEnum, OrderStatus, OrderAction, JobStatusEnum } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: OrderDiscountUpdate
@@ -359,19 +359,6 @@ export interface OrderDiscountUpdate_orderDiscountUpdate_order_shippingAddress {
   streetAddress2: string;
 }
 
-export interface OrderDiscountUpdate_orderDiscountUpdate_order_deliveryMethod_ShippingMethod {
-  __typename: "ShippingMethod";
-  id: string;
-}
-
-export interface OrderDiscountUpdate_orderDiscountUpdate_order_deliveryMethod_Warehouse {
-  __typename: "Warehouse";
-  id: string;
-  clickAndCollectOption: WarehouseClickAndCollectOptionEnum;
-}
-
-export type OrderDiscountUpdate_orderDiscountUpdate_order_deliveryMethod = OrderDiscountUpdate_orderDiscountUpdate_order_deliveryMethod_ShippingMethod | OrderDiscountUpdate_orderDiscountUpdate_order_deliveryMethod_Warehouse;
-
 export interface OrderDiscountUpdate_orderDiscountUpdate_order_shippingMethod {
   __typename: "ShippingMethod";
   id: string;
@@ -516,10 +503,8 @@ export interface OrderDiscountUpdate_orderDiscountUpdate_order {
   isPaid: boolean;
   paymentStatus: PaymentChargeStatusEnum;
   shippingAddress: OrderDiscountUpdate_orderDiscountUpdate_order_shippingAddress | null;
-  deliveryMethod: OrderDiscountUpdate_orderDiscountUpdate_order_deliveryMethod | null;
   shippingMethod: OrderDiscountUpdate_orderDiscountUpdate_order_shippingMethod | null;
   shippingMethodName: string | null;
-  collectionPointName: string | null;
   shippingPrice: OrderDiscountUpdate_orderDiscountUpdate_order_shippingPrice;
   status: OrderStatus;
   subtotal: OrderDiscountUpdate_orderDiscountUpdate_order_subtotal;

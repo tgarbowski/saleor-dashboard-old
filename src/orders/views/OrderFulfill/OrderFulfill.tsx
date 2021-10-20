@@ -7,34 +7,14 @@ import {
   useOrderFulfillData,
   useOrderFulfillSettingsQuery
 } from "@saleor/orders/queries";
-import { OrderFulfillData_order } from "@saleor/orders/types/OrderFulfillData";
 import { orderUrl } from "@saleor/orders/urls";
 import { getWarehousesFromOrderLines } from "@saleor/orders/utils/data";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { WarehouseClickAndCollectOptionEnum } from "../../../types/globalTypes";
-
 export interface OrderFulfillProps {
   orderId: string;
 }
-
-const resolveLocalFulfillment = (
-  order: OrderFulfillData_order,
-  orderLineWarehouses
-) => {
-  const deliveryMethod = order?.deliveryMethod;
-  if (
-    deliveryMethod?.__typename === "Warehouse" &&
-    deliveryMethod?.clickAndCollectOption ===
-      WarehouseClickAndCollectOptionEnum.LOCAL
-  ) {
-    return orderLineWarehouses?.filter(
-      warehouse => warehouse?.id === deliveryMethod?.id
-    );
-  }
-  return orderLineWarehouses;
-};
 
 const OrderFulfill: React.FC<OrderFulfillProps> = ({ orderId }) => {
   const navigate = useNavigator();
@@ -69,11 +49,6 @@ const OrderFulfill: React.FC<OrderFulfillProps> = ({ orderId }) => {
       }
     }
   });
-
-  const resolvedOrderLinesWarehouses = resolveLocalFulfillment(
-    data?.order,
-    orderLinesWarehouses
-  );
 
   return (
     <>
@@ -116,7 +91,7 @@ const OrderFulfill: React.FC<OrderFulfillProps> = ({ orderId }) => {
         }
         order={data?.order}
         saveButtonBar="default"
-        warehouses={resolvedOrderLinesWarehouses}
+        warehouses={orderLinesWarehouses}
         shopSettings={settings?.shop}
       />
     </>

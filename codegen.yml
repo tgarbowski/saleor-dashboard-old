@@ -1,9 +1,0 @@
-overwrite: true
-schema: ./schema.graphql
-generates:
-  fragmentTypes.json:
-    plugins:
-      - fragment-matcher
-    config:
-      minify: false
-      apolloClientVersion: 2

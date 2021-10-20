@@ -94,9 +94,7 @@ const WarehouseDetails: React.FC<WarehouseDetailsProps> = ({ id, params }) => {
             streetAddress1: data.streetAddress1,
             streetAddress2: data.streetAddress2
           },
-          name: data.name,
-          isPrivate: data.isPrivate,
-          clickAndCollectOption: data.clickAndCollectOption
+          name: data.name
         }
       }
     });

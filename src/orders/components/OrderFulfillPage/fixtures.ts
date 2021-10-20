@@ -8,7 +8,6 @@ export const orderToFulfill: OrderFulfillData_order = {
   __typename: "Order",
   id: "T3JkZXI6Mg==",
   isPaid: true,
-  deliveryMethod: null,
   lines: [
     {
       __typename: "OrderLine",
