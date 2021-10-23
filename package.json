@@ -1,6 +1,6 @@
 {
   "name": "saleor-dashboard",
-  "version": "3.0.0-b.15",
+  "version": "3.0.0-b.17",
   "main": "src/index.tsx",
   "repository": {
     "type": "git",
@@ -52,7 +52,7 @@
     "faker": "^5.1.0",
     "fast-array-diff": "^0.2.0",
     "fuzzaldrin": "^2.1.0",
-    "graphql": "^15.4.0",
+    "graphql": "^14.4.2",
     "graphql-tag": "^2.11.0",
     "hotkeys-js": "^3.8.1",
     "is-url": "^1.2.4",
@@ -80,12 +80,10 @@
     "react-sortable-tree": "^2.6.2",
     "semver-compare": "^1.0.0",
     "slugify": "^1.4.6",
-    "typescript": "^4.2.3",
     "url-join": "^4.0.1",
     "use-react-router": "^1.0.7"
   },
   "devDependencies": {
-    "@apollo/react-testing": "^3.1.4",
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
@@ -99,14 +97,10 @@
     "@babel/preset-typescript": "^7.13.0",
     "@babel/runtime": "^7.7.6",
     "@editorjs/embed": "^2.4.6",
-    "@graphql-codegen/cli": "^2.2.1",
-    "@graphql-codegen/fragment-matcher": "^3.1.0",
-    "@graphql-codegen/typescript": "^2.1.1",
     "@pollyjs/adapter-node-http": "^5.0.0",
     "@pollyjs/core": "^5.0.0",
     "@pollyjs/persister-fs": "^5.0.0",
     "@release-it/bumper": "^2.0.0",
-    "@saleor/app-bridge": "^0.1.5",
     "@sentry/webpack-plugin": "^1.14.0",
     "@storybook/addon-storyshots": "^5.2.8",
     "@storybook/react": "^5.1.9",
@@ -146,6 +140,7 @@
     "cross-env": "^6.0.3",
     "cypress": "^7.2.0",
     "cypress-file-upload": "^5.0.8",
+    "dotenv": "^10.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "enzyme-to-json": "^3.6.1",
@@ -180,6 +175,7 @@
     "start-server-and-test": "^1.11.0",
     "ts-jest": "^24.2.0",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^4.3.5",
     "webpack": "^4.35.3",
     "webpack-bundle-analyzer": "^4.4.1",
     "webpack-cli": "^3.3.6",
@@ -196,6 +192,7 @@
     "fsevents": "^1.2.9"
   },
   "jest": {
+    "resetMocks": false,
     "setupFiles": [
       "jest-localstorage-mock"
     ],
@@ -243,9 +240,8 @@
   },
   "scripts": {
     "build-storybook": "build-storybook -c src/storybook/ -o build/storybook",
-    "generate-fragment-types": "graphql-codegen",
-    "build-types": "apollo client:codegen --target=typescript types --globalTypesFile=src/types/globalTypes.ts && npm run generate-fragment-types",
-    "build": "npm run generate-fragment-types && webpack -p",
+    "build-types": "apollo client:codegen --target=typescript types --globalTypesFile=src/types/globalTypes.ts",
+    "build": "webpack -p",
     "check-strict-null-errors": "tsc --noEmit --strictNullChecks | node scripts/count-strict-null-check-errors.js",
     "check-types": "tsc --noEmit",
     "extract-json-messages": "rimraf build/locale && cross-env NODE_ENV=extract babel src 'src/**/*.{ts,tsx}' -o build/dashboard.bundle.js",
