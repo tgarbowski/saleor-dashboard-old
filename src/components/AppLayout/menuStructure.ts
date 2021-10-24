@@ -13,7 +13,6 @@ import {
 } from "@saleor/configuration";
 import { MenuItem } from "@saleor/configuration/ConfigurationPage";
 import { User } from "@saleor/fragments/types/User";
-import { giftCardsListUrl } from "@saleor/giftCards/urls";
 import { commonMessages, sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
 import {
@@ -71,13 +70,6 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           id: "collections",
           url: collectionListUrl(),
           permissions: [PermissionEnum.MANAGE_PRODUCTS]
-        },
-        {
-          ariaLabel: "giftCards",
-          label: intl.formatMessage(sectionNames.giftCards),
-          id: "giftCards",
-          url: giftCardsListUrl(),
-          permissions: [PermissionEnum.MANAGE_GIFT_CARD]
         }
       ],
       iconSrc: catalogIcon,

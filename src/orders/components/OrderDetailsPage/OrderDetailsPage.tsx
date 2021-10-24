@@ -73,7 +73,6 @@ export interface OrderDetailsPageProps extends UserPermissionProps {
   onShippingMethodEdit?: () => void;
   onBack();
   onBillingAddressEdit();
-  onFulfillmentApprove(id: string);
   onFulfillmentCancel(id: string);
   onFulfillmentTrackingNumberUpdate(id: string);
   onOrderFulfill();
