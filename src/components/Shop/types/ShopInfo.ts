@@ -43,7 +43,6 @@ export interface ShopInfo_shop_permissions {
 export interface ShopInfo_shop {
   __typename: "Shop";
   countries: ShopInfo_shop_countries[];
-  channelCurrencies: string[];
   defaultCurrency: string;
   defaultCountry: ShopInfo_shop_defaultCountry | null;
   defaultWeightUnit: WeightUnitsEnum | null;

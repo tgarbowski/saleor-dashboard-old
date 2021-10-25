@@ -331,7 +331,8 @@ function useProductCreateForm(
       data.channelListings.some(
         channel =>
           validatePrice(channel.price) || validateCostPrice(channel.costPrice)
-      ));
+      ) ||
+      !data.category);
 
   if (data.productType?.name === "Mega Paka") {
     updateDataFromMegaPackValues(form.data, form.data.megaPackProduct);

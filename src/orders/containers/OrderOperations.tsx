@@ -234,9 +234,9 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                             onCompleted={onOrderLineUpdate}
                                           >
                                             {(...updateOrderLine) => (
-                                              <TypedOrderFulfillmentApproveMutation
+                                              <TypedOrderFulfillmentCancelMutation
                                                 onCompleted={
-                                                  onOrderFulfillmentApprove
+                                                  onOrderFulfillmentCancel
                                                 }
                                               >
                                                 {(...approveFulfillment) => (
@@ -370,7 +370,7 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                                     )}
                                                   </TypedOrderFulfillmentCancelMutation>
                                                 )}
-                                              </TypedOrderFulfillmentApproveMutation>
+                                              </TypedOrderFulfillmentCancelMutation>
                                             )}
                                           </TypedOrderLineUpdateMutation>
                                         )}

@@ -2,8 +2,7 @@ import { fragmentAddress } from "@saleor/fragments/address";
 import {
   fragmentOrderDetails,
   fragmentOrderSettings,
-  fragmentRefundOrderLine,
-  fragmentShopOrderSettings
+  fragmentRefundOrderLine
 } from "@saleor/fragments/orders";
 import { fragmentMoney } from "@saleor/fragments/products";
 import { warehouseFragment } from "@saleor/fragments/warehouses";
@@ -153,8 +152,6 @@ export const orderDetailsQuery = gql`
         country
       }
       defaultWeightUnit
-      fulfillmentAllowUnpaid
-      fulfillmentAutoApprove
     }
   }
 `;
@@ -273,22 +270,8 @@ export const useOrderFulfillData = makeQuery<
   OrderFulfillDataVariables
 >(orderFulfillData);
 
-export const orderFulfillSettingsQuery = gql`
-  ${fragmentShopOrderSettings}
-  query OrderFulfillSettings {
-    shop {
-      ...ShopOrderSettingsFragment
-    }
-  }
-`;
-export const useOrderFulfillSettingsQuery = makeQuery<
-  OrderFulfillSettings,
-  never
->(orderFulfillSettingsQuery);
-
 export const orderSettingsQuery = gql`
   ${fragmentOrderSettings}
-  ${fragmentShopOrderSettings}
   query OrderSettings {
     orderSettings {
       ...OrderSettingsFragment
