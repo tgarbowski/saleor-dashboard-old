@@ -69,14 +69,10 @@ const useStyles = makeStyles(
 const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = props => {
   const {
     fulfillment,
-    fulfillmentAllowUnpaid,
     order,
-    onOrderFulfillmentApprove,
-    onOrderFulfillmentCancel,
     onTrackingCodeAdd,
     onParcelDetails,
-    onParcelLabelDownload,
-    onRefund
+    onParcelLabelDownload
   } = props;
 
   if (!fulfillment) {
@@ -129,7 +125,6 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           status={fulfillment?.status}
           trackingNumber={fulfillment?.trackingNumber}
           orderIsPaid={order?.isPaid}
-          fulfillmentAllowUnpaid={fulfillmentAllowUnpaid}
           onTrackingCodeAdd={onTrackingCodeAdd}
           onParcelDetails={onParcelDetails}
           onParcelLabelDownload={onParcelLabelDownload}

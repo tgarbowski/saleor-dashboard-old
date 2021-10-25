@@ -118,7 +118,6 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
     userPermissions,
     onBack,
     onBillingAddressEdit,
-    onFulfillmentApprove,
     onFulfillmentCancel,
     onFulfillmentTrackingNumberUpdate,
     onNoteAdd,
@@ -157,7 +156,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
   const canEditAddresses = order?.status !== OrderStatus.CANCELED;
   const canFulfill = order?.status !== OrderStatus.CANCELED;
   const unfulfilled = (order?.lines || []).filter(
-    line => line.quantityToFulfill > 0
+    line => line.quantityFulfilled < line.quantity
   );
 
   const handleSubmit = async (data: MetadataFormData) => {
@@ -260,17 +259,12 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                   <React.Fragment key={fulfillment.id}>
                     <OrderFulfilledProductsCard
                       fulfillment={fulfillment}
-                      fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
                       order={order}
                       onOrderFulfillmentCancel={() =>
                         onFulfillmentCancel(fulfillment.id)
                       }
                       onTrackingCodeAdd={() =>
                         onFulfillmentTrackingNumberUpdate(fulfillment.id)
-                      }
-                      onRefund={onPaymentRefund}
-                      onOrderFulfillmentApprove={() =>
-                        onFulfillmentApprove(fulfillment.id)
                       }
                       onParcelLabelDownload={() => onParcelLabelDownload()}
                       onParcelDetails={onParcelDetails}
