@@ -169,7 +169,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
       <ResponsiveTable className={classes.table}>
         <colgroup>
           <col />
-          <col className={classes.colName} />\
+          <col className={classes.colName} />
           <DisplayColumn column="productType" displayColumns={settings.columns}>
             <col className={classes.colType} />
           </DisplayColumn>

@@ -164,7 +164,6 @@ export interface OrderDetails_order_events {
 export interface OrderDetails_order_fulfillments_lines_orderLine_variant {
   __typename: "ProductVariant";
   id: string;
-  product: OrderDetails_order_lines_variant_product;
   quantityAvailable: number;
 }
 
@@ -274,7 +273,6 @@ export interface OrderDetails_order_lines_variant_product {
 export interface OrderDetails_order_lines_variant {
   __typename: "ProductVariant";
   id: string;
-  product: OrderDetails_order_lines_variant_product;
   quantityAvailable: number;
 }
 

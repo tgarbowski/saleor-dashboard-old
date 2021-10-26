@@ -56,7 +56,6 @@ export interface AppListViewSettings {
   [ListViews.WAREHOUSE_LIST]: ListSettings;
   [ListViews.WEBHOOK_LIST]: ListSettings;
   [ListViews.TRANSLATION_ATTRIBUTE_VALUE_LIST]: ListSettings;
-  [ListViews.GIFT_CARD_LIST]: ListSettings;
   [ListViews.WMS_DOCUMENTS_LIST]: ListSettings<WMSDocumentsListColumns>;
 }
 
@@ -118,9 +117,6 @@ export const defaultListSettings: AppListViewSettings = {
   },
   [ListViews.TRANSLATION_ATTRIBUTE_VALUE_LIST]: {
     rowNumber: 10
-  },
-  [ListViews.GIFT_CARD_LIST]: {
-    rowNumber: PAGINATE_BY
   },
   [ListViews.WMS_DOCUMENTS_LIST]: {
     columns: ["number", "status", "documentType", "updatedAt"],

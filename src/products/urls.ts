@@ -45,7 +45,8 @@ export enum ProductListUrlFiltersEnum {
 export enum ProductListUrlFiltersWithMultipleValues {
   categories = "categories",
   collections = "collections",
-  productTypes = "productTypes"
+  productTypes = "productTypes",
+  createdAt = "createdAt"
 }
 export enum ProductListUrlFiltersAsDictWithMultipleValues {
   attributes = "attributes"

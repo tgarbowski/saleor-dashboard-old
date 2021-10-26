@@ -63,20 +63,6 @@ export enum AppErrorCode {
   UNIQUE = "UNIQUE",
 }
 
-export enum AppExtensionTargetEnum {
-  CREATE = "CREATE",
-  MORE_ACTIONS = "MORE_ACTIONS",
-}
-
-export enum AppExtensionTypeEnum {
-  DETAILS = "DETAILS",
-  OVERVIEW = "OVERVIEW",
-}
-
-export enum AppExtensionViewEnum {
-  PRODUCT = "PRODUCT",
-}
-
 export enum AppSortField {
   CREATION_DATE = "CREATION_DATE",
   NAME = "NAME",
@@ -479,35 +465,7 @@ export enum FulfillmentStatus {
   REFUNDED = "REFUNDED",
   REFUNDED_AND_RETURNED = "REFUNDED_AND_RETURNED",
   REPLACED = "REPLACED",
-  RETURNED = "RETURNED",
-  WAITING_FOR_APPROVAL = "WAITING_FOR_APPROVAL",
-}
-
-export enum GiftCardErrorCode {
-  ALREADY_EXISTS = "ALREADY_EXISTS",
-  GRAPHQL_ERROR = "GRAPHQL_ERROR",
-  INVALID = "INVALID",
-  NOT_FOUND = "NOT_FOUND",
-  REQUIRED = "REQUIRED",
-  UNIQUE = "UNIQUE",
-}
-
-export enum GiftCardEventsEnum {
-  ACTIVATED = "ACTIVATED",
-  BALANCE_RESET = "BALANCE_RESET",
-  BOUGHT = "BOUGHT",
-  DEACTIVATED = "DEACTIVATED",
-  EXPIRY_SETTINGS_UPDATED = "EXPIRY_SETTINGS_UPDATED",
-  ISSUED = "ISSUED",
-  RESENT = "RESENT",
-  SENT_TO_CUSTOMER = "SENT_TO_CUSTOMER",
-  UPDATED = "UPDATED",
-}
-
-export enum GiftCardExpiryTypeEnum {
-  EXPIRY_DATE = "EXPIRY_DATE",
-  EXPIRY_PERIOD = "EXPIRY_PERIOD",
-  NEVER_EXPIRE = "NEVER_EXPIRE",
+  RETURNED = "RETURNED"
 }
 
 export enum InvoiceErrorCode {
@@ -1390,7 +1348,6 @@ export enum OrderErrorCode {
   CANNOT_CANCEL_ORDER = "CANNOT_CANCEL_ORDER",
   CANNOT_DELETE = "CANNOT_DELETE",
   CANNOT_DISCOUNT = "CANNOT_DISCOUNT",
-  CANNOT_FULFILL_UNPAID_ORDER = "CANNOT_FULFILL_UNPAID_ORDER",
   CANNOT_REFUND = "CANNOT_REFUND",
   CAPTURE_INACTIVE_PAYMENT = "CAPTURE_INACTIVE_PAYMENT",
   CHANNEL_INACTIVE = "CHANNEL_INACTIVE",
@@ -1437,7 +1394,6 @@ export enum OrderEventsEnum {
   DRAFT_CREATED_FROM_REPLACE = "DRAFT_CREATED_FROM_REPLACE",
   EMAIL_SENT = "EMAIL_SENT",
   EXTERNAL_SERVICE_NOTIFICATION = "EXTERNAL_SERVICE_NOTIFICATION",
-  FULFILLMENT_AWAITS_APPROVAL = "FULFILLMENT_AWAITS_APPROVAL",
   FULFILLMENT_CANCELED = "FULFILLMENT_CANCELED",
   FULFILLMENT_FULFILLED_ITEMS = "FULFILLMENT_FULFILLED_ITEMS",
   FULFILLMENT_REFUNDED = "FULFILLMENT_REFUNDED",
@@ -1543,6 +1499,7 @@ export enum PaymentChargeStatusEnum {
 
 export enum PermissionEnum {
   HANDLE_PAYMENTS = "HANDLE_PAYMENTS",
+  IMPERSONATE_USER = "IMPERSONATE_USER",
   MANAGE_APPS = "MANAGE_APPS",
   MANAGE_CHANNELS = "MANAGE_CHANNELS",
   MANAGE_CHECKOUTS = "MANAGE_CHECKOUTS",
@@ -1732,12 +1689,6 @@ export enum StockErrorCode {
   UNIQUE = "UNIQUE",
 }
 
-export enum TimePeriodTypeEnum {
-  DAY = "DAY",
-  MONTH = "MONTH",
-  YEAR = "YEAR",
-}
-
 export enum UploadErrorCode {
   GRAPHQL_ERROR = "GRAPHQL_ERROR",
 }
@@ -1771,12 +1722,6 @@ export enum VoucherTypeEnum {
   SPECIFIC_PRODUCT = "SPECIFIC_PRODUCT",
 }
 
-export enum WarehouseClickAndCollectOptionEnum {
-  ALL = "ALL",
-  DISABLED = "DISABLED",
-  LOCAL = "LOCAL",
-}
-
 export enum WarehouseErrorCode {
   ALREADY_EXISTS = "ALREADY_EXISTS",
   GRAPHQL_ERROR = "GRAPHQL_ERROR",
@@ -1804,7 +1749,6 @@ export enum WebhookEventTypeEnum {
   CHECKOUT_UPDATED = "CHECKOUT_UPDATED",
   CUSTOMER_CREATED = "CUSTOMER_CREATED",
   CUSTOMER_UPDATED = "CUSTOMER_UPDATED",
-  FULFILLMENT_CANCELED = "FULFILLMENT_CANCELED",
   FULFILLMENT_CREATED = "FULFILLMENT_CREATED",
   INVOICE_DELETED = "INVOICE_DELETED",
   INVOICE_REQUESTED = "INVOICE_REQUESTED",
@@ -1856,12 +1800,6 @@ export interface AddressInput {
   country?: CountryCode | null;
   countryArea?: string | null;
   phone?: string | null;
-}
-
-export interface AppExtensionFilterInput {
-  view?: AppExtensionViewEnum | null;
-  type?: AppExtensionTypeEnum | null;
-  target?: AppExtensionTargetEnum | null;
 }
 
 export interface AppFilterInput {
@@ -2151,37 +2089,12 @@ export interface ExportProductsInput {
 }
 
 export interface FulfillmentCancelInput {
-  warehouseId?: string | null;
+  warehouseId?: string;
 }
 
 export interface FulfillmentUpdateTrackingInput {
   trackingNumber?: string | null;
   notifyCustomer?: boolean | null;
-}
-
-export interface GiftCardCreateInput {
-  tag?: string | null;
-  startDate?: any | null;
-  endDate?: any | null;
-  balance: PriceInput;
-  userEmail?: string | null;
-  expirySettings: GiftCardExpirySettingsInput;
-  code?: string | null;
-  note?: string | null;
-}
-
-export interface GiftCardExpirySettingsInput {
-  expiryType: GiftCardExpiryTypeEnum;
-  expiryDate?: any | null;
-  expiryPeriod?: TimePeriodInputType | null;
-}
-
-export interface GiftCardUpdateInput {
-  tag?: string | null;
-  startDate?: any | null;
-  endDate?: any | null;
-  balanceAmount?: any | null;
-  expirySettings?: GiftCardExpirySettingsInput | null;
 }
 
 export interface IntRangeInput {
@@ -2264,11 +2177,13 @@ export interface OrderFilterInput {
   search?: string | null;
   metadata?: (MetadataFilter | null)[] | null;
   channels?: (string | null)[] | null;
+  ids?: (string | null)[] | null;
 }
 
 export interface OrderFulfillInput {
   lines: OrderFulfillLineInput[];
   notifyCustomer?: boolean | null;
+  allowStockToBeExceeded?: boolean | null;
 }
 
 export interface OrderFulfillLineInput {
@@ -2450,11 +2365,6 @@ export interface PluginStatusInChannelsInput {
 export interface PluginUpdateInput {
   active?: boolean | null;
   configuration?: (ConfigurationItemInput | null)[] | null;
-}
-
-export interface PriceInput {
-  currency: string;
-  amount: any;
 }
 
 export interface PriceRangeInput {
@@ -2771,11 +2681,6 @@ export interface StockInput {
   quantity: number;
 }
 
-export interface TimePeriodInputType {
-  amount: number;
-  type: TimePeriodTypeEnum;
-}
-
 export interface TranslationInput {
   seoTitle?: string | null;
   seoDescription?: string | null;
@@ -2854,10 +2759,8 @@ export interface WarehouseCreateInput {
 }
 
 export interface WarehouseFilterInput {
-  clickAndCollectOption?: WarehouseClickAndCollectOptionEnum | null;
   search?: string | null;
   ids?: (string | null)[] | null;
-  isPrivate?: boolean | null;
 }
 
 export interface WarehouseSortingInput {
@@ -2870,8 +2773,6 @@ export interface WarehouseUpdateInput {
   email?: string | null;
   name?: string | null;
   address?: AddressInput | null;
-  clickAndCollectOption?: WarehouseClickAndCollectOptionEnum | null;
-  isPrivate?: boolean | null;
 }
 
 export interface WebhookCreateInput {

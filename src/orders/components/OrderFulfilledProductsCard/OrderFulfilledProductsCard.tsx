@@ -1,28 +1,33 @@
-import { Card, IconButton, TableBody } from "@material-ui/core";
+import { Card, TableBody } from "@material-ui/core";
+import CardMenu from "@saleor/components/CardMenu";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
-import TrashIcon from "@saleor/icons/Trash";
 import { makeStyles } from "@saleor/macaw-ui";
 import { mergeRepeatedOrderLines } from "@saleor/orders/utils/data";
 import React from "react";
+import { useIntl } from "react-intl";
 
-import { renderCollection } from "../../../misc";
+import { maybe, renderCollection } from "../../../misc";
 import { FulfillmentStatus } from "../../../types/globalTypes";
-import {
-  OrderDetails_order,
-  OrderDetails_order_fulfillments
-} from "../../types/OrderDetails";
+import { OrderDetails_order_fulfillments } from "../../types/OrderDetails";
 import TableHeader from "../OrderProductsCardElements/OrderProductsCardHeader";
 import TableLine from "../OrderProductsCardElements/OrderProductsTableRow";
 import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
 import ActionButtons from "./ActionButtons";
 import ExtraInfoLines from "./ExtraInfoLines";
 
+const useStyles = makeStyles(
+  () => ({
+    table: {
+      tableLayout: "fixed"
+    }
+  }),
+  { name: "OrderFulfillment" }
+);
+
 interface OrderFulfilledProductsCardProps {
   fulfillment: OrderDetails_order_fulfillments;
-  fulfillmentAllowUnpaid: boolean;
-  order?: OrderDetails_order;
-  onOrderFulfillmentApprove: () => void;
+  orderNumber?: string;
   onOrderFulfillmentCancel: () => void;
   onTrackingCodeAdd: () => void;
   onParcelLabelDownload: () => void;
@@ -30,58 +35,47 @@ interface OrderFulfilledProductsCardProps {
   onRefund: () => void;
 }
 
-const statusesToMergeLines = [
-  FulfillmentStatus.REFUNDED,
-  FulfillmentStatus.REFUNDED_AND_RETURNED,
-  FulfillmentStatus.RETURNED,
-  FulfillmentStatus.REPLACED
-];
-const cancelableStatuses = [
-  FulfillmentStatus.FULFILLED,
-  FulfillmentStatus.WAITING_FOR_APPROVAL
-];
-
-const useStyles = makeStyles(
-  theme => ({
-    menuIcon: {
-      "& svg": {
-        fill: theme.palette.primary.main,
-        height: 25,
-        width: 25
-      },
-      display: "inline-block",
-      position: "relative",
-      right: 8
-    },
-    table: {
-      tableLayout: "fixed"
-    },
-    deleteIcon: {
-      height: 40,
-      paddingRight: 0,
-      paddingLeft: theme.spacing(1),
-      width: 40
-    }
-  }),
-  { name: "OrderFulfillment" }
-);
-
 const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = props => {
   const {
     fulfillment,
-    order,
+    orderNumber,
+    onOrderFulfillmentCancel,
     onTrackingCodeAdd,
     onParcelDetails,
-    onParcelLabelDownload
+    onParcelLabelDownload,
+    onRefund
   } = props;
+  
+  const classes = makeStyles(
+    theme => ({
+      menuIcon: {
+        "& svg": {
+          fill: theme.palette.primary.main,
+          height: 25,
+          width: 25
+        },
+        display: "inline-block",
+        position: "relative",
+        right: 8
+      }
+    }),
+    { name: "OrderFulfillment" }
+  );
+
+  const intl = useIntl();
 
   if (!fulfillment) {
     return null;
   }
 
-  const classes = useStyles(props);
-
   const getLines = () => {
+    const statusesToMergeLines = [
+      FulfillmentStatus.REFUNDED,
+      FulfillmentStatus.REFUNDED_AND_RETURNED,
+      FulfillmentStatus.RETURNED,
+      FulfillmentStatus.REPLACED
+    ];
+
     if (statusesToMergeLines.includes(fulfillment?.status)) {
       return mergeRepeatedOrderLines(fulfillment.lines);
     }
@@ -97,17 +91,21 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           lines={fulfillment?.lines}
           fulfillmentOrder={fulfillment?.fulfillmentOrder}
           status={fulfillment?.status}
-          warehouseName={fulfillment?.warehouse?.name}
-          orderNumber={order?.number}
+          orderNumber={orderNumber}
           toolbar={
-            cancelableStatuses.includes(fulfillment?.status) && (
-              <IconButton
-                className={classes.deleteIcon}
-                onClick={onOrderFulfillmentCancel}
-                data-test-id="cancelFulfillmentButton"
-              >
-                <TrashIcon />
-              </IconButton>
+            maybe(() => fulfillment.status) === FulfillmentStatus.FULFILLED && (
+              <CardMenu
+                menuItems={[
+                  {
+                    label: intl.formatMessage({
+                      defaultMessage: "Cancel Fulfillment",
+                      description: "button"
+                    }),
+                    onSelect: onOrderFulfillmentCancel,
+                    testId: "cancelFulfillmentButton"
+                  }
+                ]}
+              />
             )
           }
         />
@@ -115,7 +113,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           <TableHeader />
           <TableBody>
             {renderCollection(getLines(), line => (
-              <TableLine line={line} />
+              <TableLine line={line} isFulfilled={true} />
             ))}
           </TableBody>
           <ExtraInfoLines fulfillment={fulfillment} />
@@ -124,12 +122,10 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           classes={classes}
           status={fulfillment?.status}
           trackingNumber={fulfillment?.trackingNumber}
-          orderIsPaid={order?.isPaid}
           onTrackingCodeAdd={onTrackingCodeAdd}
           onParcelDetails={onParcelDetails}
           onParcelLabelDownload={onParcelLabelDownload}
           onRefund={onRefund}
-          onApprove={onOrderFulfillmentApprove}
         />
       </Card>
       <CardSpacer />
