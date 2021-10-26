@@ -1,13 +1,11 @@
 import messages from "@saleor/containers/BackgroundTasks/messages";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
-import { OrderFulfillmentApprove } from "@saleor/orders/types/OrderFulfillmentApprove";
 import { OrderParcel } from "@saleor/orders/types/OrderParcel";
 import getOrderErrorMessage from "@saleor/utils/errors/order";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import React from "react";
 import { useIntl } from "react-intl";
-
 import { InvoiceEmailSend } from "../../types/InvoiceEmailSend";
 import { InvoiceRequest } from "../../types/InvoiceRequest";
 import { OrderAddNote } from "../../types/OrderAddNote";
@@ -34,7 +32,6 @@ interface OrderDetailsMessages {
     handleDraftUpdate: (data: OrderDraftUpdate) => void;
     handleNoteAdd: (data: OrderAddNote) => void;
     handleOrderCancel: (data: OrderCancel) => void;
-    handleOrderFulfillmentApprove: (data: OrderFulfillmentApprove) => void;
     handleOrderFulfillmentCancel: (data: OrderFulfillmentCancel) => void;
     handleOrderFulfillmentUpdate: (
       data: OrderFulfillmentUpdateTracking
@@ -232,18 +229,7 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
       );
     }
   };
-  const handleOrderFulfillmentApprove = (data: OrderFulfillmentApprove) => {
-    const errs = data.orderFulfillmentApprove?.errors;
-    if (errs.length === 0) {
-      pushMessage({
-        status: "success",
-        text: intl.formatMessage({
-          defaultMessage: "Fulfillment successfully approved"
-        })
-      });
-      closeModal();
-    }
-  };
+
   const handleOrderFulfillmentCancel = (data: OrderFulfillmentCancel) => {
     const errs = data.orderFulfillmentCancel?.errors;
     if (errs.length === 0) {
@@ -328,7 +314,6 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
     handleInvoiceSend,
     handleNoteAdd,
     handleOrderCancel,
-    handleOrderFulfillmentApprove,
     handleOrderFulfillmentCancel,
     handleOrderFulfillmentUpdate,
     handleOrderLineDelete,

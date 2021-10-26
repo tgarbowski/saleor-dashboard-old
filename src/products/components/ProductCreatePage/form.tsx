@@ -268,6 +268,7 @@ function useProductCreateForm(
   );
   const handleProductTypeSelect = createProductTypeSelectHandler(
     opts.onSelectProductType,
+    opts.productTypes,
     setSkuCode,
     skusCount,
     userData,

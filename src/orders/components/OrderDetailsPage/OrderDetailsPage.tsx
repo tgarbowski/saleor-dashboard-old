@@ -113,7 +113,6 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
   const {
     disabled,
     order,
-    shop,
     saveButtonBarState,
     userPermissions,
     onBack,
@@ -259,7 +258,6 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                   <React.Fragment key={fulfillment.id}>
                     <OrderFulfilledProductsCard
                       fulfillment={fulfillment}
-                      order={order}
                       onOrderFulfillmentCancel={() =>
                         onFulfillmentCancel(fulfillment.id)
                       }
@@ -268,6 +266,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       }
                       onParcelLabelDownload={() => onParcelLabelDownload()}
                       onParcelDetails={onParcelDetails}
+                      onRefund={onPaymentRefund}
                     />
                   </React.Fragment>
                 ))}

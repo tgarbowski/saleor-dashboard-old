@@ -292,7 +292,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
               />
             </TableCellHeader>
           </DisplayColumn>
-          <DisplayColumn column="updatedAt" displayColumns={settings.columns}>
+          <DisplayColumn column="createdAt" displayColumns={settings.columns}>
             <col className={classes.colupdatedAt} />
           </DisplayColumn>
           {gridAttributesFromSettings.map(gridAttributeFromSettings => {

@@ -16,15 +16,6 @@ import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
 import ActionButtons from "./ActionButtons";
 import ExtraInfoLines from "./ExtraInfoLines";
 
-const useStyles = makeStyles(
-  () => ({
-    table: {
-      tableLayout: "fixed"
-    }
-  }),
-  { name: "OrderFulfillment" }
-);
-
 interface OrderFulfilledProductsCardProps {
   fulfillment: OrderDetails_order_fulfillments;
   orderNumber?: string;
@@ -34,6 +25,21 @@ interface OrderFulfilledProductsCardProps {
   onParcelDetails: () => void;
   onRefund: () => void;
 }
+
+const useStyles = makeStyles(
+  theme => ({
+    table: {
+      tableLayout: "fixed"
+    },
+    deleteIcon: {
+      height: 40,
+      paddingRight: 0,
+      paddingLeft: theme.spacing(1),
+      width: 40
+    }
+  }),
+  { name: "OrderFulfillment" }
+);
 
 const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = props => {
   const {
@@ -45,22 +51,8 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
     onParcelLabelDownload,
     onRefund
   } = props;
-  
-  const classes = makeStyles(
-    theme => ({
-      menuIcon: {
-        "& svg": {
-          fill: theme.palette.primary.main,
-          height: 25,
-          width: 25
-        },
-        display: "inline-block",
-        position: "relative",
-        right: 8
-      }
-    }),
-    { name: "OrderFulfillment" }
-  );
+
+  const classes = useStyles(props);
 
   const intl = useIntl();
 

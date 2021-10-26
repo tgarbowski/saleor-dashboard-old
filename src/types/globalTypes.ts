@@ -465,7 +465,8 @@ export enum FulfillmentStatus {
   REFUNDED = "REFUNDED",
   REFUNDED_AND_RETURNED = "REFUNDED_AND_RETURNED",
   REPLACED = "REPLACED",
-  RETURNED = "RETURNED"
+  RETURNED = "RETURNED",
+  WAITING_FOR_APPROVAL = "WAITING_FOR_APPROVAL"
 }
 
 export enum InvoiceErrorCode {
@@ -1749,6 +1750,9 @@ export enum WebhookEventTypeEnum {
   CHECKOUT_UPDATED = "CHECKOUT_UPDATED",
   CUSTOMER_CREATED = "CUSTOMER_CREATED",
   CUSTOMER_UPDATED = "CUSTOMER_UPDATED",
+  DRAFT_ORDER_CREATED = "DRAFT_ORDER_CREATED",
+  DRAFT_ORDER_DELETED = "DRAFT_ORDER_DELETED",
+  DRAFT_ORDER_UPDATED = "DRAFT_ORDER_UPDATED",
   FULFILLMENT_CREATED = "FULFILLMENT_CREATED",
   INVOICE_DELETED = "INVOICE_DELETED",
   INVOICE_REQUESTED = "INVOICE_REQUESTED",
@@ -2413,6 +2417,11 @@ export interface WarehouseLocationRangeInput {
   lte?: string | null;
 }
 
+export interface CreatedAtRangeInput {
+  gte?: string | null;
+  lte?: string | null;
+}
+
 export interface ProductFilterInput {
   isPublished?: boolean | null;
   collections?: (string | null)[] | null;
@@ -2428,7 +2437,9 @@ export interface ProductFilterInput {
   productTypes?: (string | null)[] | null;
   ids?: (string | null)[] | null;
   channel?: string | null;
-  warehouseLocation?: WarehouseLocationRangeInput | null;}
+  warehouseLocation?: WarehouseLocationRangeInput | null;
+  createdAt?: CreatedAtRangeInput | null;
+}
 
 export interface ProductInput {
   attributes?: AttributeValueInput[] | null;

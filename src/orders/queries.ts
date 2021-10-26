@@ -20,7 +20,6 @@ import {
   OrderFulfillData,
   OrderFulfillDataVariables
 } from "./types/OrderFulfillData";
-import { OrderFulfillSettings } from "./types/OrderFulfillSettings";
 import { OrderList, OrderListVariables } from "./types/OrderList";
 import {
   OrderRefundData,

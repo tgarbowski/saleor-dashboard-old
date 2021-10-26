@@ -4,6 +4,9 @@ export const commonMessages = defineMessages({
   availability: {
     defaultMessage: "Availability"
   },
+  cannotFullfillUnpaidOrder:{
+    defaultMessage: "Cannot fullfill unpaid order"
+  },
   catalog: {
     defaultMessage: "Catalog"
   },
@@ -137,6 +140,10 @@ export const errorMessages = defineMessages({
 export const buttonMessages = defineMessages({
   accept: {
     defaultMessage: "Accept",
+    description: "button"
+  },
+  approve: {
+    defaultMessage: "Approve",
     description: "button"
   },
   back: {

@@ -1,3 +1,4 @@
+// @ts-ignore
 import appsIcon from "@assets/images/menu-apps-icon.svg";
 import catalogIcon from "@assets/images/menu-catalog-icon.svg";
 import configurationIcon from "@assets/images/menu-configure-icon.svg";
