@@ -99,7 +99,7 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
   const queryVariables = React.useMemo<ProductListVariables>(
     () => ({
       filter: {
-        productType: values.data ? values.data.search.edges[0].node.id : "",
+        productTypes: values.data ? [values.data.search.edges[0].node.id] : [],
         search: searchValue
       },
       first: 100
