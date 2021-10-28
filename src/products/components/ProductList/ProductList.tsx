@@ -163,7 +163,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
     setReportOpen(false);
   };
   const intl = useIntl();
-
+  console.log(products);
   return (
     <div className={classes.tableContainer}>
       <ResponsiveTable className={classes.table}>
@@ -292,9 +292,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
               />
             </TableCellHeader>
           </DisplayColumn>
-          <DisplayColumn column="createdAt" displayColumns={settings.columns}>
-            <col className={classes.colupdatedAt} />
-          </DisplayColumn>
           {gridAttributesFromSettings.map(gridAttributeFromSettings => {
             const attributeId = getAttributeIdFromColumnValue(
               gridAttributeFromSettings
@@ -369,15 +366,10 @@ export const ProductList: React.FC<ProductListProps> = props => {
               const channel = product?.channelListings.find(
                 listing => listing.channel.id === selectedChannelId
               );
-
-              const rowPrivateMetadataMap: any = {};
-
-              if (product !== undefined) {
-                for (const x of product.privateMetadata) {
-                  rowPrivateMetadataMap[x.key] = x.value;
-                }
-              }
-
+              const rowPrivateMetadataMap = product
+                ? JSON.parse(product.jsonPrivateMetadata)
+                : null;
+              
               return (
                 <TableRow
                   selected={isSelected}
@@ -457,8 +449,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
                         >
                           {rowPrivateMetadataMap["publish.allegro.errors"] !==
                             undefined &&
-                            rowPrivateMetadataMap["publish.allegro.errors"] !==
-                              "[]" && <WarningIcon color="error" />}
+                            rowPrivateMetadataMap["publish.allegro.errors"]
+                              .length > 0 && <WarningIcon color="error" />}
                           <StatusLabel
                             label={
                               channel.isPublished
@@ -479,8 +471,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
                                   ] !== undefined &&
                                   rowPrivateMetadataMap[
                                     "publish.allegro.errors"
-                                  ] !== "[]"
-                                ? "success"
+                                  ].length > 0
+                                ? ""
                                 : "error"
                             }
                           />

@@ -187,6 +187,7 @@ const productListQuery = gql`
             key
             value
           }
+          jsonPrivateMetadata
         }
       }
       pageInfo {

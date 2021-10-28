@@ -8,6 +8,7 @@ import {
   Paper,
   Theme
 } from "@material-ui/core";
+import {renderCollection} from "@saleor/misc";
 import React from "react";
 
 const useStyles = makeStyles(
@@ -85,11 +86,15 @@ const ProductPublishReportDialog: React.FC<ProductPublishReportDialogProps> = pr
         <p>
           <strong>Lista błędów</strong>
           <br />
-          <p>
-            {privateMetadataMap && privateMetadataMap["publish.allegro.errors"]
-              ? privateMetadataMap["publish.allegro.errors"]
-              : "-"}
-          </p>
+          {privateMetadataMap && renderCollection(
+            privateMetadataMap['publish.allegro.errors'],
+            err => (
+                <p>{err}</p>
+              ),
+            () => (
+              <p>-</p>
+            )
+          )}
         </p>
       </Paper>
     </Dialog>
