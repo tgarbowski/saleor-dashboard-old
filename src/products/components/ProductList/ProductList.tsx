@@ -163,7 +163,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
     setReportOpen(false);
   };
   const intl = useIntl();
-  console.log(products);
+
   return (
     <div className={classes.tableContainer}>
       <ResponsiveTable className={classes.table}>

@@ -92,7 +92,7 @@ export const defaultListSettings: AppListViewSettings = {
     rowNumber: PAGINATE_BY
   },
   [ListViews.PRODUCT_LIST]: {
-    columns: ["isPublished", "productType", "price", "createdAt"],
+    columns: ["productType", "price", "createdAt", "availability"],
     rowNumber: PAGINATE_BY
   },
   [ListViews.SALES_LIST]: {
