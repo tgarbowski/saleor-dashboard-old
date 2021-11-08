@@ -1,5 +1,6 @@
 import { WindowTitle } from "@saleor/components/WindowTitle";
 import useNavigator from "@saleor/hooks/useNavigator";
+import useShop from "@saleor/hooks/useShop";
 import useUser from "@saleor/hooks/useUser";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
 import OrderInvoiceEmailSendDialog from "@saleor/orders/components/OrderInvoiceEmailSendDialog";
@@ -78,6 +79,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
 }) => {
   const order = data?.order;
   const shop = data?.shop;
+  const shopData = useShop();
   const navigate = useNavigator();
   const { user } = useUser();
 
@@ -280,7 +282,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
         orderDetails={order}
         packageData={initialPackageData}
         productWeight={order?.lines}
-        shopDetails={shop?.companyAddress}
+        shopDetails={shopData?.companyAddress}
         onSubmit={handleDpdPackageCreate}
       />
       <OrderInvoiceEmailSendDialog
