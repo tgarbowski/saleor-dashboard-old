@@ -5036,7 +5036,6 @@ type OrderLine implements Node {
   translatedProductName: String!
   translatedVariantName: String!
   allocations: [Allocation!]
-  quantityToFulfill: Int!
   unitDiscountType: DiscountValueTypeEnum
   product: Product
 }

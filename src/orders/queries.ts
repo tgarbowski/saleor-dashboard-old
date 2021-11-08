@@ -235,7 +235,6 @@ const orderFulfillData = gql`
           }
         }
         quantityFulfilled
-        quantityToFulfill
         variant {
           id
           name
@@ -306,7 +305,6 @@ const orderRefundData = gql`
       }
       lines {
         ...RefundOrderLineFragment
-        quantityToFulfill
       }
       fulfillments {
         id
