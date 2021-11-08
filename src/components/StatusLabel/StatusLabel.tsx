@@ -60,7 +60,7 @@ export const useStyles = makeStyles(
 
 export interface StatusLabelProps {
   label: string | React.ReactNode;
-  status: "success" | "alert" | "neutral" | "error" | undefined;
+  status: "success" | "alert" | "neutral" | "error" | undefined | string;
   subtitle?: string;
   className?: string;
 }

@@ -27,7 +27,7 @@ export const getSimpleProductVariables = (
   productId: string
 ) => ({
   ...productVariables,
-  addStocks: data.stocks.map(mapFormsetStockToStockInput),
+  addStocks: data.addStocks.map(mapFormsetStockToStockInput),
   deleteStocks: data.removeStocks,
   input: {
     ...productVariables.input,
@@ -38,7 +38,7 @@ export const getSimpleProductVariables = (
     sku: data.sku,
     trackInventory: data.trackInventory
   },
-  updateStocks: data.stocks.map(mapFormsetStockToStockInput)
+  updateStocks: data.updateStocks.map(mapFormsetStockToStockInput)
 });
 
 export const getSimpleProductErrors = (data: SimpleProductUpdate) => [
