@@ -246,7 +246,7 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
             {renderCollection(
               positions,
               position => (
-                <TableRow>
+                <TableRow key={position ? position.node.id : "skeleton"}>
                   <TableCell className={classes.colUpdatedAt}>
                     {position?.node?.productVariant?.product?.name}
                   </TableCell>
