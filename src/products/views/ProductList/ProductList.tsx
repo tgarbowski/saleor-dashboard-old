@@ -11,7 +11,7 @@ import {
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { DatePicker, DateTimePicker, MuiPickersUtilsProvider, TimePicker } from "@material-ui/pickers";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import ConfirmButton from "@saleor/components/ConfirmButton";
@@ -38,6 +38,7 @@ import usePaginator, {
 } from "@saleor/hooks/usePaginator";
 import { buttonMessages, commonMessages } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
+import ProductPublishDialog from "@saleor/products/components/ProductPublishDialog";
 import ProductAddToMegaPackDialog from "@saleor/products/components/ProductAddToMegaPackDialog";
 import ProductExportDialog from "@saleor/products/components/ProductExportDialog";
 import {
@@ -96,6 +97,7 @@ import {
   saveFilterTab
 } from "./filters";
 import { canBeSorted, DEFAULT_SORT_KEY, getSortQueryVariables } from "./sort";
+import Filter from "@saleor/components/Filter";
 
 interface ProductListProps {
   params: ProductListUrlQueryParams;
@@ -104,6 +106,11 @@ interface ProductListProps {
 enum ProductPublishType {
   AUCTION = "AUCTION",
   BUY_NOW = "BUY_NOW"
+}
+
+enum ProductPublishSelectType {
+  ALL = "ALL",
+  SELECTED = "SELECTED"
 }
 
 export const ProductList: React.FC<ProductListProps> = ({ params }) => {
@@ -409,7 +416,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     paginationState,
     params
   );
-
+  /*
   const [auctionTypeVal, auctionTypeSetValue] = React.useState(
     ProductPublishType.AUCTION
   );
@@ -421,8 +428,22 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     );
   };
 
-  const [auctionDate, auctionHandleDateChange] = React.useState(new Date());
+  const [publishSelectTypeVal, publishSelectTypeSetValue] = React.useState(
+    ProductPublishSelectType.SELECTED
+  );
+  const publishSelectTypeHandleChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    publishSelectTypeSetValue(
+      ProductPublishSelectType[(event.target as HTMLInputElement).value]
+    );
+  };
 
+  const [auctionDate, auctionHandleDateChange] = React.useState(null);
+  const [auctionStartDate, auctionHandleStartDateChange] = React.useState(null);
+  const [auctionEndDate, auctionHandleEndDateChange] = React.useState(null);
+  const [auctionHour, auctionHandleHourChange] = React.useState(null);
+  */
   return (
     <>
       <ProductListPage
@@ -605,81 +626,18 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           onFetchMore={searchAttributes.loadMore}
         />
       )}
-      <Dialog
-        open={params.action === "publish"}
-        onClose={closeModal}
-        title={intl.formatMessage({
-          defaultMessage: "Publish Products",
-          description: "dialog header"
-        })}
-      >
-        <DialogContent>
-          <DialogContentText>
-            <FormattedMessage
-              defaultMessage="{counter,plural,one{Parametry publikacji produktu} other{Parametry publikacji {displayQuantity} produktów}}"
-              description="dialog content"
-              values={{
-                counter: maybe(() => params.ids.length),
-                displayQuantity: (
-                  <strong>{maybe(() => params.ids.length)}</strong>
-                )
-              }}
-            />
-          </DialogContentText>
-          <FormSpacer />
-          <RadioGroup
-            row
-            aria-label="Typ aukcji"
-            name="auction_type"
-            value={auctionTypeVal}
-            onChange={auctionTypeHandleChange}
-          >
-            <FormControlLabel
-              value={ProductPublishType.AUCTION}
-              control={<Radio color="primary" />}
-              label="Aukcja"
-            />
-            <FormControlLabel
-              value={ProductPublishType.BUY_NOW}
-              control={<Radio color="primary" />}
-              label="Kup teraz"
-            />
-          </RadioGroup>
-          <FormSpacer />
-          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={plLocale}>
-            <DateTimePicker
-              label="Data i godzina publikacji"
-              format="yyyy-MM-dd HH:mm"
-              ampm={false}
-              disabled={auctionTypeVal !== ProductPublishType.AUCTION}
-              value={auctionDate}
-              onChange={auctionHandleDateChange}
-            />
-          </MuiPickersUtilsProvider>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeModal}>
-            <FormattedMessage {...buttonMessages.back} />
-          </Button>
-          <ConfirmButton
-            transitionState={productBulkPublishOpts.status}
-            color="primary"
-            variant="contained"
-            onClick={() =>
-              productBulkPublish({
-                variables: {
-                  ids: params.ids,
-                  isPublished: true,
-                  offerType: auctionTypeVal,
-                  startingAt: moment(auctionDate).format("YYYY-MM-DD HH:mm")
-                }
-              })
-            }
-          >
-            {intl.formatMessage(buttonMessages.confirm)}
-          </ConfirmButton>
-        </DialogActions>
-      </Dialog>
+      {params.action === "publish" && (
+        <ProductPublishDialog
+          params={params}
+          onClose={closeModal}
+          filter={filter}
+          channel={selectedChannel.slug}
+          selected={listElements.length}
+          all={data?.products.totalCount}
+          confirmButtonState={productBulkPublishOpts.status}
+          onSubmitFunction={productBulkPublish}
+        />
+      )}      
       <ActionDialog
         open={params.action === "unpublish"}
         confirmButtonState={productBulkPublishOpts.status}
@@ -689,8 +647,12 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
             variables: {
               ids: params.ids,
               isPublished: false,
-              offerType: "null",
-              startingAt: "null"
+              offerType: "",
+              startingAt: "",
+              startingAtDate: "",
+              endingAtDate: "",
+              publishHour: "",
+              mode: ""
             }
           })
         }
