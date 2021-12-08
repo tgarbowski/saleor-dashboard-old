@@ -37,8 +37,9 @@ enum ProductPublishType {
 }
 
 enum ProductPublishSelectType {
-  ALL = "ALL",
-  SELECTED = "SELECTED"
+  PUBLISH_ALL = "PUBLISH_ALL",
+  PUBLISH_SELECTED = "PUBLISH_SELECTED",
+  UNPUBLISH_SELECTED = "UNPUBLISH_SELECTED"
 }
 
 const ProductPublishDialog: React.FC<ProductPublishDialogProps> = props => {
@@ -57,7 +58,7 @@ const ProductPublishDialog: React.FC<ProductPublishDialogProps> = props => {
   };
 
   const [publishSelectTypeVal, publishSelectTypeSetValue] = React.useState(
-    ProductPublishSelectType.SELECTED
+    ProductPublishSelectType.PUBLISH_SELECTED
   );
   const publishSelectTypeHandleChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -122,18 +123,18 @@ const ProductPublishDialog: React.FC<ProductPublishDialogProps> = props => {
             onChange={publishSelectTypeHandleChange}
           >
             <FormControlLabel
-              value={ProductPublishSelectType.SELECTED}
+              value={ProductPublishSelectType.PUBLISH_SELECTED}
               control={<Radio color="primary" />}
               label={`Zaznaczone: (${selected})`}
             />
             <FormControlLabel
-              value={ProductPublishSelectType.ALL}
+              value={ProductPublishSelectType.PUBLISH_ALL}
               control={<Radio color="primary" />}
               label={`Wszystkie: (${all})`}
             />
           </RadioGroup>
           <FormSpacer />
-          {publishSelectTypeVal === ProductPublishSelectType.SELECTED && (
+          {publishSelectTypeVal === ProductPublishSelectType.PUBLISH_SELECTED && (
           <MuiPickersUtilsProvider utils={DateFnsUtils} locale={plLocale}>
             <DateTimePicker
               label="Data i godzina publikacji"
@@ -145,7 +146,7 @@ const ProductPublishDialog: React.FC<ProductPublishDialogProps> = props => {
             />
           </MuiPickersUtilsProvider>
           )}
-          {publishSelectTypeVal === ProductPublishSelectType.ALL && (
+          {publishSelectTypeVal === ProductPublishSelectType.PUBLISH_ALL && (
           <MuiPickersUtilsProvider utils={DateFnsUtils} locale={plLocale}>
             <DatePicker
               label="Data publikacji start"

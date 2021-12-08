@@ -1,22 +1,12 @@
-import DateFnsUtils from "@date-io/date-fns";
 import {
-  Dialog,
-  DialogContent,
   DialogContentText,
-  FormControlLabel,
-  IconButton,
-  Radio,
-  RadioGroup
+  IconButton
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import DialogActions from "@material-ui/core/DialogActions";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { DatePicker, DateTimePicker, MuiPickersUtilsProvider, TimePicker } from "@material-ui/pickers";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
-import ConfirmButton from "@saleor/components/ConfirmButton";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
-import FormSpacer from "@saleor/components/FormSpacer";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
 } from "@saleor/components/SaveFilterTabDialog";
@@ -36,7 +26,7 @@ import useNotifier from "@saleor/hooks/useNotifier";
 import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
-import { buttonMessages, commonMessages } from "@saleor/intl";
+import { commonMessages } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
 import ProductPublishDialog from "@saleor/products/components/ProductPublishDialog";
 import ProductAddToMegaPackDialog from "@saleor/products/components/ProductAddToMegaPackDialog";
@@ -75,8 +65,6 @@ import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems, mapNodeToChoice } from "@saleor/utils/maps";
 import { getSortUrlVariables } from "@saleor/utils/sort";
 import { useWarehouseList } from "@saleor/warehouses/queries";
-import plLocale from "date-fns/locale/pl";
-import moment from "moment-timezone";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -97,20 +85,9 @@ import {
   saveFilterTab
 } from "./filters";
 import { canBeSorted, DEFAULT_SORT_KEY, getSortQueryVariables } from "./sort";
-import Filter from "@saleor/components/Filter";
 
 interface ProductListProps {
   params: ProductListUrlQueryParams;
-}
-
-enum ProductPublishType {
-  AUCTION = "AUCTION",
-  BUY_NOW = "BUY_NOW"
-}
-
-enum ProductPublishSelectType {
-  ALL = "ALL",
-  SELECTED = "SELECTED"
 }
 
 export const ProductList: React.FC<ProductListProps> = ({ params }) => {
@@ -416,34 +393,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     paginationState,
     params
   );
-  /*
-  const [auctionTypeVal, auctionTypeSetValue] = React.useState(
-    ProductPublishType.AUCTION
-  );
-  const auctionTypeHandleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    auctionTypeSetValue(
-      ProductPublishType[(event.target as HTMLInputElement).value]
-    );
-  };
-
-  const [publishSelectTypeVal, publishSelectTypeSetValue] = React.useState(
-    ProductPublishSelectType.SELECTED
-  );
-  const publishSelectTypeHandleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    publishSelectTypeSetValue(
-      ProductPublishSelectType[(event.target as HTMLInputElement).value]
-    );
-  };
-
-  const [auctionDate, auctionHandleDateChange] = React.useState(null);
-  const [auctionStartDate, auctionHandleStartDateChange] = React.useState(null);
-  const [auctionEndDate, auctionHandleEndDateChange] = React.useState(null);
-  const [auctionHour, auctionHandleHourChange] = React.useState(null);
-  */
   return (
     <>
       <ProductListPage
@@ -652,7 +601,8 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
               startingAtDate: "",
               endingAtDate: "",
               publishHour: "",
-              mode: ""
+              mode: "UNPUBLISH_SELECTED",
+              channel: ""
             }
           })
         }
