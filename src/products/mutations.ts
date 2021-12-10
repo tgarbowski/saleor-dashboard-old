@@ -97,12 +97,24 @@ export const productBulkPublishMutation = gql`
     $isPublished: Boolean!
     $offerType: String!
     $startingAt: String!
+    $startingAtDate: String!
+    $endingAtDate: String!
+    $publishHour: String!
+    $filter: ProductFilterInput
+    $channel: String!
+    $mode: String! 
   ) {
     productBulkPublish(
       ids: $ids
       isPublished: $isPublished
       offerType: $offerType
       startingAt: $startingAt
+      startingAtDate: $startingAtDate
+      endingAtDate: $endingAtDate
+      publishHour: $publishHour
+      filter: $filter
+      channel: $channel
+      mode: $mode
     ) {
       errors: productErrors {
         ...ProductErrorFragment
