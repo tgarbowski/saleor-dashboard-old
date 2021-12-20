@@ -36,10 +36,11 @@ enum ProductPublishType {
   BUY_NOW = "BUY_NOW"
 }
 
-enum ProductPublishSelectType {
+export enum ProductPublishSelectType {
   PUBLISH_ALL = "PUBLISH_ALL",
   PUBLISH_SELECTED = "PUBLISH_SELECTED",
-  UNPUBLISH_SELECTED = "UNPUBLISH_SELECTED"
+  UNPUBLISH_SELECTED = "UNPUBLISH_SELECTED",
+  UNPUBLISH_ALL = "UNPUBLISH_ALL"
 }
 
 const ProductPublishDialog: React.FC<ProductPublishDialogProps> = props => {
