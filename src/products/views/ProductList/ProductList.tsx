@@ -29,6 +29,7 @@ import usePaginator, {
 import { commonMessages } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
 import ProductPublishDialog from "@saleor/products/components/ProductPublishDialog";
+import ProductUnpublishDialog from "@saleor/products/components/ProductUnpublishDialog";
 import ProductAddToMegaPackDialog from "@saleor/products/components/ProductAddToMegaPackDialog";
 import ProductExportDialog from "@saleor/products/components/ProductExportDialog";
 import {
@@ -587,41 +588,18 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           onSubmitFunction={productBulkPublish}
         />
       )}      
-      <ActionDialog
-        open={params.action === "unpublish"}
-        confirmButtonState={productBulkPublishOpts.status}
-        onClose={closeModal}
-        onConfirm={() =>
-          productBulkPublish({
-            variables: {
-              ids: params.ids,
-              isPublished: false,
-              offerType: "",
-              startingAt: "",
-              startingAtDate: "",
-              endingAtDate: "",
-              publishHour: "",
-              mode: "UNPUBLISH_SELECTED",
-              channel: ""
-            }
-          })
-        }
-        title={intl.formatMessage({
-          defaultMessage: "Unpublish Products",
-          description: "dialog header"
-        })}
-      >
-        <DialogContentText>
-          <FormattedMessage
-            defaultMessage="{counter,plural,one{Are you sure you want to unpublish this product?} other{Are you sure you want to unpublish {displayQuantity} products?}}"
-            description="dialog content"
-            values={{
-              counter: maybe(() => params.ids.length),
-              displayQuantity: <strong>{maybe(() => params.ids.length)}</strong>
-            }}
-          />
-        </DialogContentText>
-      </ActionDialog>
+      {params.action === "unpublish" && (
+        <ProductUnpublishDialog
+          params={params}
+          onClose={closeModal}
+          filter={filter}
+          channel={selectedChannel.slug}
+          selected={listElements.length}
+          all={data?.products.totalCount}
+          confirmButtonState={productBulkPublishOpts.status}
+          onSubmitFunction={productBulkPublish}
+        />
+      )} 
       <ProductExportDialog
         attributes={
           mapEdgesToItems(searchAttributes?.result?.data?.search) || []
