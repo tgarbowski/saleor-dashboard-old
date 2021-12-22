@@ -15,7 +15,7 @@ import React from "react";
 
   
 const ProductUnpublishDialog: React.FC<ProductPublishDialogProps> = props => {
-  const { onClose, params, filter, channel, selected, all, confirmButtonState, onSubmitFunction } = props;
+  const { onClose, params, filter, selected, all, confirmButtonState, onSubmitFunction } = props;
   const intl = useIntl();
 
   const [publishSelectTypeVal, publishSelectTypeSetValue] = React.useState(
@@ -48,7 +48,7 @@ const ProductUnpublishDialog: React.FC<ProductPublishDialogProps> = props => {
           variables: {
             ids: params.ids,
             isPublished: false,
-            channel: channel,
+            channel: "",
             filter: filter,
             offerType: "",
             startingAt: "",
