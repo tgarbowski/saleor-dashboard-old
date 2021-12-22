@@ -89,6 +89,16 @@ export async function handleQueryAuthError(
       });
     }
   } else if (
+    error.graphQLErrors.every(
+      err => err.extensions?.exception?.code === "ValidationError"
+    )
+  ) {
+    notify({
+      status: "error",
+      text: error.graphQLErrors[0].message
+    });
+
+  } else if (
     !error.graphQLErrors.every(
       err => err.extensions?.exception?.code === "PermissionDenied"
     )

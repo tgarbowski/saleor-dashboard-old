@@ -476,16 +476,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
                 description="dodaj do megapaki, button"
               />
             </IconButton>
-            <IconButton
-              color="primary"
-              onClick={() =>
-                openModal("delete", {
-                  ids: listElements
-                })
-              }
-            >
-              <DeleteIcon />
-            </IconButton>
             <Button
               color="primary"
               onClick={() =>
@@ -501,6 +491,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
             </Button>
             <Button
               color="primary"
+              disabled={selectedChannel === undefined}
               onClick={() =>
                 openModal("publish", {
                   ids: listElements
@@ -593,7 +584,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           params={params}
           onClose={closeModal}
           filter={filter}
-          channel={selectedChannel.slug}
+          channel={selectedChannel?.slug}
           selected={listElements.length}
           all={data?.products.totalCount}
           confirmButtonState={productBulkPublishOpts.status}
@@ -617,7 +608,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         errors={exportProductsOpts.data?.exportProducts.errors || []}
         productQuantity={{
           all: countAllProducts.data?.products.totalCount,
-          filter: data?.products.totalCount
+          filter: data?.products?.totalCount
         }}
         selectedProducts={listElements.length}
         warehouses={mapEdgesToItems(warehouses?.data?.warehouses) || []}
