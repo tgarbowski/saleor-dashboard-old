@@ -61,6 +61,7 @@ const props: ProductUpdatePageProps = {
   onCloseDialog: () => undefined,
   onDelete: () => undefined,
   onImageDelete: () => undefined,
+  onImageRetrieveFromBackup: () => undefined,
   onImageUpload: () => undefined,
   onMediaUrlUpload: () => undefined,
   onSetDefaultVariant: () => undefined,

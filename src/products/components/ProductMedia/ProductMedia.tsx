@@ -122,14 +122,16 @@ interface SortableMediaProps {
   };
   onEdit: (id: string) => void;
   onDelete: () => void;
+  onRetrieveFromBackup: () => void;
 }
 
 const SortableMedia = SortableElement<SortableMediaProps>(
-  ({ media, onEdit, onDelete }) => (
+  ({ media, onEdit, onDelete, onRetrieveFromBackup }) => (
     <MediaTile
       media={media}
       onEdit={onEdit ? () => onEdit(media.id) : undefined}
       onDelete={onDelete}
+      onRetrieveFromBackup={onRetrieveFromBackup}
     />
   )
 );
@@ -140,10 +142,11 @@ interface MediaListContainerProps {
   preview: ProductMediaFragment[];
   onDelete: (id: string) => () => void;
   onEdit: (id: string) => () => void;
+  onRetrieveFromBackup: (id: string) => () => void;
 }
 
 const MediaListContainer = SortableContainer<MediaListContainerProps>(
-  ({ media, preview, onDelete, onEdit, ...props }) => (
+  ({ media, preview, onDelete, onEdit, onRetrieveFromBackup, ...props }) => (
     <div {...props}>
       {media.map((mediaObj, index) => (
         <SortableMedia
@@ -152,6 +155,7 @@ const MediaListContainer = SortableContainer<MediaListContainerProps>(
           media={mediaObj}
           onEdit={onEdit ? onEdit(mediaObj.id) : null}
           onDelete={onDelete(mediaObj.id)}
+          onRetrieveFromBackup={onRetrieveFromBackup(mediaObj.id)}
         />
       ))}
       {preview
@@ -168,6 +172,7 @@ interface ProductMediaProps {
   media: ProductMediaFragment[];
   loading?: boolean;
   onImageDelete: (id: string) => () => void;
+  onImageRetrieveFromBackup: (id: string) => () => void;
   onImageEdit: (id: string) => () => void;
   onImageReorder?: ReorderAction;
   onImageUpload(file: File);
@@ -179,6 +184,7 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
     media,
     placeholderImage,
     onImageEdit,
+    onImageRetrieveFromBackup,
     onImageDelete,
     onImageReorder,
     onImageUpload,
@@ -287,6 +293,7 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
                       [classes.root]: true,
                       [classes.rootDragActive]: isDragActive
                     })}
+                    onRetrieveFromBackup={onImageRetrieveFromBackup}
                     onDelete={onImageDelete}
                     onEdit={onImageEdit}
                   />

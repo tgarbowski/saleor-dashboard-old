@@ -485,6 +485,27 @@ export const useProductMediaDeleteMutation = makeMutation<
   ProductMediaDeleteVariables
 >(productMediaDeleteMutation);
 
+export const productMediaRetrievefromBackupMutation = gql`
+  ${productErrorFragment}
+  mutation ProductMediaDelete($id: ID!) {
+    productMediaRetrieveFromBackup(id: $id) {
+      errors {
+        ...ProductErrorFragment
+      }
+      product {
+        id
+        media {
+          id
+        }
+      }
+    }
+  }
+`;
+export const useProductMediaRetrievefromBackupMutation = makeMutation<
+  ProductMediaDelete,
+  ProductMediaDeleteVariables
+>(productMediaRetrievefromBackupMutation);
+
 export const productMediaUpdateMutation = gql`
   ${productErrorFragment}
   ${fragmentProductMedia}
