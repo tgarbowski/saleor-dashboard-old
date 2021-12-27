@@ -35,6 +35,7 @@ import {
   useProductDeleteMutation,
   useProductMediaCreateMutation,
   useProductMediaDeleteMutation,
+  useProductMediaRetrievefromBackupMutation,
   useProductMediaReorder,
   useProductUpdateMutation,
   useProductVariantBulkDeleteMutation,
@@ -258,6 +259,14 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
       })
   });
 
+  const [retrieveProductImageFromBackup] = useProductMediaRetrievefromBackupMutation({
+    onCompleted: () =>
+      notify({
+        status: "success",
+        text: intl.formatMessage(commonMessages.savedChanges)
+      })
+  });
+
   const [
     bulkProductVariantDelete,
     bulkProductVariantDeleteOpts
@@ -382,6 +391,10 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
 
   const handleImageDelete = (id: string) => () =>
     deleteProductImage({ variables: { id } });
+
+  const handleImageRetrieveFromBackup = (id: string) => () =>
+    retrieveProductImageFromBackup({ variables: { id } });
+    
   const handleImageEdit = (imageId: string) => () =>
     navigate(productImageUrl(id, imageId));
 
@@ -578,6 +591,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
         onImageUpload={handleImageUpload}
         onImageEdit={handleImageEdit}
         onImageDelete={handleImageDelete}
+        onImageRetrieveFromBackup={handleImageRetrieveFromBackup}
         params={params}
         id={id}
         toolbar={

@@ -116,6 +116,7 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   onVariantShow: (id: string) => () => void;
   onVariantReorder: ReorderAction;
   onImageDelete: (id: string) => () => void;
+  onImageRetrieveFromBackup: (id: string) => () => void;
   onSubmit: (data: ProductUpdatePageSubmitData) => SubmitPromise;
   openChannelsModal: () => void;
   onAttributeSelectBlur: () => void;
@@ -184,6 +185,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   allChannelsCount,
   currentChannels,
   onImageDelete,
+  onImageRetrieveFromBackup,
   onImageEdit,
   onImageReorder,
   onImageUpload,
@@ -330,6 +332,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                   media={media}
                   placeholderImage={placeholderImage}
                   onImageDelete={onImageDelete}
+                  onImageRetrieveFromBackup={onImageRetrieveFromBackup}
                   onImageReorder={onImageReorder}
                   onImageEdit={onImageEdit}
                   onImageUpload={onImageUpload}
