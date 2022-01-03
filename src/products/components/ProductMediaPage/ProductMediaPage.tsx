@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField } from "@material-ui/core";
+import { Card, CardContent, Button, TextField } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Container from "@saleor/components/Container";
@@ -52,6 +52,10 @@ const useStyles = makeStyles(
       margin: `0 auto ${theme.spacing(2)}px`,
       width: "100%",
       padding: theme.spacing(2)
+    },
+    retrieveButton: {
+      marginTop: theme.spacing(2),
+      width: "100%"
     }
   }),
   { name: "ProductMediaPage" }
@@ -76,6 +80,7 @@ interface ProductMediaPageProps {
   onDelete: () => void;
   onRowClick: (id: string) => () => void;
   onSubmit: (data: { description: string }) => void;
+  onImageRetrieveFromBackup: () => void;
 }
 
 const ProductMediaPage: React.FC<ProductMediaPageProps> = props => {
@@ -88,7 +93,8 @@ const ProductMediaPage: React.FC<ProductMediaPageProps> = props => {
     onBack,
     onDelete,
     onRowClick,
-    onSubmit
+    onSubmit,
+    onImageRetrieveFromBackup
   } = props;
 
   const classes = useStyles(props);
@@ -129,6 +135,14 @@ const ProductMediaPage: React.FC<ProductMediaPageProps> = props => {
                   />
                 </CardContent>
               </Card>
+              <Button
+                color="primary"
+                onClick={onImageRetrieveFromBackup}
+                variant="contained"
+                className={classes.retrieveButton}
+              >
+                Retrieve image from backup
+              </Button>
             </div>
             <div>
               <Card>
