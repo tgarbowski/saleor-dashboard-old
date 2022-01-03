@@ -29,6 +29,7 @@ storiesOf("Views / Products / Product image details", module)
       onRowClick={() => undefined}
       onSubmit={() => undefined}
       saveButtonBarState="default"
+      onImageRetrieveFromBackup={undefined}
     />
   ))
   .add("when loading data", () => (
@@ -40,5 +41,6 @@ storiesOf("Views / Products / Product image details", module)
       onRowClick={() => undefined}
       onSubmit={() => undefined}
       saveButtonBarState="default"
+      onImageRetrieveFromBackup={undefined}
     />
   ));

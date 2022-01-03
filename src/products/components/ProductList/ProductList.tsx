@@ -40,10 +40,7 @@ import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import Paper from '@material-ui/core/Paper';
-import Zoom from '@material-ui/core/Zoom';
-import Popover from '@material-ui/core/Popover';
-import {Modal, Dialog} from '@material-ui/core';
+import {Dialog} from '@material-ui/core';
 
 
 import { messages } from "./messages";
