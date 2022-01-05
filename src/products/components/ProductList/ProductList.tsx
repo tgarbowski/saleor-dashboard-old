@@ -39,10 +39,6 @@ import { getArrowDirection } from "@saleor/utils/sort";
 import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
-import {Dialog} from '@material-ui/core';
-
-
 import { messages } from "./messages";
 
 const useStyles = makeStyles(
@@ -165,14 +161,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
   const handleReportClose = () => {
     setReportOpen(false);
   };
-
-  const [imageZoom, setImageZoom] = React.useState(false);
-  const [currentImageUrl, setCurrentImageUrl] = React.useState(null);
-  const handleImageZoomClose = () => setImageZoom(false);
-  const handleImageZoom = (url: string) => {
-    setImageZoom(true);
-    setCurrentImageUrl(url);
-  }
 
   const intl = useIntl();
 
@@ -402,7 +390,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
                   </TableCell>
                   <TableCellAvatar
                     thumbnail={maybe(() => product.thumbnail.url)}
-                    onMouseEnter={() => {product.thumbnail ? handleImageZoom(product.thumbnail.url): "skeleton"}}
                   >
                     {product?.productType ? (
                       <div className={classes.colNameWrapper}>
@@ -596,14 +583,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
         open={reportOpen}
         onClose={handleReportClose}
       />
-      {currentImageUrl &&
-      <Dialog
-        open={imageZoom}
-        onClose={handleImageZoomClose}
-      >
-        <img src={currentImageUrl}></img>
-      </Dialog>
-      }
     </div>
   );
 };
