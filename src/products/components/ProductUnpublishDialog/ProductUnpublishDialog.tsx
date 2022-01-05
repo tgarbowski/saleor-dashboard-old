@@ -49,7 +49,7 @@ const ProductUnpublishDialog: React.FC<ProductPublishDialogProps> = props => {
             ids: params.ids,
             isPublished: false,
             channel: "",
-            filter: filter,
+            filter,
             offerType: "",
             startingAt: "",
             startingAtDate: "",

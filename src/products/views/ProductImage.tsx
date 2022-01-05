@@ -10,7 +10,8 @@ import { FormattedMessage, useIntl } from "react-intl";
 import ProductMediaPage from "../components/ProductMediaPage";
 import {
   useProductMediaDeleteMutation,
-  useProductMediaUpdateMutation
+  useProductMediaUpdateMutation,
+  useProductMediaRetrievefromBackupMutation
 } from "../mutations";
 import { useProductMediaQuery } from "../queries";
 import {
@@ -60,12 +61,17 @@ export const ProductImage: React.FC<ProductMediaProps> = ({
     onCompleted: handleBack
   });
 
+  const [retrieveProductImageFromBackup, retrieveStatus] = useProductMediaRetrievefromBackupMutation({
+    onCompleted: () => navigate(productImageUrl(productId, mediaId), true)
+  });
+
   const product = data?.product;
 
   if (product === null) {
     return <NotFoundPage onBack={() => navigate(productListUrl())} />;
   }
 
+  const handleImageRetrieveFromBackup = () => retrieveProductImageFromBackup({ variables: { id: mediaId } });  
   const handleDelete = () => deleteImage({ variables: { id: mediaId } });
   const handleImageClick = (id: string) => () =>
     navigate(productImageUrl(productId, id));
@@ -94,6 +100,13 @@ export const ProductImage: React.FC<ProductMediaProps> = ({
             })
           )
         }
+        onImageRetrieveFromBackup={() =>
+          navigate(
+            productImageUrl(productId, mediaId, {
+              action: "retrieve"
+            })
+          )
+        }
         onRowClick={handleImageClick}
         onSubmit={handleUpdate}
         saveButtonBarState={updateResult.status}
@@ -113,6 +126,23 @@ export const ProductImage: React.FC<ProductMediaProps> = ({
           <FormattedMessage defaultMessage="Are you sure you want to delete this image?" />
         </DialogContentText>
       </ActionDialog>
+
+      <ActionDialog
+        onClose={() => navigate(productImageUrl(productId, mediaId), true)}
+        onConfirm={handleImageRetrieveFromBackup}
+        open={params.action === "retrieve"}
+        title={intl.formatMessage({
+          defaultMessage: "Retrieve from backup",
+          description: "dialog header"
+        })}
+        confirmButtonState={retrieveStatus.status}
+      >
+        <DialogContentText>
+          <FormattedMessage defaultMessage="Are you sure you want to retrieve image from backup?" />
+        </DialogContentText>
+      </ActionDialog>
+
+
     </>
   );
 };

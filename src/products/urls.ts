@@ -137,7 +137,7 @@ export const productVariantAddUrl = (
 export const productImagePath = (productId: string, imageId: string) =>
   urlJoin(productSection, productId, "image", imageId);
 export type ProductImageUrlDialog = "remove";
-export type ProductImageUrlQueryParams = Dialog<"remove">;
+export type ProductImageUrlQueryParams = Dialog<"remove" | "retrieve">;
 export const productImageUrl = (
   productId: string,
   imageId: string,

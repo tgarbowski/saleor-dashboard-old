@@ -192,8 +192,8 @@ const ProductPublishDialog: React.FC<ProductPublishDialogProps> = props => {
                   startingAtDate: auctionStartDate ? moment(auctionStartDate).format("YYYY-MM-DD") : '',
                   endingAtDate: auctionEndDate ? moment(auctionEndDate).format("YYYY-MM-DD") : '',
                   publishHour: auctionHour ? moment(auctionHour).format("HH:mm") : '',
-                  filter: filter,
-                  channel: channel,
+                  filter,
+                  channel,
                   mode: publishSelectTypeVal
                 }
               })
