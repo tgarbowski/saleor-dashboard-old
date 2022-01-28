@@ -584,7 +584,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           params={params}
           onClose={closeModal}
           filter={filter}
-          channel={selectedChannel?.slug}
+          channel={selectedChannel.slug}
           selected={listElements.length}
           all={data?.products.totalCount}
           confirmButtonState={productBulkPublishOpts.status}
