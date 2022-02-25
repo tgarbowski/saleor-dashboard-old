@@ -452,17 +452,19 @@ export interface OrderConfirm_orderConfirm_order_user {
   email: string;
 }
 
-export interface OrderConfirm_orderConfirm_order_availableShippingMethods_price {
+export interface OrderConfirm_orderConfirm_order_shippingMethods_price {
   __typename: "Money";
   amount: number;
   currency: string;
 }
 
-export interface OrderConfirm_orderConfirm_order_availableShippingMethods {
+export interface OrderConfirm_orderConfirm_order_shippingMethods {
   __typename: "ShippingMethod";
   id: string;
   name: string;
-  price: OrderConfirm_orderConfirm_order_availableShippingMethods_price | null;
+  price: OrderConfirm_orderConfirm_order_shippingMethods_price;
+  active: boolean;
+  message: string | null;
 }
 
 export interface OrderConfirm_orderConfirm_order_invoices {
@@ -474,6 +476,11 @@ export interface OrderConfirm_orderConfirm_order_invoices {
   status: JobStatusEnum;
 }
 
+export interface OrderConfirm_orderConfirm_order_channel_defaultCountry {
+  __typename: "CountryDisplay";
+  code: string;
+}
+
 export interface OrderConfirm_orderConfirm_order_channel {
   __typename: "Channel";
   isActive: boolean;
@@ -481,11 +488,13 @@ export interface OrderConfirm_orderConfirm_order_channel {
   name: string;
   currencyCode: string;
   slug: string;
+  defaultCountry: OrderConfirm_orderConfirm_order_channel_defaultCountry;
 }
 
 export interface OrderConfirm_orderConfirm_order {
   __typename: "Order";
   id: string;
+  token: string;
   metadata: (OrderConfirm_orderConfirm_order_metadata | null)[];
   privateMetadata: (OrderConfirm_orderConfirm_order_privateMetadata | null)[];
   billingAddress: OrderConfirm_orderConfirm_order_billingAddress | null;
@@ -512,7 +521,7 @@ export interface OrderConfirm_orderConfirm_order {
   undiscountedTotal: OrderConfirm_orderConfirm_order_undiscountedTotal;
   user: OrderConfirm_orderConfirm_order_user | null;
   userEmail: string | null;
-  availableShippingMethods: (OrderConfirm_orderConfirm_order_availableShippingMethods | null)[] | null;
+  shippingMethods: OrderConfirm_orderConfirm_order_shippingMethods[];
   invoices: (OrderConfirm_orderConfirm_order_invoices | null)[] | null;
   channel: OrderConfirm_orderConfirm_order_channel;
   isPaid: boolean;

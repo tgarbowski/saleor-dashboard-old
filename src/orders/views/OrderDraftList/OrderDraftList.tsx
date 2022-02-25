@@ -1,5 +1,4 @@
-import { DialogContentText, IconButton } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { DialogContentText } from "@material-ui/core";
 import ChannelPickerDialog from "@saleor/channels/components/ChannelPickerDialog";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
@@ -8,7 +7,6 @@ import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
 } from "@saleor/components/SaveFilterTabDialog";
 import { useShopLimitsQuery } from "@saleor/components/Shop/query";
-import { DEFAULT_INITIAL_PAGINATION_DATA } from "@saleor/config";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
@@ -17,6 +15,7 @@ import { usePaginationReset } from "@saleor/hooks/usePaginationReset";
 import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
+import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -68,13 +67,7 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
     ListViews.DRAFT_LIST
   );
 
-  usePaginationReset(
-    orderDraftListUrl({
-      ...params,
-      ...DEFAULT_INITIAL_PAGINATION_DATA
-    }),
-    settings.rowNumber
-  );
+  usePaginationReset(orderDraftListUrl, params, settings.rowNumber);
 
   const intl = useIntl();
 
@@ -226,6 +219,7 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
                 toggleAll={toggleAll}
                 toolbar={
                   <IconButton
+                    variant="secondary"
                     color="primary"
                     onClick={() =>
                       openModal("remove", {

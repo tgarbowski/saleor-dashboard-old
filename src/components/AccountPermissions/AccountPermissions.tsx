@@ -8,9 +8,9 @@ import {
   ListItemText,
   Typography
 } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import CardTitle from "@saleor/components/CardTitle";
 import Skeleton from "@saleor/components/Skeleton";
-import useUser from "@saleor/hooks/useUser";
 import { makeStyles } from "@saleor/macaw-ui";
 import { PermissionData } from "@saleor/permissionGroups/components/PermissionGroupDetailsPage/PermissionGroupDetailsPage";
 import React from "react";
@@ -136,7 +136,7 @@ const AccountPermissions: React.FC<AccountPermissionsProps> = props => {
             >
               <ListItemIcon>
                 <Checkbox
-                  data-test-id="fullAccess"
+                  data-test-id="full-access"
                   color="primary"
                   edge="start"
                   checked={data.hasFullAccess}

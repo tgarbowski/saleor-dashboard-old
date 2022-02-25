@@ -1,8 +1,8 @@
 import { OutputData } from "@editorjs/editorjs";
 import { Typography } from "@material-ui/core";
-import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import RichTextEditor from "@saleor/components/RichTextEditor";
 import RichTextEditorContent from "@saleor/components/RichTextEditor/RichTextEditorContent";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import useRichText from "@saleor/utils/richText/useRichText";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -47,6 +47,7 @@ const TranslationFieldsRich: React.FC<TranslationFieldsRichProps> = ({
           defaultMessage: "Translation"
         })}
         name="translation"
+        data-test-id="translation"
         onChange={change}
       />
       <TranslationFieldsSave

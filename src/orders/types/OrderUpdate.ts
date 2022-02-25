@@ -452,17 +452,19 @@ export interface OrderUpdate_orderUpdate_order_user {
   email: string;
 }
 
-export interface OrderUpdate_orderUpdate_order_availableShippingMethods_price {
+export interface OrderUpdate_orderUpdate_order_shippingMethods_price {
   __typename: "Money";
   amount: number;
   currency: string;
 }
 
-export interface OrderUpdate_orderUpdate_order_availableShippingMethods {
+export interface OrderUpdate_orderUpdate_order_shippingMethods {
   __typename: "ShippingMethod";
   id: string;
   name: string;
-  price: OrderUpdate_orderUpdate_order_availableShippingMethods_price | null;
+  price: OrderUpdate_orderUpdate_order_shippingMethods_price;
+  active: boolean;
+  message: string | null;
 }
 
 export interface OrderUpdate_orderUpdate_order_invoices {
@@ -474,6 +476,11 @@ export interface OrderUpdate_orderUpdate_order_invoices {
   status: JobStatusEnum;
 }
 
+export interface OrderUpdate_orderUpdate_order_channel_defaultCountry {
+  __typename: "CountryDisplay";
+  code: string;
+}
+
 export interface OrderUpdate_orderUpdate_order_channel {
   __typename: "Channel";
   isActive: boolean;
@@ -481,11 +488,13 @@ export interface OrderUpdate_orderUpdate_order_channel {
   name: string;
   currencyCode: string;
   slug: string;
+  defaultCountry: OrderUpdate_orderUpdate_order_channel_defaultCountry;
 }
 
 export interface OrderUpdate_orderUpdate_order {
   __typename: "Order";
   id: string;
+  token: string;
   metadata: (OrderUpdate_orderUpdate_order_metadata | null)[];
   privateMetadata: (OrderUpdate_orderUpdate_order_privateMetadata | null)[];
   billingAddress: OrderUpdate_orderUpdate_order_billingAddress | null;
@@ -512,7 +521,7 @@ export interface OrderUpdate_orderUpdate_order {
   undiscountedTotal: OrderUpdate_orderUpdate_order_undiscountedTotal;
   user: OrderUpdate_orderUpdate_order_user | null;
   userEmail: string | null;
-  availableShippingMethods: (OrderUpdate_orderUpdate_order_availableShippingMethods | null)[] | null;
+  shippingMethods: OrderUpdate_orderUpdate_order_shippingMethods[];
   invoices: (OrderUpdate_orderUpdate_order_invoices | null)[] | null;
   channel: OrderUpdate_orderUpdate_order_channel;
   isPaid: boolean;

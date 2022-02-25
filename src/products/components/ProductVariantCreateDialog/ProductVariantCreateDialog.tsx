@@ -102,11 +102,8 @@ const ProductVariantCreateDialog: React.FC<ProductVariantCreateDialogProps> = pr
             <DialogActions>
               <ConfirmButton
                 transitionState="default"
-                color="primary"
-                variant="contained"
                 type="submit"
                 data-test-id="submit"
-                data-test="submit"
               >
                 <FormattedMessage {...buttonMessages.create} />
               </ConfirmButton>

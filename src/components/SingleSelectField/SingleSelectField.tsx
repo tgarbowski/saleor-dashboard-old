@@ -34,6 +34,7 @@ const useStyles = makeStyles(
 export interface Choice<T = string, L = string | React.ReactNode> {
   value: T;
   label: L;
+  disabled?: boolean;
 }
 
 export type Choices = Choice[];
@@ -114,8 +115,8 @@ export const SingleSelectField: React.FC<SingleSelectFieldProps> = props => {
         {choices.length > 0 ? (
           choices.map(choice => (
             <MenuItem
-              data-test="selectFieldOption"
-              data-test-id={choice.value}
+              disabled={choice.disabled}
+              data-test-id={"select-field-option-" + choice.value}
               value={choice.value}
               key={choice.value}
             >
@@ -124,7 +125,7 @@ export const SingleSelectField: React.FC<SingleSelectFieldProps> = props => {
           ))
         ) : (
           <MenuItem
-            data-test="selectFieldOption"
+            data-test-id="select-field-option"
             data-test-disabled
             disabled={true}
           >

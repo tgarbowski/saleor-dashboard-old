@@ -1,6 +1,6 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionSummary,
   makeStyles,
   Paper,
   Typography
@@ -193,7 +193,7 @@ const FilterContent: React.FC<FilterContentProps> = ({
   };
 
   return (
-    <Paper>
+    <Paper elevation={8}>
       <form
         onSubmit={event => {
           event.preventDefault();
@@ -208,25 +208,27 @@ const FilterContent: React.FC<FilterContentProps> = ({
             const currentFilter = getFilterFromCurrentData(filter);
 
             return (
-              <ExpansionPanel
+              <Accordion
                 key={filter.name}
                 classes={expanderClasses}
-                data-test="channel-availability-item"
+                data-test-id="channel-availability-item"
                 expanded={filter.name === openedFilter?.name}
               >
-                <ExpansionPanelSummary
+                <AccordionSummary
                   expandIcon={<IconChevronDown />}
                   classes={summaryClasses}
                   onClick={() => handleFilterOpen(filter)}
                 >
-                  <FilterContentBodyNameField
-                    filter={currentFilter}
-                    onFilterPropertyChange={action =>
-                      handleFilterPropertyGroupChange(action, filter)
-                    }
-                  />
-                </ExpansionPanelSummary>
-                {currentFilter.active && (
+                  {currentFilter && (
+                    <FilterContentBodyNameField
+                      filter={currentFilter}
+                      onFilterPropertyChange={action =>
+                        handleFilterPropertyGroupChange(action, filter)
+                      }
+                    />
+                  )}
+                </AccordionSummary>
+                {currentFilter?.active && (
                   <FilterErrorsList
                     errors={errors?.[filter.name]}
                     errorMessages={errorMessages}
@@ -244,7 +246,7 @@ const FilterContent: React.FC<FilterContentProps> = ({
                         }
                         filter={{
                           ...getFilterFromCurrentData(filterField),
-                          active: currentFilter.active
+                          active: currentFilter?.active
                         }}
                       >
                         <Typography>{filterField.label}</Typography>
@@ -258,7 +260,7 @@ const FilterContent: React.FC<FilterContentProps> = ({
                     filter={currentFilter}
                   />
                 )}
-              </ExpansionPanel>
+              </Accordion>
             );
           })}
       </form>

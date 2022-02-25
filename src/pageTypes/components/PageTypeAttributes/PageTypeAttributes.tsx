@@ -1,11 +1,4 @@
-import {
-  Button,
-  Card,
-  IconButton,
-  TableCell,
-  TableRow
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { Card, TableCell, TableRow } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
 import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
@@ -15,7 +8,7 @@ import {
   SortableTableRow
 } from "@saleor/components/SortableTable";
 import TableHead from "@saleor/components/TableHead";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Button, DeleteIcon, IconButton, makeStyles } from "@saleor/macaw-ui";
 import { renderCollection, stopPropagation } from "@saleor/misc";
 import { PageTypeDetails_pageType_attributes } from "@saleor/pageTypes/types/PageTypeDetails";
 import { ListActions, ReorderAction } from "@saleor/types";
@@ -80,7 +73,7 @@ const PageTypeAttributes: React.FC<PageTypeAttributesProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card data-test="page-attributes">
+    <Card data-test-id="page-attributes">
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Content Attributes",
@@ -88,10 +81,9 @@ const PageTypeAttributes: React.FC<PageTypeAttributesProps> = props => {
         })}
         toolbar={
           <Button
-            color="primary"
-            variant="text"
+            variant="tertiary"
             onClick={() => onAttributeAssign(AttributeTypeEnum[type])}
-            data-test-id="assignAttributes"
+            data-test-id="assign-attributes"
           >
             <FormattedMessage
               defaultMessage="Assign attribute"
@@ -148,8 +140,7 @@ const PageTypeAttributes: React.FC<PageTypeAttributesProps> = props => {
                   }
                   key={attribute?.id}
                   index={attributeIndex || 0}
-                  data-test="id"
-                  data-test-id={attribute?.id}
+                  data-test-id={"id-" + attribute?.id}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -159,14 +150,15 @@ const PageTypeAttributes: React.FC<PageTypeAttributesProps> = props => {
                       onChange={() => toggle(attribute.id)}
                     />
                   </TableCell>
-                  <TableCell className={classes.colName} data-test="name">
+                  <TableCell className={classes.colName} data-test-id="name">
                     {attribute?.name || <Skeleton />}
                   </TableCell>
-                  <TableCell className={classes.colSlug} data-test="slug">
+                  <TableCell className={classes.colSlug} data-test-id="slug">
                     {attribute?.slug || <Skeleton />}
                   </TableCell>
                   <TableCell className={classes.colAction}>
                     <IconButton
+                      variant="secondary"
                       onClick={stopPropagation(() =>
                         onAttributeUnassign(attribute.id)
                       )}

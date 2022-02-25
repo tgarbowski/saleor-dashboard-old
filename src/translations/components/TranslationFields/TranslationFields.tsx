@@ -1,20 +1,14 @@
 import { OutputData } from "@editorjs/editorjs";
-import {
-  Button,
-  Card,
-  CardContent,
-  IconButton,
-  Typography
-} from "@material-ui/core";
+import { Card, CardContent, Typography } from "@material-ui/core";
 import ArrowIcon from "@material-ui/icons/ArrowDropDown";
 import CardTitle from "@saleor/components/CardTitle";
-import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Grid from "@saleor/components/Grid";
 import Hr from "@saleor/components/Hr";
 import Skeleton from "@saleor/components/Skeleton";
 import TablePagination from "@saleor/components/TablePagination";
 import { buttonMessages } from "@saleor/intl";
-import { makeStyles } from "@saleor/macaw-ui";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
+import { Button, IconButton, makeStyles } from "@saleor/macaw-ui";
 import { TranslationField } from "@saleor/translations/types";
 import { ListProps } from "@saleor/types";
 import classNames from "classnames";
@@ -135,7 +129,10 @@ const TranslationFields: React.FC<TranslationFieldsProps> = props => {
       <CardTitle
         title={title}
         toolbar={
-          <IconButton onClick={() => setExpandedState(!expanded)}>
+          <IconButton
+            variant="secondary"
+            onClick={() => setExpandedState(!expanded)}
+          >
             <ArrowIcon
               className={classNames({
                 [classes.rotate]: expanded
@@ -163,7 +160,10 @@ const TranslationFields: React.FC<TranslationFieldsProps> = props => {
                   {field.displayName}
                 </Typography>
                 <div className={classes.editButtonContainer}>
-                  <Button color="primary" onClick={() => onEdit(field.name)}>
+                  <Button
+                    data-test-id={`edit-${field.name}`}
+                    onClick={() => onEdit(field.name)}
+                  >
                     <FormattedMessage {...buttonMessages.edit} />
                   </Button>
                 </div>
@@ -222,6 +222,13 @@ const TranslationFields: React.FC<TranslationFieldsProps> = props => {
                         onDiscard={onDiscard}
                         onSubmit={data => onSubmit(field, data)}
                       />
+                    ) : // FIXME
+                    // For now this is the only way to fix the issue
+                    // of initializing the editor with fetched data.
+                    // Without this the editor doesn't get the saved data
+                    // and is empty
+                    disabled ? (
+                      <Skeleton />
                     ) : (
                       <TranslationFieldsRich
                         resetKey={richTextResetKey}

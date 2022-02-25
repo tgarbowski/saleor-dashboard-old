@@ -1,6 +1,5 @@
-import { Button, DialogContentText } from "@material-ui/core";
+import { DialogContentText } from "@material-ui/core";
 import ActionDialog from "@saleor/components/ActionDialog";
-import { DEFAULT_INITIAL_PAGINATION_DATA } from "@saleor/config";
 import { configurationMenuUrl } from "@saleor/configuration";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
@@ -11,6 +10,7 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import { buttonMessages, commonMessages } from "@saleor/intl";
+import { Button } from "@saleor/macaw-ui";
 import { getStringOrPlaceholder, maybe } from "@saleor/misc";
 import { getById } from "@saleor/orders/components/OrderReturnPage/utils";
 import { ListViews } from "@saleor/types";
@@ -48,13 +48,7 @@ const MenuList: React.FC<MenuListProps> = ({ params }) => {
     ListViews.NAVIGATION_LIST
   );
 
-  usePaginationReset(
-    menuListUrl({
-      ...params,
-      ...DEFAULT_INITIAL_PAGINATION_DATA
-    }),
-    settings.rowNumber
-  );
+  usePaginationReset(menuListUrl, params, settings.rowNumber);
 
   const intl = useIntl();
 
@@ -66,7 +60,7 @@ const MenuList: React.FC<MenuListProps> = ({ params }) => {
         id: undefined,
         ids: undefined
       }),
-      true
+      { replace: true }
     );
 
   const paginationState = createPaginationState(settings.rowNumber, params);
@@ -170,7 +164,6 @@ const MenuList: React.FC<MenuListProps> = ({ params }) => {
                     toggleAll={toggleAll}
                     toolbar={
                       <Button
-                        color="primary"
                         onClick={() =>
                           navigate(
                             menuListUrl({

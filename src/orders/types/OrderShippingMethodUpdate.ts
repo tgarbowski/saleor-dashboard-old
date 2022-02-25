@@ -16,17 +16,19 @@ export interface OrderShippingMethodUpdate_orderUpdateShipping_errors {
   addressType: AddressTypeEnum | null;
 }
 
-export interface OrderShippingMethodUpdate_orderUpdateShipping_order_availableShippingMethods_price {
+export interface OrderShippingMethodUpdate_orderUpdateShipping_order_shippingMethods_price {
   __typename: "Money";
   amount: number;
   currency: string;
 }
 
-export interface OrderShippingMethodUpdate_orderUpdateShipping_order_availableShippingMethods {
+export interface OrderShippingMethodUpdate_orderUpdateShipping_order_shippingMethods {
   __typename: "ShippingMethod";
   id: string;
   name: string;
-  price: OrderShippingMethodUpdate_orderUpdateShipping_order_availableShippingMethods_price | null;
+  price: OrderShippingMethodUpdate_orderUpdateShipping_order_shippingMethods_price;
+  active: boolean;
+  message: string | null;
 }
 
 export interface OrderShippingMethodUpdate_orderUpdateShipping_order_total_tax {
@@ -64,7 +66,7 @@ export interface OrderShippingMethodUpdate_orderUpdateShipping_order_shippingMet
   __typename: "ShippingMethod";
   id: string;
   name: string;
-  price: OrderShippingMethodUpdate_orderUpdateShipping_order_shippingMethod_price | null;
+  price: OrderShippingMethodUpdate_orderUpdateShipping_order_shippingMethod_price;
 }
 
 export interface OrderShippingMethodUpdate_orderUpdateShipping_order_shippingPrice_gross {
@@ -482,6 +484,11 @@ export interface OrderShippingMethodUpdate_orderUpdateShipping_order_invoices {
   status: JobStatusEnum;
 }
 
+export interface OrderShippingMethodUpdate_orderUpdateShipping_order_channel_defaultCountry {
+  __typename: "CountryDisplay";
+  code: string;
+}
+
 export interface OrderShippingMethodUpdate_orderUpdateShipping_order_channel {
   __typename: "Channel";
   isActive: boolean;
@@ -489,16 +496,18 @@ export interface OrderShippingMethodUpdate_orderUpdateShipping_order_channel {
   name: string;
   currencyCode: string;
   slug: string;
+  defaultCountry: OrderShippingMethodUpdate_orderUpdateShipping_order_channel_defaultCountry;
 }
 
 export interface OrderShippingMethodUpdate_orderUpdateShipping_order {
   __typename: "Order";
-  availableShippingMethods: (OrderShippingMethodUpdate_orderUpdateShipping_order_availableShippingMethods | null)[] | null;
+  shippingMethods: OrderShippingMethodUpdate_orderUpdateShipping_order_shippingMethods[];
   total: OrderShippingMethodUpdate_orderUpdateShipping_order_total;
   id: string;
   shippingMethod: OrderShippingMethodUpdate_orderUpdateShipping_order_shippingMethod | null;
   shippingMethodName: string | null;
   shippingPrice: OrderShippingMethodUpdate_orderUpdateShipping_order_shippingPrice;
+  token: string;
   metadata: (OrderShippingMethodUpdate_orderUpdateShipping_order_metadata | null)[];
   privateMetadata: (OrderShippingMethodUpdate_orderUpdateShipping_order_privateMetadata | null)[];
   billingAddress: OrderShippingMethodUpdate_orderUpdateShipping_order_billingAddress | null;

@@ -716,6 +716,7 @@ export const products = (
 ): ProductList_products_edges_node[] => [
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [],
     createdAt: "2020-07-14",
     updatedAt: "2020-07-14",
@@ -811,6 +812,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [],
     createdAt: "2020-07-14",
     updatedAt: "2020-07-14",
@@ -906,6 +908,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [],
     createdAt: "2020-07-14",
     updatedAt: "2020-07-14",
@@ -1000,6 +1003,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -1116,6 +1120,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -1232,6 +1237,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -1349,6 +1355,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -1466,6 +1473,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -1582,6 +1590,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -1698,6 +1707,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -1814,6 +1824,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -1930,6 +1941,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -2046,6 +2058,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -2162,6 +2175,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -2278,6 +2292,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -2394,6 +2409,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -2510,6 +2526,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -2626,6 +2643,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -2742,6 +2760,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",
@@ -2858,6 +2877,7 @@ export const products = (
   },
   {
     __typename: "Product",
+    updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [
       {
         __typename: "SelectedAttribute",

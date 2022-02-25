@@ -1,7 +1,6 @@
 import { ChannelVoucherData } from "@saleor/channels/utils";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
-import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
@@ -14,6 +13,7 @@ import {
 } from "@saleor/discounts/handlers";
 import { DiscountErrorFragment } from "@saleor/fragments/types/DiscountErrorFragment";
 import { sectionNames } from "@saleor/intl";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Backlink } from "@saleor/macaw-ui";
 import { validatePrice } from "@saleor/products/utils/validation";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
@@ -45,7 +45,8 @@ export interface FormData extends MetadataFormData {
   startDate: string;
   startTime: string;
   type: VoucherTypeEnum;
-  usageLimit: string;
+  usageLimit: number;
+  used: number;
   value: number;
 }
 
@@ -95,7 +96,8 @@ const VoucherCreatePage: React.FC<VoucherCreatePageProps> = ({
     startDate: "",
     startTime: "",
     type: VoucherTypeEnum.ENTIRE_ORDER,
-    usageLimit: "0",
+    usageLimit: 1,
+    used: 0,
     value: 0,
     metadata: [],
     privateMetadata: []
@@ -103,7 +105,7 @@ const VoucherCreatePage: React.FC<VoucherCreatePageProps> = ({
 
   return (
     <Form initial={initialForm} onSubmit={onSubmit}>
-      {({ change, data, hasChanged, submit, triggerChange }) => {
+      {({ change, data, hasChanged, submit, triggerChange, set }) => {
         const handleDiscountTypeChange = createDiscountTypeChangeHandler(
           change
         );
@@ -173,9 +175,12 @@ const VoucherCreatePage: React.FC<VoucherCreatePageProps> = ({
                 <CardSpacer />
                 <VoucherLimits
                   data={data}
+                  initialUsageLimit={initialForm.usageLimit}
                   disabled={disabled}
                   errors={errors}
                   onChange={change}
+                  setData={set}
+                  isNewVoucher
                 />
                 <CardSpacer />
                 <VoucherDates

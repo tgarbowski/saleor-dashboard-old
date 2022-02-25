@@ -8,6 +8,8 @@ import Skeleton from "@saleor/components/Skeleton";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
+import TooltipTableCellHeader from "@saleor/components/TooltipTableCellHeader";
+import { commonTooltipMessages } from "@saleor/components/TooltipTableCellHeader/messages";
 import { VoucherListUrlSortField } from "@saleor/discounts/urls";
 import { canBeSorted } from "@saleor/discounts/views/VoucherList/sort";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -16,8 +18,9 @@ import { ChannelProps, ListActions, ListProps, SortPage } from "@saleor/types";
 import { DiscountValueTypeEnum } from "@saleor/types/globalTypes";
 import { getArrowDirection } from "@saleor/utils/sort";
 import { getFooterColSpanWithBulkActions } from "@saleor/utils/tables";
+import classNames from "classnames";
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { VoucherList_vouchers_edges_node } from "../../types/VoucherList";
 
@@ -72,6 +75,10 @@ const useStyles = makeStyles(
     },
     textRight: {
       textAlign: "right"
+    },
+    textOverflow: {
+      textOverflow: "ellipsis",
+      overflow: "hidden"
     }
   }),
   { name: "VoucherList" }
@@ -96,10 +103,12 @@ const VoucherList: React.FC<VoucherListProps> = props => {
     sort,
     toggle,
     toggleAll,
-    toolbar
+    toolbar,
+    filterDependency
   } = props;
 
   const classes = useStyles(props);
+  const intl = useIntl();
 
   return (
     <ResponsiveTable>
@@ -123,7 +132,7 @@ const VoucherList: React.FC<VoucherListProps> = props => {
         >
           <FormattedMessage defaultMessage="Code" description="voucher code" />
         </TableCellHeader>
-        <TableCellHeader
+        <TooltipTableCellHeader
           direction={
             sort.sort === VoucherListUrlSortField.minSpent
               ? getArrowDirection(sort.asc)
@@ -135,12 +144,15 @@ const VoucherList: React.FC<VoucherListProps> = props => {
             !canBeSorted(VoucherListUrlSortField.minSpent, !!selectedChannelId)
           }
           className={classes.colMinSpent}
+          tooltip={intl.formatMessage(commonTooltipMessages.noFilterSelected, {
+            filterName: filterDependency.label
+          })}
         >
           <FormattedMessage
             defaultMessage="Min. Spent"
             description="minimum amount of spent money to activate voucher"
           />
-        </TableCellHeader>
+        </TooltipTableCellHeader>
         <TableCellHeader
           direction={
             sort.sort === VoucherListUrlSortField.startDate
@@ -171,7 +183,7 @@ const VoucherList: React.FC<VoucherListProps> = props => {
             description="voucher is active until date"
           />
         </TableCellHeader>
-        <TableCellHeader
+        <TooltipTableCellHeader
           direction={
             sort.sort === VoucherListUrlSortField.value
               ? getArrowDirection(sort.asc)
@@ -183,12 +195,15 @@ const VoucherList: React.FC<VoucherListProps> = props => {
             !canBeSorted(VoucherListUrlSortField.minSpent, !!selectedChannelId)
           }
           className={classes.colValue}
+          tooltip={intl.formatMessage(commonTooltipMessages.noFilterSelected, {
+            filterName: filterDependency.label
+          })}
         >
           <FormattedMessage
             defaultMessage="Value"
             description="voucher value"
           />
-        </TableCellHeader>
+        </TooltipTableCellHeader>
         <TableCellHeader
           direction={
             sort.sort === VoucherListUrlSortField.limit
@@ -243,8 +258,10 @@ const VoucherList: React.FC<VoucherListProps> = props => {
                     onChange={() => toggle(voucher.id)}
                   />
                 </TableCell>
-                <TableCell className={classes.colName}>
-                  {maybe<React.ReactNode>(() => voucher.code, <Skeleton />)}
+                <TableCell
+                  className={classNames(classes.colName, classes.textOverflow)}
+                >
+                  {voucher?.code ?? <Skeleton />}
                 </TableCell>
                 <TableCell className={classes.colMinSpent}>
                   {voucher?.code ? (

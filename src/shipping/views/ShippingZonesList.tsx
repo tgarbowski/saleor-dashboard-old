@@ -1,7 +1,6 @@
-import { DialogContentText, IconButton } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { DialogContentText } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import ActionDialog from "@saleor/components/ActionDialog";
-import { DEFAULT_INITIAL_PAGINATION_DATA } from "@saleor/config";
 import { configurationMenuUrl } from "@saleor/configuration";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
@@ -12,8 +11,8 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import useShop from "@saleor/hooks/useShop";
-import useUser from "@saleor/hooks/useUser";
 import { commonMessages } from "@saleor/intl";
+import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
 import { getStringOrPlaceholder, maybe } from "@saleor/misc";
 import { getById } from "@saleor/orders/components/OrderReturnPage/utils";
 import { ListViews } from "@saleor/types";
@@ -56,13 +55,7 @@ export const ShippingZonesList: React.FC<ShippingZonesListProps> = ({
     ListViews.SHIPPING_METHODS_LIST
   );
 
-  usePaginationReset(
-    shippingZonesListUrl({
-      ...params,
-      ...DEFAULT_INITIAL_PAGINATION_DATA
-    }),
-    settings.rowNumber
-  );
+  usePaginationReset(shippingZonesListUrl, params, settings.rowNumber);
 
   const intl = useIntl();
 
@@ -169,6 +162,8 @@ export const ShippingZonesList: React.FC<ShippingZonesListProps> = ({
         toggleAll={toggleAll}
         toolbar={
           <IconButton
+            data-test-id="delete-selected-elements-icon"
+            variant="secondary"
             color="primary"
             onClick={() =>
               openModal("remove-many", {

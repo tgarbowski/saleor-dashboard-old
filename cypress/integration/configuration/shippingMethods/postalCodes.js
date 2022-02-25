@@ -1,27 +1,29 @@
-// <reference types="cypress" />
+// / <reference types="cypress"/>
+// / <reference types="../../../support"/>
+
 import faker from "faker";
 
-import { createCheckout } from "../../../apiRequests/Checkout";
-import { createShippingZone } from "../../../apiRequests/ShippingMethod";
-import { createWarehouse } from "../../../apiRequests/Warehouse";
-import { ONE_PERMISSION_USERS } from "../../../Data/users";
-import {
-  createRateWithPostalCode,
-  postalCodesOptions
-} from "../../../steps/shippingMethodSteps";
-import filterTests from "../../../support/filterTests";
-import { shippingZoneDetailsUrl } from "../../../url/urlList";
-import { getDefaultChannel } from "../../../utils/channelsUtils";
+import { shippingZoneDetailsUrl } from "../../../fixtures/urlList";
+import { ONE_PERMISSION_USERS } from "../../../fixtures/users";
+import { createCheckout } from "../../../support/api/requests/Checkout";
+import { createShippingZone } from "../../../support/api/requests/ShippingMethod";
+import { createWarehouse } from "../../../support/api/requests/Warehouse";
+import { getDefaultChannel } from "../../../support/api/utils/channelsUtils";
 import {
   createProductInChannel,
   createTypeAttributeAndCategoryForProduct,
   deleteProductsStartsWith
-} from "../../../utils/products/productsUtils";
-import { deleteShippingStartsWith } from "../../../utils/shippingUtils";
-import { isShippingAvailableInCheckout } from "../../../utils/storeFront/checkoutUtils";
+} from "../../../support/api/utils/products/productsUtils";
+import { deleteShippingStartsWith } from "../../../support/api/utils/shippingUtils";
+import { isShippingAvailableInCheckout } from "../../../support/api/utils/storeFront/checkoutUtils";
+import filterTests from "../../../support/filterTests";
+import {
+  createRateWithPostalCode,
+  postalCodesOptions
+} from "../../../support/pages/shippingMethodPage";
 
-filterTests(["all"], () => {
-  describe("Postal codes in shipping", () => {
+filterTests({ definedTags: ["all"] }, () => {
+  describe("As a user I want to create shipping method with postal codes", () => {
     const startsWith = "CyShippingMethods-";
     const name = `${startsWith}${faker.datatype.number()}`;
 
@@ -64,7 +66,7 @@ filterTests(["all"], () => {
         })
         .then(warehouseResp => {
           warehouse = warehouseResp;
-          createTypeAttributeAndCategoryForProduct(name);
+          createTypeAttributeAndCategoryForProduct({ name });
         })
         .then(({ attribute, productType, category }) => {
           createProductInChannel({
@@ -87,7 +89,7 @@ filterTests(["all"], () => {
         .visit(shippingZoneDetailsUrl(shippingZone.id));
     });
 
-    it("Create shipping method with included postal codes", () => {
+    it("should be able to create shipping method with included postal codes. TC: SALEOR_0801", () => {
       const rateName = `${startsWith}${faker.datatype.number()}`;
 
       createRateWithPostalCode({
@@ -105,7 +107,7 @@ filterTests(["all"], () => {
       );
     });
 
-    it("Create shipping method with excluded postal codes", () => {
+    it("should be able to create shipping method with excluded postal codes. TC: SALEOR_0802", () => {
       const rateName = `${startsWith}${faker.datatype.number()}`;
 
       createRateWithPostalCode({

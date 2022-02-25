@@ -1,19 +1,17 @@
 import {
-  IconButton,
   TableBody,
   TableCell,
   TableFooter,
   TableHead,
   TableRow
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import TablePagination from "@saleor/components/TablePagination";
 import { WarehouseWithShippingFragment } from "@saleor/fragments/types/WarehouseWithShippingFragment";
-import { makeStyles } from "@saleor/macaw-ui";
+import { DeleteIcon, IconButton, makeStyles } from "@saleor/macaw-ui";
 import { maybe, renderCollection, stopPropagation } from "@saleor/misc";
 import { ListProps, SortPage } from "@saleor/types";
 import { mapEdgesToItems } from "@saleor/utils/maps";
@@ -40,7 +38,7 @@ const useStyles = makeStyles(
       display: "flex",
       justifyContent: "flex-end",
       position: "relative",
-      right: theme.spacing(-2)
+      right: theme.spacing(-1.5)
     },
     colActions: {
       textAlign: "right"
@@ -86,7 +84,7 @@ const WarehouseList: React.FC<WarehouseListProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <ResponsiveTable data-test="warehouseList">
+    <ResponsiveTable data-test-id="warehouse-list">
       <TableHead>
         <TableRow>
           <TableCellHeader
@@ -133,13 +131,15 @@ const WarehouseList: React.FC<WarehouseListProps> = props => {
               hover={!!warehouse}
               onClick={warehouse ? onRowClick(warehouse.id) : undefined}
               key={warehouse ? warehouse.id : "skeleton"}
-              data-test="warehouseEntry"
-              data-testid={warehouse?.name.toLowerCase().replace(" ", "")}
+              data-test-id={
+                "warehouse-entry-" +
+                warehouse?.name.toLowerCase().replace(" ", "")
+              }
             >
-              <TableCell className={classes.colName} data-test="name">
+              <TableCell className={classes.colName} data-test-id="name">
                 {maybe<React.ReactNode>(() => warehouse.name, <Skeleton />)}
               </TableCell>
-              <TableCell className={classes.colZones} data-test="zones">
+              <TableCell className={classes.colZones} data-test-id="zones">
                 {warehouse?.shippingZones === undefined ? (
                   <Skeleton />
                 ) : (
@@ -150,10 +150,15 @@ const WarehouseList: React.FC<WarehouseListProps> = props => {
               </TableCell>
               <TableCell className={classes.colActions}>
                 <div className={classes.actions}>
-                  <IconButton color="primary" data-test="editButton">
+                  <IconButton
+                    variant="secondary"
+                    color="primary"
+                    data-test-id="edit-button"
+                  >
                     <EditIcon />
                   </IconButton>
                   <IconButton
+                    variant="secondary"
                     color="primary"
                     onClick={stopPropagation(() => onRemove(warehouse.id))}
                   >
@@ -164,7 +169,7 @@ const WarehouseList: React.FC<WarehouseListProps> = props => {
             </TableRow>
           ),
           () => (
-            <TableRow data-test="emptyListMessage">
+            <TableRow data-test-id="empty-list-message">
               <TableCell colSpan={numberOfColumns}>
                 <FormattedMessage defaultMessage="No warehouses found" />
               </TableCell>

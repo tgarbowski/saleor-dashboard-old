@@ -1,5 +1,4 @@
-import { Button } from "@material-ui/core";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Button, makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
@@ -25,9 +24,8 @@ const MaximalButton: React.FC<MaximalButtonProps> = ({ onClick }) => {
   return (
     <Button
       className={classes.button}
-      color="primary"
       onClick={onClick}
-      data-test="setMaximalQuantityUnfulfilledButton"
+      data-test-id="set-maximal-quantity-unfulfilled-button"
     >
       <FormattedMessage
         defaultMessage="Set maximal quantities"

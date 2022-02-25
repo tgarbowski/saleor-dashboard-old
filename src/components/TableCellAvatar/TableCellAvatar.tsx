@@ -21,16 +21,21 @@ const useStyles = makeStyles(
 
 interface TableCellAvatarProps extends AvatarProps, TableCellProps {
   className?: string;
+  badge?: React.ReactNode;
 }
 
 const TableCellAvatar: React.FC<TableCellAvatarProps> = props => {
-  const { className, ...rest } = props;
+  const { className, badge, ...rest } = props;
 
   const classes = useStyles(props);
 
   return (
-    <TableCell className={classNames(classes.root, className)} {...rest}>
-      <Avatar {...rest} />
+    <TableCell
+      className={classNames(classes.root, className)}
+      {...rest}
+      data-test-id="table-cell-avatar"
+    >
+      <Avatar badge={badge} {...rest} />
     </TableCell>
   );
 };

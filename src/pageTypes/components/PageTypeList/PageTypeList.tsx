@@ -34,8 +34,6 @@ interface PageTypeListProps
   pageTypes: PageTypeList_pageTypes_edges_node[];
 }
 
-const numberOfColumns = 2;
-
 const PageTypeList: React.FC<PageTypeListProps> = props => {
   const {
     disabled,
@@ -53,6 +51,7 @@ const PageTypeList: React.FC<PageTypeListProps> = props => {
     toolbar
   } = props;
   const classes = useStyles(props);
+  const numberOfColumns = pageTypes?.length === 0 ? 1 : 2;
 
   return (
     <ResponsiveTable>
@@ -105,8 +104,7 @@ const PageTypeList: React.FC<PageTypeListProps> = props => {
                 key={pageType ? pageType.id : "skeleton"}
                 onClick={pageType ? onRowClick(pageType.id) : undefined}
                 selected={isSelected}
-                data-test="id"
-                data-test-id={pageType?.id}
+                data-test-id={"id-" + pageType?.id}
               >
                 <TableCell padding="checkbox">
                   <Checkbox
@@ -118,7 +116,7 @@ const PageTypeList: React.FC<PageTypeListProps> = props => {
                 </TableCell>
                 <TableCell className={classes.colName}>
                   {pageType ? (
-                    <span data-test="name">{pageType.name}</span>
+                    <span data-test-id="name">{pageType.name}</span>
                   ) : (
                     <Skeleton />
                   )}

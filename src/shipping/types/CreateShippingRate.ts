@@ -100,7 +100,7 @@ export interface CreateShippingRate_shippingPriceCreate_shippingZone_shippingMet
 }
 
 export interface CreateShippingRate_shippingPriceCreate_shippingZone_shippingMethods {
-  __typename: "ShippingMethod";
+  __typename: "ShippingMethodType";
   id: string;
   postalCodeRules: (CreateShippingRate_shippingPriceCreate_shippingZone_shippingMethods_postalCodeRules | null)[] | null;
   metadata: (CreateShippingRate_shippingPriceCreate_shippingZone_shippingMethods_metadata | null)[];
@@ -129,7 +129,6 @@ export interface CreateShippingRate_shippingPriceCreate_shippingZone {
   countries: (CreateShippingRate_shippingPriceCreate_shippingZone_countries | null)[] | null;
   name: string;
   description: string | null;
-  default: boolean;
   shippingMethods: (CreateShippingRate_shippingPriceCreate_shippingZone_shippingMethods | null)[] | null;
   warehouses: CreateShippingRate_shippingPriceCreate_shippingZone_warehouses[];
 }
@@ -201,7 +200,7 @@ export interface CreateShippingRate_shippingPriceCreate_shippingMethod_channelLi
 }
 
 export interface CreateShippingRate_shippingPriceCreate_shippingMethod {
-  __typename: "ShippingMethod";
+  __typename: "ShippingMethodType";
   id: string;
   postalCodeRules: (CreateShippingRate_shippingPriceCreate_shippingMethod_postalCodeRules | null)[] | null;
   metadata: (CreateShippingRate_shippingPriceCreate_shippingMethod_metadata | null)[];

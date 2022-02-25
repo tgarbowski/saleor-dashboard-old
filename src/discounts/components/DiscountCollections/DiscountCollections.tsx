@@ -1,20 +1,17 @@
 import {
-  Button,
   Card,
-  IconButton,
   TableBody,
   TableCell,
   TableFooter,
   TableRow
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
 import CardTitle from "@saleor/components/CardTitle";
 import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Button, DeleteIcon, IconButton } from "@saleor/macaw-ui";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -23,35 +20,13 @@ import { maybe, renderCollection } from "../../../misc";
 import { ListActions, ListProps } from "../../../types";
 import { SaleDetails_sale } from "../../types/SaleDetails";
 import { VoucherDetails_voucher } from "../../types/VoucherDetails";
-
+import { messages } from "./messages";
+import { useStyles } from "./styles";
 export interface DiscountCollectionsProps extends ListProps, ListActions {
   discount: SaleDetails_sale | VoucherDetails_voucher;
   onCollectionAssign: () => void;
   onCollectionUnassign: (id: string) => void;
 }
-
-const useStyles = makeStyles(
-  {
-    colActions: {
-      "&:last-child": {
-        paddingRight: 0
-      },
-      width: 80
-    },
-    colName: {
-      width: "auto"
-    },
-    colProducts: {
-      textAlign: "right",
-      width: 140
-    },
-    tableRow: {
-      cursor: "pointer"
-    },
-    textRight: {}
-  },
-  { name: "DiscountCollections" }
-);
 
 const numberOfColumns = 4;
 
@@ -79,16 +54,10 @@ const DiscountCollections: React.FC<DiscountCollectionsProps> = props => {
   return (
     <Card>
       <CardTitle
-        title={intl.formatMessage({
-          defaultMessage: "Eligible Collections",
-          description: "section header"
-        })}
+        title={intl.formatMessage(messages.discountCollectionsHeader)}
         toolbar={
-          <Button color="primary" onClick={onCollectionAssign}>
-            <FormattedMessage
-              defaultMessage="Assign collections"
-              description="button"
-            />
+          <Button onClick={onCollectionAssign}>
+            <FormattedMessage {...messages.discountCollectionsButton} />
           </Button>
         }
       />
@@ -108,12 +77,13 @@ const DiscountCollections: React.FC<DiscountCollectionsProps> = props => {
           toolbar={toolbar}
         >
           <TableCell className={classes.colName}>
-            <FormattedMessage defaultMessage="Collection name" />
-          </TableCell>
-          <TableCell className={classes.textRight}>
             <FormattedMessage
-              defaultMessage="Products"
-              description="number of products"
+              {...messages.discountCollectionsTableProductHeader}
+            />
+          </TableCell>
+          <TableCell className={classes.colProducts}>
+            <FormattedMessage
+              {...messages.discountCollectionsTableProductNumber}
             />
           </TableCell>
           <TableCell />
@@ -166,13 +136,14 @@ const DiscountCollections: React.FC<DiscountCollectionsProps> = props => {
                   </TableCell>
                   <TableCell className={classes.colActions}>
                     <IconButton
+                      variant="secondary"
                       disabled={!collection || disabled}
                       onClick={event => {
                         event.stopPropagation();
                         onCollectionUnassign(collection.id);
                       }}
                     >
-                      <DeleteIcon color="primary" />
+                      <DeleteIcon />
                     </IconButton>
                   </TableCell>
                 </TableRow>
@@ -181,7 +152,7 @@ const DiscountCollections: React.FC<DiscountCollectionsProps> = props => {
             () => (
               <TableRow>
                 <TableCell colSpan={numberOfColumns}>
-                  <FormattedMessage defaultMessage="No collections found" />
+                  <FormattedMessage {...messages.discountCollectionsNotFound} />
                 </TableCell>
               </TableRow>
             )

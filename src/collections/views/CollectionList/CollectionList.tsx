@@ -1,12 +1,10 @@
-import { DialogContentText, IconButton } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { DialogContentText } from "@material-ui/core";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
 } from "@saleor/components/SaveFilterTabDialog";
-import { DEFAULT_INITIAL_PAGINATION_DATA } from "@saleor/config";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
@@ -16,6 +14,7 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import { commonMessages } from "@saleor/intl";
+import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -65,13 +64,7 @@ export const CollectionList: React.FC<CollectionListProps> = ({ params }) => {
     ListViews.COLLECTION_LIST
   );
 
-  usePaginationReset(
-    collectionListUrl({
-      ...params,
-      ...DEFAULT_INITIAL_PAGINATION_DATA
-    }),
-    settings.rowNumber
-  );
+  usePaginationReset(collectionListUrl, params, settings.rowNumber);
 
   const [
     changeFilters,
@@ -204,6 +197,7 @@ export const CollectionList: React.FC<CollectionListProps> = ({ params }) => {
         onRowClick={id => () => navigate(collectionUrl(id))}
         toolbar={
           <IconButton
+            variant="secondary"
             color="primary"
             onClick={() =>
               openModal("remove", {

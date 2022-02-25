@@ -22,7 +22,11 @@ import {
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { JobStatusEnum, OrderStatus } from "../../../types/globalTypes";
+import {
+  InvoiceErrorCode,
+  JobStatusEnum,
+  OrderStatus
+} from "../../../types/globalTypes";
 import OrderOperations from "../../containers/OrderOperations";
 import { TypedOrderDetailsQuery } from "../../queries";
 import {
@@ -31,7 +35,6 @@ import {
   OrderUrlDialog,
   OrderUrlQueryParams
 } from "../../urls";
-import OrderAddressFields from "./OrderAddressFields";
 import { OrderDetailsMessages } from "./OrderDetailsMessages";
 import { OrderDraftDetails } from "./OrderDraftDetails";
 import { OrderNormalDetails } from "./OrderNormalDetails";
@@ -244,7 +247,11 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           }
 
           const update = createMetadataUpdateHandler(
-            order,
+            {
+              id: order.token,
+              metadata: order.metadata,
+              privateMetadata: order.privateMetadata
+            },
             () => Promise.resolve([]),
             variables => updateMetadata({ variables }),
             variables => updatePrivateMetadata({ variables })
@@ -290,6 +297,23 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 onDraftCancel={orderMessages.handleDraftCancel}
                 onOrderMarkAsPaid={orderMessages.handleOrderMarkAsPaid}
                 onInvoiceRequest={(data: InvoiceRequest) => {
+                  if (
+                    data.invoiceRequest.errors.some(
+                      err => err.code === InvoiceErrorCode.NO_INVOICE_PLUGIN
+                    )
+                  ) {
+                    notify({
+                      title: intl.formatMessage({
+                        defaultMessage: "Could not generate invoice",
+                        description: "snackbar title"
+                      }),
+                      text: intl.formatMessage({
+                        defaultMessage: "No invoice plugin installed",
+                        description: "error message"
+                      }),
+                      status: "error"
+                    });
+                  }
                   if (
                     data.invoiceRequest.invoice.status === JobStatusEnum.SUCCESS
                   ) {
@@ -338,6 +362,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                         handleSubmit={handleSubmit}
                         handleDpdPackageCreate={handleDpdPackageCreateSubmit}
                         onParcelLabelDownload={handleLabelDownloadOnButton}
+                        orderUpdate={orderUpdate}
                         orderCancel={orderCancel}
                         orderPaymentMarkAsPaid={orderPaymentMarkAsPaid}
                         orderVoid={orderVoid}
@@ -382,6 +407,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                         orderLineDelete={orderLineDelete}
                         orderInvoiceRequest={orderInvoiceRequest}
                         handleSubmit={handleSubmit}
+                        orderUpdate={orderUpdate}
                         orderCancel={orderCancel}
                         orderShippingMethodUpdate={orderShippingMethodUpdate}
                         orderLinesAdd={orderLinesAdd}
@@ -399,15 +425,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                         closeModal={closeModal}
                       />
                     )}
-                    <OrderAddressFields
-                      isDraft={order?.status === OrderStatus.DRAFT}
-                      orderUpdate={orderUpdate}
-                      orderDraftUpdate={orderDraftUpdate}
-                      data={data}
-                      id={id}
-                      onClose={closeModal}
-                      action={params.action}
-                    />
                   </>
                 )}
               </OrderOperations>

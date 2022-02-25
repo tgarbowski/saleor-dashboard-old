@@ -1,10 +1,13 @@
-import { Button, CardActions } from "@material-ui/core";
+import { CardActions } from "@material-ui/core";
+import { Button } from "@saleor/macaw-ui";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import courierIcon from "@assets/images/courier.svg";
 import SVG from "react-inlinesvg";
 import { actionButtonsMessages } from "./messages";
+
+import useStyles from "./styles";
 
 interface AcionButtonsProps {
   classes: any;
@@ -22,7 +25,6 @@ const statusesToShow = [
 ];
 
 const ActionButtons: React.FC<AcionButtonsProps> = ({
-  classes,
   status,
   onTrackingCodeAdd,
   trackingNumber,
@@ -30,6 +32,8 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
   onParcelLabelDownload,
   onRefund
 }) => {
+  const classes = useStyles();
+
   const hasTrackingNumber = !!trackingNumber;
 
   if (!statusesToShow.includes(status)) {
@@ -38,8 +42,8 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
 
   if (status === FulfillmentStatus.RETURNED) {
     return (
-      <CardActions>
-        <Button color="primary" onClick={onRefund}>
+      <CardActions className={classes.actions}>
+        <Button variant="primary" onClick={onRefund}>
           <FormattedMessage
             defaultMessage="Refund"
             description="refund button"
@@ -50,8 +54,8 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
   }
 
   return hasTrackingNumber ? (
-    <CardActions>
-      <Button color="primary" onClick={onParcelLabelDownload}>
+    <CardActions className={classes.actions}>
+      <Button variant="primary" onClick={onParcelLabelDownload}>
         <FormattedMessage
           defaultMessage="Download tracking label"
           description="Download tracking label"
@@ -66,8 +70,8 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
       </Button>
     </CardActions>
   ) : (
-    <CardActions>
-      <Button color="primary" onClick={onParcelDetails}>
+    <CardActions className={classes.actions}>
+      <Button variant="primary" onClick={onParcelDetails}>
         <SVG className={classes.menuIcon} src={courierIcon} />{" "}
         <FormattedMessage {...actionButtonsMessages.addTracking} />
       </Button>

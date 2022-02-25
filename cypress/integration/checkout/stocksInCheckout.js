@@ -1,24 +1,27 @@
+// / <reference types="cypress"/>
+// / <reference types="../../support"/>
+
 import faker from "faker";
 
 import {
   addProductsToCheckout,
   createCheckout
-} from "../../apiRequests/Checkout";
-import { getVariants } from "../../apiRequests/Product";
-import filterTests from "../../support/filterTests";
-import { getDefaultChannel } from "../../utils/channelsUtils";
-import { createOrderWithNewProduct } from "../../utils/ordersUtils";
+} from "../../support/api/requests/Checkout";
+import { getVariants } from "../../support/api/requests/Product";
+import { getDefaultChannel } from "../../support/api/utils/channelsUtils";
+import { createOrderWithNewProduct } from "../../support/api/utils/ordersUtils";
 import {
   createProductInChannel,
   createTypeAttributeAndCategoryForProduct,
   deleteProductsStartsWith
-} from "../../utils/products/productsUtils";
+} from "../../support/api/utils/products/productsUtils";
 import {
   createShipping,
   deleteShippingStartsWith
-} from "../../utils/shippingUtils";
+} from "../../support/api/utils/shippingUtils";
+import filterTests from "../../support/filterTests";
 
-filterTests(["all", "critical"], () => {
+filterTests({ definedTags: ["all", "critical"] }, () => {
   describe("Products stocks in checkout", () => {
     const startsWith = "CyStocksCheckout-";
     const name = `${startsWith}${faker.datatype.number()}`;
@@ -55,7 +58,7 @@ filterTests(["all", "critical"], () => {
           }) => {
             warehouse = warehouseResp;
             shippingMethod = shippingMethodResp;
-            createTypeAttributeAndCategoryForProduct(name);
+            createTypeAttributeAndCategoryForProduct({ name });
           }
         )
         .then(
@@ -80,7 +83,7 @@ filterTests(["all", "critical"], () => {
         channel: defaultChannel,
         name: productName,
         warehouseId: warehouse.id,
-        shippingMethodId: shippingMethod.id,
+        shippingMethod,
         address
       }).then(({ order }) => {
         expect(order, "order should be created").to.be.ok;
@@ -134,7 +137,7 @@ filterTests(["all", "critical"], () => {
         warehouseId: warehouse.id,
         quantityInWarehouse: 0,
         trackInventory: false,
-        shippingMethodId: shippingMethod.id,
+        shippingMethod,
         address
       }).then(({ order }) => {
         expect(order, "order should be created").to.be.ok;
@@ -153,7 +156,7 @@ filterTests(["all", "critical"], () => {
         warehouseId: warehouse.id,
         quantityInWarehouse: 10,
         trackInventory: true,
-        shippingMethodId: shippingMethod.id,
+        shippingMethod,
         address
       })
         .then(({ variantsList }) => {

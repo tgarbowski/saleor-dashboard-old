@@ -452,17 +452,19 @@ export interface OrderRefund_orderRefund_order_user {
   email: string;
 }
 
-export interface OrderRefund_orderRefund_order_availableShippingMethods_price {
+export interface OrderRefund_orderRefund_order_shippingMethods_price {
   __typename: "Money";
   amount: number;
   currency: string;
 }
 
-export interface OrderRefund_orderRefund_order_availableShippingMethods {
+export interface OrderRefund_orderRefund_order_shippingMethods {
   __typename: "ShippingMethod";
   id: string;
   name: string;
-  price: OrderRefund_orderRefund_order_availableShippingMethods_price | null;
+  price: OrderRefund_orderRefund_order_shippingMethods_price;
+  active: boolean;
+  message: string | null;
 }
 
 export interface OrderRefund_orderRefund_order_invoices {
@@ -474,6 +476,11 @@ export interface OrderRefund_orderRefund_order_invoices {
   status: JobStatusEnum;
 }
 
+export interface OrderRefund_orderRefund_order_channel_defaultCountry {
+  __typename: "CountryDisplay";
+  code: string;
+}
+
 export interface OrderRefund_orderRefund_order_channel {
   __typename: "Channel";
   isActive: boolean;
@@ -481,11 +488,13 @@ export interface OrderRefund_orderRefund_order_channel {
   name: string;
   currencyCode: string;
   slug: string;
+  defaultCountry: OrderRefund_orderRefund_order_channel_defaultCountry;
 }
 
 export interface OrderRefund_orderRefund_order {
   __typename: "Order";
   id: string;
+  token: string;
   metadata: (OrderRefund_orderRefund_order_metadata | null)[];
   privateMetadata: (OrderRefund_orderRefund_order_privateMetadata | null)[];
   billingAddress: OrderRefund_orderRefund_order_billingAddress | null;
@@ -512,7 +521,7 @@ export interface OrderRefund_orderRefund_order {
   undiscountedTotal: OrderRefund_orderRefund_order_undiscountedTotal;
   user: OrderRefund_orderRefund_order_user | null;
   userEmail: string | null;
-  availableShippingMethods: (OrderRefund_orderRefund_order_availableShippingMethods | null)[] | null;
+  shippingMethods: OrderRefund_orderRefund_order_shippingMethods[];
   invoices: (OrderRefund_orderRefund_order_invoices | null)[] | null;
   channel: OrderRefund_orderRefund_order_channel;
   isPaid: boolean;

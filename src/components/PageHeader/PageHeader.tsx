@@ -8,7 +8,7 @@ import Skeleton from "../Skeleton";
 const useStyles = makeStyles(
   theme => ({
     limit: {
-      marginRight: theme.spacing(3)
+      marginRight: theme.spacing(4)
     },
     root: {
       alignItems: "center",
@@ -27,12 +27,13 @@ const useStyles = makeStyles(
     title: {
       [theme.breakpoints.down("sm")]: {
         fontSize: 20,
-        marginTop: theme.spacing(2),
         padding: 0
       },
-      alignSelf: "flex-start",
+      fontWeight: 700,
       flex: 1,
-      fontSize: 24
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis"
     }
   }),
   { name: "PageHeader" }
@@ -44,10 +45,11 @@ interface PageHeaderProps {
   inline?: boolean;
   limitText?: string;
   title?: React.ReactNode;
+  cardMenu?: React.ReactNode;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = props => {
-  const { children, className, inline, limitText, title } = props;
+  const { children, className, inline, limitText, title, cardMenu } = props;
 
   const classes = useStyles(props);
 
@@ -57,9 +59,16 @@ const PageHeader: React.FC<PageHeaderProps> = props => {
       className={className}
       inline={inline}
       title={
-        <Typography className={classes.title} variant="h5">
-          {title !== undefined ? title : <Skeleton style={{ width: "10em" }} />}
-        </Typography>
+        <>
+          <Typography className={classes.title} variant="h1">
+            {title !== undefined ? (
+              title
+            ) : (
+              <Skeleton style={{ width: "10em" }} />
+            )}
+          </Typography>
+          {cardMenu}
+        </>
       }
     >
       <div className={classes.root}>

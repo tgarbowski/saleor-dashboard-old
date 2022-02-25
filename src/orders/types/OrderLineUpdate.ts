@@ -452,17 +452,19 @@ export interface OrderLineUpdate_orderLineUpdate_order_user {
   email: string;
 }
 
-export interface OrderLineUpdate_orderLineUpdate_order_availableShippingMethods_price {
+export interface OrderLineUpdate_orderLineUpdate_order_shippingMethods_price {
   __typename: "Money";
   amount: number;
   currency: string;
 }
 
-export interface OrderLineUpdate_orderLineUpdate_order_availableShippingMethods {
+export interface OrderLineUpdate_orderLineUpdate_order_shippingMethods {
   __typename: "ShippingMethod";
   id: string;
   name: string;
-  price: OrderLineUpdate_orderLineUpdate_order_availableShippingMethods_price | null;
+  price: OrderLineUpdate_orderLineUpdate_order_shippingMethods_price;
+  active: boolean;
+  message: string | null;
 }
 
 export interface OrderLineUpdate_orderLineUpdate_order_invoices {
@@ -474,6 +476,11 @@ export interface OrderLineUpdate_orderLineUpdate_order_invoices {
   status: JobStatusEnum;
 }
 
+export interface OrderLineUpdate_orderLineUpdate_order_channel_defaultCountry {
+  __typename: "CountryDisplay";
+  code: string;
+}
+
 export interface OrderLineUpdate_orderLineUpdate_order_channel {
   __typename: "Channel";
   isActive: boolean;
@@ -481,11 +488,13 @@ export interface OrderLineUpdate_orderLineUpdate_order_channel {
   name: string;
   currencyCode: string;
   slug: string;
+  defaultCountry: OrderLineUpdate_orderLineUpdate_order_channel_defaultCountry;
 }
 
 export interface OrderLineUpdate_orderLineUpdate_order {
   __typename: "Order";
   id: string;
+  token: string;
   metadata: (OrderLineUpdate_orderLineUpdate_order_metadata | null)[];
   privateMetadata: (OrderLineUpdate_orderLineUpdate_order_privateMetadata | null)[];
   billingAddress: OrderLineUpdate_orderLineUpdate_order_billingAddress | null;
@@ -512,7 +521,7 @@ export interface OrderLineUpdate_orderLineUpdate_order {
   undiscountedTotal: OrderLineUpdate_orderLineUpdate_order_undiscountedTotal;
   user: OrderLineUpdate_orderLineUpdate_order_user | null;
   userEmail: string | null;
-  availableShippingMethods: (OrderLineUpdate_orderLineUpdate_order_availableShippingMethods | null)[] | null;
+  shippingMethods: OrderLineUpdate_orderLineUpdate_order_shippingMethods[];
   invoices: (OrderLineUpdate_orderLineUpdate_order_invoices | null)[] | null;
   channel: OrderLineUpdate_orderLineUpdate_order_channel;
   isPaid: boolean;

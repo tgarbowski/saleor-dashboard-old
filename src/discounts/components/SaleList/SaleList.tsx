@@ -8,6 +8,8 @@ import Skeleton from "@saleor/components/Skeleton";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
+import TooltipTableCellHeader from "@saleor/components/TooltipTableCellHeader";
+import { commonTooltipMessages } from "@saleor/components/TooltipTableCellHeader/messages";
 import { SaleListUrlSortField } from "@saleor/discounts/urls";
 import { canBeSorted } from "@saleor/discounts/views/SaleList/sort";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -15,8 +17,9 @@ import { maybe, renderCollection } from "@saleor/misc";
 import { ChannelProps, ListActions, ListProps, SortPage } from "@saleor/types";
 import { SaleType } from "@saleor/types/globalTypes";
 import { getArrowDirection } from "@saleor/utils/sort";
+import classNames from "classnames";
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { SaleList_sales_edges_node } from "../../types/SaleList";
 
@@ -56,12 +59,14 @@ const useStyles = makeStyles(
     },
     tableRow: {
       cursor: "pointer"
+    },
+    textOverflow: {
+      textOverflow: "ellipsis",
+      overflow: "hidden"
     }
   }),
   { name: "SaleList" }
 );
-
-const numberOfColumns = 5;
 
 const SaleList: React.FC<SaleListProps> = props => {
   const {
@@ -80,10 +85,13 @@ const SaleList: React.FC<SaleListProps> = props => {
     sort,
     toggle,
     toggleAll,
-    toolbar
+    toolbar,
+    filterDependency
   } = props;
 
   const classes = useStyles(props);
+  const intl = useIntl();
+  const numberOfColumns = sales?.length === 0 ? 4 : 5;
 
   return (
     <ResponsiveTable>
@@ -134,7 +142,7 @@ const SaleList: React.FC<SaleListProps> = props => {
         >
           <FormattedMessage defaultMessage="Ends" description="sale end date" />
         </TableCellHeader>
-        <TableCellHeader
+        <TooltipTableCellHeader
           direction={
             sort.sort === SaleListUrlSortField.value
               ? getArrowDirection(sort.asc)
@@ -145,10 +153,13 @@ const SaleList: React.FC<SaleListProps> = props => {
           disabled={
             !canBeSorted(SaleListUrlSortField.value, !!selectedChannelId)
           }
+          tooltip={intl.formatMessage(commonTooltipMessages.noFilterSelected, {
+            filterName: filterDependency.label
+          })}
           className={classes.colValue}
         >
           <FormattedMessage defaultMessage="Value" description="sale value" />
-        </TableCellHeader>
+        </TooltipTableCellHeader>
       </TableHead>
       <TableFooter>
         <TableRow>
@@ -189,7 +200,9 @@ const SaleList: React.FC<SaleListProps> = props => {
                     onChange={() => toggle(sale.id)}
                   />
                 </TableCell>
-                <TableCell className={classes.colName}>
+                <TableCell
+                  className={classNames(classes.colName, classes.textOverflow)}
+                >
                   {maybe<React.ReactNode>(() => sale.name, <Skeleton />)}
                 </TableCell>
                 <TableCell className={classes.colStart}>

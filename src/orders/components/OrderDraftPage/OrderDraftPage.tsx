@@ -1,7 +1,6 @@
 import { Typography } from "@material-ui/core";
 import CardMenu from "@saleor/components/CardMenu";
 import CardSpacer from "@saleor/components/CardSpacer";
-import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import { Container } from "@saleor/components/Container";
 import { DateTime } from "@saleor/components/Date";
 import Grid from "@saleor/components/Grid";
@@ -9,6 +8,7 @@ import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
 import Skeleton from "@saleor/components/Skeleton";
 import { sectionNames } from "@saleor/intl";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Backlink } from "@saleor/macaw-ui";
 import { makeStyles } from "@saleor/macaw-ui";
 import DraftOrderChannelSectionCard from "@saleor/orders/components/DraftOrderChannelSectionCard";
@@ -100,19 +100,20 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
         className={classes.header}
         inline
         title={order?.number ? "#" + order?.number : undefined}
-      >
-        <CardMenu
-          menuItems={[
-            {
-              label: intl.formatMessage({
-                defaultMessage: "Cancel order",
-                description: "button"
-              }),
-              onSelect: onDraftRemove
-            }
-          ]}
-        />
-      </PageHeader>
+        cardMenu={
+          <CardMenu
+            menuItems={[
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Cancel order",
+                  description: "button"
+                }),
+                onSelect: onDraftRemove
+              }
+            ]}
+          />
+        }
+      />
       <div className={classes.date}>
         {order && order.created ? (
           <Typography variant="body2">
@@ -139,7 +140,7 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
         </div>
         <div>
           <OrderCustomer
-            canEditAddresses={true}
+            canEditAddresses={!!order?.user}
             canEditCustomer={true}
             fetchUsers={fetchUsers}
             hasMore={hasMore}

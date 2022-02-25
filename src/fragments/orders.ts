@@ -182,6 +182,7 @@ export const fragmentOrderDetails = gql`
   ${fragmentMoney}
   fragment OrderDetailsFragment on Order {
     id
+    token
     ...MetadataFragment
     billingAddress {
       ...AddressFragment
@@ -264,12 +265,14 @@ export const fragmentOrderDetails = gql`
       email
     }
     userEmail
-    availableShippingMethods {
+    shippingMethods {
       id
       name
       price {
         ...Money
       }
+      active
+      message
     }
     invoices {
       ...InvoiceFragment
@@ -280,6 +283,9 @@ export const fragmentOrderDetails = gql`
       name
       currencyCode
       slug
+      defaultCountry {
+        code
+      }
     }
     isPaid
   }

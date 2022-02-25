@@ -188,11 +188,13 @@ function getFileInput(
   if (updatedFileAttribute) {
     return {
       file: updatedFileAttribute.file,
-      id: updatedFileAttribute.id
+      id: updatedFileAttribute.id,
+      contentType: updatedFileAttribute.contentType
     };
   }
   return {
     file: attribute.data.selectedValues?.[0]?.file?.url,
+    contentType: attribute.data.selectedValues?.[0]?.file.contentType,
     id: attribute.id
   };
 }
@@ -305,7 +307,8 @@ export const handleDeleteMultipleAttributeValues = async (
 
       if (fileValueUnused) {
         return deleteAttributeValue({
-          id: existingAttribute.values[0].id
+          id: existingAttribute.values[0].id,
+          firstValues: 20
         });
       }
     })
