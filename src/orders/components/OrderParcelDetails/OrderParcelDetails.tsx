@@ -18,9 +18,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TextField from "@material-ui/core/TextField";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CardTitle from "@saleor/components/CardTitle";
-import ConfirmButton, {
-  ConfirmButtonTransitionState
-} from "@saleor/components/ConfirmButton";
+import ConfirmButton from "@saleor/components/ConfirmButton";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import Form from "@saleor/components/Form";
 import { nameInputPrefix, nameSeparator } from "@saleor/components/Metadata";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
@@ -447,7 +446,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
               <ConfirmButton
                 transitionState={confirmButtonState}
                 color="primary"
-                variant="contained"
                 type="submit"
               >
                 <FormattedMessage {...buttonMessages.confirm} />

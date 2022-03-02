@@ -219,7 +219,6 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
         <ConfirmButton
           transitionState={params}
           color="primary"
-          variant="contained"
           onClick={() =>
             updatePrivateMetadata({
               variables: {

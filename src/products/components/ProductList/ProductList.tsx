@@ -10,7 +10,7 @@ import WarningIcon from "@material-ui/icons/Warning";
 import AvailabilityStatusLabel from "@saleor/components/AvailabilityStatusLabel";
 import { ChannelsAvailabilityDropdown } from "@saleor/components/ChannelsAvailabilityDropdown";
 import Checkbox from "@saleor/components/Checkbox";
-import Date from "@saleor/components/Date";
+import { Date as SaleorDate } from "@saleor/components/Date";
 import MoneyRange from "@saleor/components/MoneyRange";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
@@ -61,7 +61,6 @@ const useStyles = makeStyles(
         width: 200
       },
       colCreatedAt: {
-      colDate: {
         width: 200
       }
     },
@@ -577,7 +576,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                   >
                     <TableCell className={classes.colDate} data-test-id="date">
                       {product?.updatedAt ? (
-                        <Date date={product.updatedAt} />
+                        <SaleorDate date={product.updatedAt} />
                       ) : (
                         <Skeleton />
                       )}

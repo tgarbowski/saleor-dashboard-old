@@ -77,8 +77,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
         wmsDocumentsListUrl({
           ...params,
           ...DEFAULT_INITIAL_PAGINATION_DATA
-        }),
-        true
+        })
       ),
     [settings.rowNumber]
   );

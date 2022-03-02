@@ -9,7 +9,6 @@ import {
   createFetchMoreReferencesHandler,
   createFetchReferencesHandler
 } from "@saleor/attributes/utils/handlers";
-import { getTokens } from "@saleor/auth";
 import { ChannelData, ChannelPriceArgs } from "@saleor/channels/utils";
 import {
   AttributeInput,
@@ -393,10 +392,7 @@ const ProductCreateForm: React.FC<ProductCreateFormProps> = ({
   ...rest
 }) => {
   const { ...values } = useUserWithMetadata({
-    displayLoader: true,
-    variables: {
-      id: getTokens().id
-    }
+    displayLoader: true
   });
 
   const { data } = useProductVariantsSkus({

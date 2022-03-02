@@ -62,7 +62,7 @@ export const ProductImage: React.FC<ProductMediaProps> = ({
   });
 
   const [retrieveProductImageFromBackup, retrieveStatus] = useProductMediaRetrievefromBackupMutation({
-    onCompleted: () => navigate(productImageUrl(productId, mediaId), true)
+    onCompleted: () => navigate(productImageUrl(productId, mediaId))
   });
 
   const product = data?.product;
@@ -130,7 +130,7 @@ export const ProductImage: React.FC<ProductMediaProps> = ({
       </ActionDialog>
 
       <ActionDialog
-        onClose={() => navigate(productImageUrl(productId, mediaId), true)}
+        onClose={() => navigate(productImageUrl(productId, mediaId))}
         onConfirm={handleImageRetrieveFromBackup}
         open={params.action === "retrieve"}
         title={intl.formatMessage({

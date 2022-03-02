@@ -178,7 +178,6 @@ const ProductBundleContent: React.FC<ProductBundleContentProps> = props => {
           </Button>
           <ConfirmButton
             color="primary"
-            variant="contained"
             onClick={() => {
               on_modal_click();
               closeModal();
