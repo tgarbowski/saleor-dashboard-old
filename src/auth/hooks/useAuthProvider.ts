@@ -98,7 +98,6 @@ export function useAuthProvider({
         returnTo
       } as RequestExternalLogoutInput)
     });
-
     if (isCredentialsManagementAPISupported) {
       navigator.credentials.preventSilentAccess();
     }
@@ -107,9 +106,7 @@ export function useAuthProvider({
     // On next login, user details query will be refetched due to cache-and-network fetch policy.
     apolloClient.clearStore();
 
-    // const errors = result?.errors || [];
-    // TODO: check errors tslint
-    const errors = [];
+    const errors = result?.data?.externalLogout?.errors || [];
 
     const externalLogoutUrl = result
       ? JSON.parse(result.data?.externalLogout?.logoutData || null)?.logoutUrl

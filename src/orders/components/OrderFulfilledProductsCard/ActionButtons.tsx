@@ -71,7 +71,7 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
     </CardActions>
   ) : (
     <CardActions className={classes.actions}>
-      <Button variant="primary" onClick={onParcelDetails}>
+      <Button color="primary" onClick={onParcelDetails}>
         <SVG src={courierIcon} />{" "}
         <FormattedMessage {...actionButtonsMessages.addTracking} />
       </Button>

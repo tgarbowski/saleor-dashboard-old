@@ -130,7 +130,7 @@ export const ProductImage: React.FC<ProductMediaProps> = ({
       </ActionDialog>
 
       <ActionDialog
-        onClose={() => navigate(productImageUrl(productId, mediaId))}
+        onClose={() => navigate(productImageUrl(productId, mediaId), { replace: true })}
         onConfirm={handleImageRetrieveFromBackup}
         open={params.action === "retrieve"}
         title={intl.formatMessage({
