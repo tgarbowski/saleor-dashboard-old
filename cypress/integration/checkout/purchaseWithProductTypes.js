@@ -1,33 +1,40 @@
+// / <reference types="cypress"/>
+// / <reference types="../../support"/>
+
 import faker from "faker";
 
-import { createAttribute } from "../../apiRequests/Attribute";
-import { createCategory } from "../../apiRequests/Category";
+import { createAttribute } from "../../support/api/requests/Attribute";
+import { createCategory } from "../../support/api/requests/Category";
 import {
   checkoutShippingAddressUpdate,
   checkoutShippingMethodUpdate,
   checkoutVariantsUpdate,
   completeCheckout,
   createCheckout
-} from "../../apiRequests/Checkout";
-import { getOrder } from "../../apiRequests/Order";
-import { createTypeProduct } from "../../apiRequests/productType";
-import filterTests from "../../support/filterTests";
-import { getDefaultChannel } from "../../utils/channelsUtils";
+} from "../../support/api/requests/Checkout";
+import { getOrder } from "../../support/api/requests/Order";
+import {
+  createDigitalContent,
+  createTypeProduct
+} from "../../support/api/requests/ProductType";
+import { getDefaultChannel } from "../../support/api/utils/channelsUtils";
 import {
   addPayment,
   createAndCompleteCheckoutWithoutShipping,
   createWaitingForCaptureOrder
-} from "../../utils/ordersUtils";
+} from "../../support/api/utils/ordersUtils";
 import {
+  addDigitalContentAndUpdateProductType,
   createProductInChannel,
   deleteProductsStartsWith
-} from "../../utils/products/productsUtils";
+} from "../../support/api/utils/products/productsUtils";
 import {
   createShipping,
   deleteShippingStartsWith
-} from "../../utils/shippingUtils";
+} from "../../support/api/utils/shippingUtils";
+import filterTests from "../../support/filterTests";
 
-filterTests(["all", "critical"], () => {
+filterTests({ definedTags: ["all", "critical"] }, () => {
   describe("Purchase products with all products types", () => {
     const startsWith = `CyPurchaseByType`;
     const name = `${startsWith}${faker.datatype.number()}`;
@@ -70,7 +77,7 @@ filterTests(["all", "critical"], () => {
       createAttribute({ name })
         .then(attributeResp => {
           attribute = attributeResp;
-          createCategory(name);
+          createCategory({ name });
         })
         .then(categoryResp => {
           category = categoryResp;
@@ -91,6 +98,8 @@ filterTests(["all", "critical"], () => {
 
     it("should purchase digital product", () => {
       const digitalName = `${startsWith}${faker.datatype.number()}`;
+      let variants;
+
       createTypeProduct({
         name: digitalName,
         attributeId: attribute.id,
@@ -102,11 +111,19 @@ filterTests(["all", "critical"], () => {
           createProductInChannel(createProductData);
         })
         .then(({ variantsList }) => {
+          variants = variantsList;
+          addDigitalContentAndUpdateProductType(
+            variants[0].id,
+            createProductData.productTypeId,
+            defaultChannel.id
+          );
+        })
+        .then(() => {
           createAndCompleteCheckoutWithoutShipping({
             channelSlug: defaultChannel.slug,
             email,
             billingAddress: address,
-            variantsList,
+            variantsList: variants,
             auth: "token"
           });
         })
@@ -139,7 +156,7 @@ filterTests(["all", "critical"], () => {
             channelSlug: defaultChannel.slug,
             email,
             variantsList,
-            shippingMethodId: shippingMethod.id,
+            shippingMethodName: shippingMethod.name,
             address
           });
         })
@@ -172,6 +189,9 @@ filterTests(["all", "critical"], () => {
         })
         .then(({ variantsList }) => {
           digitalProductVariantsList = variantsList;
+          createDigitalContent(variantsList[0].id);
+        })
+        .then(() => {
           createCheckout({
             channelSlug: defaultChannel.slug,
             email,
@@ -202,9 +222,9 @@ filterTests(["all", "critical"], () => {
         .then(() => {
           checkoutShippingMethodUpdate(checkout.id, shippingMethod.id);
         })
-        .then(({ checkoutErrors }) => {
+        .then(({ errors }) => {
           expect(
-            checkoutErrors,
+            errors,
             "Should be not possible to add shipping method without shipping address"
           ).to.have.lengthOf(1);
           checkoutShippingAddressUpdate(checkout.id, address);

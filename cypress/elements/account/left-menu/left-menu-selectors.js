@@ -1,5 +1,6 @@
 export const LEFT_MENU_SELECTORS = {
   catalog: "[data-test='menu-item-label'][data-test-id='catalogue']",
+  pages: "[data-test='menu-item-label'][data-test-id='pages']",
   configuration: "[data-test='menu-item-label'][data-test-id='configure']",
   home: "[data-test='menu-item-label'][data-test-id='home']",
   orders: "[data-test='menu-item-label'][data-test-id='orders']",
@@ -14,7 +15,7 @@ export const DISCOUNTS_MENU_SELECTORS = {
 };
 export const ORDERS = {
   orders: "[data-test='submenu-item-label'][data-test-id='orders']",
-  draftOrders: "[data-test='submenu-item-label'][data-test-id='order drafts']"
+  draftOrders: "[data-test='submenu-item-label'][data-test-id='order-drafts']"
 };
 export const CATALOG = {
   products: "[data-test='submenu-item-label'][data-test-id='products']",

@@ -1,8 +1,7 @@
-import { IconButton } from "@material-ui/core";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import ArrowRight from "@material-ui/icons/ArrowRight";
-import { makeStyles, useTheme } from "@saleor/macaw-ui";
+import { IconButton, makeStyles, useTheme } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 
@@ -81,13 +80,14 @@ export const TablePaginationActions: React.FC<TablePaginationActionsProps> = pro
   return (
     <div className={classNames(classes.root, className)} {...other}>
       <IconButton
+        variant="secondary"
         className={classNames(classes.iconButton, {
           [classes.dark]: isDark,
           [classes.disabled]: !hasPreviousPage
         })}
         onClick={onPreviousPage}
         disabled={!hasPreviousPage}
-        data-test="button-pagination-back"
+        data-test-id="button-pagination-back"
         {...backIconButtonProps}
       >
         {direction === "rtl" ? <ArrowRight /> : <ArrowLeft />}
@@ -99,7 +99,7 @@ export const TablePaginationActions: React.FC<TablePaginationActionsProps> = pro
         })}
         onClick={onNextPage}
         disabled={!hasNextPage}
-        data-test="button-pagination-next"
+        data-test-id="button-pagination-next"
         {...nextIconButtonProps}
       >
         {direction === "rtl" ? <ArrowLeft /> : <ArrowRight />}

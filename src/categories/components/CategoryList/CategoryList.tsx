@@ -52,8 +52,6 @@ interface CategoryListProps
   onAdd?();
 }
 
-const numberOfColumns = 4;
-
 const CategoryList: React.FC<CategoryListProps> = props => {
   const {
     categories,
@@ -75,6 +73,7 @@ const CategoryList: React.FC<CategoryListProps> = props => {
   } = props;
 
   const classes = useStyles(props);
+  const numberOfColumns = categories?.length === 0 ? 3 : 4;
 
   return (
     <ResponsiveTable>
@@ -162,8 +161,7 @@ const CategoryList: React.FC<CategoryListProps> = props => {
                 onClick={category ? onRowClick(category.id) : undefined}
                 key={category ? category.id : "skeleton"}
                 selected={isSelected}
-                data-test="id"
-                data-test-id={maybe(() => category.id)}
+                data-test-id={"id-" + maybe(() => category.id)}
               >
                 <TableCell padding="checkbox">
                   <Checkbox
@@ -173,7 +171,7 @@ const CategoryList: React.FC<CategoryListProps> = props => {
                     onChange={() => toggle(category.id)}
                   />
                 </TableCell>
-                <TableCell className={classes.colName} data-test="name">
+                <TableCell className={classes.colName} data-test-id="name">
                   {category && category.name ? category.name : <Skeleton />}
                 </TableCell>
                 <TableCell className={classes.colSubcategories}>

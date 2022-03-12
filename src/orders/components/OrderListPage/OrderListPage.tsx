@@ -1,11 +1,11 @@
-import { Button, Card } from "@material-ui/core";
+import { Card } from "@material-ui/core";
 import CardMenu from "@saleor/components/CardMenu";
 import Container from "@saleor/components/Container";
 import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import { sectionNames } from "@saleor/intl";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Button, makeStyles } from "@saleor/macaw-ui";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
 import { hasLimits, isLimitReached } from "@saleor/utils/limits";
@@ -77,25 +77,26 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
             }
           )
         }
+        cardMenu={
+          !!onSettingsOpen && (
+            <CardMenu
+              className={classes.settings}
+              menuItems={[
+                {
+                  label: intl.formatMessage({
+                    defaultMessage: "Order Settings",
+                    description: "button"
+                  }),
+                  onSelect: onSettingsOpen
+                }
+              ]}
+            />
+          )
+        }
       >
-        {!!onSettingsOpen && (
-          <CardMenu
-            className={classes.settings}
-            menuItems={[
-              {
-                label: intl.formatMessage({
-                  defaultMessage: "Order Settings",
-                  description: "button"
-                }),
-                onSelect: onSettingsOpen
-              }
-            ]}
-          />
-        )}
         <Button
           disabled={limitsReached}
-          color="primary"
-          variant="contained"
+          variant="primary"
           onClick={onAdd}
           data-test-id="create-order-button"
         >

@@ -1,5 +1,6 @@
 import EditorJS, { LogLevels, OutputData } from "@editorjs/editorjs";
 import { FormControl, FormHelperText, InputLabel } from "@material-ui/core";
+import { PromiseQueue } from "@saleor/misc";
 import classNames from "classnames";
 import React from "react";
 
@@ -31,13 +32,13 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const [isFocused, setFocus] = React.useState(false);
   const editor = React.useRef<EditorJS>();
   const editorContainer = React.useRef<HTMLDivElement>();
-  const prevTogglePromise = React.useRef<Promise<boolean>>(); // used to await subsequent toggle invocations
+  const togglePromiseQueue = React.useRef(PromiseQueue()); // used to await subsequent toggle invocations
   const initialMount = React.useRef(true);
 
   React.useEffect(
     () => {
-      if (data !== undefined) {
-        editor.current = new EditorJS({
+      if (data !== undefined && !editor.current) {
+        const editorjs = new EditorJS({
           data,
           holder: editorContainer.current,
           logLevel: "ERROR" as LogLevels,
@@ -50,6 +51,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
             // const undo = new Undo({ editor });
             // undo.initialize(data);
 
+            editor.current = editorjs;
+
             if (onReady) {
               onReady();
             }
@@ -59,7 +62,12 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         });
       }
 
-      return editor.current?.destroy;
+      return () => {
+        if (editor.current) {
+          editor.current.destroy();
+        }
+        editor.current = null;
+      };
     },
     // Rerender editor only if changed from undefined to defined state
     [data === undefined]
@@ -75,15 +83,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       if (editor.current?.readOnly) {
         // readOnly.toggle() by itself does not enqueue the events and will result in a broken output if invocations overlap
         // Remove this logic when this is fixed in EditorJS
-        if (prevTogglePromise.current instanceof Promise) {
-          await prevTogglePromise.current;
-        }
-        prevTogglePromise.current = editor.current.readOnly.toggle(disabled);
+        togglePromiseQueue.current.add(() =>
+          editor.current.readOnly.toggle(disabled)
+        );
 
         // Switching to readOnly with empty blocks present causes the editor to freeze
         // Remove this logic when this is fixed in EditorJS
         if (!disabled && !data?.blocks?.length) {
-          await prevTogglePromise.current;
+          await togglePromiseQueue.current.queue;
           editor.current.clear();
         }
       }
@@ -98,8 +105,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   return (
     <FormControl
-      data-test="richTextEditor"
-      data-test-id={name}
+      data-test-id={"rich-text-editor-" + name}
       disabled={disabled}
       error={error}
       fullWidth

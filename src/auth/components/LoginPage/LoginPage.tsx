@@ -1,56 +1,24 @@
 import {
-  Button,
   CircularProgress,
   Divider,
   TextField,
   Typography
 } from "@material-ui/core";
+import { UserContextError } from "@saleor/auth/types";
 import { AvailableExternalAuthentications_shop_availableExternalAuthentications } from "@saleor/auth/types/AvailableExternalAuthentications";
 import { FormSpacer } from "@saleor/components/FormSpacer";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { commonMessages } from "@saleor/intl";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Button, EyeIcon, IconButton } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import useStyles from "../styles";
 import LoginForm, { LoginFormData } from "./form";
-
-const useStyles = makeStyles(
-  theme => ({
-    buttonContainer: {
-      display: "flex",
-      justifyContent: "flex-end"
-    },
-    link: {
-      color: theme.palette.primary.main,
-      cursor: "pointer",
-      textDecoration: "underline"
-    },
-    loading: {
-      alignItems: "center",
-      display: "flex",
-      minHeight: "80vh",
-      justifyContent: "center"
-    },
-    loginButton: {
-      width: 140
-    },
-    panel: {
-      "& span": {
-        color: theme.palette.error.contrastText
-      },
-      background: theme.palette.error.main,
-      borderRadius: theme.spacing(),
-      marginBottom: theme.spacing(3),
-      padding: theme.spacing(1.5)
-    }
-  }),
-  { name: "LoginCard" }
-);
+import { getErrorMessage } from "./messages";
 
 export interface LoginCardProps {
-  error: boolean;
-  externalError: boolean;
+  error?: UserContextError;
   disabled: boolean;
   loading: boolean;
   externalAuthentications?: AvailableExternalAuthentications_shop_availableExternalAuthentications[];
@@ -62,7 +30,6 @@ export interface LoginCardProps {
 const LoginCard: React.FC<LoginCardProps> = props => {
   const {
     error,
-    externalError,
     disabled,
     loading,
     externalAuthentications = [],
@@ -73,6 +40,7 @@ const LoginCard: React.FC<LoginCardProps> = props => {
 
   const classes = useStyles(props);
   const intl = useIntl();
+  const [showPassword, setShowPassword] = React.useState(false);
 
   if (loading) {
     return (
@@ -84,20 +52,17 @@ const LoginCard: React.FC<LoginCardProps> = props => {
 
   return (
     <LoginForm onSubmit={onSubmit}>
-      {({ change: handleChange, data, submit: handleSubmit }) => (
+      {({ change: handleChange, data, submit }) => (
         <>
+          <Typography variant="h3" className={classes.header}>
+            <FormattedMessage
+              defaultMessage="Sign In"
+              description="card header"
+            />
+          </Typography>
           {error && (
-            <div className={classes.panel} data-test="loginErrorMessage">
-              <Typography variant="caption">
-                <FormattedMessage defaultMessage="Sorry, your username and/or password are incorrect. Please try again." />
-              </Typography>
-            </div>
-          )}
-          {externalError && (
-            <div className={classes.panel} data-test="loginErrorMessage">
-              <Typography variant="caption">
-                <FormattedMessage defaultMessage="Sorry, login went wrong. Please try again." />
-              </Typography>
+            <div className={classes.panel} data-test-id="login-error-message">
+              {getErrorMessage(error, intl)}
             </div>
           )}
           <TextField
@@ -109,57 +74,62 @@ const LoginCard: React.FC<LoginCardProps> = props => {
             onChange={handleChange}
             value={data.email}
             inputProps={{
-              "data-test": "email"
+              "data-test-id": "email"
             }}
             disabled={disabled}
           />
           <FormSpacer />
-          <TextField
-            fullWidth
-            autoComplete="password"
-            label={intl.formatMessage({
-              defaultMessage: "Password"
-            })}
-            name="password"
-            onChange={handleChange}
-            type="password"
-            value={data.password}
-            inputProps={{
-              "data-test": "password"
-            }}
-            disabled={disabled}
-          />
-          <FormSpacer />
+          <div className={classes.passwordWrapper}>
+            <TextField
+              fullWidth
+              autoComplete="password"
+              label={intl.formatMessage({
+                defaultMessage: "Password"
+              })}
+              name="password"
+              onChange={handleChange}
+              type={showPassword ? "text" : "password"}
+              value={data.password}
+              inputProps={{
+                "data-test-id": "password"
+              }}
+              disabled={disabled}
+            />
+            {/* Not using endAdornment as it looks weird with autocomplete */}
+            <IconButton
+              className={classes.showPasswordBtn}
+              variant="secondary"
+              hoverOutline={false}
+              onMouseDown={() => setShowPassword(true)}
+              onMouseUp={() => setShowPassword(false)}
+            >
+              <EyeIcon />
+            </IconButton>
+          </div>
+          <Typography
+            component="a"
+            className={classes.link}
+            onClick={onPasswordRecovery}
+            variant="body2"
+          >
+            <FormattedMessage
+              defaultMessage="Forgot password?"
+              description="description"
+            />
+          </Typography>
           <div className={classes.buttonContainer}>
             <Button
               className={classes.loginButton}
-              color="primary"
               disabled={disabled}
-              variant="contained"
-              onClick={handleSubmit}
+              variant="primary"
+              onClick={submit}
               type="submit"
-              data-test="submit"
+              data-test-id="submit"
             >
-              <FormattedMessage defaultMessage="Login" description="button" />
+              <FormattedMessage defaultMessage="Sign in" description="button" />
             </Button>
           </div>
-          <FormSpacer />
-          <Typography>
-            <FormattedMessage
-              defaultMessage="Forgot password? {resetPasswordLink}"
-              description="description"
-              values={{
-                resetPasswordLink: (
-                  <a className={classes.link} onClick={onPasswordRecovery}>
-                    <FormattedMessage
-                      defaultMessage="Use this link to recover it"
-                      description="link"
-                    />
-                  </a>
-                )
-              }}
-            />
-          </Typography>
+
           {externalAuthentications.length > 0 && (
             <>
               <FormSpacer />
@@ -177,14 +147,12 @@ const LoginCard: React.FC<LoginCardProps> = props => {
             <React.Fragment key={externalAuthentication.id}>
               <FormSpacer />
               <Button
-                color="primary"
                 fullWidth
-                variant="outlined"
-                size="large"
+                variant="secondary"
                 onClick={() =>
                   onExternalAuthentication(externalAuthentication.id)
                 }
-                data-test="external-authentication"
+                data-test-id="external-authentication"
                 disabled={disabled}
               >
                 {externalAuthentication.name}

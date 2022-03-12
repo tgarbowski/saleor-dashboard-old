@@ -1,5 +1,4 @@
 import {
-  Button,
   Checkbox,
   CircularProgress,
   Dialog,
@@ -12,23 +11,26 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
+import BackButton from "@saleor/components/BackButton";
 import CardSpacer from "@saleor/components/CardSpacer";
-import ConfirmButton, {
-  ConfirmButtonTransitionState
-} from "@saleor/components/ConfirmButton";
+import ConfirmButton from "@saleor/components/ConfirmButton";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
-import useElementScroll from "@saleor/hooks/useElementScroll";
+import useElementScroll, {
+  isScrolledToBottom
+} from "@saleor/hooks/useElementScroll";
 import useSearchQuery from "@saleor/hooks/useSearchQuery";
 import { buttonMessages } from "@saleor/intl";
-import { makeStyles } from "@saleor/macaw-ui";
-import { getUserInitials, getUserName } from "@saleor/misc";
+import { ConfirmButtonTransitionState, makeStyles } from "@saleor/macaw-ui";
+import { getUserInitials, getUserName, renderCollection } from "@saleor/misc";
 import { SearchStaffMembers_search_edges_node } from "@saleor/searches/types/SearchStaffMembers";
 import { DialogProps, FetchMoreProps, SearchPageProps } from "@saleor/types";
 import classNames from "classnames";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FormattedMessage, useIntl } from "react-intl";
+
+import { messages } from "./messages";
 
 const useStyles = makeStyles(
   theme => ({
@@ -74,7 +76,9 @@ const useStyles = makeStyles(
     colName: {
       paddingLeft: theme.spacing()
     },
-
+    dialogPaper: {
+      overflow: "hidden"
+    },
     dropShadow: {
       boxShadow: `0px -5px 10px 0px ${theme.palette.divider}`
     },
@@ -161,31 +165,28 @@ const AssignMembersDialog: React.FC<AssignMembersDialogProps> = ({
 
   const anchor = React.useRef<HTMLDivElement>();
   const scrollPosition = useElementScroll(anchor);
-  const dropShadow =
-    anchor.current && scrollPosition
-      ? scrollPosition.y + anchor.current.clientHeight <
-        anchor.current.scrollHeight
-      : false;
+  const dropShadow = !isScrolledToBottom(anchor, scrollPosition);
 
   return (
-    <Dialog onClose={onClose} open={open} maxWidth="sm" fullWidth>
+    <Dialog
+      onClose={onClose}
+      open={open}
+      maxWidth="sm"
+      fullWidth
+      classes={{
+        paper: classes.dialogPaper
+      }}
+    >
       <DialogTitle>
-        <FormattedMessage
-          defaultMessage="Assign Staff Members"
-          description="dialog header"
-        />
+        <FormattedMessage {...messages.title} />
       </DialogTitle>
       <DialogContent className={classes.inputContainer}>
         <TextField
           name="query"
           value={query}
           onChange={onQueryChange}
-          label={intl.formatMessage({
-            defaultMessage: "Search Staff Members"
-          })}
-          placeholder={intl.formatMessage({
-            defaultMessage: "Search by name, email, etc..."
-          })}
+          label={intl.formatMessage(messages.searchInputLabel)}
+          placeholder={intl.formatMessage(messages.searchInputPlaceholder)}
           fullWidth
           InputProps={{
             autoComplete: "off",
@@ -194,9 +195,13 @@ const AssignMembersDialog: React.FC<AssignMembersDialogProps> = ({
           disabled={disabled}
         />
       </DialogContent>
-      <DialogContent className={classes.scrollArea} id={scrollableTargetId}>
+      <DialogContent
+        className={classes.scrollArea}
+        ref={anchor}
+        id={scrollableTargetId}
+      >
         <InfiniteScroll
-          dataLength={staffMembers?.length}
+          dataLength={staffMembers?.length || 0}
           next={onFetchMore}
           hasMore={hasMore}
           scrollThreshold="100px"
@@ -212,14 +217,18 @@ const AssignMembersDialog: React.FC<AssignMembersDialogProps> = ({
         >
           <ResponsiveTable className={classes.table}>
             <TableBody>
-              {staffMembers &&
-                staffMembers.map(member => {
+              {renderCollection(
+                staffMembers,
+                member => {
+                  if (!member) {
+                    return null;
+                  }
                   const isSelected = selectedMembers.some(
                     selectedMember => selectedMember.id === member.id
                   );
 
                   return (
-                    <TableRow key={member.id} data-test-id="userRow">
+                    <TableRow key={member.id} data-test-id="user-row">
                       <TableCell
                         padding="checkbox"
                         className={classes.checkboxCell}
@@ -261,15 +270,9 @@ const AssignMembersDialog: React.FC<AssignMembersDialogProps> = ({
                         >
                           {!!member ? (
                             member.isActive ? (
-                              intl.formatMessage({
-                                defaultMessage: "Active",
-                                description: "staff member status"
-                              })
+                              intl.formatMessage(messages.staffActive)
                             ) : (
-                              intl.formatMessage({
-                                defaultMessage: "Inactive",
-                                description: "staff member status"
-                              })
+                              intl.formatMessage(messages.staffInactive)
                             )
                           ) : (
                             <Skeleton />
@@ -278,7 +281,16 @@ const AssignMembersDialog: React.FC<AssignMembersDialogProps> = ({
                       </TableCell>
                     </TableRow>
                   );
-                })}
+                },
+                () =>
+                  !loading && (
+                    <TableRow>
+                      <TableCell colSpan={2}>
+                        <FormattedMessage {...messages.noMembersFound} />
+                      </TableCell>
+                    </TableRow>
+                  )
+              )}
             </TableBody>
           </ResponsiveTable>
         </InfiniteScroll>
@@ -288,20 +300,16 @@ const AssignMembersDialog: React.FC<AssignMembersDialogProps> = ({
           [classes.dropShadow]: dropShadow
         })}
       >
-        <Button onClick={onClose}>
-          <FormattedMessage {...buttonMessages.back} />
-        </Button>
+        <BackButton onClick={onClose} />
         <ConfirmButton
-          data-test="submit"
-          color="primary"
-          variant="contained"
+          data-test-id="submit"
           type="submit"
           transitionState={confirmButtonState}
           onClick={() => {
             onSubmit(selectedMembers);
           }}
         >
-          <FormattedMessage defaultMessage="Assign" description="button" />
+          <FormattedMessage {...buttonMessages.assign} />
         </ConfirmButton>
       </DialogActions>
     </Dialog>

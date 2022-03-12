@@ -1,10 +1,7 @@
-import { IconButton } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
 } from "@saleor/components/SaveFilterTabDialog";
-import { DEFAULT_INITIAL_PAGINATION_DATA } from "@saleor/config";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
@@ -14,6 +11,7 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import { commonMessages } from "@saleor/intl";
+import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
 import useProductTypeDelete from "@saleor/productTypes/hooks/useProductTypeDelete";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -69,13 +67,7 @@ export const ProductTypeList: React.FC<ProductTypeListProps> = ({ params }) => {
   const { settings } = useListSettings(ListViews.PRODUCT_LIST);
   const intl = useIntl();
 
-  usePaginationReset(
-    productTypeListUrl({
-      ...params,
-      ...DEFAULT_INITIAL_PAGINATION_DATA
-    }),
-    settings.rowNumber
-  );
+  usePaginationReset(productTypeListUrl, params, settings.rowNumber);
 
   const paginationState = createPaginationState(settings.rowNumber, params);
   const queryVariables = React.useMemo(
@@ -212,6 +204,7 @@ export const ProductTypeList: React.FC<ProductTypeListProps> = ({ params }) => {
               toggleAll={toggleAll}
               toolbar={
                 <IconButton
+                  variant="secondary"
                   color="primary"
                   onClick={() =>
                     openModal("remove", {

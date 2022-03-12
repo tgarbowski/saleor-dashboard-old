@@ -1,9 +1,7 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
 import AccountPermissionGroups from "@saleor/components/AccountPermissionGroups";
-import AccountStatus from "@saleor/components/AppStatus";
 import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
-import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
@@ -15,9 +13,11 @@ import { SubmitPromise } from "@saleor/hooks/useForm";
 import useLocale from "@saleor/hooks/useLocale";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { sectionNames } from "@saleor/intl";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Backlink } from "@saleor/macaw-ui";
 import { getUserName } from "@saleor/misc";
 import { SearchPermissionGroups_search_edges_node } from "@saleor/searches/types/SearchPermissionGroups";
+import UserStatus from "@saleor/staff/components/UserStatus";
 import { FetchMoreProps, SearchPageProps } from "@saleor/types";
 import createMultiAutocompleteSelectHandler from "@saleor/utils/handlers/multiAutocompleteSelectChangeHandler";
 import React from "react";
@@ -27,6 +27,8 @@ import { StaffMemberDetails_user } from "../../types/StaffMemberDetails";
 import StaffPassword from "../StaffPassword/StaffPassword";
 import StaffPreferences from "../StaffPreferences";
 import StaffProperties from "../StaffProperties/StaffProperties";
+import { staffDetailsPageMessages as messages } from "./messages";
+import useStyles from "./styles";
 
 export interface StaffDetailsFormData {
   email: string;
@@ -76,6 +78,7 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
   staffMember
 }: StaffDetailsPageProps) => {
   const intl = useIntl();
+  const classes = useStyles();
   const { locale, setLocale } = useLocale();
   const [
     permissionGroupsDisplayValues,
@@ -134,7 +137,7 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
                   </>
                 )}
               </div>
-              <div>
+              <div className={classes.noOverflow}>
                 {canEditPreferences && (
                   <StaffPreferences
                     locale={locale}
@@ -143,6 +146,13 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
                 )}
                 {canEditStatus && (
                   <>
+                    <UserStatus
+                      data={formData}
+                      disabled={disabled}
+                      label={intl.formatMessage(messages.userStatusActive)}
+                      onChange={change}
+                    />
+                    <CardSpacer />
                     <Card>
                       <CardTitle
                         title={intl.formatMessage({
@@ -171,16 +181,6 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
                         />
                       </CardContent>
                     </Card>
-                    <CardSpacer />
-                    <AccountStatus
-                      data={formData}
-                      disabled={disabled}
-                      label={intl.formatMessage({
-                        defaultMessage: "User is active",
-                        description: "checkbox label"
-                      })}
-                      onChange={change}
-                    />
                   </>
                 )}
               </div>

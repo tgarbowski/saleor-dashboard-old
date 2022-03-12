@@ -1,13 +1,10 @@
 import {
-  Button,
   Card,
-  IconButton,
   TableBody,
   TableCell,
   TableHead,
   TableRow
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Container from "@saleor/components/Container";
 import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
 import PageHeader from "@saleor/components/PageHeader";
@@ -16,7 +13,7 @@ import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/Refresh
 import Skeleton from "@saleor/components/Skeleton";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { sectionNames } from "@saleor/intl";
-import { Backlink } from "@saleor/macaw-ui";
+import { Backlink, Button, DeleteIcon, IconButton } from "@saleor/macaw-ui";
 import { renderCollection, stopPropagation } from "@saleor/misc";
 import { hasLimits, isLimitReached } from "@saleor/utils/limits";
 import React from "react";
@@ -73,9 +70,8 @@ export const ChannelsListPage: React.FC<ChannelsListPageProps> = ({
         <Button
           disabled={limitReached}
           onClick={navigateToChannelCreate}
-          color="primary"
-          variant="contained"
-          data-test="add-channel"
+          variant="primary"
+          data-test-id="add-channel"
         >
           <FormattedMessage
             defaultMessage="Create Channel"
@@ -122,13 +118,14 @@ export const ChannelsListPage: React.FC<ChannelsListPageProps> = ({
                   onClick={!!channel ? onRowClick(channel.id) : undefined}
                 >
                   <TableCell className={classes.colName}>
-                    <span data-test="name">
+                    <span data-test-id="name">
                       {channel?.name || <Skeleton />}
                     </span>
                   </TableCell>
                   <TableCell className={classes.colAction}>
                     {channelsList?.length > 1 && (
                       <IconButton
+                        variant="secondary"
                         color="primary"
                         onClick={
                           channel

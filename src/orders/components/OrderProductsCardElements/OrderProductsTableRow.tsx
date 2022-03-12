@@ -17,31 +17,22 @@ import { orderProductsCardElementsMessages as messages } from "./messages";
 
 const useStyles = makeStyles(
   theme => ({
-    clickableRow: {
-      cursor: "pointer"
-    },
-    colName: {
-      width: "auto"
-    },
+    colName: {},
     colNameLabel: {
       marginLeft: AVATAR_MARGIN
     },
     colPrice: {
-      textAlign: "right",
-      width: 120
+      textAlign: "right"
     },
     colQuantity: {
-      textAlign: "center",
-      width: 120
+      textAlign: "center"
     },
     colSku: {
       textAlign: "right",
-      textOverflow: "ellipsis",
-      width: 120
+      textOverflow: "ellipsis"
     },
     colTotal: {
-      textAlign: "right",
-      width: 120
+      textAlign: "right"
     },
     infoLabel: {
       display: "inline-block"
@@ -58,9 +49,6 @@ const useStyles = makeStyles(
     },
     statusBar: {
       paddingTop: 0
-    },
-    table: {
-      tableLayout: "fixed"
     }
   }),
   { name: "TableLine" }
@@ -99,7 +87,7 @@ const TableLine: React.FC<TableLineProps> = ({
   const isDeleted = !line.orderLine.variant;
 
   return (
-    <TableRow className={classes.clickableRow} hover key={line.id}>
+    <TableRow>
       <TableCellAvatar
         className={classes.colName}
         thumbnail={maybe(() => line.orderLine.thumbnail.url)}

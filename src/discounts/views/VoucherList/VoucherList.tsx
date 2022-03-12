@@ -1,5 +1,4 @@
-import { DialogContentText, IconButton } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { DialogContentText } from "@material-ui/core";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
@@ -7,7 +6,6 @@ import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
 } from "@saleor/components/SaveFilterTabDialog";
 import { WindowTitle } from "@saleor/components/WindowTitle";
-import { DEFAULT_INITIAL_PAGINATION_DATA } from "@saleor/config";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
@@ -17,6 +15,7 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import { commonMessages, sectionNames } from "@saleor/intl";
+import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -65,13 +64,7 @@ export const VoucherList: React.FC<VoucherListProps> = ({ params }) => {
     ListViews.VOUCHER_LIST
   );
 
-  usePaginationReset(
-    voucherListUrl({
-      ...params,
-      ...DEFAULT_INITIAL_PAGINATION_DATA
-    }),
-    settings.rowNumber
-  );
+  usePaginationReset(voucherListUrl, params, settings.rowNumber);
 
   const intl = useIntl();
 
@@ -219,6 +212,7 @@ export const VoucherList: React.FC<VoucherListProps> = ({ params }) => {
               toggleAll={toggleAll}
               toolbar={
                 <IconButton
+                  variant="secondary"
                   color="primary"
                   onClick={() =>
                     openModal("remove", {

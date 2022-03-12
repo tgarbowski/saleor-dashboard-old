@@ -1,31 +1,63 @@
 import { defineMessages } from "react-intl";
 
 export const dialogMessages = defineMessages({
-  title: {
-    defaultMessage: "Shipping address for order",
+  customerChangeTitle: {
+    defaultMessage: "Change address for order",
+    description: "dialog header"
+  },
+  shippingChangeTitle: {
+    defaultMessage: "Change customer shipping address",
+    description: "dialog header"
+  },
+  billingChangeTitle: {
+    defaultMessage: "Change customer billing address",
     description: "dialog header"
   },
   billingSameAsShipping: {
-    defaultMessage: "Billing address same as shipping address",
+    defaultMessage: "Set the same for billing address",
     description: "checkbox label"
   },
-  shippingAddressDescription: {
+  shippingSameAsBilling: {
+    defaultMessage: "Set the same for shipping address",
+    description: "checkbox label"
+  },
+  addressChangeDescription: {
+    defaultMessage: "Select method you want to use to change address",
+    description: "dialog content"
+  },
+  noAddressDescription: {
     defaultMessage:
-      "This customer doesn’t have any shipping addresses. Provide address for order:",
+      "This customer doesn't have any addresses in the address book. Provide address for order:",
     description: "dialog content"
   },
-  billingAddressDescription: {
-    defaultMessage: "Add a new address:",
-    description: "dialog content"
-  },
-  customerShippingAddressDescription: {
+  customerChangeDescription: {
     defaultMessage:
       "Which address would you like to use as shipping address for selected customer:",
     description: "dialog content"
   },
-  customerBillingAddressDescription: {
+  customerChangeBillingDescription: {
     defaultMessage: "Select one of customer addresses or add a new address:",
     description: "dialog content"
+  },
+  noAddressBillingDescription: {
+    defaultMessage: "Add a new address:",
+    description: "dialog content"
+  },
+  shippingTitle: {
+    defaultMessage: "Shipping address",
+    description: "search modal shipping title"
+  },
+  billingTitle: {
+    defaultMessage: "Billing address",
+    description: "search modal billing title"
+  },
+  searchInfo: {
+    defaultMessage: "Select an address you want to use from the list below",
+    description: "modal information under title"
+  },
+  noResultsFound: {
+    defaultMessage: "No results found",
+    description: "info when addresses search is unsuccessful"
   }
 });
 

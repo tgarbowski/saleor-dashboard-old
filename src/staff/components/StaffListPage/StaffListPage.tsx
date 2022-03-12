@@ -1,11 +1,11 @@
-import { Button, Card } from "@material-ui/core";
+import { Card } from "@material-ui/core";
 import { Container } from "@saleor/components/Container";
 import FilterBar from "@saleor/components/FilterBar";
 import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
 import PageHeader from "@saleor/components/PageHeader";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import { sectionNames } from "@saleor/intl";
-import { Backlink } from "@saleor/macaw-ui";
+import { Backlink, Button } from "@saleor/macaw-ui";
 import { StaffListUrlSortField } from "@saleor/staff/urls";
 import {
   FilterPageProps,
@@ -79,10 +79,9 @@ const StaffListPage: React.FC<StaffListPageProps> = ({
         }
       >
         <Button
-          data-test-id="inviteStaffMember"
-          color="primary"
+          data-test-id="invite-staff-member"
           disabled={reachedLimit}
-          variant="contained"
+          variant="primary"
           onClick={onAdd}
         >
           <FormattedMessage

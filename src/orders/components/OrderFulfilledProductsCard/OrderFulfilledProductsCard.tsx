@@ -2,7 +2,6 @@ import { Card, TableBody } from "@material-ui/core";
 import CardMenu from "@saleor/components/CardMenu";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
-import { makeStyles } from "@saleor/macaw-ui";
 import { mergeRepeatedOrderLines } from "@saleor/orders/utils/data";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -15,6 +14,7 @@ import TableLine from "../OrderProductsCardElements/OrderProductsTableRow";
 import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
 import ActionButtons from "./ActionButtons";
 import ExtraInfoLines from "./ExtraInfoLines";
+import useStyles from "./styles";
 
 interface OrderFulfilledProductsCardProps {
   fulfillment: OrderDetails_order_fulfillments;
@@ -26,20 +26,6 @@ interface OrderFulfilledProductsCardProps {
   onRefund: () => void;
 }
 
-const useStyles = makeStyles(
-  theme => ({
-    table: {
-      tableLayout: "fixed"
-    },
-    deleteIcon: {
-      height: 40,
-      paddingRight: 0,
-      paddingLeft: theme.spacing(1),
-      width: 40
-    }
-  }),
-  { name: "OrderFulfillment" }
-);
 
 const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = props => {
   const {
@@ -87,6 +73,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           toolbar={
             maybe(() => fulfillment.status) === FulfillmentStatus.FULFILLED && (
               <CardMenu
+                data-test-id="fulfill-menu"
                 menuItems={[
                   {
                     label: intl.formatMessage({
@@ -94,7 +81,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
                       description: "button"
                     }),
                     onSelect: onOrderFulfillmentCancel,
-                    testId: "cancelFulfillmentButton"
+                    testId: "cancel-fulfillment-button"
                   }
                 ]}
               />
@@ -105,7 +92,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           <TableHeader />
           <TableBody>
             {renderCollection(getLines(), line => (
-              <TableLine line={line} isFulfilled={true} />
+              <TableLine key={line.id} line={line} isFulfilled={true} />
             ))}
           </TableBody>
           <ExtraInfoLines fulfillment={fulfillment} />

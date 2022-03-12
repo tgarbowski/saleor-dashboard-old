@@ -1,9 +1,9 @@
-import { Button, Card, CardContent } from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
 import ImageUpload from "@saleor/components/ImageUpload";
 import MediaTile from "@saleor/components/MediaTile";
 import { ProductMediaFragment } from "@saleor/fragments/types/ProductMediaFragment";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Button, makeStyles } from "@saleor/macaw-ui";
 import { ProductMediaPopper } from "@saleor/products/components/ProductMediaPopper/ProductMediaPopper";
 import { ReorderAction } from "@saleor/types";
 import { ProductMediaType } from "@saleor/types/globalTypes";
@@ -233,9 +233,8 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
           <>
             <Button
               onClick={() => setPopperOpenStatus(true)}
-              variant="text"
-              color="primary"
-              data-test="button-upload-image"
+              variant="tertiary"
+              data-test-id="button-upload-image"
               ref={anchor}
             >
               {intl.formatMessage(messages.upload)}

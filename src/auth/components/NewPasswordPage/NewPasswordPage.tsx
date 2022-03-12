@@ -1,31 +1,13 @@
-import { Button, TextField, Typography } from "@material-ui/core";
-import { SetPassword_setPassword_errors } from "@saleor/auth/types/SetPassword";
+import { TextField, Typography } from "@material-ui/core";
 import Form from "@saleor/components/Form";
 import FormSpacer from "@saleor/components/FormSpacer";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Button } from "@saleor/macaw-ui";
+import { SetPasswordData } from "@saleor/sdk";
 import getAccountErrorMessage from "@saleor/utils/errors/account";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-const useStyles = makeStyles(
-  theme => ({
-    errorText: {
-      color: theme.palette.error.contrastText
-    },
-    panel: {
-      background: theme.palette.error.main,
-      borderRadius: theme.spacing(),
-      marginBottom: theme.spacing(3),
-      padding: theme.spacing(1.5)
-    },
-    submit: {
-      width: "100%"
-    }
-  }),
-  {
-    name: "NewPasswordPage"
-  }
-);
+import useStyles from "../styles";
 
 export interface NewPasswordPageFormData {
   password: string;
@@ -33,7 +15,7 @@ export interface NewPasswordPageFormData {
 }
 export interface NewPasswordPageProps {
   disabled: boolean;
-  errors: SetPassword_setPassword_errors[];
+  errors: SetPasswordData["errors"];
   onSubmit: (data: NewPasswordPageFormData) => void;
 }
 
@@ -60,15 +42,15 @@ const NewPasswordPage: React.FC<NewPasswordPageProps> = props => {
 
         return (
           <>
-            {!!error && (
-              <div className={classes.panel}>
-                <Typography variant="caption" className={classes.errorText}>
-                  {error}
-                </Typography>
-              </div>
-            )}
-            <Typography>
-              <FormattedMessage defaultMessage="Please set up a new password." />
+            <Typography variant="h3" className={classes.header}>
+              <FormattedMessage
+                defaultMessage="Set up new password"
+                description="page title"
+              />
+            </Typography>
+            {!!error && <div className={classes.panel}>{error}</div>}
+            <Typography variant="caption" color="textSecondary">
+              <FormattedMessage defaultMessage="Please set up a new password for your account. Repeat your new password to make sure you will be able to remember it." />
             </Typography>
             <FormSpacer />
             <TextField
@@ -84,7 +66,7 @@ const NewPasswordPage: React.FC<NewPasswordPageProps> = props => {
               type="password"
               value={data.password}
               inputProps={{
-                "data-test": "password"
+                "data-test-id": "password"
               }}
             />
             <FormSpacer />
@@ -107,16 +89,15 @@ const NewPasswordPage: React.FC<NewPasswordPageProps> = props => {
                 })
               }
               inputProps={{
-                "data-test": "confirm-password"
+                "data-test-id": "confirm-password"
               }}
             />
             <FormSpacer />
             <Button
               data-test="button-bar-confirm"
               className={classes.submit}
-              color="primary"
               disabled={(passwordError && data.password.length > 0) || disabled}
-              variant="contained"
+              variant="primary"
               onClick={handleSubmit}
               type="submit"
             >

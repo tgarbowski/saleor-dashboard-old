@@ -1,9 +1,8 @@
 import { TableBody, TableCell, TableFooter, TableRow } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TablePagination from "@saleor/components/TablePagination";
-import { makeStyles } from "@saleor/macaw-ui";
+import { EditIcon, makeStyles } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import { PluginListUrlSortField } from "@saleor/plugins/urls";
 import { ListProps, SortPage } from "@saleor/types";
@@ -72,6 +71,7 @@ const PluginList: React.FC<PluginListProps> = props => {
           plugin =>
             plugin ? (
               <TableRow
+                data-test-id="plugin"
                 hover={!!plugin}
                 className={!!plugin ? classes.link : undefined}
                 onClick={plugin ? onRowClick(plugin.id) : undefined}

@@ -1,6 +1,6 @@
 import { TextField, Typography } from "@material-ui/core";
-import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -41,6 +41,7 @@ const TranslationFieldsLong: React.FC<TranslationFieldsLongProps> = ({
             })}
             name="translation"
             value={data.translation || ""}
+            data-test-id="translation"
             onChange={change}
           />
           <TranslationFieldsSave

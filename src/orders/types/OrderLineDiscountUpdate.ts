@@ -452,17 +452,19 @@ export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_user {
   email: string;
 }
 
-export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_availableShippingMethods_price {
+export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_shippingMethods_price {
   __typename: "Money";
   amount: number;
   currency: string;
 }
 
-export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_availableShippingMethods {
+export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_shippingMethods {
   __typename: "ShippingMethod";
   id: string;
   name: string;
-  price: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_availableShippingMethods_price | null;
+  price: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_shippingMethods_price;
+  active: boolean;
+  message: string | null;
 }
 
 export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_invoices {
@@ -474,6 +476,11 @@ export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_invoices 
   status: JobStatusEnum;
 }
 
+export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_channel_defaultCountry {
+  __typename: "CountryDisplay";
+  code: string;
+}
+
 export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_channel {
   __typename: "Channel";
   isActive: boolean;
@@ -481,11 +488,13 @@ export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_channel {
   name: string;
   currencyCode: string;
   slug: string;
+  defaultCountry: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_channel_defaultCountry;
 }
 
 export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order {
   __typename: "Order";
   id: string;
+  token: string;
   metadata: (OrderLineDiscountUpdate_orderLineDiscountUpdate_order_metadata | null)[];
   privateMetadata: (OrderLineDiscountUpdate_orderLineDiscountUpdate_order_privateMetadata | null)[];
   billingAddress: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_billingAddress | null;
@@ -512,7 +521,7 @@ export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order {
   undiscountedTotal: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_undiscountedTotal;
   user: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_user | null;
   userEmail: string | null;
-  availableShippingMethods: (OrderLineDiscountUpdate_orderLineDiscountUpdate_order_availableShippingMethods | null)[] | null;
+  shippingMethods: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_shippingMethods[];
   invoices: (OrderLineDiscountUpdate_orderLineDiscountUpdate_order_invoices | null)[] | null;
   channel: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_channel;
   isPaid: boolean;

@@ -1,6 +1,5 @@
 import { BaseChannels_channels } from "@saleor/channels/types/BaseChannels";
 import CardSpacer from "@saleor/components/CardSpacer";
-import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Container from "@saleor/components/Container";
 import CountryList from "@saleor/components/CountryList";
 import Form from "@saleor/components/Form";
@@ -14,6 +13,7 @@ import { ShippingErrorFragment } from "@saleor/fragments/types/ShippingErrorFrag
 import { ShippingZoneDetailsFragment_warehouses } from "@saleor/fragments/types/ShippingZoneDetailsFragment";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Backlink } from "@saleor/macaw-ui";
 import { ShippingZone_shippingZone } from "@saleor/shipping/types/ShippingZone";
 import createMultiAutocompleteSelectHandler from "@saleor/utils/handlers/multiAutocompleteSelectChangeHandler";
@@ -35,10 +35,6 @@ const messages = defineMessages({
   countries: {
     defaultMessage: "Countries",
     description: "country list header"
-  },
-  defaultZone: {
-    defaultMessage:
-      "This is default shipping zone, which means that it covers all of the countries which are not assigned to other shipping zones"
   },
   noCountriesAssigned: {
     defaultMessage:
@@ -164,11 +160,8 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
                   countries={shippingZone?.countries}
                   disabled={disabled}
                   emptyText={getStringOrPlaceholder(
-                    shippingZone?.default === undefined
-                      ? undefined
-                      : shippingZone.default
-                      ? intl.formatMessage(messages.defaultZone)
-                      : intl.formatMessage(messages.noCountriesAssigned)
+                    shippingZone &&
+                      intl.formatMessage(messages.noCountriesAssigned)
                   )}
                   onCountryAssign={onCountryAdd}
                   onCountryUnassign={onCountryRemove}

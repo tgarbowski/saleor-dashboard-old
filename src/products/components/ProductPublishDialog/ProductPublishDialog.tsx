@@ -181,7 +181,6 @@ const ProductPublishDialog: React.FC<ProductPublishDialogProps> = props => {
           <ConfirmButton
             transitionState={confirmButtonState}
             color="primary"
-            variant="contained"
             onClick={() =>
               onSubmitFunction({
                 variables: {

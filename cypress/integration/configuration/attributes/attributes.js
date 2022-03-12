@@ -1,16 +1,24 @@
-// <reference types="cypress" />
+// / <reference types="cypress"/>
+// / <reference types="../../../support"/>
 
 import faker from "faker";
 
-import { getAttribute } from "../../../apiRequests/Attribute";
 import { ATTRIBUTES_LIST } from "../../../elements/attribute/attributes_list";
-import { createAttributeWithInputType } from "../../../steps/attributesSteps";
+import { BUTTON_SELECTORS } from "../../../elements/shared/button-selectors";
+import { attributeDetailsUrl, urlList } from "../../../fixtures/urlList";
+import {
+  createAttribute,
+  getAttribute
+} from "../../../support/api/requests/Attribute";
+import { deleteAttributesStartsWith } from "../../../support/api/utils/attributes/attributeUtils";
+import { expectCorrectDataInAttribute } from "../../../support/api/utils/attributes/checkAttributeData";
 import filterTests from "../../../support/filterTests";
-import { urlList } from "../../../url/urlList";
-import { deleteAttributesStartsWith } from "../../../utils/attributes/attributeUtils";
-import { expectCorrectDataInAttribute } from "../../../utils/attributes/checkAttributeData";
+import {
+  createAttributeWithInputType,
+  fillUpAttributeNameAndCode
+} from "../../../support/pages/attributesPage";
 
-filterTests(["all"], () => {
+filterTests({ definedTags: ["all"] }, () => {
   describe("Create attribute with type", () => {
     const startsWith = "AttrCreate";
     const attributesTypes = [
@@ -18,7 +26,9 @@ filterTests(["all"], () => {
       "MULTISELECT",
       "FILE",
       "RICH_TEXT",
-      "BOOLEAN"
+      "BOOLEAN",
+      "DATE",
+      "DATE_TIME"
     ];
     const attributeReferenceType = ["PRODUCT", "PAGE"];
     const attributeNumericType = [
@@ -43,6 +53,7 @@ filterTests(["all"], () => {
     attributesTypes.forEach(attributeType => {
       it(`should create ${attributeType} attribute`, () => {
         const attributeName = `${startsWith}${faker.datatype.number()}`;
+
         createAttributeWithInputType({ name: attributeName, attributeType })
           .then(({ attribute }) => {
             getAttribute(attribute.id);
@@ -60,6 +71,7 @@ filterTests(["all"], () => {
       it(`should create reference ${entityType} attribute`, () => {
         const attributeType = "REFERENCE";
         const attributeName = `${startsWith}${faker.datatype.number()}`;
+
         createAttributeWithInputType({
           name: attributeName,
           attributeType,
@@ -82,6 +94,7 @@ filterTests(["all"], () => {
       it(`should create numeric attribute - ${numericSystemType.unitSystem}`, () => {
         const attributeType = "NUMERIC";
         const attributeName = `${startsWith}${faker.datatype.number()}`;
+
         createAttributeWithInputType({
           name: attributeName,
           attributeType,
@@ -103,6 +116,7 @@ filterTests(["all"], () => {
     it("should create attribute without required value", () => {
       const attributeType = "BOOLEAN";
       const attributeName = `${startsWith}${faker.datatype.number()}`;
+
       createAttributeWithInputType({
         name: attributeName,
         attributeType,
@@ -117,6 +131,45 @@ filterTests(["all"], () => {
             attributeType,
             valueRequired: false
           });
+        });
+    });
+
+    it("should delete attribute", () => {
+      const attributeName = `${startsWith}${faker.datatype.number()}`;
+
+      createAttribute({
+        name: attributeName
+      }).then(attribute => {
+        cy.visit(attributeDetailsUrl(attribute.id))
+          .get(BUTTON_SELECTORS.deleteButton)
+          .click()
+          .addAliasToGraphRequest("AttributeDelete")
+          .get(BUTTON_SELECTORS.submit)
+          .click()
+          .waitForRequestAndCheckIfNoErrors("@AttributeDelete");
+        getAttribute(attribute.id).should("be.null");
+      });
+    });
+
+    it("should update attribute", () => {
+      const attributeName = `${startsWith}${faker.datatype.number()}`;
+      const attributeUpdatedName = `${startsWith}${faker.datatype.number()}`;
+
+      createAttribute({
+        name: attributeName
+      })
+        .then(attribute => {
+          cy.visit(attributeDetailsUrl(attribute.id));
+          fillUpAttributeNameAndCode(attributeUpdatedName);
+          cy.addAliasToGraphRequest("AttributeUpdate")
+            .get(BUTTON_SELECTORS.confirm)
+            .click()
+            .waitForRequestAndCheckIfNoErrors("@AttributeUpdate");
+          getAttribute(attribute.id);
+        })
+        .then(attribute => {
+          expect(attribute.name).to.eq(attributeUpdatedName);
+          expect(attribute.slug).to.eq(attributeUpdatedName);
         });
     });
   });

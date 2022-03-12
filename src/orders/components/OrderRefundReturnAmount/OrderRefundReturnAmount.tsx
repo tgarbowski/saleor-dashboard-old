@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardContent,
   FormControlLabel,
@@ -12,7 +11,7 @@ import CardTitle from "@saleor/components/CardTitle";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";
 import Hr from "@saleor/components/Hr";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Button, makeStyles } from "@saleor/macaw-ui";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { OrderRefundData_order } from "@saleor/orders/types/OrderRefundData";
 import React from "react";
@@ -31,6 +30,9 @@ import RefundAmountInput from "./RefundAmountInput";
 
 const useStyles = makeStyles(
   theme => ({
+    content: {
+      paddingTop: theme.spacing(1.5)
+    },
     hr: {
       margin: theme.spacing(1, 0)
     },
@@ -121,18 +123,42 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
     replacedProductsValue
   } = amountData;
 
-  const selectedRefundAmount =
+  const isRefundAutomatic =
     type === OrderRefundType.PRODUCTS &&
-    data.amountCalculationMode === OrderRefundAmountCalculationMode.AUTOMATIC
-      ? refundTotalAmount?.amount
-      : data.amount;
+    data.amountCalculationMode === OrderRefundAmountCalculationMode.AUTOMATIC;
+
+  const selectedRefundAmount = isRefundAutomatic
+    ? refundTotalAmount?.amount
+    : data.amount;
 
   const isAmountTooSmall = selectedRefundAmount && selectedRefundAmount <= 0;
   const isAmountTooBig = selectedRefundAmount > maxRefund?.amount;
 
-  const disableRefundButton = isReturn
-    ? disableSubmitButton || isAmountTooSmall || isAmountTooBig
-    : !selectedRefundAmount || isAmountTooBig || isAmountTooSmall;
+  const parsedRefundTotalAmount = isAmountTooBig
+    ? maxRefund
+    : refundTotalAmount;
+
+  const shouldRefundButtonBeDisabled = () => {
+    if (isAmountTooSmall) {
+      return true;
+    }
+
+    if (
+      data.amountCalculationMode === OrderRefundAmountCalculationMode.MANUAL ||
+      type === OrderRefundType.MISCELLANEOUS
+    ) {
+      if (isAmountTooBig) {
+        return true;
+      }
+    }
+
+    if (isReturn) {
+      return disableSubmitButton;
+    }
+    return !selectedRefundAmount;
+  };
+
+  const disableRefundButton = shouldRefundButtonBeDisabled();
 
   return (
     <Card>
@@ -142,7 +168,7 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
           description: "section header"
         })}
       />
-      <CardContent>
+      <CardContent className={classes.content}>
         {type === OrderRefundType.PRODUCTS && (
           <RadioGroup
             value={data.amountCalculationMode}
@@ -199,7 +225,7 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
                   previouslyRefunded={previouslyRefunded}
                   maxRefund={maxRefund}
                   selectedProductsValue={selectedProductsValue}
-                  refundTotalAmount={refundTotalAmount}
+                  refundTotalAmount={parsedRefundTotalAmount}
                   shipmentCost={data.refundShipmentCosts && shipmentCost}
                   replacedProductsValue={replacedProductsValue}
                 />
@@ -271,21 +297,21 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
           </>
         )}
         <Button
-          color="primary"
-          variant="contained"
+          variant="primary"
           fullWidth
-          size="large"
           onClick={onRefund}
           className={classes.refundButton}
           disabled={disableRefundButton}
-          data-test="submit"
+          data-test-id="submit"
         >
           {!disableRefundButton && !isReturn ? (
             <FormattedMessage
               defaultMessage="Refund {currency} {amount}"
               description="order refund amount, input button"
               values={{
-                amount: Number(selectedRefundAmount).toFixed(2),
+                amount: isRefundAutomatic
+                  ? parsedRefundTotalAmount.amount.toFixed(2)
+                  : Number(selectedRefundAmount).toFixed(2),
                 currency: amountCurrency
               }}
             />

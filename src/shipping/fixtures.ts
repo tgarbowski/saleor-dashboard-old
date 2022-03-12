@@ -1566,7 +1566,6 @@ export const shippingZone: ShippingZone_shippingZone = {
       country: "Wielka Brytania"
     }
   ],
-  default: false,
   description: "Shipping zone description",
   id: "U2hpcHBpbmdab25lOjE=",
   metadata: [],
@@ -1574,7 +1573,7 @@ export const shippingZone: ShippingZone_shippingZone = {
   privateMetadata: [],
   shippingMethods: [
     {
-      __typename: "ShippingMethod",
+      __typename: "ShippingMethodType",
       channelListings: [
         {
           __typename: "ShippingMethodChannelListing",
@@ -1669,7 +1668,7 @@ export const shippingZone: ShippingZone_shippingZone = {
       type: ShippingMethodTypeEnum.WEIGHT
     },
     {
-      __typename: "ShippingMethod",
+      __typename: "ShippingMethodType",
       channelListings: [],
       excludedProducts: {
         __typename: "ProductCountableConnection",
@@ -1734,7 +1733,7 @@ export const shippingZone: ShippingZone_shippingZone = {
       type: ShippingMethodTypeEnum.WEIGHT
     },
     {
-      __typename: "ShippingMethod",
+      __typename: "ShippingMethodType",
       channelListings: [],
       excludedProducts: {
         __typename: "ProductCountableConnection",
@@ -1799,7 +1798,7 @@ export const shippingZone: ShippingZone_shippingZone = {
       type: ShippingMethodTypeEnum.PRICE
     },
     {
-      __typename: "ShippingMethod",
+      __typename: "ShippingMethodType",
       channelListings: [],
       excludedProducts: {
         __typename: "ProductCountableConnection",
@@ -1873,15 +1872,46 @@ export const products: SearchProducts_search_edges_node[] = [
     thumbnail: {
       __typename: "Image",
       url: ""
-    }
-  },
-  {
-    __typename: "Product",
-    id: "2",
-    name: "Banana Juice",
-    thumbnail: {
-      __typename: "Image",
-      url: ""
-    }
+    },
+    variants: [
+      {
+        __typename: "ProductVariant",
+        id: "UHJvZHVjdFZhcmlhbnQ6MjAz",
+        name: "1l",
+        sku: "43226647",
+        channelListings: [
+          {
+            __typename: "ProductVariantChannelListing",
+            channel: {
+              __typename: "Channel",
+              id: "Q2hhbm5lbDox",
+              isActive: true,
+              name: "Channel-USD",
+              currencyCode: "USD"
+            },
+            price: {
+              __typename: "Money",
+              amount: 5,
+              currency: "USD"
+            }
+          },
+          {
+            __typename: "ProductVariantChannelListing",
+            channel: {
+              __typename: "Channel",
+              id: "Q2hhbm5lbDoy",
+              isActive: true,
+              name: "Channel-PLN",
+              currencyCode: "PLN"
+            },
+            price: {
+              __typename: "Money",
+              amount: 20,
+              currency: "PLN"
+            }
+          }
+        ]
+      }
+    ]
   }
 ];

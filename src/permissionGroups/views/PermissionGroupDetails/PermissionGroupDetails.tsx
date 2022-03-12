@@ -1,12 +1,12 @@
-import { Button } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@saleor/config";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import useShop from "@saleor/hooks/useShop";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
-import useUser from "@saleor/hooks/useUser";
 import { commonMessages } from "@saleor/intl";
+import { Button } from "@saleor/macaw-ui";
 import MembersErrorDialog from "@saleor/permissionGroups/components/MembersErrorDialog";
 import {
   arePermissionsExceeded,
@@ -173,7 +173,7 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
         sort={getSortParams(params)}
         toolbar={
           <Button
-            color="primary"
+            variant="secondary"
             onClick={() => openModal("unassign", { ids: listElements })}
           >
             {intl.formatMessage({

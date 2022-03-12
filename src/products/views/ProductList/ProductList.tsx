@@ -1,9 +1,5 @@
-import {
-  DialogContentText,
-  IconButton
-} from "@material-ui/core";
+import { DialogContentText } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
@@ -23,10 +19,12 @@ import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
+import { usePaginationReset } from "@saleor/hooks/usePaginationReset";
 import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import { commonMessages } from "@saleor/intl";
+import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
 import ProductPublishDialog from "@saleor/products/components/ProductPublishDialog";
 import ProductUnpublishDialog from "@saleor/products/components/ProductUnpublishDialog";
@@ -102,6 +100,9 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   const { updateListSettings, settings } = useListSettings<ProductListColumns>(
     ListViews.PRODUCT_LIST
   );
+
+  usePaginationReset(productListUrl, params, settings.rowNumber);
+
   const intl = useIntl();
   const {
     data: initialFilterAttributes
@@ -184,19 +185,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     ProductListUrlDialog,
     ProductListUrlQueryParams
   >(navigate, productListUrl, params);
-
-  // Reset pagination
-  React.useEffect(
-    () =>
-      navigate(
-        productListUrl({
-          ...params,
-          ...DEFAULT_INITIAL_PAGINATION_DATA
-        }),
-        true
-      ),
-    [settings.rowNumber]
-  );
 
   const tabs = getFilterTabs();
 

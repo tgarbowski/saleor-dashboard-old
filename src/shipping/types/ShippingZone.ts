@@ -125,7 +125,7 @@ export interface ShippingZone_shippingZone_shippingMethods_excludedProducts {
 }
 
 export interface ShippingZone_shippingZone_shippingMethods {
-  __typename: "ShippingMethod";
+  __typename: "ShippingMethodType";
   id: string;
   postalCodeRules: (ShippingZone_shippingZone_shippingMethods_postalCodeRules | null)[] | null;
   metadata: (ShippingZone_shippingZone_shippingMethods_metadata | null)[];
@@ -162,7 +162,6 @@ export interface ShippingZone_shippingZone {
   countries: (ShippingZone_shippingZone_countries | null)[] | null;
   name: string;
   description: string | null;
-  default: boolean;
   shippingMethods: (ShippingZone_shippingZone_shippingMethods | null)[] | null;
   channels: ShippingZone_shippingZone_channels[];
   warehouses: ShippingZone_shippingZone_warehouses[];

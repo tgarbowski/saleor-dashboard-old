@@ -8,6 +8,7 @@
 //==============================================================
 
 export enum AccountErrorCode {
+  ACCOUNT_NOT_CONFIRMED = "ACCOUNT_NOT_CONFIRMED",
   ACTIVATE_OWN_ACCOUNT = "ACTIVATE_OWN_ACCOUNT",
   ACTIVATE_SUPERUSER_ACCOUNT = "ACTIVATE_SUPERUSER_ACCOUNT",
   CHANNEL_INACTIVE = "CHANNEL_INACTIVE",
@@ -474,6 +475,7 @@ export enum InvoiceErrorCode {
   INVALID_STATUS = "INVALID_STATUS",
   NOT_FOUND = "NOT_FOUND",
   NOT_READY = "NOT_READY",
+  NO_INVOICE_PLUGIN = "NO_INVOICE_PLUGIN",
   NUMBER_NOT_SET = "NUMBER_NOT_SET",
   REQUIRED = "REQUIRED",
   URL_NOT_SET = "URL_NOT_SET",
@@ -1747,6 +1749,7 @@ export enum WebhookErrorCode {
 export enum WebhookEventTypeEnum {
   ANY_EVENTS = "ANY_EVENTS",
   CHECKOUT_CREATED = "CHECKOUT_CREATED",
+  CHECKOUT_FILTER_SHIPPING_METHODS = "CHECKOUT_FILTER_SHIPPING_METHODS",
   CHECKOUT_UPDATED = "CHECKOUT_UPDATED",
   CUSTOMER_CREATED = "CUSTOMER_CREATED",
   CUSTOMER_UPDATED = "CUSTOMER_UPDATED",
@@ -1761,6 +1764,7 @@ export enum WebhookEventTypeEnum {
   ORDER_CANCELLED = "ORDER_CANCELLED",
   ORDER_CONFIRMED = "ORDER_CONFIRMED",
   ORDER_CREATED = "ORDER_CREATED",
+  ORDER_FILTER_SHIPPING_METHODS = "ORDER_FILTER_SHIPPING_METHODS",
   ORDER_FULFILLED = "ORDER_FULFILLED",
   ORDER_FULLY_PAID = "ORDER_FULLY_PAID",
   ORDER_UPDATED = "ORDER_UPDATED",
@@ -1929,6 +1933,7 @@ export interface CatalogueInput {
   products?: (string | null)[] | null;
   categories?: (string | null)[] | null;
   collections?: (string | null)[] | null;
+  variants?: (string | null)[] | null;
 }
 
 export interface CategoryFilterInput {
@@ -2019,6 +2024,10 @@ export interface CollectionSortingInput {
 export interface ConfigurationItemInput {
   name: string;
   value?: string | null;
+}
+
+export interface CountryFilterInput {
+  attachedToShippingZones?: boolean | null;
 }
 
 export interface CustomerFilterInput {
@@ -2557,6 +2566,7 @@ export interface SaleInput {
   type?: DiscountValueTypeEnum | null;
   value?: any | null;
   products?: (string | null)[] | null;
+  variants?: (string | null)[] | null;
   categories?: (string | null)[] | null;
   collections?: (string | null)[] | null;
   startDate?: any | null;
@@ -2745,6 +2755,7 @@ export interface VoucherInput {
   endDate?: any | null;
   discountValueType?: DiscountValueTypeEnum | null;
   products?: (string | null)[] | null;
+  variants?: (string | null)[] | null;
   collections?: (string | null)[] | null;
   categories?: (string | null)[] | null;
   minCheckoutItemsQuantity?: number | null;

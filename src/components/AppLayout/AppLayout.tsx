@@ -1,14 +1,14 @@
 import { LinearProgress, useMediaQuery } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
-import useUser from "@saleor/hooks/useUser";
 import {
   makeStyles,
   SaleorTheme,
   Sidebar,
   SidebarDrawer,
+  useActionBar,
   useBacklink,
-  useSavebar,
   useTheme
 } from "@saleor/macaw-ui";
 import { staffMemberDetailsUrl } from "@saleor/staff/urls";
@@ -54,7 +54,10 @@ const useStyles = makeStyles(
     },
 
     content: {
-      flex: 1
+      flex: 1,
+      [theme.breakpoints.up("md")]: {
+        width: 0 // workaround for flex children width expansion affected by their contents
+      }
     },
     darkThemeSwitch: {
       [theme.breakpoints.down("sm")]: {
@@ -97,8 +100,6 @@ const useStyles = makeStyles(
     },
 
     view: {
-      flex: 1,
-      flexGrow: 1,
       marginLeft: 0,
       paddingBottom: theme.spacing(),
       [theme.breakpoints.up("sm")]: {
@@ -106,7 +107,7 @@ const useStyles = makeStyles(
       }
     },
     viewContainer: {
-      minHeight: `calc(100vh + ${appLoaderHeight + 70}px - ${theme.spacing(2)})`
+      minHeight: `calc(100vh - ${appLoaderHeight + 72}px - ${theme.spacing(4)})`
     }
   }),
   {
@@ -121,7 +122,7 @@ interface AppLayoutProps {
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
   const { themeType, setTheme } = useTheme();
-  const { anchor: appActionAnchor, docked } = useSavebar();
+  const { anchor: appActionAnchor, docked } = useActionBar();
   const appHeaderAnchor = useBacklink();
   const { logout, user } = useUser();
   const navigate = useNavigator();
@@ -144,14 +145,22 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     isMenuActive(location.pathname, menuItem)
   )?.id;
 
+  const handleMenuItemClick = (url: string) =>
+    navigate(url, { resetScroll: true });
+
+  const reloadWindow = () => {
+    window.location.reload();
+  };
+
   const handleErrorBack = () => {
-    navigate("/");
+    navigate("/", { replace: true });
     dispatchAppState({
       payload: {
         error: null
       },
       type: "displayError"
     });
+    reloadWindow();
   };
 
   const isDark = themeType === "dark";
@@ -166,9 +175,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       <div className={classes.root}>
         {isMdUp && (
           <Sidebar
-            active={activeMenu}
+            activeId={activeMenu}
             menuItems={menuStructure}
-            onMenuItemClick={navigate}
+            onMenuItemClick={handleMenuItemClick}
           />
         )}
         <div className={classes.content}>
@@ -222,6 +231,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     <ErrorPage
                       id={appState.error.id}
                       onBack={handleErrorBack}
+                      onRefresh={reloadWindow}
                     />
                   )
                 : children}

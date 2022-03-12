@@ -1,29 +1,31 @@
+// / <reference types="cypress"/>
+// / <reference types="../../support"/>
+
 import faker from "faker";
 
-import { createChannel } from "../../apiRequests/Channels";
+import { urlList } from "../../fixtures/urlList";
+import { ONE_PERMISSION_USERS } from "../../fixtures/users";
+import { createChannel } from "../../support/api/requests/Channels";
 import {
   createProduct,
   updateChannelInProduct
-} from "../../apiRequests/Product";
-import { ONE_PERMISSION_USERS } from "../../Data/users";
+} from "../../support/api/requests/Product";
+import {
+  deleteChannelsStartsWith,
+  getDefaultChannel
+} from "../../support/api/utils/channelsUtils";
+import * as productUtils from "../../support/api/utils/products/productsUtils";
+import * as shippingUtils from "../../support/api/utils/shippingUtils";
+import { getProductVariants } from "../../support/api/utils/storeFront/storeFrontProductUtils";
+import filterTests from "../../support/filterTests";
 import {
   createFirstVariant,
   createVariant,
   variantsShouldBeVisible
-} from "../../steps/catalog/products/VariantsSteps";
-import { selectChannelInHeader } from "../../steps/channelsSteps";
-import filterTests from "../../support/filterTests";
-import { urlList } from "../../url/urlList";
-import {
-  deleteChannelsStartsWith,
-  getDefaultChannel
-} from "../../utils/channelsUtils";
-import * as productUtils from "../../utils/products/productsUtils";
-import * as shippingUtils from "../../utils/shippingUtils";
-import { getProductVariants } from "../../utils/storeFront/storeFrontProductUtils";
-// <reference types="cypress" />
+} from "../../support/pages/catalog/products/VariantsPage";
+import { enterHomePageChangeChannelAndReturn } from "../../support/pages/channelsPage";
 
-filterTests(["all", "critical"], () => {
+filterTests({ definedTags: ["all", "critical"] }, () => {
   describe("Creating variants", () => {
     const startsWith = "CyCreateVariants-";
     const attributeValues = ["value1", "value2"];
@@ -56,12 +58,12 @@ filterTests(["all", "critical"], () => {
         )
         .then(({ warehouse: warehouseResp }) => {
           warehouse = warehouseResp;
-          createChannel({ isActive: true, name, currencyCode: "PLN" });
+          createChannel({ isActive: true, name, currencyCode: "USD" });
         })
         .then(resp => (newChannel = resp));
 
       productUtils
-        .createTypeAttributeAndCategoryForProduct(name, attributeValues)
+        .createTypeAttributeAndCategoryForProduct({ name, attributeValues })
         .then(
           ({
             attribute: attributeResp,
@@ -102,11 +104,10 @@ filterTests(["all", "critical"], () => {
           cy.visit(`${urlList.products}${createdProduct.id}`);
           createFirstVariant({
             sku: name,
-            warehouseId: warehouse.id,
             price,
             attribute: attributeValues[0]
           });
-          selectChannelInHeader(defaultChannel.name);
+          enterHomePageChangeChannelAndReturn(defaultChannel.name);
           variantsShouldBeVisible({ name, price });
           getProductVariants(createdProduct.id, defaultChannel.slug);
         })
@@ -137,14 +138,13 @@ filterTests(["all", "critical"], () => {
           cy.visit(`${urlList.products}${createdProduct.id}`);
           createVariant({
             sku: secondVariantSku,
-            warehouseName: warehouse.name,
             attributeName: variants[1].name,
             price: variants[1].price,
             channelName: defaultChannel.name
           });
         })
         .then(() => {
-          selectChannelInHeader(defaultChannel.name);
+          enterHomePageChangeChannelAndReturn(defaultChannel.name);
           variantsShouldBeVisible({
             name: variants[1].name,
             price: variants[1].price
@@ -185,13 +185,12 @@ filterTests(["all", "critical"], () => {
           cy.visit(`${urlList.products}${createdProduct.id}`);
           createFirstVariant({
             sku: name,
-            warehouseId: warehouse.id,
             price: variantsPrice,
             attribute: attributeValues[0]
           });
-          selectChannelInHeader(defaultChannel.name);
+          enterHomePageChangeChannelAndReturn(defaultChannel.name);
           variantsShouldBeVisible({ name, price: variantsPrice });
-          selectChannelInHeader(newChannel.name);
+          enterHomePageChangeChannelAndReturn(newChannel.name);
           variantsShouldBeVisible({ name, price: variantsPrice });
           getProductVariants(createdProduct.id, defaultChannel.slug);
         })

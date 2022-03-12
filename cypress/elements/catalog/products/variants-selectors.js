@@ -4,10 +4,11 @@ export const VARIANTS_SELECTORS = {
   nextButton: "[class*='MuiButton-containedPrimary']",
   warehouseCheckboxes: "[name*='warehouse:']",
   skuInput: "input[class*='MuiInputBase'][type='text']",
-  attributeSelector: "[data-test='attribute-value']",
+  attributeSelector: "[data-test-id='attribute-value']",
   attributeOption: "[data-test-type='option']",
-  addWarehouseButton: "button[class*='MuiIconButton-colorPrimary']",
+  addWarehouseButton: "[data-test-id='add-warehouse']",
   warehouseOption: "[role='menuitem']",
   saveButton: "[data-test='button-bar-confirm']",
-  skuInputInAddVariant: "[name='sku']"
+  skuInputInAddVariant: "[name='sku']",
+  selectOption: "[data-test-id='multiautocomplete-select-option']"
 };

@@ -1,10 +1,17 @@
+import { useUser } from "@saleor/auth";
 import { WindowTitle } from "@saleor/components/WindowTitle";
+import { useCustomerAddressesQuery } from "@saleor/customers/queries";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useShop from "@saleor/hooks/useShop";
-import useUser from "@saleor/hooks/useUser";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
+import { OrderCustomerAddressesEditDialogOutput } from "@saleor/orders/components/OrderCustomerAddressesEditDialog/types";
 import OrderInvoiceEmailSendDialog from "@saleor/orders/components/OrderInvoiceEmailSendDialog";
 import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
+import {
+  OrderUpdate,
+  OrderUpdateVariables
+} from "@saleor/orders/types/OrderUpdate";
+import { PartialMutationProviderOutput } from "@saleor/types";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { useWarehouseList } from "@saleor/warehouses/queries";
 import React from "react";
@@ -14,6 +21,7 @@ import { customerUrl } from "../../../../customers/urls";
 import { getMutationState, getStringOrPlaceholder } from "../../../../misc";
 import { productUrl } from "../../../../products/urls";
 import { FulfillmentStatus } from "../../../../types/globalTypes";
+import OrderAddressFields from "../../../components/OrderAddressFields/OrderAddressFields";
 import OrderCancelDialog from "../../../components/OrderCancelDialog";
 import OrderDetailsPage from "../../../components/OrderDetailsPage";
 import OrderFulfillmentCancelDialog from "../../../components/OrderFulfillmentCancelDialog";
@@ -29,6 +37,7 @@ import {
   orderUrl,
   OrderUrlQueryParams
 } from "../../../urls";
+import { isAnyAddressEditModalOpen } from "../OrderDraftDetails";
 
 interface OrderNormalDetailsProps {
   id: string;
@@ -40,6 +49,7 @@ interface OrderNormalDetailsProps {
   handleDpdPackageCreate: any;
   handleSubmit: any;
   onParcelLabelDownload: () => void;
+  orderUpdate: PartialMutationProviderOutput<OrderUpdate, OrderUpdateVariables>;
   orderCancel: any;
   orderParcelDetails: any;
   orderPaymentMarkAsPaid: any;
@@ -63,6 +73,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
   orderInvoiceRequest,
   handleSubmit,
   handleDpdPackageCreate,
+  orderUpdate,
   orderCancel,
   orderPaymentMarkAsPaid,
   orderVoid,
@@ -89,6 +100,24 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
       first: 30
     }
   });
+
+  const {
+    data: customerAddresses,
+    loading: customerAddressesLoading
+  } = useCustomerAddressesQuery({
+    variables: {
+      id: order?.user?.id
+    },
+    skip: !order?.user?.id || !isAnyAddressEditModalOpen(params.action)
+  });
+  const handleCustomerChangeAddresses = async (
+    data: Partial<OrderCustomerAddressesEditDialogOutput>
+  ): Promise<any> =>
+    orderUpdate.mutate({
+      id,
+      input: data
+    });
+
   const intl = useIntl();
   const [transactionReference, setTransactionReference] = React.useState("");
 
@@ -133,7 +162,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
               [])
           ]
         )}
-        shippingMethods={data?.order?.availableShippingMethods || []}
+        shippingMethods={data?.order?.shippingMethods || []}
         userPermissions={user?.userPermissions || []}
         onOrderCancel={() => openModal("cancel")}
         onOrderFulfill={() => navigate(orderFulfillUrl(id))}
@@ -287,11 +316,24 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
       />
       <OrderInvoiceEmailSendDialog
         confirmButtonState={orderInvoiceSend.opts.status}
-        errors={orderInvoiceSend.opts.data?.invoiceSendEmail.errors || []}
+        errors={orderInvoiceSend.opts.data?.invoiceSendNotification.errors || []}
         open={params.action === "invoice-send"}
         invoice={order?.invoices?.find(invoice => invoice.id === params.id)}
         onClose={closeModal}
         onSend={() => orderInvoiceSend.mutate({ id: params.id })}
+      />
+      <OrderAddressFields
+        action={params?.action}
+        orderShippingAddress={order?.shippingAddress}
+        orderBillingAddress={order?.billingAddress}
+        customerAddressesLoading={customerAddressesLoading}
+        isDraft={false}
+        countries={data?.shop?.countries}
+        customer={customerAddresses?.user}
+        onClose={closeModal}
+        onConfirm={handleCustomerChangeAddresses}
+        confirmButtonState={orderUpdate.opts.status}
+        errors={orderUpdate.opts.data?.orderUpdate.errors}
       />
     </>
   );

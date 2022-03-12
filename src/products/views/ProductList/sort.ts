@@ -17,6 +17,7 @@ export function canBeSorted(
     case ProductListUrlSortField.attribute:
     case ProductListUrlSortField.rank:
     case ProductListUrlSortField.createdAt:
+    case ProductListUrlSortField.date:
       return true;
     case ProductListUrlSortField.price:
     case ProductListUrlSortField.status:
@@ -41,6 +42,7 @@ export function getSortQueryField(
     case ProductListUrlSortField.rank:
       return ProductOrderField.RANK;
     case ProductListUrlSortField.createdAt:
+    case ProductListUrlSortField.date:
       return ProductOrderField.DATE;
     default:
       return undefined;

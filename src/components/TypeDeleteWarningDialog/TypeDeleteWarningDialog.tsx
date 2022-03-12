@@ -1,5 +1,5 @@
 import { Card, CardContent, CircularProgress, Modal } from "@material-ui/core";
-import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
+import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import ModalTitle from "@saleor/orders/components/OrderDiscountCommonModal/ModalTitle";
 import { getById } from "@saleor/orders/components/OrderReturnPage/utils";
 import React from "react";
@@ -92,7 +92,7 @@ function TypeDeleteWarningDialog<T extends TypeBaseData>({
 
   return (
     <Modal open={isOpen}>
-      <div className={classes.centerContainer}>
+      <div className={classes.centerContainer} data-test-id="warning-dialog">
         <Card className={classes.content}>
           <ModalTitle
             title={intl.formatMessage(baseMessages.title, {

@@ -1,5 +1,4 @@
 import {
-  Button,
   CircularProgress,
   Dialog,
   DialogActions,
@@ -13,9 +12,7 @@ import {
   Typography
 } from "@material-ui/core";
 import Checkbox from "@saleor/components/Checkbox";
-import ConfirmButton, {
-  ConfirmButtonTransitionState
-} from "@saleor/components/ConfirmButton";
+import ConfirmButton from "@saleor/components/ConfirmButton";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { AvailableAttributeFragment } from "@saleor/fragments/types/AvailableAttributeFragment";
 import useElementScroll, {
@@ -24,14 +21,16 @@ import useElementScroll, {
 import useModalDialogErrors from "@saleor/hooks/useModalDialogErrors";
 import useModalDialogOpen from "@saleor/hooks/useModalDialogOpen";
 import useSearchQuery from "@saleor/hooks/useSearchQuery";
-import { buttonMessages } from "@saleor/intl";
-import { makeStyles } from "@saleor/macaw-ui";
+import { ConfirmButtonTransitionState, makeStyles } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
 import { FetchMoreProps } from "@saleor/types";
 import classNames from "classnames";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FormattedMessage, useIntl } from "react-intl";
+
+import BackButton from "../BackButton";
+import { messages } from "./messages";
 
 const useStyles = makeStyles(
   theme => ({
@@ -41,12 +40,16 @@ const useStyles = makeStyles(
     checkboxCell: {
       paddingLeft: 0
     },
+    dialogPaper: {
+      overflow: "hidden"
+    },
     dropShadow: {
       boxShadow: `0px -5px 10px 0px ${theme.palette.divider}`
     },
     loadMoreLoaderContainer: {
       alignItems: "center",
       display: "flex",
+      marginTop: theme.spacing(2),
       height: theme.spacing(3),
       justifyContent: "center"
     },
@@ -56,6 +59,7 @@ const useStyles = makeStyles(
       paddingBottom: theme.spacing(6)
     },
     scrollArea: {
+      maxHeight: 700,
       overflowY: "scroll",
       paddingTop: 0,
       marginBottom: theme.spacing(3)
@@ -110,24 +114,25 @@ const AssignAttributeDialog: React.FC<AssignAttributeDialogProps> = ({
   });
 
   return (
-    <Dialog onClose={onClose} open={open} fullWidth maxWidth="sm">
+    <Dialog
+      onClose={onClose}
+      open={open}
+      fullWidth
+      maxWidth="sm"
+      classes={{
+        paper: classes.dialogPaper
+      }}
+    >
       <DialogTitle>
-        <FormattedMessage
-          defaultMessage="Assign Attribute"
-          description="dialog header"
-        />
+        <FormattedMessage {...messages.title} />
       </DialogTitle>
       <DialogContent className={classes.searchArea}>
         <TextField
           name="query"
           value={query}
           onChange={onQueryChange}
-          label={intl.formatMessage({
-            defaultMessage: "Search Attributes"
-          })}
-          placeholder={intl.formatMessage({
-            defaultMessage: "Search by attribute name"
-          })}
+          label={intl.formatMessage(messages.searchInputLabel)}
+          placeholder={intl.formatMessage(messages.searchInputPlaceholder)}
           fullWidth
           InputProps={{
             autoComplete: "off",
@@ -141,7 +146,7 @@ const AssignAttributeDialog: React.FC<AssignAttributeDialogProps> = ({
         id={scrollableTargetId}
       >
         <InfiniteScroll
-          dataLength={attributes?.length}
+          dataLength={attributes?.length || 0}
           next={onFetchMore}
           hasMore={hasMore}
           scrollThreshold="100px"
@@ -188,7 +193,7 @@ const AssignAttributeDialog: React.FC<AssignAttributeDialogProps> = ({
                   !loading && (
                     <TableRow>
                       <TableCell colSpan={2}>
-                        <FormattedMessage defaultMessage="No results found" />
+                        <FormattedMessage {...messages.noMembersFound} />
                       </TableCell>
                     </TableRow>
                   )
@@ -211,20 +216,13 @@ const AssignAttributeDialog: React.FC<AssignAttributeDialogProps> = ({
           [classes.dropShadow]: !isScrolledToBottom(anchor, position)
         })}
       >
-        <Button onClick={onClose}>
-          <FormattedMessage {...buttonMessages.back} />
-        </Button>
+        <BackButton onClick={onClose} />
         <ConfirmButton
           transitionState={confirmButtonState}
-          color="primary"
-          variant="contained"
           type="submit"
           onClick={onSubmit}
         >
-          <FormattedMessage
-            defaultMessage="Assign attributes"
-            description="button"
-          />
+          <FormattedMessage {...messages.assignButton} />
         </ConfirmButton>
       </DialogActions>
     </Dialog>
