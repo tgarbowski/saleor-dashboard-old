@@ -66,8 +66,7 @@ const TableLine: React.FC<TableLineProps> = ({
   isFulfilled
 }) => {
   const classes = useStyles({});
-  const intl = useIntl();
-  const { quantity, quantityFulfilled } = lineData as OrderDetails_order_lines;
+  const { quantity, quantityToFulfill } = lineData as OrderDetails_order_lines;
 
   if (!lineData) {
     return <Skeleton />;
@@ -80,14 +79,12 @@ const TableLine: React.FC<TableLineProps> = ({
       } as OrderDetails_order_fulfillments_lines)
     : (lineData as OrderDetails_order_fulfillments_lines);
 
-  const quantityToDisplay = isOrderLine
-    ? quantity - quantityFulfilled
-    : quantity;
+  const quantityToDisplay = isOrderLine ? quantityToFulfill : quantity;
 
   const isDeleted = !line.orderLine.variant;
 
   return (
-    <TableRow>
+    <TableRow key={line.id}>
       <TableCellAvatar
         className={classes.colName}
         thumbnail={maybe(() => line.orderLine.thumbnail.url)}
@@ -111,19 +108,19 @@ const TableLine: React.FC<TableLineProps> = ({
         {maybe(() => line.orderLine.productName) || <Skeleton />}
       </TableCellAvatar>
       <TableCell className={classes.colSku}>
-        {line?.orderLine.productSku || <Skeleton />}
+        {line?.orderLine ? line.orderLine.productSku : <Skeleton />}
       </TableCell>
       <TableCell className={classes.colQuantity}>
         {quantityToDisplay || <Skeleton />}
       </TableCell>
-      <TableCell className={classes.colPrice}>
+      <TableCell className={classes.colPrice} align="right">
         {maybe(() => line.orderLine.unitPrice.gross) ? (
           <Money money={line.orderLine.unitPrice.gross} />
         ) : (
           <Skeleton />
         )}
       </TableCell>
-      <TableCell className={classes.colTotal}>
+      <TableCell className={classes.colTotal} align="right">
         <Money
           money={{
             amount: line.quantity * line.orderLine.unitPrice.gross.amount,

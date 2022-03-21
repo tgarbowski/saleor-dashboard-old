@@ -5,14 +5,18 @@ import Grid from "@saleor/components/Grid";
 import Metadata, { MetadataFormData } from "@saleor/components/Metadata";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
-import { ChangeEvent, FormChange } from "@saleor/hooks/useForm";
+import { ChangeEvent, FormChange, SubmitPromise } from "@saleor/hooks/useForm";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { sectionNames } from "@saleor/intl";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Backlink } from "@saleor/macaw-ui";
+import { makeProductTypeKindChangeHandler } from "@saleor/productTypes/handlers";
 import { ProductTypeDetails_taxTypes } from "@saleor/productTypes/types/ProductTypeDetails";
 import { UserError } from "@saleor/types";
-import { WeightUnitsEnum } from "@saleor/types/globalTypes";
+import {
+  ProductTypeKindEnum,
+  WeightUnitsEnum
+} from "@saleor/types/globalTypes";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -23,6 +27,7 @@ import ProductTypeTaxes from "../ProductTypeTaxes/ProductTypeTaxes";
 
 export interface ProductTypeForm extends MetadataFormData {
   name: string;
+  kind: ProductTypeKindEnum;
   isShippingRequired: boolean;
   taxType: string;
   weight: number;
@@ -35,14 +40,17 @@ export interface ProductTypeCreatePageProps {
   pageTitle: string;
   saveButtonBarState: ConfirmButtonTransitionState;
   taxTypes: ProductTypeDetails_taxTypes[];
+  kind: ProductTypeKindEnum;
+  onChangeKind: (kind: ProductTypeKindEnum) => void;
   onBack: () => void;
-  onSubmit: (data: ProductTypeForm) => void;
+  onSubmit: (data: ProductTypeForm) => SubmitPromise<any[]>;
 }
 
 const formInitialData: ProductTypeForm = {
   isShippingRequired: false,
   metadata: [],
   name: "",
+  kind: ProductTypeKindEnum.NORMAL,
   privateMetadata: [],
   taxType: "",
   weight: 0
@@ -67,6 +75,8 @@ const ProductTypeCreatePage: React.FC<ProductTypeCreatePageProps> = ({
   pageTitle,
   saveButtonBarState,
   taxTypes,
+  kind,
+  onChangeKind,
   onBack,
   onSubmit
 }: ProductTypeCreatePageProps) => {
@@ -76,10 +86,20 @@ const ProductTypeCreatePage: React.FC<ProductTypeCreatePageProps> = ({
     makeChangeHandler: makeMetadataChangeHandler
   } = useMetadataChangeTrigger();
 
+  const initialData = {
+    ...formInitialData,
+    kind: kind || formInitialData.kind
+  };
+
   return (
-    <Form initial={formInitialData} onSubmit={onSubmit} confirmLeave>
+    <Form confirmLeave initial={initialData} onSubmit={onSubmit}>
       {({ change, data, hasChanged, submit }) => {
         const changeMetadata = makeMetadataChangeHandler(change);
+
+        const changeKind = makeProductTypeKindChangeHandler(
+          change,
+          onChangeKind
+        );
 
         return (
           <Container>
@@ -94,6 +114,7 @@ const ProductTypeCreatePage: React.FC<ProductTypeCreatePageProps> = ({
                   disabled={disabled}
                   errors={errors}
                   onChange={change}
+                  onKindChange={changeKind}
                 />
                 <CardSpacer />
                 <ProductTypeTaxes

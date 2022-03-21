@@ -3,11 +3,21 @@
 All notable, unreleased changes to this project will be documented in this file. For the released changes, please visit the [Releases](https://github.com/saleor/saleor-dashboard/releases) page.
 
 ## [Unreleased]
-- Gift cards - #1366, $1632 by @Cloud11PL and @bmigirl
-- Exit form dialog - #1816 by @bmigirl
+
+## 3.1
+### PREVIEW FEATURES
+- Gift cards - #1366, #1632 by @Cloud11PL and @bmigirl
 - Preorders - #1426 by @JanChodorowski
-- Variant selection attributes - #1463 by @golota60
 - Add stock reservation settings - #1459 by @orzechdev
+- Extending Dashboard with Apps - #1292 by @jwm0
+- Optional SKU - #1440 by @orzechdev
+
+### CHANGES
+- Exit form dialog - #1816 by @bmigirl
+- Variant selection attributes - #1463 by @golota60
+- Click & Collect - #1292 by @kuchichan
+- Add swatch attributes - #1301 by @piotrgrundas
+- Limit quantity per checkout - #1536 by @kuchichan
 
 ## 3.0
 

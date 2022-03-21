@@ -1,5 +1,6 @@
+import { gql } from "@apollo/client";
 import { countryFragment, shopTaxesFragment } from "@saleor/fragments/taxes";
-import gql from "graphql-tag";
+import makeMutation from "@saleor/hooks/makeMutation";
 
 import { TypedMutation } from "../mutations";
 import { FetchTaxes } from "./types/FetchTaxes";
@@ -22,7 +23,8 @@ const updateTaxSettings = gql`
     }
   }
 `;
-export const TypedUpdateTaxSettings = TypedMutation<
+
+export const useTaxSettingsUpdateMutation = makeMutation<
   UpdateTaxSettings,
   UpdateTaxSettingsVariables
 >(updateTaxSettings);

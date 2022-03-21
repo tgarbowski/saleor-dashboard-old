@@ -15,6 +15,7 @@ import {
   TypedOrderDraftCancelMutation,
   TypedOrderDraftFinalizeMutation,
   TypedOrderDraftUpdateMutation,
+  TypedOrderFulfillmentApproveMutation,
   TypedOrderFulfillmentCancelMutation,
   TypedOrderFulfillmentUpdateTrackingMutation,
   TypedOrderLineDeleteMutation,
@@ -49,6 +50,10 @@ import {
   OrderDraftUpdate,
   OrderDraftUpdateVariables
 } from "../types/OrderDraftUpdate";
+import {
+  OrderFulfillmentApprove,
+  OrderFulfillmentApproveVariables
+} from "../types/OrderFulfillmentApprove";
 import {
   OrderFulfillmentCancel,
   OrderFulfillmentCancelVariables
@@ -87,6 +92,10 @@ interface OrderOperationsProps {
     orderCancel: PartialMutationProviderOutput<
       OrderCancel,
       OrderCancelVariables
+    >;
+    orderFulfillmentApprove: PartialMutationProviderOutput<
+      OrderFulfillmentApprove,
+      OrderFulfillmentApproveVariables
     >;
     orderFulfillmentCancel: PartialMutationProviderOutput<
       OrderFulfillmentCancel,
@@ -150,6 +159,7 @@ interface OrderOperationsProps {
       InvoiceEmailSendVariables
     >;
   }) => React.ReactNode;
+  onOrderFulfillmentApprove: (data: OrderFulfillmentApprove) => void;
   onOrderFulfillmentCancel: (data: OrderFulfillmentCancel) => void;
   onOrderFulfillmentUpdate: (data: OrderFulfillmentUpdateTracking) => void;
   onOrderCancel: (data: OrderCancel) => void;
@@ -185,6 +195,7 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
   onUpdate,
   onDraftCancel,
   onDraftFinalize,
+  onOrderFulfillmentApprove,
   onOrderFulfillmentCancel,
   onOrderFulfillmentUpdate,
   onOrderMarkAsPaid,
@@ -223,6 +234,13 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                             onCompleted={onOrderLineUpdate}
                                           >
                                             {(...updateOrderLine) => (
+                                        {(...updateOrderLine) => (
+                                          <TypedOrderFulfillmentApproveMutation
+                                            onCompleted={
+                                              onOrderFulfillmentApprove
+                                            }
+                                          >
+                                            {(...approveFulfillment) => (
                                               <TypedOrderFulfillmentCancelMutation
                                                 onCompleted={
                                                   onOrderFulfillmentCancel
@@ -292,6 +310,9 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                                                               orderDraftUpdate: getMutationProviderData(
                                                                                 ...updateDraft
                                                                               ),
+                                                                              orderFulfillmentApprove: getMutationProviderData(
+                                                                                ...approveFulfillment
+                                                                              ),
                                                                               orderFulfillmentCancel: getMutationProviderData(
                                                                                 ...cancelFulfillment
                                                                               ),
@@ -349,6 +370,7 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                               </TypedOrderFulfillmentCancelMutation>
                                             )}
                                           </TypedOrderLineUpdateMutation>
+                                          </TypedOrderFulfillmentApproveMutation>
                                         )}
                                       </TypedOrderLinesAddMutation>
                                     )}

@@ -9,18 +9,30 @@ import {
   createFetchMoreReferencesHandler,
   createFetchReferencesHandler
 } from "@saleor/attributes/utils/handlers";
-import { ChannelData, ChannelPriceArgs } from "@saleor/channels/utils";
+import {
+  ChannelData,
+  ChannelPreorderArgs,
+  ChannelPriceArgs
+} from "@saleor/channels/utils";
 import { AttributeInput } from "@saleor/components/Attributes";
+import { useExitFormDialog } from "@saleor/components/Form/useExitFormDialog";
 import { MetadataFormData } from "@saleor/components/Metadata";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import { RichTextEditorChange } from "@saleor/components/RichTextEditor";
 import { SingleAutocompleteChoiceType } from "@saleor/components/SingleAutocompleteSelectField";
-import useForm, { FormChange, SubmitPromise } from "@saleor/hooks/useForm";
+import useForm, {
+  CommonUseFormResultWithHandlers,
+  FormChange,
+  FormErrors,
+  SubmitPromise
+} from "@saleor/hooks/useForm";
 import useFormset, {
   FormsetAtomicData,
   FormsetChange,
   FormsetData
 } from "@saleor/hooks/useFormset";
+import useHandleFormSubmit from "@saleor/hooks/useHandleFormSubmit";
+import { errorMessages } from "@saleor/intl";
 import { ProductDetails_product } from "@saleor/products/types/ProductDetails";
 import {
   getAttributeInputFromProduct,
@@ -30,25 +42,28 @@ import {
 } from "@saleor/products/utils/data";
 import {
   createChannelsChangeHandler,
-  createChannelsPriceChangeHandler
+  createChannelsPreorderChangeHandler,
+  createChannelsPriceChangeHandler,
+  createPreorderEndDateChangeHandler
 } from "@saleor/products/utils/handlers";
 import {
   validateCostPrice,
   validatePrice
 } from "@saleor/products/utils/validation";
+import { PRODUCT_UPDATE_FORM_ID } from "@saleor/products/views/ProductUpdate/consts";
 import { ChannelsWithVariantsData } from "@saleor/products/views/ProductUpdate/types";
 import { SearchPages_search_edges_node } from "@saleor/searches/types/SearchPages";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { SearchWarehouses_search_edges_node } from "@saleor/searches/types/SearchWarehouses";
 import { FetchMoreProps, ReorderEvent } from "@saleor/types";
 import { arrayDiff } from "@saleor/utils/arrays";
-import handleFormSubmit from "@saleor/utils/handlers/handleFormSubmit";
 import createMultiAutocompleteSelectHandler from "@saleor/utils/handlers/multiAutocompleteSelectChangeHandler";
 import createSingleAutocompleteSelectHandler from "@saleor/utils/handlers/singleAutocompleteSelectChangeHandler";
 import getMetadata from "@saleor/utils/metadata/getMetadata";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import useRichText from "@saleor/utils/richText/useRichText";
 import React, { useEffect } from "react";
+import { useIntl } from "react-intl";
 
 import { ProductStockFormsetData, ProductStockInput } from "../ProductStocks";
 
@@ -70,6 +85,11 @@ export interface ProductUpdateFormData extends MetadataFormData {
   sku: string;
   taxCode: string;
   trackInventory: boolean;
+  isPreorder: boolean;
+  globalThreshold: string;
+  globalSoldUnits: number;
+  hasPreorderEndDate: boolean;
+  preorderEndDateTime?: string;
   weight: string;
 }
 export interface FileAttributeInputData {
@@ -113,6 +133,10 @@ export interface ProductUpdateHandlers
     >,
     Record<"changeChannelPrice", (id: string, data: ChannelPriceArgs) => void>,
     Record<
+      "changeChannelPreorder",
+      (id: string, data: ChannelPreorderArgs) => void
+    >,
+    Record<
       "changeChannels",
       (
         id: string,
@@ -124,17 +148,17 @@ export interface ProductUpdateHandlers
     Record<"reorderAttributeValue", FormsetChange<ReorderEvent>>,
     Record<"addStock" | "deleteStock", (id: string) => void> {
   changeDescription: RichTextEditorChange;
+  changePreorderEndDate: FormChange;
   fetchReferences: (value: string) => void;
   fetchMoreReferences: FetchMoreProps;
 }
-export interface UseProductUpdateFormResult {
-  change: FormChange;
-
-  data: ProductUpdateData;
+export interface UseProductUpdateFormResult
+  extends CommonUseFormResultWithHandlers<
+    ProductUpdateData,
+    ProductUpdateHandlers
+  > {
   disabled: boolean;
-  handlers: ProductUpdateHandlers;
-  hasChanged: boolean;
-  submit: () => Promise<boolean>;
+  formErrors: FormErrors<ProductUpdateSubmitData>;
 }
 
 export interface UseProductUpdateFormOpts
@@ -200,8 +224,7 @@ function useProductUpdateForm(
   onSubmit: (data: ProductUpdateSubmitData) => SubmitPromise,
   opts: UseProductUpdateFormOpts
 ): UseProductUpdateFormResult {
-  const [changed, setChanged] = React.useState(false);
-  const triggerChange = () => setChanged(true);
+  const intl = useIntl();
 
   const form = useForm(
     getProductUpdatePageFormData(
@@ -210,8 +233,20 @@ function useProductUpdateForm(
       opts.currentChannels,
       opts.channelsData,
       opts.channelsWithVariants
-    )
+    ),
+    undefined,
+    { confirmLeave: true, formId: PRODUCT_UPDATE_FORM_ID }
   );
+
+  const {
+    handleChange,
+    triggerChange,
+    toggleValue,
+    data: formData,
+    setChanged,
+    hasChanged
+  } = form;
+
   const attributes = useFormset(getAttributeInputFromProduct(product));
   const attributesWithNewFileValue = useFormset<null, File>([]);
   const stocks = useFormset(getStockInputFromProduct(product));
@@ -223,6 +258,9 @@ function useProductUpdateForm(
   useEffect(() => {
     updateDataFromMegaPackValues(form.data, form.data.megaPackProduct);
   }, [form.data.megaPackProduct]);
+  const { setExitDialogSubmitRef } = useExitFormDialog({
+    formId: PRODUCT_UPDATE_FORM_ID
+  });
 
   const {
     isMetadataModified,
@@ -230,12 +268,8 @@ function useProductUpdateForm(
     makeChangeHandler: makeMetadataChangeHandler
   } = useMetadataChangeTrigger();
 
-  const handleChange: FormChange = (event, cb) => {
-    form.change(event, cb);
-    triggerChange();
-  };
   const handleCollectionSelect = createMultiAutocompleteSelectHandler(
-    event => form.toggleValue(event, triggerChange),
+    event => toggleValue(event),
     opts.setSelectedCollections,
     opts.selectedCollections,
     opts.collections
@@ -314,14 +348,26 @@ function useProductUpdateForm(
     triggerChange
   );
 
+  const handleChannelPreorderChange = createChannelsPreorderChangeHandler(
+    opts.isSimpleProduct ? opts.currentChannels : opts.channelsData,
+    opts.isSimpleProduct ? opts.setChannels : opts.setChannelsData,
+    triggerChange
+  );
+
   const handleChannelPriceChange = createChannelsPriceChangeHandler(
     opts.isSimpleProduct ? opts.currentChannels : opts.channelsData,
     opts.isSimpleProduct ? opts.setChannels : opts.setChannelsData,
     triggerChange
   );
 
+  const handlePreorderEndDateChange = createPreorderEndDateChangeHandler(
+    form,
+    triggerChange,
+    intl.formatMessage(errorMessages.preorderEndDateInFutureErrorText)
+  );
+
   const data: ProductUpdateData = {
-    ...form.data,
+    ...formData,
     channelListings: opts.currentChannels,
     channelsData: opts.channelsData,
     attributes: getAttributesDisplayData(
@@ -354,11 +400,26 @@ function useProductUpdateForm(
     return errors;
   };
 
-  const submit = async () =>
-    handleFormSubmit(getSubmitData(), handleSubmit, setChanged);
+  const handleFormSubmit = useHandleFormSubmit({
+    formId: form.formId,
+    onSubmit: handleSubmit,
+    setChanged
+  });
+
+  const submit = async () => handleFormSubmit(getSubmitData());
+
+  useEffect(() => setExitDialogSubmitRef(submit), [submit]);
 
   const shouldEnableSave = () => {
     if (!data.name) {
+      return false;
+    }
+
+    if (
+      data.isPreorder &&
+      data.hasPreorderEndDate &&
+      !!form.errors.preorderEndDateTime
+    ) {
       return false;
     }
 
@@ -371,7 +432,7 @@ function useProductUpdateForm(
         validatePrice(channel.price) || validateCostPrice(channel.costPrice)
     );
 
-    if (!data.sku || hasInvalidChannelListingPrices) {
+    if (hasInvalidChannelListingPrices) {
       return false;
     }
     return true;
@@ -383,13 +444,16 @@ function useProductUpdateForm(
     change: handleChange,
     data,
     disabled,
+    formErrors: form.errors,
     handlers: {
       addStock: handleStockAdd,
       changeChannelPrice: handleChannelPriceChange,
+      changeChannelPreorder: handleChannelPreorderChange,
       changeChannels: handleChannelsChange,
       changeDescription,
       changeMetadata,
       changeStock: handleStockChange,
+      changePreorderEndDate: handlePreorderEndDateChange,
       deleteStock: handleStockDelete,
       fetchMoreReferences: handleFetchMoreReferences,
       fetchReferences: handleFetchReferences,
@@ -402,7 +466,7 @@ function useProductUpdateForm(
       selectCollection: handleCollectionSelect,
       selectTaxRate: handleTaxTypeSelect
     },
-    hasChanged: changed,
+    hasChanged,
     submit
   };
 }

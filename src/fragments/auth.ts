@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const fragmentUser = gql`
   fragment User on User {
@@ -14,5 +14,13 @@ export const fragmentUser = gql`
     avatar {
       url
     }
+  }
+`;
+
+export const fragmentUserBase = gql`
+  fragment UserBase on User {
+    id
+    firstName
+    lastName
   }
 `;

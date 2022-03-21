@@ -50,4 +50,7 @@ export interface ShopFragment {
   description: string | null;
   domain: ShopFragment_domain;
   name: string;
+  reserveStockDurationAnonymousUser: number | null;
+  reserveStockDurationAuthenticatedUser: number | null;
+  limitQuantityPerCheckout: number | null;
 }

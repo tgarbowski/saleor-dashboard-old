@@ -9,6 +9,10 @@ import { Button } from "@material-ui/core";
 import WarningIcon from "@material-ui/icons/Warning";
 import AvailabilityStatusLabel from "@saleor/components/AvailabilityStatusLabel";
 import { ChannelsAvailabilityDropdown } from "@saleor/components/ChannelsAvailabilityDropdown";
+import {
+  getChannelAvailabilityColor,
+  getChannelAvailabilityLabel
+} from "@saleor/components/ChannelsAvailabilityDropdown/utils";
 import Checkbox from "@saleor/components/Checkbox";
 import { Date as SaleorDate } from "@saleor/components/Date";
 import MoneyRange from "@saleor/components/MoneyRange";
@@ -23,7 +27,7 @@ import TablePagination from "@saleor/components/TablePagination";
 import TooltipTableCellHeader from "@saleor/components/TooltipTableCellHeader";
 import { commonTooltipMessages } from "@saleor/components/TooltipTableCellHeader/messages";
 import { ProductListColumns } from "@saleor/config";
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles, Pill } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
 import {
   getAttributeIdFromColumnValue,
@@ -43,7 +47,7 @@ import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { columnsMessages, messages } from "./messages";
+import { columnsMessages } from "./messages";
 
 const useStyles = makeStyles(
   theme => ({
@@ -61,6 +65,9 @@ const useStyles = makeStyles(
         width: 200
       },
       colCreatedAt: {
+        width: 200
+      },
+      colDate: {
         width: 200
       }
     },
@@ -120,13 +127,11 @@ interface ProductListProps
   gridAttributes: GridAttributes_grid_edges_node[];
   products: ProductList_products_edges_node[];
   loading: boolean;
-  channelsCount: number;
 }
 
 export const ProductList: React.FC<ProductListProps> = props => {
   const {
     activeAttributeSortId,
-    channelsCount,
     settings,
     disabled,
     isChecked,
@@ -398,8 +403,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                   key={product ? product.id : "skeleton"}
                   onClick={product && onRowClick(product.id)}
                   className={classes.link}
-                  data-test="id"
-                  data-test-id={product ? product?.id : "skeleton"}
+                  data-test-id={"id-" + (product ? product?.id : "skeleton")}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -530,20 +534,19 @@ export const ProductList: React.FC<ProductListProps> = props => {
                         !!product?.channelListings?.length
                       }
                     >
-                      {(!product && <Skeleton />) ||
-                        (!product?.channelListings?.length && "-") ||
-                        (product?.channelListings !== undefined && channel ? (
-                          <AvailabilityStatusLabel
-                            channel={channel}
-                            messages={messages}
+                      {(product &&
+                        (channel ? (
+                          <Pill
+                            label={intl.formatMessage(
+                              getChannelAvailabilityLabel(channel)
+                            )}
+                            color={getChannelAvailabilityColor(channel)}
                           />
                         ) : (
                           <ChannelsAvailabilityDropdown
-                            allChannelsCount={channelsCount}
                             channels={product?.channelListings}
-                            showStatus
                           />
-                        ))}
+                        ))) ?? <Skeleton />}
                     </TableCell>
                   </DisplayColumn>
                   {gridAttributesFromSettings.map(gridAttribute => (

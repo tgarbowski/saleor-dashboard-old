@@ -36,5 +36,8 @@ export const shop: SiteSettings_shop = {
     __typename: "Domain",
     host: "localhost:8000"
   },
-  name: "Saleor e-commerce"
+  name: "Saleor e-commerce",
+  reserveStockDurationAnonymousUser: 10,
+  reserveStockDurationAuthenticatedUser: 10,
+  limitQuantityPerCheckout: 50
 };

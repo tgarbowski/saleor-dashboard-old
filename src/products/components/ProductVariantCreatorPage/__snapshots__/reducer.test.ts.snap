@@ -5,6 +5,7 @@ Object {
   "attributes": Array [
     Object {
       "id": "attr-1",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-1-1",
@@ -19,6 +20,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-1",
+            "value": null,
           },
         },
         Object {
@@ -34,12 +36,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-7",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-2",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-2-2",
@@ -54,6 +58,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-2",
+            "value": null,
           },
         },
         Object {
@@ -69,12 +74,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-4",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-4",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-4-1",
@@ -89,6 +96,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-1",
+            "value": null,
           },
         },
         Object {
@@ -104,6 +112,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-5",
+            "value": null,
           },
         },
       ],
@@ -644,6 +653,7 @@ Object {
   "attributes": Array [
     Object {
       "id": "attr-1",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-1-1",
@@ -658,6 +668,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-1",
+            "value": null,
           },
         },
         Object {
@@ -673,12 +684,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-7",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-2",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-2-2",
@@ -693,6 +706,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-2",
+            "value": null,
           },
         },
         Object {
@@ -708,12 +722,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-4",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-4",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-4-1",
@@ -728,6 +744,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-1",
+            "value": null,
           },
         },
         Object {
@@ -743,6 +760,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-5",
+            "value": null,
           },
         },
       ],
@@ -1283,6 +1301,7 @@ Object {
   "attributes": Array [
     Object {
       "id": "attr-1",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-1-1",
@@ -1297,6 +1316,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-1",
+            "value": null,
           },
         },
         Object {
@@ -1312,12 +1332,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-7",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-2",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-2-2",
@@ -1332,6 +1354,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-2",
+            "value": null,
           },
         },
         Object {
@@ -1347,12 +1370,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-4",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-4",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-4-1",
@@ -1367,6 +1392,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-1",
+            "value": null,
           },
         },
         Object {
@@ -1382,6 +1408,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-5",
+            "value": null,
           },
         },
       ],
@@ -1422,6 +1449,7 @@ Object {
   "attributes": Array [
     Object {
       "id": "attr-1",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-1-1",
@@ -1436,6 +1464,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-1",
+            "value": null,
           },
         },
         Object {
@@ -1451,12 +1480,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-7",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-2",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-2-2",
@@ -1471,6 +1502,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-2",
+            "value": null,
           },
         },
         Object {
@@ -1486,12 +1518,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-4",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-4",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-4-1",
@@ -1506,6 +1540,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-1",
+            "value": null,
           },
         },
         Object {
@@ -1521,6 +1556,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-5",
+            "value": null,
           },
         },
       ],
@@ -2012,6 +2048,7 @@ Object {
   "attributes": Array [
     Object {
       "id": "attr-1",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-1-1",
@@ -2026,6 +2063,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-1",
+            "value": null,
           },
         },
         Object {
@@ -2041,12 +2079,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-7",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-2",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-2-2",
@@ -2061,6 +2101,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-2",
+            "value": null,
           },
         },
         Object {
@@ -2076,12 +2117,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-4",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-4",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-4-1",
@@ -2096,6 +2139,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-1",
+            "value": null,
           },
         },
         Object {
@@ -2111,6 +2155,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-5",
+            "value": null,
           },
         },
       ],
@@ -2557,6 +2602,7 @@ Object {
   "attributes": Array [
     Object {
       "id": "attr-1",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-1-1",
@@ -2571,6 +2617,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-1",
+            "value": null,
           },
         },
         Object {
@@ -2586,12 +2633,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-7",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-2",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-2-2",
@@ -2606,6 +2655,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-2",
+            "value": null,
           },
         },
         Object {
@@ -2621,12 +2671,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-4",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-4",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-4-1",
@@ -2641,6 +2693,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-1",
+            "value": null,
           },
         },
         Object {
@@ -2656,6 +2709,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-5",
+            "value": null,
           },
         },
       ],
@@ -3147,6 +3201,7 @@ Object {
   "attributes": Array [
     Object {
       "id": "attr-1",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-1-1",
@@ -3161,6 +3216,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-1",
+            "value": null,
           },
         },
         Object {
@@ -3176,12 +3232,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-7",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-2",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-2-2",
@@ -3196,6 +3254,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-2",
+            "value": null,
           },
         },
         Object {
@@ -3211,12 +3270,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-4",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-4",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-4-1",
@@ -3231,6 +3292,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-1",
+            "value": null,
           },
         },
         Object {
@@ -3246,6 +3308,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-5",
+            "value": null,
           },
         },
       ],
@@ -3654,6 +3717,7 @@ Object {
   "attributes": Array [
     Object {
       "id": "attr-1",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-1-1",
@@ -3668,6 +3732,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-1",
+            "value": null,
           },
         },
         Object {
@@ -3683,12 +3748,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-1-7",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-2",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-2-2",
@@ -3703,6 +3770,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-2",
+            "value": null,
           },
         },
         Object {
@@ -3718,12 +3786,14 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-2-4",
+            "value": null,
           },
         },
       ],
     },
     Object {
       "id": "attr-4",
+      "valueRequired": false,
       "values": Array [
         Object {
           "slug": "val-4-1",
@@ -3738,6 +3808,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-1",
+            "value": null,
           },
         },
         Object {
@@ -3753,6 +3824,7 @@ Object {
             "reference": null,
             "richText": null,
             "slug": "val-4-5",
+            "value": null,
           },
         },
       ],

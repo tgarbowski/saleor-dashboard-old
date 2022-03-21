@@ -11,10 +11,8 @@ export function updateTranslationToCategory({
   translatedSeoTitle,
   translatedSeoDescription
 }) {
-  cy.visit(urlList.translations)
-    .get(LANGUAGES_LIST.polishLanguageButton)
-    .click()
-    .findElementOnTable(categoryName);
+  cy.visit(urlList.translations);
+  enterCategoryTranslation(LANGUAGES_LIST.polishLanguageButton, categoryName);
   cy.get(ELEMENT_TRANSLATION.editNameButton)
     .click()
     .get(SHARED_ELEMENTS.skeleton)
@@ -28,7 +26,7 @@ export function updateTranslationToCategory({
     .click()
     .get(SHARED_ELEMENTS.richTextEditor.loader)
     .should("not.exist")
-    .get(ELEMENT_TRANSLATION.translationInputField)
+    .get(ELEMENT_TRANSLATION.translationTextEditor)
     .clearAndType(translatedDescription)
     .wait(500)
     .get(BUTTON_SELECTORS.confirm)
@@ -48,4 +46,30 @@ export function updateTranslationToCategory({
     .get(BUTTON_SELECTORS.confirm)
     .click()
     .confirmationMessageShouldDisappear();
+}
+
+export function enterCategoryTranslation(language, categoryName) {
+  cy.addAliasToGraphRequest("CategoryTranslations");
+  cy.get(language).click();
+  getCategoryFromTable(categoryName);
+}
+
+function getCategoryFromTable(categoryName) {
+  cy.wait("@CategoryTranslations")
+    .its("response.body")
+    .then(bodies => {
+      const body = bodies[0];
+      const edges = body.data.translations.edges;
+      const isCategoryInResp = edges.find(
+        edge => edge.node.category.name === categoryName
+      );
+      if (isCategoryInResp) {
+        cy.contains(SHARED_ELEMENTS.tableRow, categoryName).click({
+          force: true
+        });
+      } else {
+        cy.get(BUTTON_SELECTORS.nextPaginationButton).click();
+        getCategoryFromTable(categoryName);
+      }
+    });
 }

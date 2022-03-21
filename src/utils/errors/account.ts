@@ -1,9 +1,8 @@
-import { commonMessages } from "@saleor/intl";
 import { SetPasswordData } from "@saleor/sdk";
 import { AccountErrorCode } from "@saleor/types/globalTypes";
 import { defineMessages, IntlShape } from "react-intl";
 
-import commonErrorMessages from "./common";
+import { getCommonFormFieldErrorMessage } from "./common";
 
 const messages = defineMessages({
   invalidPassword: {
@@ -39,10 +38,6 @@ interface ErrorFragment {
 function getAccountErrorMessage(err: ErrorFragment, intl: IntlShape): string {
   if (err) {
     switch (err.code) {
-      case AccountErrorCode.GRAPHQL_ERROR:
-        return intl.formatMessage(commonErrorMessages.graphqlError);
-      case AccountErrorCode.INVALID:
-        return intl.formatMessage(commonErrorMessages.invalid);
       case AccountErrorCode.INVALID_PASSWORD:
         return intl.formatMessage(messages.invalidPassword);
       case AccountErrorCode.OUT_OF_SCOPE_USER:
@@ -57,16 +52,12 @@ function getAccountErrorMessage(err: ErrorFragment, intl: IntlShape): string {
         return intl.formatMessage(messages.tooShort);
       case AccountErrorCode.PASSWORD_TOO_SIMILAR:
         return intl.formatMessage(messages.tooSimilar);
-      case AccountErrorCode.REQUIRED:
-        return intl.formatMessage(commonMessages.requiredField);
       case AccountErrorCode.UNIQUE:
         return intl.formatMessage(messages.unique);
-      default:
-        return intl.formatMessage(commonErrorMessages.unknownError);
     }
   }
 
-  return undefined;
+  return getCommonFormFieldErrorMessage(err, intl);
 }
 
 export default getAccountErrorMessage;

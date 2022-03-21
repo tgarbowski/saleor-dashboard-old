@@ -27,7 +27,8 @@ export enum ProductFilterKeys {
   channel = "channel",
   warehouseLocation = "warehouseLocation",
   createdAt = "createdAt",
-  status = "status"
+  status = "status",
+  productKind = "productKind"
 }
 
 export type AttributeFilterOpts = FilterOpts<string[]> & {
@@ -49,6 +50,7 @@ export interface ProductListFilterOpts {
   warehouseLocation: FilterOpts<MinMax>;
   createdAt?: FilterOpts<MinMax>;
   status: FilterOpts<ProductStatus>;
+  productKind: FilterOpts<string> & { choices: SingleAutocompleteChoiceType[] };
 }
 
 export enum ProductStatus {
@@ -64,6 +66,10 @@ const messages = defineMessages({
   channel: {
     defaultMessage: "Channel",
     description: "sales channel"
+  },
+  kind: {
+    defaultMessage: "Product Kind",
+    description: "product kind"
   },
   hidden: {
     defaultMessage: "Hidden",
@@ -156,6 +162,16 @@ export function createFilterStructure(
         opts.channel.choices
       ),
       active: opts.channel.active
+    },
+    {
+      ...createOptionsField(
+        ProductFilterKeys.productKind,
+        intl.formatMessage(messages.kind),
+        [opts.productKind.value],
+        false,
+        opts.productKind.choices
+      ),
+      active: opts.productKind.active
     },
     {
       ...createOptionsField(

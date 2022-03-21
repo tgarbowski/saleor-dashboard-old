@@ -1,21 +1,25 @@
+import {
+  ApolloClient,
+  ApolloLink,
+  ApolloProvider,
+  InMemoryCache
+} from "@apollo/client";
+import { BatchHttpLink } from "@apollo/client/link/batch-http";
 import DemoBanner from "@saleor/components/DemoBanner";
 import useAppState from "@saleor/hooks/useAppState";
 import { ThemeProvider } from "@saleor/macaw-ui";
 import { createFetch, createSaleorClient, SaleorProvider } from "@saleor/sdk";
-import { defaultDataIdFromObject, InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { ApolloLink } from "apollo-link";
-import { BatchHttpLink } from "apollo-link-batch-http";
 import { createUploadLink } from "apollo-upload-client";
 import React from "react";
-import { ApolloProvider } from "react-apollo";
 import { render } from "react-dom";
 import ErrorBoundary from "react-error-boundary";
 import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import introspectionQueryResultData from "../fragmentTypes.json";
 import AppsSection from "./apps";
+import { ExternalAppProvider } from "./apps/components/ExternalAppContext";
 import { appsSection } from "./apps/urls";
 import AttributeSection from "./attributes";
 import { attributeSection } from "./attributes/urls";
@@ -32,6 +36,7 @@ import useAppChannel, {
   AppChannelProvider
 } from "./components/AppLayout/AppChannelContext";
 import { DateProvider } from "./components/Date";
+import ExitFormDialogProvider from "./components/Form/ExitFormDialogProvider";
 import { LocaleProvider } from "./components/Locale";
 import MessageManagerProvider from "./components/messages";
 import { ShopProvider } from "./components/Shop";
@@ -44,6 +49,8 @@ import BackgroundTasksProvider from "./containers/BackgroundTasks";
 import ServiceWorker from "./containers/ServiceWorker/ServiceWorker";
 import { CustomerSection } from "./customers";
 import DiscountSection from "./discounts";
+import GiftCardSection from "./giftCards";
+import { giftCardsSectionUrlName } from "./giftCards/urls";
 import HomePage from "./home";
 import { commonMessages } from "./intl";
 import NavigationSection from "./navigation";
@@ -63,6 +70,7 @@ import StaffSection from "./staff";
 import TaxesSection from "./taxes";
 import themeOverrides from "./themeOverrides";
 import TranslationsSection from "./translations";
+import { TypedTypePolicies } from "./type-policies";
 import { PermissionEnum } from "./types/globalTypes";
 import WarehouseSection from "./warehouses";
 import { warehouseSection } from "./warehouses/urls";
@@ -92,17 +100,26 @@ const link = ApolloLink.split(
   batchLink,
   uploadLink
 );
-
 const apolloClient = new ApolloClient({
   cache: new InMemoryCache({
-    dataIdFromObject: (obj: any) => {
-      // We need to set manually shop's ID, since it is singleton and
-      // API does not return its ID
-      if (obj.__typename === "Shop") {
-        return "shop";
+    possibleTypes: introspectionQueryResultData.possibleTypes,
+    typePolicies: {
+      CountryDisplay: {
+        keyFields: ["code"]
+      },
+      Money: {
+        merge: false
+      },
+      TaxedMoney: {
+        merge: false
+      },
+      Weight: {
+        merge: false
+      },
+      Shop: {
+        keyFields: []
       }
-      return defaultDataIdFromObject(obj);
-    }
+    } as TypedTypePolicies
   }),
   link
 });
@@ -126,7 +143,11 @@ const App: React.FC = () => (
                     <AuthProvider>
                       <ShopProvider>
                         <AppChannelProvider>
-                          <Routes />
+                          <ExternalAppProvider>
+                            <ExitFormDialogProvider>
+                              <Routes />
+                            </ExitFormDialogProvider>
+                          </ExternalAppProvider>
                         </AppChannelProvider>
                       </ShopProvider>
                     </AuthProvider>
@@ -189,6 +210,11 @@ const Routes: React.FC = () => {
                 permissions={[PermissionEnum.MANAGE_USERS]}
                 path="/customers"
                 component={CustomerSection}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_GIFT_CARD]}
+                path={giftCardsSectionUrlName}
+                component={GiftCardSection}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_DISCOUNTS]}

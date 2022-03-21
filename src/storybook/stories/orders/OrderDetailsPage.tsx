@@ -1,12 +1,14 @@
 import placeholderImage from "@assets/images/placeholder60x60.png";
-import { adminUserPermissions } from "@saleor/fixtures";
 import { storiesOf } from "@storybook/react";
 import React from "react";
 
 import OrderDetailsPage, {
   OrderDetailsPageProps
 } from "../../../orders/components/OrderDetailsPage";
-import { order as orderFixture } from "../../../orders/fixtures";
+import {
+  order as orderFixture,
+  shop as shopFixture
+} from "../../../orders/fixtures";
 import {
   FulfillmentStatus,
   OrderStatus,
@@ -21,6 +23,7 @@ const props: Omit<OrderDetailsPageProps, "classes"> = {
   shop: undefined,
   onBack: () => undefined,
   onBillingAddressEdit: undefined,
+  onFulfillmentApprove: () => undefined,
   onFulfillmentCancel: () => undefined,
   onFulfillmentTrackingNumberUpdate: () => undefined,
   onInvoiceClick: () => undefined,
@@ -41,8 +44,8 @@ const props: Omit<OrderDetailsPageProps, "classes"> = {
   onShippingAddressEdit: undefined,
   onSubmit: () => undefined,
   order,
-  saveButtonBarState: "default",
-  userPermissions: adminUserPermissions
+  shop: shopFixture,
+  saveButtonBarState: "default"
 };
 
 storiesOf("Views / Orders / Order details", module)

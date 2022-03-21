@@ -37,11 +37,11 @@ import {
   collectionUrl
 } from "../../urls";
 import {
-  areFiltersApplied,
   deleteFilterTab,
   getActiveFilters,
   getFilterOpts,
   getFilterQueryParam,
+  getFiltersCurrentTab,
   getFilterTabs,
   getFilterVariables,
   saveFilterTab
@@ -132,12 +132,7 @@ export const CollectionList: React.FC<CollectionListProps> = ({ params }) => {
     }
   }, [params]);
 
-  const currentTab =
-    params.activeTab === undefined
-      ? areFiltersApplied(params)
-        ? tabs.length + 1
-        : 0
-      : parseInt(params.activeTab, 0);
+  const currentTab = getFiltersCurrentTab(params, tabs);
 
   const [openModal, closeModal] = createDialogActionHandlers<
     CollectionListUrlDialog,

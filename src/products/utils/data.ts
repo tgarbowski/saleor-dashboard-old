@@ -23,6 +23,7 @@ import {
 } from "@saleor/products/types/ProductDetails";
 import { StockInput } from "@saleor/types/globalTypes";
 import { mapEdgesToItems, mapMetadataItemToInput } from "@saleor/utils/maps";
+import moment from "moment";
 
 import { ProductStockInput } from "../components/ProductStocks";
 import { ProductType_productType, ProductType_productType_productAttributes } from "../types/ProductType";
@@ -229,6 +230,11 @@ export interface ProductUpdatePageFormData extends MetadataFormData {
   taxCode: string;
   trackInventory: boolean;
   weight: string;
+  isPreorder: boolean;
+  globalThreshold: string;
+  globalSoldUnits: number;
+  hasPreorderEndDate: boolean;
+  preorderEndDateTime?: string;
 }
 
 function getSkusFromMetadata(metadata: MetadataItem[]): string {
@@ -248,6 +254,7 @@ export function getProductUpdatePageFormData(
   channelsData: ChannelData[],
   channelsWithVariants: ChannelsWithVariantsData
 ): ProductUpdatePageFormData {
+  const variant = product?.variants[0];
   return {
     channelsWithVariants,
     channelsData,
@@ -258,7 +265,7 @@ export function getProductUpdatePageFormData(
       () => product.collections.map(collection => collection.id),
       []
     ),
-    channelListings: currentChannels,
+    channelListings: currentChannels.map(listing => ({ ...listing })),
     isAvailable: !!product?.isAvailable,
     megaPackProduct: maybe(() => getSkusFromMetadata(product?.privateMetadata)),
     metadata: product?.metadata?.map(mapMetadataItemToInput),
@@ -278,8 +285,13 @@ export function getProductUpdatePageFormData(
     ),
     slug: product?.slug || "",
     taxCode: product?.taxType.taxCode,
-    trackInventory: !!product?.variants[0]?.trackInventory,
-    weight: product?.weight?.value.toString() || ""
+    trackInventory: !!variant?.trackInventory,
+    weight: product?.weight?.value.toString() || "",
+    isPreorder: !!variant?.preorder || false,
+    globalThreshold: variant?.preorder?.globalThreshold?.toString() || "",
+    globalSoldUnits: variant?.preorder?.globalSoldUnits || 0,
+    hasPreorderEndDate: !!variant?.preorder?.endDate,
+    preorderEndDateTime: variant?.preorder?.endDate
   };
 }
 
@@ -351,3 +363,8 @@ export function generateSkuCode(productCount: number, data): string {
   const productNumber: string = ("000" + String(productCount)).slice(-4);
   return firstLetters + productNumber;
 }
+export const getPreorderEndDateFormData = (endDate?: string) =>
+  endDate ? moment(endDate).format("YYYY-MM-DD") : "";
+
+export const getPreorderEndHourFormData = (endDate?: string) =>
+  endDate ? moment(endDate).format("HH:mm") : "";

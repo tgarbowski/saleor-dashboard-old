@@ -15,13 +15,12 @@ import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Backlink } from "@saleor/macaw-ui";
 import { makeStyles } from "@saleor/macaw-ui";
 import OrderChannelSectionCard from "@saleor/orders/components/OrderChannelSectionCard";
-import { UserPermissionProps } from "@saleor/types";
 import { mapMetadataItemToInput } from "@saleor/utils/maps";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
-import { maybe } from "../../../misc";
+import { getMutationErrors, maybe } from "../../../misc";
 import { OrderStatus } from "../../../types/globalTypes";
 import {
   OrderDetails_order,
@@ -55,7 +54,7 @@ const useStyles = makeStyles(
   }
 );
 
-export interface OrderDetailsPageProps extends UserPermissionProps {
+export interface OrderDetailsPageProps {
   order: OrderDetails_order;
   shop: OrderDetails_shop;
   shippingMethods?: Array<{
@@ -73,6 +72,7 @@ export interface OrderDetailsPageProps extends UserPermissionProps {
   onShippingMethodEdit?: () => void;
   onBack();
   onBillingAddressEdit();
+  onFulfillmentApprove(id: string);
   onFulfillmentCancel(id: string);
   onFulfillmentTrackingNumberUpdate(id: string);
   onOrderFulfill();
@@ -113,10 +113,11 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
   const {
     disabled,
     order,
+    shop,
     saveButtonBarState,
-    userPermissions,
     onBack,
     onBillingAddressEdit,
+    onFulfillmentApprove,
     onFulfillmentCancel,
     onFulfillmentTrackingNumberUpdate,
     onNoteAdd,
@@ -154,8 +155,12 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
   const canCancel = order?.status !== OrderStatus.CANCELED;
   const canEditAddresses = order?.status !== OrderStatus.CANCELED;
   const canFulfill = order?.status !== OrderStatus.CANCELED;
+  const notAllowedToFulfillUnpaid =
+    shop?.fulfillmentAutoApprove &&
+    !shop?.fulfillmentAllowUnpaid &&
+    !order?.isPaid;
   const unfulfilled = (order?.lines || []).filter(
-    line => line.quantityFulfilled < line.quantity
+    line => line.quantityToFulfill > 0
   );
 
   const handleSubmit = async (data: MetadataFormData) => {
@@ -169,7 +174,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
       privateMetadata
     });
     resetMetadataChanged();
-    return result;
+    return getMutationErrors(result);
   };
 
   const initial: MetadataFormData = {
@@ -208,7 +213,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
   ]);
 
   return (
-    <Form initial={initial} onSubmit={handleSubmit}>
+    <Form confirmLeave initial={initial} onSubmit={handleSubmit}>
       {({ change, data, hasChanged, submit }) => {
         const changeMetadata = makeMetadataChangeHandler(change);
 
@@ -236,7 +241,8 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
               <div data-test-id="order-fulfillment">
                 {!isOrderUnconfirmed ? (
                   <OrderUnfulfilledProductsCard
-                    canFulfill={canFulfill}
+                    showFulfillmentAction={canFulfill}
+                    notAllowedToFulfillUnpaid={notAllowedToFulfillUnpaid}
                     lines={unfulfilled}
                     onFulfill={onOrderFulfill}
                     onParcelDetails={onParcelDetails}
@@ -257,7 +263,8 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                   <React.Fragment key={fulfillment.id}>
                     <OrderFulfilledProductsCard
                       fulfillment={fulfillment}
-                      orderNumber={order.number}
+                      fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
+                      order={order}
                       onOrderFulfillmentCancel={() =>
                         onFulfillmentCancel(fulfillment.id)
                       }
@@ -267,6 +274,9 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       onParcelLabelDownload={() => onParcelLabelDownload()}
                       onParcelDetails={onParcelDetails}
                       onRefund={onPaymentRefund}
+                      onOrderFulfillmentApprove={() =>
+                        onFulfillmentApprove(fulfillment.id)
+                      }
                     />
                   </React.Fragment>
                 ))}
@@ -294,7 +304,6 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                   canEditAddresses={canEditAddresses}
                   canEditCustomer={false}
                   order={order}
-                  userPermissions={userPermissions}
                   onBillingAddressEdit={onBillingAddressEdit}
                   onShippingAddressEdit={onShippingAddressEdit}
                   onProfileView={onProfileView}

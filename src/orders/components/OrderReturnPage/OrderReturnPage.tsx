@@ -17,8 +17,9 @@ import { OrderReturnPageMessages as messages } from "./messages";
 import ItemsCard from "./OrderReturnRefundItemsCard/ReturnItemsCard";
 import {
   getFulfilledFulfillemnts,
-  getParsedFulfiledLines,
-  getUnfulfilledLines
+  getParsedLines,
+  getUnfulfilledLines,
+  getWaitingFulfillments
 } from "./utils";
 
 export interface OrderReturnPageProps {
@@ -36,10 +37,15 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
   return (
     <OrderRefundForm order={order} onSubmit={onSubmit}>
       {({ data, handlers, change, submit }) => {
-        const { fulfilledItemsQuantities, unfulfilledItemsQuantities } = data;
+        const {
+          fulfilledItemsQuantities,
+          waitingItemsQuantities,
+          unfulfilledItemsQuantities
+        } = data;
 
         const hasAnyItemsSelected =
           fulfilledItemsQuantities.some(({ value }) => !!value) ||
+          waitingItemsQuantities.some(({ value }) => !!value) ||
           unfulfilledItemsQuantities.some(({ value }) => !!value);
 
         return (
@@ -74,6 +80,27 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
                   </>
                 )}
                 {renderCollection(
+                  getWaitingFulfillments(order),
+                  ({ id, lines }) => (
+                    <React.Fragment key={id}>
+                      <ItemsCard
+                        errors={errors}
+                        order={order}
+                        fulfilmentId={id}
+                        lines={getParsedLines(lines)}
+                        itemsQuantities={data.waitingItemsQuantities}
+                        itemsSelections={data.itemsToBeReplaced}
+                        onChangeQuantity={handlers.changeWaitingItemsQuantity}
+                        onSetMaxQuantity={handlers.handleSetMaximalItemsQuantities(
+                          id
+                        )}
+                        onChangeSelected={handlers.changeItemsToBeReplaced}
+                      />
+                      <CardSpacer />
+                    </React.Fragment>
+                  )
+                )}
+                {renderCollection(
                   getFulfilledFulfillemnts(order),
                   ({ id, lines }) => (
                     <React.Fragment key={id}>
@@ -81,11 +108,11 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
                         errors={errors}
                         order={order}
                         fulfilmentId={id}
-                        lines={getParsedFulfiledLines(lines)}
+                        lines={getParsedLines(lines)}
                         itemsQuantities={data.fulfilledItemsQuantities}
                         itemsSelections={data.itemsToBeReplaced}
                         onChangeQuantity={handlers.changeFulfiledItemsQuantity}
-                        onSetMaxQuantity={handlers.handleSetMaximalFulfiledItemsQuantities(
+                        onSetMaxQuantity={handlers.handleSetMaximalItemsQuantities(
                           id
                         )}
                         onChangeSelected={handlers.changeItemsToBeReplaced}

@@ -1,5 +1,8 @@
 import { date } from "@saleor/fixtures";
-import { createFilterStructure } from "@saleor/orders/components/OrderListPage";
+import {
+  createFilterStructure,
+  OrderFilterGiftCard
+} from "@saleor/orders/components/OrderListPage";
 import { OrderListUrlFilters } from "@saleor/orders/urls";
 import {
   OrderStatusFilter,
@@ -41,6 +44,14 @@ describe("Filtering URL params", () => {
   const intl = createIntl(config);
 
   const filters = createFilterStructure(intl, {
+    preorder: {
+      active: false,
+      value: false
+    },
+    clickAndCollect: {
+      active: false,
+      value: false
+    },
     channel: {
       active: false,
       value: [
@@ -74,6 +85,10 @@ describe("Filtering URL params", () => {
         PaymentChargeStatusEnum.FULLY_CHARGED,
         PaymentChargeStatusEnum.PARTIALLY_CHARGED
       ]
+    },
+    giftCard: {
+      active: false,
+      value: [OrderFilterGiftCard.paid, OrderFilterGiftCard.bought]
     }
   });
 

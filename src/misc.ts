@@ -1,12 +1,10 @@
-import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
+import { FetchResult, MutationFunction, MutationResult } from "@apollo/client";
+import { ConfirmButtonTransitionState, ThemeType } from "@saleor/macaw-ui";
 import uniqBy from "lodash/uniqBy";
 import moment from "moment-timezone";
-import { MutationFunction, MutationResult } from "react-apollo";
 import { IntlShape } from "react-intl";
 
 import { MultiAutocompleteChoiceType } from "./components/MultiAutocompleteSelectField";
-import { StatusType } from "./components/StatusChip/types";
-import { StatusLabelProps } from "./components/StatusLabel";
 import { AddressType, AddressTypeInput } from "./customers/types";
 import {
   commonStatusMessages,
@@ -17,6 +15,7 @@ import { OrderDetails_order_shippingAddress } from "./orders/types/OrderDetails"
 import {
   MutationResultAdditionalProps,
   PartialMutationProviderOutput,
+  StatusType,
   UserError
 } from "./types";
 import {
@@ -77,7 +76,7 @@ export const removeDoubleSlashes = (url: string) =>
 export const transformPaymentStatus = (
   status: string,
   intl: IntlShape
-): { localized: string; status: StatusLabelProps["status"] } => {
+): { localized: string; status: StatusType } => {
   switch (status) {
     case PaymentChargeStatusEnum.PARTIALLY_CHARGED:
       return {
@@ -92,17 +91,17 @@ export const transformPaymentStatus = (
     case PaymentChargeStatusEnum.PARTIALLY_REFUNDED:
       return {
         localized: intl.formatMessage(paymentStatusMessages.partiallyRefunded),
-        status: StatusType.ERROR
+        status: StatusType.INFO
       };
     case PaymentChargeStatusEnum.FULLY_REFUNDED:
       return {
         localized: intl.formatMessage(paymentStatusMessages.refunded),
-        status: StatusType.SUCCESS
+        status: StatusType.INFO
       };
     case PaymentChargeStatusEnum.PENDING:
       return {
         localized: intl.formatMessage(paymentStatusMessages.pending),
-        status: StatusType.NEUTRAL
+        status: StatusType.WARNING
       };
     case PaymentChargeStatusEnum.REFUSED:
       return {
@@ -139,7 +138,7 @@ export const transformOrderStatus = (
     case OrderStatus.PARTIALLY_FULFILLED:
       return {
         localized: intl.formatMessage(orderStatusMessages.partiallyFulfilled),
-        status: StatusType.NEUTRAL
+        status: StatusType.WARNING
       };
     case OrderStatus.UNFULFILLED:
       return {
@@ -154,22 +153,22 @@ export const transformOrderStatus = (
     case OrderStatus.DRAFT:
       return {
         localized: intl.formatMessage(orderStatusMessages.draft),
-        status: StatusType.ERROR
+        status: StatusType.INFO
       };
     case OrderStatus.UNCONFIRMED:
       return {
         localized: intl.formatMessage(orderStatusMessages.unconfirmed),
-        status: StatusType.NEUTRAL
+        status: StatusType.INFO
       };
     case OrderStatus.PARTIALLY_RETURNED:
       return {
         localized: intl.formatMessage(orderStatusMessages.partiallyReturned),
-        status: StatusType.NEUTRAL
+        status: StatusType.INFO
       };
     case OrderStatus.RETURNED:
       return {
         localized: intl.formatMessage(orderStatusMessages.returned),
-        status: StatusType.NEUTRAL
+        status: StatusType.INFO
       };
   }
   return {
@@ -237,21 +236,46 @@ export function getMutationState(
   return "default";
 }
 
-interface SaleorMutationResult {
-  errors?: UserError[];
+export interface SaleorMutationResult {
+  errors?: any[];
 }
-export function getMutationErrors<
-  TData extends Record<string, SaleorMutationResult>
->(data: TData): UserError[] {
-  return Object.values(data).reduce(
-    (acc: UserError[], mut) => [...acc, ...maybe(() => mut.errors, [])],
-    []
-  );
-}
+
+type InferPromiseResult<T> = T extends Promise<infer V> ? V : never;
+
+export const extractMutationErrors = async <
+  TData extends InferPromiseResult<TPromise>,
+  TPromise extends Promise<FetchResult<TData>>,
+  TErrors extends ReturnType<typeof getMutationErrors>
+>(
+  submitPromise: TPromise
+): Promise<TErrors> => {
+  const result = await submitPromise;
+
+  const e = getMutationErrors(result);
+
+  return e as TErrors;
+};
+
+export const getMutationErrors = <
+  T extends FetchResult<any>,
+  TData extends T["data"],
+  TErrors extends TData[keyof TData]["errors"]
+>(
+  result: T
+): TErrors[] => {
+  if (!result?.data) {
+    return [] as TErrors;
+  }
+  return Object.values(result.data).reduce(
+    (acc: TErrors[], mut: TData) => [...acc, ...(mut.errors || [])],
+    [] as TErrors[]
+  ) as TErrors;
+};
+
 export function getMutationStatus<
   TData extends Record<string, SaleorMutationResult | any>
 >(opts: MutationResult<TData>): ConfirmButtonTransitionState {
-  const errors = opts.data ? getMutationErrors(opts.data) : [];
+  const errors = getMutationErrors(opts);
 
   return getMutationState(opts.called, opts.loading, errors);
 }
@@ -341,6 +365,10 @@ export function generateCode(charNum: number) {
   return result;
 }
 
+export function isInEnum<TEnum extends {}>(needle: string, haystack: TEnum) {
+  return Object.keys(haystack).includes(needle);
+}
+
 export function findInEnum<TEnum extends {}>(needle: string, haystack: TEnum) {
   const match = Object.keys(haystack).find(key => key === needle);
   if (!!match) {
@@ -393,8 +421,11 @@ export function transformFormToAddressInput<T>(
   };
 }
 
-export function getStringOrPlaceholder(s: string | undefined): string {
-  return s || "...";
+export function getStringOrPlaceholder(
+  s: string | undefined,
+  placeholder?: string
+): string {
+  return s || placeholder || "...";
 }
 
 export const getDatePeriod = (days: number): DateRangeInput => {
@@ -412,6 +443,8 @@ export const getDatePeriod = (days: number): DateRangeInput => {
   };
 };
 
+export const isDarkTheme = (themeType: ThemeType) => themeType === "dark";
+
 export const transformAddressToAddressInput = (data?: AddressType) => ({
   city: data?.city || "",
   cityArea: data?.cityArea || "",
@@ -426,6 +459,15 @@ export const transformAddressToAddressInput = (data?: AddressType) => ({
   streetAddress2: data?.streetAddress2 || ""
 });
 
+export function getFullName<T extends { firstName: string; lastName: string }>(
+  data: T
+) {
+  if (!data || !data.firstName || !data.lastName) {
+    return "";
+  }
+
+  return `${data.firstName} ${data.lastName}`;
+}
 export const flatten = (obj: unknown) => {
   // Be cautious that repeated keys are overwritten
 

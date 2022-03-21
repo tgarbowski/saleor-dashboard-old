@@ -350,15 +350,17 @@ const OrderProductAddDialog: React.FC<OrderProductAddDialogProps> = props => {
                           </TableCell>
                           <TableCell className={classes.colName}>
                             <div>{variant.name}</div>
-                            <div className={classes.grayText}>
-                              <FormattedMessage
-                                defaultMessage="SKU {sku}"
-                                description="variant sku"
-                                values={{
-                                  sku: variant.sku
-                                }}
-                              />
-                            </div>
+                            {variant.sku && (
+                              <div className={classes.grayText}>
+                                <FormattedMessage
+                                  defaultMessage="SKU {sku}"
+                                  description="variant sku"
+                                  values={{
+                                    sku: variant.sku
+                                  }}
+                                />
+                              </div>
+                            )}
                           </TableCell>
                           <TableCell className={classes.textRight}>
                             <OrderPriceLabel pricing={variant.pricing} />

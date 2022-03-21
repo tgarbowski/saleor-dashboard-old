@@ -1,6 +1,7 @@
 import { WindowTitle } from "@saleor/components/WindowTitle";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
+import { ProductTypeKindEnum } from "@saleor/types/globalTypes";
 import createMetadataCreateHandler from "@saleor/utils/handlers/metadataCreateHandler";
 import {
   useMetadataUpdate,
@@ -9,16 +10,27 @@ import {
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { maybe } from "../../misc";
+import { getMutationErrors, maybe } from "../../misc";
 import ProductTypeCreatePage, {
   ProductTypeForm
 } from "../components/ProductTypeCreatePage";
 import { TypedProductTypeCreateMutation } from "../mutations";
 import { TypedProductTypeCreateDataQuery } from "../queries";
 import { ProductTypeCreate as ProductTypeCreateMutation } from "../types/ProductTypeCreate";
-import { productTypeListUrl, productTypeUrl } from "../urls";
+import {
+  productTypeAddUrl,
+  ProductTypeAddUrlQueryParams,
+  productTypeListUrl,
+  productTypeUrl
+} from "../urls";
 
-export const ProductTypeCreate: React.FC = () => {
+interface ProductTypeCreateProps {
+  params: ProductTypeAddUrlQueryParams;
+}
+
+export const ProductTypeCreate: React.FC<ProductTypeCreateProps> = ({
+  params
+}) => {
   const navigate = useNavigator();
   const notify = useNotifier();
   const intl = useIntl();
@@ -36,6 +48,15 @@ export const ProductTypeCreate: React.FC = () => {
       navigate(productTypeUrl(updateData.productTypeCreate.productType.id));
     }
   };
+
+  const handleChangeKind = (kind: ProductTypeKindEnum) =>
+    navigate(
+      productTypeAddUrl({
+        ...params,
+        kind
+      })
+    );
+
   return (
     <TypedProductTypeCreateMutation onCompleted={handleCreateSuccess}>
       {(createProductType, createProductTypeOpts) => {
@@ -46,14 +67,19 @@ export const ProductTypeCreate: React.FC = () => {
                 hasVariants: false,
                 isShippingRequired: formData.isShippingRequired,
                 name: formData.name,
+                kind: formData.kind,
                 taxCode: formData.taxType,
                 weight: formData.weight
               }
             }
           });
 
-          return result.data?.productTypeCreate.productType?.id || null;
+          return {
+            id: result.data?.productTypeCreate.productType?.id || null,
+            errors: getMutationErrors(result)
+          };
         };
+
         const handleSubmit = createMetadataCreateHandler(
           handleCreate,
           updateMetadata,
@@ -84,6 +110,8 @@ export const ProductTypeCreate: React.FC = () => {
                   })}
                   saveButtonBarState={createProductTypeOpts.status}
                   taxTypes={data?.taxTypes || []}
+                  kind={params.kind}
+                  onChangeKind={handleChangeKind}
                   onBack={() => navigate(productTypeListUrl())}
                   onSubmit={handleSubmit}
                 />

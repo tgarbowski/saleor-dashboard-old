@@ -1,12 +1,13 @@
 import { Card, TableBody } from "@material-ui/core";
-import CardMenu from "@saleor/components/CardMenu";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
+import { OrderDetailsFragment } from "@saleor/fragments/types/OrderDetailsFragment";
+import TrashIcon from "@saleor/icons/Trash";
+import { IconButton } from "@saleor/macaw-ui";
 import { mergeRepeatedOrderLines } from "@saleor/orders/utils/data";
 import React from "react";
-import { useIntl } from "react-intl";
 
-import { maybe, renderCollection } from "../../../misc";
+import { renderCollection } from "../../../misc";
 import { FulfillmentStatus } from "../../../types/globalTypes";
 import { OrderDetails_order_fulfillments } from "../../types/OrderDetails";
 import TableHeader from "../OrderProductsCardElements/OrderProductsCardHeader";
@@ -18,7 +19,9 @@ import useStyles from "./styles";
 
 interface OrderFulfilledProductsCardProps {
   fulfillment: OrderDetails_order_fulfillments;
-  orderNumber?: string;
+  fulfillmentAllowUnpaid: boolean;
+  order?: OrderDetailsFragment;
+  onOrderFulfillmentApprove: () => void;
   onOrderFulfillmentCancel: () => void;
   onTrackingCodeAdd: () => void;
   onParcelLabelDownload: () => void;
@@ -26,11 +29,23 @@ interface OrderFulfilledProductsCardProps {
   onRefund: () => void;
 }
 
+const statusesToMergeLines = [
+  FulfillmentStatus.REFUNDED,
+  FulfillmentStatus.REFUNDED_AND_RETURNED,
+  FulfillmentStatus.RETURNED,
+  FulfillmentStatus.REPLACED
+];
+const cancelableStatuses = [
+  FulfillmentStatus.FULFILLED,
+  FulfillmentStatus.WAITING_FOR_APPROVAL
+];
 
 const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = props => {
   const {
     fulfillment,
-    orderNumber,
+    fulfillmentAllowUnpaid,
+    order,
+    onOrderFulfillmentApprove,
     onOrderFulfillmentCancel,
     onTrackingCodeAdd,
     onParcelDetails,
@@ -40,20 +55,11 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
 
   const classes = useStyles(props);
 
-  const intl = useIntl();
-
   if (!fulfillment) {
     return null;
   }
 
   const getLines = () => {
-    const statusesToMergeLines = [
-      FulfillmentStatus.REFUNDED,
-      FulfillmentStatus.REFUNDED_AND_RETURNED,
-      FulfillmentStatus.RETURNED,
-      FulfillmentStatus.REPLACED
-    ];
-
     if (statusesToMergeLines.includes(fulfillment?.status)) {
       return mergeRepeatedOrderLines(fulfillment.lines);
     }
@@ -69,22 +75,18 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           lines={fulfillment?.lines}
           fulfillmentOrder={fulfillment?.fulfillmentOrder}
           status={fulfillment?.status}
-          orderNumber={orderNumber}
+          warehouseName={fulfillment?.warehouse?.name}
+          orderNumber={order?.number}
           toolbar={
-            maybe(() => fulfillment.status) === FulfillmentStatus.FULFILLED && (
-              <CardMenu
-                data-test-id="fulfill-menu"
-                menuItems={[
-                  {
-                    label: intl.formatMessage({
-                      defaultMessage: "Cancel Fulfillment",
-                      description: "button"
-                    }),
-                    onSelect: onOrderFulfillmentCancel,
-                    testId: "cancel-fulfillment-button"
-                  }
-                ]}
-              />
+            cancelableStatuses.includes(fulfillment?.status) && (
+              <IconButton
+                variant="secondary"
+                className={classes.deleteIcon}
+                onClick={onOrderFulfillmentCancel}
+                data-test-id="cancel-fulfillment-button"
+              >
+                <TrashIcon />
+              </IconButton>
             )
           }
         />
@@ -101,10 +103,13 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           classes={classes}
           status={fulfillment?.status}
           trackingNumber={fulfillment?.trackingNumber}
+          orderIsPaid={order?.isPaid}
+          fulfillmentAllowUnpaid={fulfillmentAllowUnpaid}
           onTrackingCodeAdd={onTrackingCodeAdd}
           onParcelDetails={onParcelDetails}
           onParcelLabelDownload={onParcelLabelDownload}
           onRefund={onRefund}
+          onApprove={onOrderFulfillmentApprove}
         />
       </Card>
       <CardSpacer />

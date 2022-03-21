@@ -4,12 +4,14 @@ import CardSpacer from "@saleor/components/CardSpacer";
 import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
 import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
+import { WithFormId } from "@saleor/components/Form/ExitFormDialogProvider";
 import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
 import { ShippingChannelsErrorFragment } from "@saleor/fragments/types/ShippingChannelsErrorFragment";
 import { ShippingErrorFragment } from "@saleor/fragments/types/ShippingErrorFragment";
 import { ShippingMethodTypeFragment_postalCodeRules } from "@saleor/fragments/types/ShippingMethodTypeFragment";
+import { SubmitPromise } from "@saleor/hooks/useForm";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Backlink } from "@saleor/macaw-ui";
 import { validatePrice } from "@saleor/products/utils/validation";
@@ -27,20 +29,9 @@ import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import ShippingZonePostalCodes from "../ShippingZonePostalCodes";
+import { ShippingZoneRateCommonFormData } from "../ShippingZoneRatesPage/types";
 
-export interface FormData {
-  channelListings: ChannelShippingData[];
-  name: string;
-  description: OutputData;
-  noLimits: boolean;
-  minValue: string;
-  maxValue: string;
-  minDays: string;
-  maxDays: string;
-  type: ShippingMethodTypeEnum;
-}
-
-export interface ShippingZoneRatesCreatePageProps {
+export interface ShippingZoneRatesCreatePageProps extends WithFormId {
   allChannelsCount?: number;
   shippingChannels: ChannelShippingData[];
   disabled: boolean;
@@ -51,7 +42,7 @@ export interface ShippingZoneRatesCreatePageProps {
   saveButtonBarState: ConfirmButtonTransitionState;
   onBack: () => void;
   onDelete?: () => void;
-  onSubmit: (data: FormData) => void;
+  onSubmit: (data: ShippingZoneRateCommonFormData) => SubmitPromise;
   onPostalCodeInclusionChange: (
     inclusion: PostalCodeRuleInclusionTypeEnum
   ) => void;
@@ -79,11 +70,12 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
   openChannelsModal,
   saveButtonBarState,
   variant,
-  postalCodes
+  postalCodes,
+  formId
 }) => {
   const intl = useIntl();
   const isPriceVariant = variant === ShippingMethodTypeEnum.PRICE;
-  const initialForm: FormData = {
+  const initialForm: ShippingZoneRateCommonFormData = {
     channelListings: shippingChannels,
     maxDays: "",
     maxValue: "",
@@ -91,12 +83,17 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
     minValue: "",
     name: "",
     description: null,
-    noLimits: false,
+    orderValueRestricted: true,
     type: null
   };
 
   return (
-    <Form initial={initialForm} onSubmit={onSubmit}>
+    <Form
+      confirmLeave
+      initial={initialForm}
+      onSubmit={onSubmit}
+      formId={formId}
+    >
       {({ change, data, hasChanged, submit, triggerChange, set }) => {
         const handleChannelsChange = createChannelsChangeHandler(
           shippingChannels,
@@ -143,14 +140,14 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
                   <OrderValue
                     channels={data.channelListings}
                     errors={channelErrors}
-                    noLimits={data.noLimits}
+                    orderValueRestricted={data.orderValueRestricted}
                     disabled={disabled}
                     onChange={change}
                     onChannelsChange={handleChannelsChange}
                   />
                 ) : (
                   <OrderWeight
-                    noLimits={data.noLimits}
+                    orderValueRestricted={data.orderValueRestricted}
                     disabled={disabled}
                     minValue={data.minValue}
                     maxValue={data.maxValue}

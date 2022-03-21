@@ -12,18 +12,16 @@ import {
 import CardTitle from "@saleor/components/CardTitle";
 import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
-import StatusBadge from "@saleor/components/StatusBadge";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import { FormsetChange } from "@saleor/hooks/useFormset";
 import { Button, makeStyles } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import { OrderRefundData_order_fulfillments } from "@saleor/orders/types/OrderRefundData";
-import { FulfillmentStatus } from "@saleor/types/globalTypes";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { OrderRefundFormData } from "../OrderRefundPage/form";
-import { messages } from "./messages";
+import { getTitle } from "./messages";
 
 const useStyles = makeStyles(
   theme => {
@@ -94,15 +92,7 @@ const OrderRefundFulfilledProducts: React.FC<OrderRefundFulfilledProductsProps> 
       <CardTitle
         title={
           <>
-            {fulfillment.status === FulfillmentStatus.RETURNED
-              ? intl.formatMessage({
-                  defaultMessage: "Fulfillment returned",
-                  description: "section header returned"
-                })
-              : intl.formatMessage({
-                  defaultMessage: "Fulfillment",
-                  description: "section header"
-                })}
+            {getTitle(fulfillment.status, intl)}
             {fulfillment && (
               <Typography className={classes.orderNumber} variant="body1">
                 {`#${orderNumber}-${fulfillment?.fulfillmentOrder}`}
@@ -167,19 +157,7 @@ const OrderRefundFulfilledProducts: React.FC<OrderRefundFulfilledProductsProps> 
 
               return (
                 <TableRow key={line?.id}>
-                  <TableCellAvatar
-                    badge={
-                      !line.orderLine.variant && (
-                        <StatusBadge
-                          variant={"error"}
-                          description={intl.formatMessage(
-                            messages.fulfilledVariantDeleted
-                          )}
-                        />
-                      )
-                    }
-                    thumbnail={line?.orderLine?.thumbnail?.url}
-                  >
+                  <TableCellAvatar thumbnail={line?.orderLine?.thumbnail?.url}>
                     {line?.orderLine?.productName ? (
                       line?.orderLine?.productName
                     ) : (

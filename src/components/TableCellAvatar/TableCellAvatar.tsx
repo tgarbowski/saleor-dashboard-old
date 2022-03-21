@@ -32,10 +32,10 @@ const TableCellAvatar: React.FC<TableCellAvatarProps> = props => {
   return (
     <TableCell
       className={classNames(classes.root, className)}
-      {...rest}
       data-test-id="table-cell-avatar"
+      {...rest}
     >
-      <Avatar badge={badge} {...rest} />
+      <Avatar {...rest} />
     </TableCell>
   );
 };

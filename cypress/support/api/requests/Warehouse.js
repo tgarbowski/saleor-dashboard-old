@@ -62,6 +62,7 @@ export function getWarehouse(warehouseId) {
     warehouse(id:"${warehouseId}"){
       id
       name
+      clickAndCollectOption
       address{
         companyName
         streetAddress1
@@ -82,10 +83,15 @@ export function getWarehouse(warehouseId) {
   }`;
   return cy.sendRequestWithQuery(query).its("body.data.warehouse");
 }
-export function updateWarehouse({ id, isPrivate }) {
+export function updateWarehouse({
+  id,
+  isPrivate,
+  clickAndCollectOption = "ALL"
+}) {
   const mutation = `mutation{
     updateWarehouse(id:"${id}" input:{
       isPrivate:${isPrivate}
+      clickAndCollectOption:${clickAndCollectOption}
     }){
       errors{
         field

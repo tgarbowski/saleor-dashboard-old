@@ -1,5 +1,5 @@
-// / <reference types="cypress"/>
-// / <reference types="../../../../support"/>
+/// <reference types="cypress"/>
+/// <reference types="../../../../support"/>
 
 import faker from "faker";
 
@@ -86,7 +86,10 @@ filterTests({ definedTags: ["all"] }, () => {
           );
           cy.waitForProgressBarToNotBeVisible();
           expect(rate.minimumOrderWeight.unit).to.eq("G");
-          cy.get(SHIPPING_RATE_DETAILS.minValueInput).invoke("val");
+          cy.get(SHIPPING_RATE_DETAILS.restrictWeightLimitCheckbox)
+            .click()
+            .get(SHIPPING_RATE_DETAILS.minValueInput)
+            .invoke("val");
         })
         .then(actualMinWeight => {
           expect(parseInt(actualMinWeight, 10)).to.eq(minWeightInG);

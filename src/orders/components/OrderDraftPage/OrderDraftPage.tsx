@@ -7,13 +7,14 @@ import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
 import Skeleton from "@saleor/components/Skeleton";
+import { SubmitPromise } from "@saleor/hooks/useForm";
 import { sectionNames } from "@saleor/intl";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Backlink } from "@saleor/macaw-ui";
 import { makeStyles } from "@saleor/macaw-ui";
 import DraftOrderChannelSectionCard from "@saleor/orders/components/DraftOrderChannelSectionCard";
 import { SearchCustomers_search_edges_node } from "@saleor/searches/types/SearchCustomers";
-import { FetchMoreProps, UserPermissionProps } from "@saleor/types";
+import { FetchMoreProps } from "@saleor/types";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -36,9 +37,7 @@ const useStyles = makeStyles(
   { name: "OrderDraftPage" }
 );
 
-export interface OrderDraftPageProps
-  extends FetchMoreProps,
-    UserPermissionProps {
+export interface OrderDraftPageProps extends FetchMoreProps {
   disabled: boolean;
   order: OrderDetails_order;
   users: SearchCustomers_search_edges_node[];
@@ -50,7 +49,7 @@ export interface OrderDraftPageProps
   onCustomerEdit: (data: CustomerEditData) => void;
   onDraftFinalize: () => void;
   onDraftRemove: () => void;
-  onNoteAdd: (data: HistoryFormData) => void;
+  onNoteAdd: (data: HistoryFormData) => SubmitPromise<any[]>;
   onOrderLineAdd: () => void;
   onOrderLineChange: (
     id: string,
@@ -84,8 +83,7 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
     onProfileView,
     order,
     users,
-    usersLoading,
-    userPermissions
+    usersLoading
   } = props;
   const classes = useStyles(props);
 
@@ -147,7 +145,6 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
             loading={usersLoading}
             order={order}
             users={users}
-            userPermissions={userPermissions}
             onBillingAddressEdit={onBillingAddressEdit}
             onCustomerEdit={onCustomerEdit}
             onFetchMore={onFetchMore}

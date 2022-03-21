@@ -50,6 +50,9 @@ export interface SiteSettings_shop {
   description: string | null;
   domain: SiteSettings_shop_domain;
   name: string;
+  reserveStockDurationAnonymousUser: number | null;
+  reserveStockDurationAuthenticatedUser: number | null;
+  limitQuantityPerCheckout: number | null;
 }
 
 export interface SiteSettings {

@@ -18,11 +18,7 @@ import { buttonMessages } from "@saleor/intl";
 import { Button, ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { SearchAttributes_search_edges_node } from "@saleor/searches/types/SearchAttributes";
 import { DialogProps, FetchMoreProps } from "@saleor/types";
-import {
-  ExportProductsInput,
-  ExportScope,
-  FileTypesEnum
-} from "@saleor/types/globalTypes";
+import { ExportProductsInput } from "@saleor/types/globalTypes";
 import getExportErrorMessage from "@saleor/utils/errors/export";
 import { toggle } from "@saleor/utils/lists";
 import { mapNodeToChoice } from "@saleor/utils/maps";
@@ -30,13 +26,15 @@ import { WarehouseList_warehouses_edges_node } from "@saleor/warehouses/types/Wa
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import ExportDialogSettings, {
+  ExportItemsQuantity
+} from "./ExportDialogSettings";
+import { productExportDialogMessages as messages } from "./messages";
 import ProductExportDialogInfo, {
   attributeNamePrefix,
   warehouseNamePrefix
 } from "./ProductExportDialogInfo";
-import ProductExportDialogSettings, {
-  ProductQuantity
-} from "./ProductExportDialogSettings";
+import { exportSettingsInitialFormData } from "./types";
 
 export enum ProductExportStep {
   INFO,
@@ -71,8 +69,7 @@ const initialForm: ExportProductsInput = {
     fields: [],
     warehouses: []
   },
-  fileType: FileTypesEnum.CSV,
-  scope: ExportScope.ALL
+  ...exportSettingsInitialFormData
 };
 
 const ProductExportSteps = makeCreatorSteps<ProductExportStep>();
@@ -82,7 +79,7 @@ export interface ProductExportDialogProps extends DialogProps, FetchMoreProps {
   channels: ChannelFragment[];
   confirmButtonState: ConfirmButtonTransitionState;
   errors: ExportErrorFragment[];
-  productQuantity: ProductQuantity;
+  productQuantity: ExportItemsQuantity;
   selectedProducts: number;
   warehouses: WarehouseList_warehouses_edges_node[];
   onFetch: (query: string) => void;
@@ -214,14 +211,32 @@ const ProductExportDialog: React.FC<ProductExportDialogProps> = ({
       }
     });
 
+  const exportScopeLabels = {
+    allItems: intl.formatMessage(
+      {
+        defaultMessage: "All products ({number})",
+        description: "export all items to csv file"
+      },
+      {
+        number: productQuantity.all || "..."
+      }
+    ),
+    selectedItems: intl.formatMessage(
+      {
+        defaultMessage: "Selected products ({number})",
+        description: "export selected items to csv file"
+      },
+      {
+        number: selectedProducts
+      }
+    )
+  };
+
   return (
     <Dialog onClose={onClose} open={open} maxWidth="sm" fullWidth>
       <>
         <DialogTitle>
-          <FormattedMessage
-            defaultMessage="Export Information"
-            description="export products to csv file, dialog header"
-          />
+          <FormattedMessage {...messages.title} />
         </DialogTitle>
         <DialogContent>
           <ProductExportSteps
@@ -247,12 +262,13 @@ const ProductExportDialog: React.FC<ProductExportDialogProps> = ({
             />
           )}
           {step === ProductExportStep.SETTINGS && (
-            <ProductExportDialogSettings
+            <ExportDialogSettings
               data={data}
               errors={dialogErrors}
-              productQuantity={productQuantity}
-              selectedProducts={selectedProducts}
               onChange={change}
+              itemsQuantity={productQuantity}
+              selectedItems={selectedProducts}
+              exportScopeLabels={exportScopeLabels}
             />
           )}
         </DialogContent>
@@ -300,10 +316,7 @@ const ProductExportDialog: React.FC<ProductExportDialogProps> = ({
               data-test-id="submit"
               onClick={submit}
             >
-              <FormattedMessage
-                defaultMessage="export products"
-                description="export products to csv file, button"
-              />
+              <FormattedMessage {...messages.confirmButtonLabel} />
             </ConfirmButton>
           )}
         </DialogActions>

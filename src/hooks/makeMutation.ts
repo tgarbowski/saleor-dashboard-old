@@ -1,27 +1,31 @@
+import {
+  ApolloError,
+  MutationFunction,
+  MutationResult,
+  useMutation as useBaseMutation
+} from "@apollo/client";
 import { useUser } from "@saleor/auth";
 import { isJwtError } from "@saleor/auth/errors";
 import { commonMessages } from "@saleor/intl";
 import { getMutationStatus } from "@saleor/misc";
 import { MutationResultAdditionalProps } from "@saleor/types";
 import { GqlErrors, hasError } from "@saleor/utils/api";
-import { ApolloError } from "apollo-client";
 import { DocumentNode } from "graphql";
-import {
-  MutationFunction,
-  MutationResult,
-  useMutation as useBaseMutation
-} from "react-apollo";
 import { useIntl } from "react-intl";
 
 import useNotifier from "./useNotifier";
 
+export type MutationResultWithOpts<TData> = MutationResult<TData> &
+  MutationResultAdditionalProps;
+
 export type UseMutation<TData, TVariables> = [
   MutationFunction<TData, TVariables>,
-  MutationResult<TData> & MutationResultAdditionalProps
+  MutationResultWithOpts<TData>
 ];
 export type UseMutationCbs<TData> = Partial<{
   onCompleted: (data: TData) => void;
   onError: (error: ApolloError) => void;
+  refetchQueries?: string[];
 }>;
 export type UseMutationHook<TData, TVariables> = (
   cbs: UseMutationCbs<TData>
@@ -32,7 +36,8 @@ function makeMutation<TData, TVariables>(
 ): UseMutationHook<TData, TVariables> {
   function useMutation<TData, TVariables>({
     onCompleted,
-    onError
+    onError,
+    refetchQueries = []
   }: UseMutationCbs<TData>): UseMutation<TData, TVariables> {
     const notify = useNotifier();
     const intl = useIntl();
@@ -40,6 +45,7 @@ function makeMutation<TData, TVariables>(
 
     const [mutateFn, result] = useBaseMutation(mutation, {
       onCompleted,
+      refetchQueries,
       onError: (err: ApolloError) => {
         if (hasError(err, GqlErrors.ReadOnlyException)) {
           notify({

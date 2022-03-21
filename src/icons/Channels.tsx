@@ -1,4 +1,4 @@
-import createSvgIcon from "@material-ui/icons/utils/createSvgIcon";
+import { createSvgIcon, SvgIconProps } from "@material-ui/core";
 import React from "react";
 
 const Channels = createSvgIcon(
@@ -14,4 +14,6 @@ Channels.defaultProps = {
   viewBox: "0 0 32 32"
 };
 
-export default Channels;
+export default (props: SvgIconProps) => (
+  <Channels {...props} viewBox="0 0 32 32" />
+);

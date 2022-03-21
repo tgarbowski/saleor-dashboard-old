@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const attributeErrorFragment = gql`
   fragment AttributeErrorFragment on AttributeError {
@@ -212,6 +212,20 @@ export const collectionsErrorFragment = gql`
 
 export const uploadErrorFragment = gql`
   fragment UploadErrorFragment on UploadError {
+    code
+    field
+  }
+`;
+
+export const giftCardErrorFragment = gql`
+  fragment GiftCardError on GiftCardError {
+    code
+    field
+  }
+`;
+
+export const giftCardSettingsErrorFragment = gql`
+  fragment GiftCardSettingsErrorFragment on GiftCardSettingsError {
     code
     field
   }

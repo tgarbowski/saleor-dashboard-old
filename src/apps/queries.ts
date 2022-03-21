@@ -1,11 +1,12 @@
+import { gql } from "@apollo/client";
 import { appFragment } from "@saleor/fragments/apps";
 import { webhooksFragment } from "@saleor/fragments/webhooks";
 import makeQuery from "@saleor/hooks/makeQuery";
-import gql from "graphql-tag";
 
 import { App, AppVariables } from "./types/App";
 import { AppsInstallations } from "./types/AppsInstallations";
 import { AppsList, AppsListVariables } from "./types/AppsList";
+import { ExtensionList, ExtensionListVariables } from "./types/ExtensionList";
 
 const appsList = gql`
   query AppsList(
@@ -72,6 +73,30 @@ const appDetails = gql`
   }
 `;
 
+export const extensionList = gql`
+  query ExtensionList($filter: AppExtensionFilterInput!) {
+    appExtensions(filter: $filter, first: 100) {
+      edges {
+        node {
+          id
+          label
+          url
+          mount
+          target
+          accessToken
+          permissions {
+            code
+          }
+          app {
+            id
+            appUrl
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const useAppsListQuery = makeQuery<AppsList, AppsListVariables>(
   appsList
 );
@@ -81,3 +106,8 @@ export const useAppsInProgressListQuery = makeQuery<AppsInstallations, {}>(
 );
 
 export const useAppDetails = makeQuery<App, AppVariables>(appDetails);
+
+export const useExtensionList = makeQuery<
+  ExtensionList,
+  ExtensionListVariables
+>(extensionList);

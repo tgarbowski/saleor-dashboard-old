@@ -6,5 +6,5 @@ export const AVAILABLE_CHANNELS_FORM = {
   radioButtonsValueTrue: "[value='true']",
   radioButtonsValueFalse: "[value='false']",
   visibleInListingsButton: "[name*='visibleInListings']",
-  availableChannel: "[data-test-id='channel-availability-item']"
+  availableChannel: "[data-test-id*='channel-availability-item']"
 };

@@ -36,7 +36,6 @@ function loadStories() {
   require("./stories/components/SaveFilterTabDialog");
   require("./stories/components/SingleSelectField");
   require("./stories/components/Skeleton");
-  require("./stories/components/StatusLabel");
   require("./stories/components/TablePagination");
   require("./stories/components/Timeline");
   require("./stories/components/Weight");
@@ -115,7 +114,6 @@ function loadStories() {
   require("./stories/orders/OrderDraftListPage");
   require("./stories/orders/OrderDraftPage/OrderDraftPage");
   require("./stories/orders/OrderFulfillmentCancelDialog");
-  require("./stories/orders/OrderFulfillmentDialog");
   require("./stories/orders/OrderFulfillmentTrackingDialog");
   require("./stories/orders/OrderHistory");
   require("./stories/orders/OrderListPage");

@@ -5,8 +5,13 @@ import useNavigator from "@saleor/hooks/useNavigator";
 import useShop from "@saleor/hooks/useShop";
 import OrderCannotCancelOrderDialog from "@saleor/orders/components/OrderCannotCancelOrderDialog";
 import { OrderCustomerAddressesEditDialogOutput } from "@saleor/orders/components/OrderCustomerAddressesEditDialog/types";
+import OrderFulfillmentApproveDialog from "@saleor/orders/components/OrderFulfillmentApproveDialog";
 import OrderInvoiceEmailSendDialog from "@saleor/orders/components/OrderInvoiceEmailSendDialog";
 import OrderParcelDetails from "@saleor/orders/components/OrderParcelDetails";
+import {
+  OrderFulfillmentApprove,
+  OrderFulfillmentApproveVariables
+} from "@saleor/orders/types/OrderFulfillmentApprove";
 import {
   OrderUpdate,
   OrderUpdateVariables
@@ -18,7 +23,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { customerUrl } from "../../../../customers/urls";
-import { getMutationState, getStringOrPlaceholder } from "../../../../misc";
+import {
+  extractMutationErrors,
+  getMutationState,
+  getStringOrPlaceholder
+} from "../../../../misc";
 import { productUrl } from "../../../../products/urls";
 import { FulfillmentStatus } from "../../../../types/globalTypes";
 import OrderAddressFields from "../../../components/OrderAddressFields/OrderAddressFields";
@@ -55,6 +64,10 @@ interface OrderNormalDetailsProps {
   orderPaymentMarkAsPaid: any;
   orderVoid: any;
   orderPaymentCapture: any;
+  orderFulfillmentApprove: PartialMutationProviderOutput<
+    OrderFulfillmentApprove,
+    OrderFulfillmentApproveVariables
+  >;
   orderFulfillmentCancel: any;
   orderFulfillmentUpdateTracking: any;
   orderInvoiceSend: any;
@@ -79,6 +92,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
   orderVoid,
   orderPaymentCapture,
   orderParcelDetails,
+  orderFulfillmentApprove,
   orderFulfillmentCancel,
   orderFulfillmentUpdateTracking,
   onParcelLabelDownload,
@@ -92,7 +106,6 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
   const shop = data?.shop;
   const shopData = useShop();
   const navigate = useNavigator();
-  const { user } = useUser();
 
   const warehouses = useWarehouseList({
     displayLoader: true,
@@ -142,10 +155,12 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
           updateMetadataOpts.loading || updatePrivateMetadataOpts.loading
         }
         onNoteAdd={variables =>
-          orderAddNote.mutate({
-            input: variables,
-            order: id
-          })
+          extractMutationErrors(
+            orderAddNote.mutate({
+              input: variables,
+              order: id
+            })
+          )
         }
         onBack={handleBack}
         order={order}
@@ -163,9 +178,16 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
           ]
         )}
         shippingMethods={data?.order?.shippingMethods || []}
-        userPermissions={user?.userPermissions || []}
         onOrderCancel={() => openModal("cancel")}
         onOrderFulfill={() => navigate(orderFulfillUrl(id))}
+        onFulfillmentApprove={fulfillmentId =>
+          navigate(
+            orderUrl(id, {
+              action: "approve-fulfillment",
+              id: fulfillmentId
+            })
+          )
+        }
         onFulfillmentCancel={fulfillmentId =>
           navigate(
             orderUrl(id, {
@@ -262,6 +284,21 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
             id
           })
         }
+      />
+      <OrderFulfillmentApproveDialog
+        confirmButtonState={orderFulfillmentApprove.opts.status}
+        errors={
+          orderFulfillmentApprove.opts.data?.orderFulfillmentApprove.errors ||
+          []
+        }
+        open={params.action === "approve-fulfillment"}
+        onConfirm={({ notifyCustomer }) =>
+          orderFulfillmentApprove.mutate({
+            id: params.id,
+            notifyCustomer
+          })
+        }
+        onClose={closeModal}
       />
       <OrderFulfillmentCancelDialog
         confirmButtonState={orderFulfillmentCancel.opts.status}

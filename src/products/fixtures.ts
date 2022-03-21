@@ -54,7 +54,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -70,7 +71,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             }
           ]
@@ -87,7 +89,8 @@ export const product: (
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       ]
     },
@@ -125,7 +128,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -141,7 +145,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -157,7 +162,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -173,7 +179,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             }
           ]
@@ -190,7 +197,8 @@ export const product: (
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       ]
     }
@@ -388,7 +396,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             }
           ]
@@ -428,7 +437,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -444,7 +454,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             }
           ]
@@ -463,6 +474,7 @@ export const product: (
         id: "isdugfhud",
         name: "Attachment",
         inputType: AttributeInputTypeEnum.DROPDOWN,
+        valueRequired: false,
         unit: null,
         choices: {
           __typename: "AttributeValueCountableConnection",
@@ -491,7 +503,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             }
           ]
@@ -502,6 +515,7 @@ export const product: (
         id: "pta18161",
         name: "Color",
         inputType: AttributeInputTypeEnum.DROPDOWN,
+        valueRequired: false,
         unit: null,
         choices: {
           __typename: "AttributeValueCountableConnection",
@@ -526,7 +540,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -542,7 +557,8 @@ export const product: (
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             }
           ]
@@ -583,6 +599,7 @@ export const product: (
       __typename: "ProductVariant",
       channelListings: [],
       id: "pv75934",
+      quantityLimitPerCustomer: 30,
       margin: 2,
       media: [
         {
@@ -619,14 +636,16 @@ export const product: (
         }
       ],
       trackInventory: true,
-      weight: {
-        __typename: "Weight",
-        unit: WeightUnitsEnum.KG,
-        value: 3
+      preorder: {
+        __typename: "PreorderData",
+        endDate: null,
+        globalSoldUnits: null,
+        globalThreshold: 0
       }
     },
     {
       __typename: "ProductVariant",
+      quantityLimitPerCustomer: null,
       channelListings: [
         {
           __typename: "ProductVariantChannelListing",
@@ -645,6 +664,11 @@ export const product: (
             __typename: "Money",
             amount: 1,
             currency: "USD"
+          },
+          preorderThreshold: {
+            __typename: "PreorderThreshold",
+            quantity: 0,
+            soldUnits: 0
           }
         },
         {
@@ -664,6 +688,11 @@ export const product: (
             __typename: "Money",
             amount: 1,
             currency: "USD"
+          },
+          preorderThreshold: {
+            __typename: "PreorderThreshold",
+            quantity: 0,
+            soldUnits: 0
           }
         }
       ],
@@ -697,10 +726,11 @@ export const product: (
         }
       ],
       trackInventory: false,
-      weight: {
-        __typename: "Weight",
-        unit: WeightUnitsEnum.KG,
-        value: 4
+      preorder: {
+        __typename: "PreorderData",
+        endDate: null,
+        globalSoldUnits: null,
+        globalThreshold: 0
       }
     }
   ],
@@ -1016,10 +1046,10 @@ export const products = (
             name: "Pineapple",
             reference: null,
             slug: "pineapple",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -1132,10 +1162,10 @@ export const products = (
             name: "Coconut",
             reference: null,
             slug: "coconut",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -1248,10 +1278,10 @@ export const products = (
             name: "Apple",
             reference: null,
             slug: "apple",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -1365,10 +1395,10 @@ export const products = (
             name: "Orange",
             reference: null,
             slug: "orange",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -1482,10 +1512,10 @@ export const products = (
             name: "Banana",
             reference: null,
             slug: "banana",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -1598,10 +1628,10 @@ export const products = (
             name: "Bean",
             reference: null,
             slug: "bean",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -1714,10 +1744,10 @@ export const products = (
             name: "Carrot",
             reference: null,
             slug: "carrot",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -1830,10 +1860,10 @@ export const products = (
             name: "Sprouty",
             reference: null,
             slug: "sprouty",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -1946,10 +1976,10 @@ export const products = (
             name: "Cotton",
             reference: null,
             slug: "cotton",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -2062,10 +2092,10 @@ export const products = (
             name: "Cotton",
             reference: null,
             slug: "cotton",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -2178,10 +2208,10 @@ export const products = (
             name: "Cotton",
             reference: null,
             slug: "cotton",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -2294,10 +2324,10 @@ export const products = (
             name: "Cotton",
             reference: null,
             slug: "cotton",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -2410,10 +2440,10 @@ export const products = (
             name: "Cotton",
             reference: null,
             slug: "cotton",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -2526,10 +2556,10 @@ export const products = (
             name: "Cotton",
             reference: null,
             slug: "cotton",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -2642,10 +2672,10 @@ export const products = (
             name: "Cotton",
             reference: null,
             slug: "cotton",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -2758,10 +2788,10 @@ export const products = (
             name: "Cotton",
             reference: null,
             slug: "cotton",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -2874,10 +2904,10 @@ export const products = (
             name: "Cotton",
             reference: null,
             slug: "cotton",
-            richText: null,
             boolean: null,
             date: null,
-            dateTime: null
+            dateTime: null,
+            value: null
           }
         ]
       }
@@ -2994,6 +3024,11 @@ export const variant = (placeholderImage: string): ProductVariant => ({
         __typename: "Money",
         amount: 10,
         currency: "USD"
+      },
+      preorderThreshold: {
+        __typename: "PreorderThreshold",
+        quantity: 0,
+        soldUnits: 0
       }
     },
     {
@@ -3013,10 +3048,16 @@ export const variant = (placeholderImage: string): ProductVariant => ({
         __typename: "Money",
         amount: 20,
         currency: "USD"
+      },
+      preorderThreshold: {
+        __typename: "PreorderThreshold",
+        quantity: 0,
+        soldUnits: 0
       }
     }
   ],
   id: "var1",
+  quantityLimitPerCustomer: 300,
   media: [
     {
       __typename: "ProductMedia",
@@ -3094,7 +3135,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             }
           ]
@@ -3115,7 +3157,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       ]
     }
@@ -3133,28 +3176,6 @@ export const variant = (placeholderImage: string): ProductVariant => ({
           currencyCode: "USD",
           id: "test1",
           name: "Test channel"
-        },
-        pricing: {
-          __typename: "ProductPricingInfo",
-          priceRange: {
-            __typename: "TaxedMoneyRange",
-            start: {
-              __typename: "TaxedMoney",
-              net: {
-                __typename: "Money",
-                amount: 1.2,
-                currency: "USD"
-              }
-            },
-            stop: {
-              __typename: "TaxedMoney",
-              net: {
-                __typename: "Money",
-                amount: 3.5,
-                currency: "USD"
-              }
-            }
-          }
         }
       },
       {
@@ -3166,28 +3187,6 @@ export const variant = (placeholderImage: string): ProductVariant => ({
           currencyCode: "USD",
           id: "test2",
           name: "Test channel other"
-        },
-        pricing: {
-          __typename: "ProductPricingInfo",
-          priceRange: {
-            __typename: "TaxedMoneyRange",
-            start: {
-              __typename: "TaxedMoney",
-              net: {
-                __typename: "Money",
-                amount: 1.2,
-                currency: "USD"
-              }
-            },
-            stop: {
-              __typename: "TaxedMoney",
-              net: {
-                __typename: "Money",
-                amount: 3.5,
-                currency: "USD"
-              }
-            }
-          }
         }
       }
     ],
@@ -3379,7 +3378,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -3395,7 +3395,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             }
           ]
@@ -3412,7 +3413,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       ]
     },
@@ -3450,7 +3452,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -3466,7 +3469,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -3482,7 +3486,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             },
             {
@@ -3498,7 +3503,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
                 richText: null,
                 boolean: null,
                 date: null,
-                dateTime: null
+                dateTime: null,
+                value: null
               }
             }
           ]
@@ -3515,7 +3521,8 @@ export const variant = (placeholderImage: string): ProductVariant => ({
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       ]
     }
@@ -3546,6 +3553,12 @@ export const variant = (placeholderImage: string): ProductVariant => ({
     }
   ],
   trackInventory: true,
+  preorder: {
+    __typename: "PreorderData",
+    endDate: null,
+    globalSoldUnits: null,
+    globalThreshold: 0
+  },
   weight: {
     __typename: "Weight",
     unit: WeightUnitsEnum.KG,

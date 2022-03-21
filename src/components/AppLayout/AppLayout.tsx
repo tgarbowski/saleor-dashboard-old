@@ -11,6 +11,7 @@ import {
   useBacklink,
   useTheme
 } from "@saleor/macaw-ui";
+import { isDarkTheme } from "@saleor/misc";
 import { staffMemberDetailsUrl } from "@saleor/staff/urls";
 import classNames from "classnames";
 import React from "react";
@@ -25,7 +26,7 @@ import UserChip from "../UserChip";
 import useAppChannel from "./AppChannelContext";
 import AppChannelSelect from "./AppChannelSelect";
 import { appLoaderHeight } from "./consts";
-import createMenuStructure from "./menuStructure";
+import useMenuStructure from "./menuStructure";
 import { isMenuActive } from "./utils";
 
 const useStyles = makeStyles(
@@ -72,7 +73,7 @@ const useStyles = makeStyles(
         gridTemplateAreas: `"headerToolbar" 
         "headerAnchor"`
       },
-      marginBottom: theme.spacing(3)
+      marginBottom: theme.spacing(6)
     },
     headerAnchor: {
       gridArea: "headerAnchor"
@@ -140,13 +141,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     setChannel
   } = useAppChannel(false);
 
-  const menuStructure = createMenuStructure(intl, user);
+  const [menuStructure, handleMenuItemClick] = useMenuStructure(intl, user);
   const activeMenu = menuStructure.find(menuItem =>
     isMenuActive(location.pathname, menuItem)
   )?.id;
-
-  const handleMenuItemClick = (url: string) =>
-    navigate(url, { resetScroll: true });
 
   const reloadWindow = () => {
     window.location.reload();
@@ -163,8 +161,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     reloadWindow();
   };
 
-  const isDark = themeType === "dark";
-  const toggleTheme = () => setTheme(isDark ? "light" : "dark");
+  const toggleTheme = () => setTheme(isDarkTheme(themeType) ? "light" : "dark");
 
   return (
     <>
@@ -195,7 +192,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     {!isMdUp && (
                       <SidebarDrawer
                         menuItems={menuStructure}
-                        onMenuItemClick={navigate}
+                        onMenuItemClick={handleMenuItemClick}
                       />
                     )}
                     <div className={classes.spacer} />
@@ -212,7 +209,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         />
                       )}
                       <UserChip
-                        isDarkThemeEnabled={isDark}
+                        isDarkThemeEnabled={isDarkTheme(themeType)}
                         user={user}
                         onLogout={logout}
                         onProfileClick={() =>
@@ -231,7 +228,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     <ErrorPage
                       id={appState.error.id}
                       onBack={handleErrorBack}
-                      onRefresh={reloadWindow}
+                      onRefresh={() => window.location.reload()}
                     />
                   )
                 : children}

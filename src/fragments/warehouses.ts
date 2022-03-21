@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 import { fragmentAddress } from "./address";
 
@@ -27,6 +27,8 @@ export const warehouseDetailsFragment = gql`
   ${fragmentAddress}
   ${warehouseWithShippingFragment}
   fragment WarehouseDetailsFragment on Warehouse {
+    isPrivate
+    clickAndCollectOption
     ...WarehouseWithShippingFragment
     address {
       ...AddressFragment

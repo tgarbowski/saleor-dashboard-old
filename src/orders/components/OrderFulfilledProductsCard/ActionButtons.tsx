@@ -1,12 +1,13 @@
-import { CardActions } from "@material-ui/core";
+import { CardActions, Typography } from "@material-ui/core";
+import { buttonMessages, commonMessages } from "@saleor/intl";
 import { Button } from "@saleor/macaw-ui";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import courierIcon from "@assets/images/courier.svg";
 import SVG from "react-inlinesvg";
-import { actionButtonsMessages } from "./messages";
 
+import { actionButtonsMessages } from "./messages";
 import useStyles from "./styles";
 
 interface AcionButtonsProps {
@@ -15,22 +16,29 @@ interface AcionButtonsProps {
   trackingNumber?: string;
   onParcelDetails();
   onParcelLabelDownload();
+  orderIsPaid?: boolean;
+  fulfillmentAllowUnpaid: boolean;
   onTrackingCodeAdd();
   onRefund();
+  onApprove();
 }
 
 const statusesToShow = [
   FulfillmentStatus.FULFILLED,
-  FulfillmentStatus.RETURNED
+  FulfillmentStatus.RETURNED,
+  FulfillmentStatus.WAITING_FOR_APPROVAL
 ];
 
 const ActionButtons: React.FC<AcionButtonsProps> = ({
   status,
-  onTrackingCodeAdd,
   trackingNumber,
   onParcelDetails,
   onParcelLabelDownload,
-  onRefund
+  onRefund,
+  orderIsPaid,
+  fulfillmentAllowUnpaid,
+  onTrackingCodeAdd,
+  onApprove
 }) => {
   const classes = useStyles();
 
@@ -40,14 +48,28 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
     return null;
   }
 
-  if (status === FulfillmentStatus.RETURNED) {
+  if (status === FulfillmentStatus.WAITING_FOR_APPROVAL) {
+    const cannotFulfill = !orderIsPaid && !fulfillmentAllowUnpaid;
+
     return (
       <CardActions className={classes.actions}>
+        <Button color="primary" onClick={onApprove} disabled={cannotFulfill}>
+          <FormattedMessage {...buttonMessages.approve} />
+        </Button>
+        {cannotFulfill && (
+          <Typography color="error" variant="caption">
+            <FormattedMessage {...commonMessages.cannotFullfillUnpaidOrder} />
+          </Typography>
+        )}
+      </CardActions>
+    );
+  }
+
+  if (status === FulfillmentStatus.RETURNED) {
+    return (
+      <CardActions>
         <Button variant="primary" onClick={onRefund}>
-          <FormattedMessage
-            defaultMessage="Refund"
-            description="refund button"
-          />
+          <FormattedMessage {...actionButtonsMessages.refund} />
         </Button>
       </CardActions>
     );
@@ -62,17 +84,16 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
           id="generateLabel"
         />
       </Button>
-      <Button color="primary" onClick={onTrackingCodeAdd}>
-        <FormattedMessage
-          defaultMessage="Edit tracking"
-          description="edit tracking button"
-        />
+      <Button variant="primary" onClick={onTrackingCodeAdd}>
+        <FormattedMessage {...actionButtonsMessages.editTracking} />
       </Button>
     </CardActions>
   ) : (
     <CardActions className={classes.actions}>
       <Button color="primary" onClick={onParcelDetails}>
         <SVG src={courierIcon} />{" "}
+      </Button>
+      <Button variant="primary" onClick={onTrackingCodeAdd}>
         <FormattedMessage {...actionButtonsMessages.addTracking} />
       </Button>
     </CardActions>

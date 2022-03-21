@@ -1,16 +1,16 @@
-import { Card, CardActions, TableBody } from "@material-ui/core";
+import { Card, CardActions, TableBody, Typography } from "@material-ui/core";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
-import { Button, makeStyles, Tooltip } from "@saleor/macaw-ui";
+import { commonMessages } from "@saleor/intl";
+import { Button, makeStyles } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import React from "react";
-import { useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 import { OrderDetails_order_lines } from "../../types/OrderDetails";
 import TableHeader from "../OrderProductsCardElements/OrderProductsCardHeader";
 import TableLine from "../OrderProductsCardElements/OrderProductsTableRow";
 import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
-import { messages } from "./messages";
 
 const useStyles = makeStyles(
   theme => ({
@@ -32,22 +32,24 @@ const useStyles = makeStyles(
 );
 
 interface OrderUnfulfilledProductsCardProps {
-  canFulfill: boolean;
+  showFulfillmentAction: boolean;
+  notAllowedToFulfillUnpaid: boolean;
   lines: OrderDetails_order_lines[];
   onFulfill: () => void;
-  onParcelDetails: () => void;
 }
 
 const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> = props => {
-  const { canFulfill, lines, onFulfill } = props;
+  const {
+    showFulfillmentAction,
+    notAllowedToFulfillUnpaid,
+    lines,
+    onFulfill
+  } = props;
   const classes = useStyles({});
-  const intl = useIntl();
 
   if (!lines.length) {
     return null;
   }
-
-  const noProductsAvailable = lines.every(el => !el.variant);
 
   return (
     <>
@@ -57,37 +59,25 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
           <TableHeader />
           <TableBody>
             {renderCollection(lines, line => (
-              <TableLine
-                key={line.id}
-                isOrderLine
-                line={line}
-                isFulfilled={false}
-              />
+              <TableLine isOrderLine line={line} />
             ))}
           </TableBody>
         </ResponsiveTable>
-        {canFulfill && (
-          <CardActions className={classes.actions}>
-            {noProductsAvailable ? (
-              <Tooltip
-                title={intl.formatMessage(messages.deletedVariantDetected)}
-                variant="error"
-                placement={"left"}
-              >
-                <div>
-                  <Button disabled variant="primary" onClick={onFulfill}>
-                    {intl.formatMessage(messages.fulfillButton)}
-                  </Button>
-                </div>
-              </Tooltip>
-            ) : (
-              <Button
-                variant="primary"
-                onClick={onFulfill}
-                data-test-id="fulfill-order-button"
-              >
-                {intl.formatMessage(messages.fulfillButton)}
-              </Button>
+        {showFulfillmentAction && (
+          <CardActions>
+            <Button
+              variant="tertiary"
+              onClick={onFulfill}
+              disabled={notAllowedToFulfillUnpaid}
+            >
+              <FormattedMessage defaultMessage="Fulfill" description="button" />
+            </Button>
+            {notAllowedToFulfillUnpaid && (
+              <Typography color="error" variant="caption">
+                <FormattedMessage
+                  {...commonMessages.cannotFullfillUnpaidOrder}
+                />
+              </Typography>
             )}
           </CardActions>
         )}

@@ -42,10 +42,11 @@ export interface ProductVariantDetails_productVariant_selectionAttributes_attrib
   slug: string | null;
   file: ProductVariantDetails_productVariant_selectionAttributes_attribute_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductVariantDetails_productVariant_selectionAttributes_attribute_choices_edges {
@@ -85,10 +86,11 @@ export interface ProductVariantDetails_productVariant_selectionAttributes_values
   slug: string | null;
   file: ProductVariantDetails_productVariant_selectionAttributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductVariantDetails_productVariant_selectionAttributes {
@@ -118,10 +120,11 @@ export interface ProductVariantDetails_productVariant_nonSelectionAttributes_att
   slug: string | null;
   file: ProductVariantDetails_productVariant_nonSelectionAttributes_attribute_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductVariantDetails_productVariant_nonSelectionAttributes_attribute_choices_edges {
@@ -161,10 +164,11 @@ export interface ProductVariantDetails_productVariant_nonSelectionAttributes_val
   slug: string | null;
   file: ProductVariantDetails_productVariant_nonSelectionAttributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductVariantDetails_productVariant_nonSelectionAttributes {
@@ -208,45 +212,11 @@ export interface ProductVariantDetails_productVariant_product_channelListings_ch
   currencyCode: string;
 }
 
-export interface ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange_start_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange_start {
-  __typename: "TaxedMoney";
-  net: ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange_start_net;
-}
-
-export interface ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange_stop_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange_stop {
-  __typename: "TaxedMoney";
-  net: ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange_stop_net;
-}
-
-export interface ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange {
-  __typename: "TaxedMoneyRange";
-  start: ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange_start | null;
-  stop: ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange_stop | null;
-}
-
-export interface ProductVariantDetails_productVariant_product_channelListings_pricing {
-  __typename: "ProductPricingInfo";
-  priceRange: ProductVariantDetails_productVariant_product_channelListings_pricing_priceRange | null;
-}
-
 export interface ProductVariantDetails_productVariant_product_channelListings {
   __typename: "ProductChannelListing";
   publicationDate: any | null;
   isPublished: boolean;
   channel: ProductVariantDetails_productVariant_product_channelListings_channel;
-  pricing: ProductVariantDetails_productVariant_product_channelListings_pricing | null;
 }
 
 export interface ProductVariantDetails_productVariant_product_variants_media {
@@ -261,7 +231,7 @@ export interface ProductVariantDetails_productVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
-  sku: string;
+  sku: string | null;
   media: ProductVariantDetails_productVariant_product_variants_media[] | null;
 }
 
@@ -295,11 +265,18 @@ export interface ProductVariantDetails_productVariant_channelListings_costPrice 
   currency: string;
 }
 
+export interface ProductVariantDetails_productVariant_channelListings_preorderThreshold {
+  __typename: "PreorderThreshold";
+  quantity: number | null;
+  soldUnits: number;
+}
+
 export interface ProductVariantDetails_productVariant_channelListings {
   __typename: "ProductVariantChannelListing";
   channel: ProductVariantDetails_productVariant_channelListings_channel;
   price: ProductVariantDetails_productVariant_channelListings_price | null;
   costPrice: ProductVariantDetails_productVariant_channelListings_costPrice | null;
+  preorderThreshold: ProductVariantDetails_productVariant_channelListings_preorderThreshold | null;
 }
 
 export interface ProductVariantDetails_productVariant_stocks_warehouse {
@@ -314,6 +291,13 @@ export interface ProductVariantDetails_productVariant_stocks {
   quantity: number;
   quantityAllocated: number;
   warehouse: ProductVariantDetails_productVariant_stocks_warehouse;
+}
+
+export interface ProductVariantDetails_productVariant_preorder {
+  __typename: "PreorderData";
+  globalThreshold: number | null;
+  globalSoldUnits: number;
+  endDate: any | null;
 }
 
 export interface ProductVariantDetails_productVariant_weight {
@@ -333,10 +317,12 @@ export interface ProductVariantDetails_productVariant {
   name: string;
   product: ProductVariantDetails_productVariant_product;
   channelListings: ProductVariantDetails_productVariant_channelListings[] | null;
-  sku: string;
+  sku: string | null;
   stocks: (ProductVariantDetails_productVariant_stocks | null)[] | null;
   trackInventory: boolean;
+  preorder: ProductVariantDetails_productVariant_preorder | null;
   weight: ProductVariantDetails_productVariant_weight | null;
+  quantityLimitPerCustomer: number | null;
 }
 
 export interface ProductVariantDetails {

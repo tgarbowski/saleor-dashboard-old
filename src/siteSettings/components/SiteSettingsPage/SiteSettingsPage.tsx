@@ -1,10 +1,10 @@
-import { Typography } from "@material-ui/core";
 import CompanyAddressInput from "@saleor/components/CompanyAddressInput";
 import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import Hr from "@saleor/components/Hr";
 import PageHeader from "@saleor/components/PageHeader";
+import PageSectionHeader from "@saleor/components/PageSectionHeader";
 import Savebar from "@saleor/components/Savebar";
 import { ShopErrorFragment } from "@saleor/fragments/types/ShopErrorFragment";
 import useAddressValidation from "@saleor/hooks/useAddressValidation";
@@ -17,11 +17,12 @@ import { makeStyles } from "@saleor/macaw-ui";
 import createSingleAutocompleteSelectHandler from "@saleor/utils/handlers/singleAutocompleteSelectChangeHandler";
 import { mapCountriesToChoices } from "@saleor/utils/maps";
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
-import { maybe } from "../../../misc";
 import { SiteSettings_shop } from "../../types/SiteSettings";
-import SiteSettingsDetails from "../SiteSettingsDetails/SiteSettingsDetails";
+import SiteCheckoutSettingsCard from "../SiteCheckoutSettingsCard";
+import SiteSettingsDetailsCard from "../SiteDetailsSettingsCard";
+import { messages } from "./messages";
 
 export interface SiteSettingsPageAddressFormData {
   city: string;
@@ -39,6 +40,9 @@ export interface SiteSettingsPageFormData
   description: string;
   domain: string;
   name: string;
+  reserveStockDurationAnonymousUser: number;
+  reserveStockDurationAuthenticatedUser: number;
+  limitQuantityPerCheckout: number;
 }
 
 export interface SiteSettingsPageProps {
@@ -90,7 +94,7 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
   const classes = useStyles(props);
   const intl = useIntl();
   const [displayCountry, setDisplayCountry] = useStateFromProps(
-    maybe(() => shop.companyAddress.country.code, "")
+    shop?.companyAddress?.country.code || ""
   );
 
   const {
@@ -99,20 +103,24 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
   } = useAddressValidation(onSubmit);
 
   const initialFormAddress: SiteSettingsPageAddressFormData = {
-    city: maybe(() => shop.companyAddress.city, ""),
-    companyName: maybe(() => shop.companyAddress.companyName, ""),
-    country: maybe(() => shop.companyAddress.country.code, ""),
-    countryArea: maybe(() => shop.companyAddress.countryArea, ""),
-    phone: maybe(() => shop.companyAddress.phone, ""),
-    postalCode: maybe(() => shop.companyAddress.postalCode, ""),
-    streetAddress1: maybe(() => shop.companyAddress.streetAddress1, ""),
-    streetAddress2: maybe(() => shop.companyAddress.streetAddress2, "")
+    city: shop?.companyAddress?.city || "",
+    companyName: shop?.companyAddress?.companyName || "",
+    country: shop?.companyAddress?.country.code || "",
+    countryArea: shop?.companyAddress?.countryArea || "",
+    phone: shop?.companyAddress?.phone || "",
+    postalCode: shop?.companyAddress?.postalCode || "",
+    streetAddress1: shop?.companyAddress?.streetAddress1 || "",
+    streetAddress2: shop?.companyAddress?.streetAddress2 || ""
   };
   const initialForm: SiteSettingsPageFormData = {
     ...initialFormAddress,
-    description: maybe(() => shop.description, ""),
-    domain: maybe(() => shop.domain.host, ""),
-    name: maybe(() => shop.name, "")
+    description: shop?.description || "",
+    domain: shop?.domain.host || "",
+    name: shop?.name || "",
+    reserveStockDurationAnonymousUser: shop?.reserveStockDurationAnonymousUser,
+    reserveStockDurationAuthenticatedUser:
+      shop?.reserveStockDurationAuthenticatedUser,
+    limitQuantityPerCheckout: shop?.limitQuantityPerCheckout
   };
 
   return (
@@ -141,40 +149,41 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
             </Backlink>
             <PageHeader
               title={intl.formatMessage(commonMessages.generalInformations)}
+              underline={true}
             />
             <Grid variant="inverted">
-              <div>
-                <Typography>
-                  {intl.formatMessage(sectionNames.siteSettings)}
-                </Typography>
-                <Typography variant="body2">
-                  <FormattedMessage
-                    defaultMessage="These are general information about your store. They define what is the URL of your store and what is shown in browsers taskbar."
-                    description="site settings information description message"
-                  />
-                </Typography>
-              </div>
-              <SiteSettingsDetails
+              <PageSectionHeader
+                title={intl.formatMessage(sectionNames.siteSettings)}
+                description={intl.formatMessage(
+                  messages.sectionDetailsDescription
+                )}
+              />
+              <SiteSettingsDetailsCard
                 data={data}
                 errors={errors}
                 disabled={disabled}
                 onChange={change}
               />
               <Hr className={classes.hr} />
-              <div>
-                <Typography>
-                  <FormattedMessage
-                    defaultMessage="Company Information"
-                    description="section header"
-                  />
-                </Typography>
-                <Typography variant="body2">
-                  <FormattedMessage
-                    defaultMessage="This address will be used to generate invoices and calculate shipping rates. Email address you provide here will be used as a contact address for your customers."
-                    description="company information description message"
-                  />
-                </Typography>
-              </div>
+              <PageSectionHeader
+                title={intl.formatMessage(messages.sectionCheckoutTitle)}
+                description={intl.formatMessage(
+                  messages.sectionCheckoutDescription
+                )}
+              />
+              <SiteCheckoutSettingsCard
+                data={data}
+                errors={errors}
+                disabled={disabled}
+                onChange={change}
+              />
+              <Hr className={classes.hr} />
+              <PageSectionHeader
+                title={intl.formatMessage(messages.sectionCompanyTitle)}
+                description={intl.formatMessage(
+                  messages.sectionCompanyDescription
+                )}
+              />
               <CompanyAddressInput
                 data={data}
                 displayCountry={displayCountry}

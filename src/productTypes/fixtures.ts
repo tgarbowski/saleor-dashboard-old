@@ -7,6 +7,7 @@ import { SearchProductTypes_search_edges_node } from "@saleor/searches/types/Sea
 import {
   AttributeInputTypeEnum,
   AttributeTypeEnum,
+  ProductTypeKindEnum,
   WeightUnitsEnum
 } from "../types/globalTypes";
 import { ProductTypeDetails_productType } from "./types/ProductTypeDetails";
@@ -989,7 +990,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6NA==",
     isShippingRequired: true,
     name: "Candy",
-    slug: "candy",
+    kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[0]],
     taxType: {
       __typename: "TaxType" as "TaxType",
@@ -1004,7 +1005,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6NQ==",
     isShippingRequired: false,
     name: "E-books",
-    slug: "e-books",
+    kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[5]],
     taxType: {
       __typename: "TaxType" as "TaxType",
@@ -1019,7 +1020,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6Mg==",
     isShippingRequired: true,
     name: "Mugs",
-    slug: "mugs",
+    kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[7]],
     taxType: {
       __typename: "TaxType" as "TaxType",
@@ -1034,7 +1035,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6Mw==",
     isShippingRequired: true,
     name: "Coffee",
-    slug: "coffee",
+    kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[8]],
     taxType: {
       __typename: "TaxType" as "TaxType",
@@ -1049,7 +1050,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6MQ==",
     isShippingRequired: true,
     name: "T-Shirt",
-    slug: "t-shirt",
+    kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[4]],
     taxType: {
       __typename: "TaxType" as "TaxType",
@@ -1076,6 +1077,7 @@ export const productType: ProductTypeDetails_productType = {
     }
   ],
   name: "E-books",
+  kind: ProductTypeKindEnum.NORMAL,
   privateMetadata: [],
   productAttributes: [
     {
@@ -1136,6 +1138,24 @@ export const productType: ProductTypeDetails_productType = {
       type: AttributeTypeEnum.PRODUCT_TYPE,
       visibleInStorefront: true,
       unit: null
+    }
+  ],
+  assignedVariantAttributes: [
+    {
+      __typename: "AssignedVariantAttribute" as "AssignedVariantAttribute",
+      attribute: {
+        __typename: "Attribute" as "Attribute",
+        filterableInDashboard: true,
+        filterableInStorefront: false,
+        id: "UHJvZHVjdEF0dHJpYnV0ATo5",
+        name: "Author",
+        slug: "author",
+        type: AttributeTypeEnum.PRODUCT_TYPE,
+        inputType: AttributeInputTypeEnum.DROPDOWN,
+        visibleInStorefront: true,
+        unit: null
+      },
+      variantSelection: true
     }
   ],
   weight: {

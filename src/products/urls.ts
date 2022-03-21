@@ -40,7 +40,8 @@ export enum ProductListUrlFiltersEnum {
   warehouseFrom = "warehouseFrom",
   warehouseTo = "warehouseTo",
   createdAtFrom = "createdAtFrom",
-  createdAtTo = "createdAtTo"
+  createdAtTo = "createdAtTo",
+  productKind = "productKind"
 }
 export enum ProductListUrlFiltersWithMultipleValues {
   categories = "categories",

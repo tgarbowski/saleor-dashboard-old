@@ -12,6 +12,7 @@ import {
   PaymentChargeStatusEnum
 } from "@saleor/types/globalTypes";
 import {
+  createBooleanField,
   createDateField,
   createOptionsField,
   createTextField
@@ -23,7 +24,15 @@ export enum OrderFilterKeys {
   customer = "customer",
   status = "status",
   paymentStatus = "paymentStatus",
-  channel = "channel"
+  clickAndCollect = "clickAndCollect",
+  preorder = "preorder",
+  channel = "channel",
+  giftCard = "giftCard"
+}
+
+export enum OrderFilterGiftCard {
+  bought = "bought",
+  paid = "paid"
 }
 
 export interface OrderListFilterOpts {
@@ -32,9 +41,20 @@ export interface OrderListFilterOpts {
   status: FilterOpts<OrderStatusFilter[]>;
   paymentStatus: FilterOpts<PaymentChargeStatusEnum[]>;
   channel?: FilterOpts<MultiAutocompleteChoiceType[]>;
+  clickAndCollect: FilterOpts<boolean>;
+  preorder: FilterOpts<boolean>;
+  giftCard: FilterOpts<OrderFilterGiftCard[]>;
 }
 
 const messages = defineMessages({
+  preorder: {
+    defaultMessage: "Preorder",
+    description: "is preorder"
+  },
+  clickAndCollect: {
+    defaultMessage: "Click&Collect",
+    description: "click and collect"
+  },
   channel: {
     defaultMessage: "Channel",
     description: "order"
@@ -46,6 +66,18 @@ const messages = defineMessages({
   placed: {
     defaultMessage: "Created",
     description: "order"
+  },
+  giftCard: {
+    defaultMessage: "Gift Card",
+    description: "order"
+  },
+  giftCardPaid: {
+    defaultMessage: "Paid with Gift Card",
+    description: "order"
+  },
+  giftCardOrdered: {
+    defaultMessage: "Gift Card ordered",
+    description: "order"
   }
 });
 
@@ -54,6 +86,30 @@ export function createFilterStructure(
   opts: OrderListFilterOpts
 ): IFilter<OrderFilterKeys> {
   return [
+    {
+      ...createBooleanField(
+        OrderFilterKeys.clickAndCollect,
+        intl.formatMessage(messages.clickAndCollect),
+        opts.clickAndCollect.value,
+        {
+          negative: intl.formatMessage(commonMessages.no),
+          positive: intl.formatMessage(commonMessages.yes)
+        }
+      ),
+      active: opts.clickAndCollect.active
+    },
+    {
+      ...createBooleanField(
+        OrderFilterKeys.preorder,
+        intl.formatMessage(messages.preorder),
+        opts.preorder.value,
+        {
+          negative: intl.formatMessage(commonMessages.no),
+          positive: intl.formatMessage(commonMessages.yes)
+        }
+      ),
+      active: opts.preorder.active
+    },
     {
       ...createTextField(
         OrderFilterKeys.customer,
@@ -69,6 +125,25 @@ export function createFilterStructure(
         opts.created.value
       ),
       active: opts.created.active
+    },
+    {
+      ...createOptionsField(
+        OrderFilterKeys.giftCard,
+        intl.formatMessage(messages.giftCard),
+        opts.giftCard.value,
+        true,
+        [
+          {
+            label: intl.formatMessage(messages.giftCardOrdered),
+            value: OrderFilterGiftCard.bought
+          },
+          {
+            label: intl.formatMessage(messages.giftCardPaid),
+            value: OrderFilterGiftCard.paid
+          }
+        ]
+      ),
+      active: opts.giftCard.active
     },
     {
       ...createOptionsField(

@@ -1,4 +1,10 @@
 import { Card } from "@material-ui/core";
+import {
+  extensionMountPoints,
+  mapToMenuItems,
+  useExtensions
+} from "@saleor/apps/useExtensions";
+import { ButtonWithSelect } from "@saleor/components/ButtonWithSelect";
 import CardMenu from "@saleor/components/CardMenu";
 import ColumnPicker, {
   ColumnPickerChoice
@@ -136,6 +142,10 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
       }),
       value: "createdAt" as ProductListColumns
     },
+    {
+      label: intl.formatMessage(columnsMessages.updatedAt),
+      value: "date" as ProductListColumns
+    },
     ...availableInGridAttributes.map(attribute => ({
       label: attribute.name,
       value: `attribute:${attribute.id}`
@@ -143,6 +153,13 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
   ];
 
   const limitReached = isLimitReached(limits, "productVariants");
+  const {
+    PRODUCT_OVERVIEW_CREATE,
+    PRODUCT_OVERVIEW_MORE_ACTIONS
+  } = useExtensions(extensionMountPoints.PRODUCT_LIST);
+
+  const extensionMenuItems = mapToMenuItems(PRODUCT_OVERVIEW_MORE_ACTIONS);
+  const extensionCreateButtonItems = mapToMenuItems(PRODUCT_OVERVIEW_CREATE);
 
   return (
     <Container>
@@ -158,9 +175,10 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
                 }),
                 onSelect: onExport,
                 testId: "export"
-              }
+              },
+              ...extensionMenuItems
             ]}
-            data-test="menu"
+            data-test-id="menu"
           />
         }
         title={intl.formatMessage(sectionNames.products)}
@@ -192,17 +210,17 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           onFetchMore={onFetchMore}
           onSave={handleSave}
         />
-        <Button
+        <ButtonWithSelect
+          options={extensionCreateButtonItems}
+          data-test-id="add-product"
           disabled={limitReached}
           onClick={onAdd}
-          variant="primary"
-          data-test-id="add-product"
         >
           <FormattedMessage
             defaultMessage="Create Product"
             description="button"
           />
-        </Button>
+        </ButtonWithSelect>
       </PageHeader>
       {limitReached && (
         <LimitReachedAlert
@@ -241,7 +259,6 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           loading={loading}
           gridAttributes={gridAttributes}
           settings={settings}
-          channelsCount={channelsCount}
           selectedChannelId={selectedChannelId}
           onUpdateListSettings={onUpdateListSettings}
           filterDependency={filterDependency}

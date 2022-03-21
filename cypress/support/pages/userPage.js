@@ -1,6 +1,5 @@
 import { SET_PASSWORD } from "../../elements/account/setPassword";
 import { BUTTON_SELECTORS } from "../../elements/shared/button-selectors";
-import { SHARED_ELEMENTS } from "../../elements/shared/sharedElements";
 import { INVITE_STAFF_MEMBER_FORM } from "../../elements/staffMembers/inviteStaffMemberForm";
 import { STAFF_MEMBER_DETAILS } from "../../elements/staffMembers/staffMemberDetails";
 import { userDetailsUrl } from "../../fixtures/urlList";
@@ -27,8 +26,10 @@ export function fillUpUserDetails(firstName, lastName, email) {
     .click()
     .confirmationMessageShouldDisappear()
     .fillAutocompleteSelect(STAFF_MEMBER_DETAILS.permissionsSelect)
-    .get(SHARED_ELEMENTS.header)
-    .click()
+    .get(STAFF_MEMBER_DETAILS.permissionsSelect)
+    .find("input")
+    .first()
+    .type("{esc}", { force: true })
     .addAliasToGraphRequest("StaffMemberUpdate")
     .get(BUTTON_SELECTORS.confirm)
     .click()

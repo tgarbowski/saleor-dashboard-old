@@ -23,7 +23,9 @@ import {
   getRefundedLinesPriceSum,
   getReplacedProductsAmount,
   getReturnSelectedProductsAmount,
+  getWarehousesFromOrderLines,
   mergeRepeatedOrderLines,
+  OrderLineWithStockWarehouses,
   OrderWithTotalAndTotalCaptured
 } from "./data";
 
@@ -68,6 +70,77 @@ const orderBase: OrderDetails_order = {
   }
 };
 
+describe("Get warehouses used in order", () => {
+  it("is able to calculate number of used warehouses from order", () => {
+    const lines: OrderLineWithStockWarehouses[] = [
+      {
+        variant: {
+          stocks: [
+            {
+              warehouse: {
+                __typename: "Warehouse",
+                id: "warehouse-1",
+                name: "Warehouse 1"
+              }
+            },
+            {
+              warehouse: {
+                __typename: "Warehouse",
+                id: "warehouse-2",
+                name: "Warehouse 2"
+              }
+            }
+          ]
+        }
+      },
+      {
+        variant: {
+          stocks: [
+            {
+              warehouse: {
+                __typename: "Warehouse",
+                id: "warehouse-1",
+                name: "Warehouse 1"
+              }
+            },
+            {
+              warehouse: {
+                __typename: "Warehouse",
+                id: "warehouse-2",
+                name: "Warehouse 2"
+              }
+            }
+          ]
+        }
+      },
+      {
+        variant: {
+          stocks: [
+            {
+              warehouse: {
+                __typename: "Warehouse",
+                id: "warehouse-2",
+                name: "Warehouse 2"
+              }
+            },
+            {
+              warehouse: {
+                __typename: "Warehouse",
+                id: "warehouse-3",
+                name: "Warehouse 3"
+              }
+            }
+          ]
+        }
+      }
+    ];
+
+    const orderWarehouses = getWarehousesFromOrderLines(lines);
+
+    expect(orderWarehouses.length).toBe(3);
+  });
+});
+
 describe("Get previously refunded price", () => {
   it("is able to calculate refunded price from order", () => {
     const order: OrderWithTotalAndTotalCaptured = {
@@ -99,12 +172,12 @@ describe("Get refunded lines price sum", () => {
       id: "1",
       productName: "Milk 1",
       quantity: 1,
-      quantityFulfilled: 1,
+      quantityToFulfill: 0,
+      thumbnail: undefined,
       variant: {
         __typename: "ProductVariant",
         id: "1"
       },
-      thumbnail: undefined,
       unitPrice: {
         __typename: "TaxedMoney",
         gross: {
@@ -119,12 +192,12 @@ describe("Get refunded lines price sum", () => {
       id: "2",
       productName: "Milk 2",
       quantity: 2,
-      quantityFulfilled: 2,
+      quantityToFulfill: 0,
+      thumbnail: undefined,
       variant: {
         __typename: "ProductVariant",
         id: "1"
       },
-      thumbnail: undefined,
       unitPrice: {
         __typename: "TaxedMoney",
         gross: {
@@ -139,12 +212,12 @@ describe("Get refunded lines price sum", () => {
       id: "3",
       productName: "Milk 3",
       quantity: 4,
-      quantityFulfilled: 4,
+      quantityToFulfill: 0,
+      thumbnail: undefined,
       variant: {
         __typename: "ProductVariant",
         id: "1"
       },
-      thumbnail: undefined,
       unitPrice: {
         __typename: "TaxedMoney",
         gross: {
@@ -504,12 +577,14 @@ describe("Get the total value of all replaced products", () => {
             }
           },
           quantityAvailable: 50,
+          preorder: null,
           __typename: "ProductVariant"
         },
         productName: "Lake Tunes",
         productSku: "lake-tunes-mp3",
         quantity: 2,
         quantityFulfilled: 2,
+        quantityToFulfill: 0,
         undiscountedUnitPrice: {
           __typename: "TaxedMoney",
           currency: "USD",
@@ -567,12 +642,14 @@ describe("Get the total value of all replaced products", () => {
             }
           },
           quantityAvailable: 50,
+          preorder: null,
           __typename: "ProductVariant"
         },
         productName: "Lake Tunes",
         productSku: "lake-tunes-mp3",
         quantity: 10,
         quantityFulfilled: 2,
+        quantityToFulfill: 8,
         undiscountedUnitPrice: {
           __typename: "TaxedMoney",
           currency: "USD",
@@ -630,12 +707,14 @@ describe("Get the total value of all replaced products", () => {
             }
           },
           quantityAvailable: 50,
+          preorder: null,
           __typename: "ProductVariant"
         },
         productName: "T-shirt",
         productSku: "29810068",
         quantity: 6,
         quantityFulfilled: 1,
+        quantityToFulfill: 5,
         undiscountedUnitPrice: {
           __typename: "TaxedMoney",
           currency: "USD",
@@ -699,12 +778,14 @@ describe("Get the total value of all replaced products", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "Lake Tunes",
           productSku: "lake-tunes-mp3",
           quantity: 20,
           quantityFulfilled: 6,
+          quantityToFulfill: 14,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -767,12 +848,14 @@ describe("Get the total value of all replaced products", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "Lake Tunes",
           productSku: "lake-tunes-mp3",
           quantity: 25,
           quantityFulfilled: 8,
+          quantityToFulfill: 17,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -835,12 +918,14 @@ describe("Get the total value of all replaced products", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "T-shirt",
           productSku: "29810068",
           quantity: 10,
           quantityFulfilled: 3,
+          quantityToFulfill: 7,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -903,12 +988,14 @@ describe("Get the total value of all replaced products", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "Lake Tunes",
           productSku: "lake-tunes-mp3",
           quantity: 20,
           quantityFulfilled: 6,
+          quantityToFulfill: 14,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -971,12 +1058,14 @@ describe("Get the total value of all replaced products", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "Lake Tunes",
           productSku: "lake-tunes-mp3",
           quantity: 25,
           quantityFulfilled: 8,
+          quantityToFulfill: 17,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -1175,12 +1264,14 @@ describe("Get the total value of all selected products", () => {
             }
           },
           quantityAvailable: 50,
+          preorder: null,
           __typename: "ProductVariant"
         },
         productName: "Lake Tunes",
         productSku: "lake-tunes-mp3",
         quantity: 2,
         quantityFulfilled: 2,
+        quantityToFulfill: 0,
         undiscountedUnitPrice: {
           __typename: "TaxedMoney",
           currency: "USD",
@@ -1238,12 +1329,14 @@ describe("Get the total value of all selected products", () => {
             }
           },
           quantityAvailable: 50,
+          preorder: null,
           __typename: "ProductVariant"
         },
         productName: "Lake Tunes",
         productSku: "lake-tunes-mp3",
         quantity: 10,
         quantityFulfilled: 2,
+        quantityToFulfill: 8,
         undiscountedUnitPrice: {
           __typename: "TaxedMoney",
           currency: "USD",
@@ -1301,12 +1394,14 @@ describe("Get the total value of all selected products", () => {
             }
           },
           quantityAvailable: 50,
+          preorder: null,
           __typename: "ProductVariant"
         },
         productName: "T-shirt",
         productSku: "29810068",
         quantity: 6,
         quantityFulfilled: 1,
+        quantityToFulfill: 5,
         undiscountedUnitPrice: {
           __typename: "TaxedMoney",
           currency: "USD",
@@ -1370,12 +1465,14 @@ describe("Get the total value of all selected products", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "Lake Tunes",
           productSku: "lake-tunes-mp3",
           quantity: 20,
           quantityFulfilled: 6,
+          quantityToFulfill: 14,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -1438,12 +1535,14 @@ describe("Get the total value of all selected products", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "Lake Tunes",
           productSku: "lake-tunes-mp3",
           quantity: 25,
           quantityFulfilled: 8,
+          quantityToFulfill: 17,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -1506,12 +1605,14 @@ describe("Get the total value of all selected products", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "T-shirt",
           productSku: "29810068",
           quantity: 10,
           quantityFulfilled: 3,
+          quantityToFulfill: 7,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -1600,6 +1701,8 @@ describe("Get the total value of all selected products", () => {
       }
     ];
 
+    const waitingItemsQuantities: FormsetData<LineItemData, number> = [];
+
     const itemsToBeReplaced: FormsetData<LineItemData, boolean> = [
       {
         data: { isFulfillment: false, isRefunded: false },
@@ -1671,6 +1774,7 @@ describe("Get the total value of all selected products", () => {
       },
       {
         itemsToBeReplaced,
+        waitingItemsQuantities,
         unfulfilledItemsQuantities,
         fulfilledItemsQuantities
       }
@@ -1701,12 +1805,14 @@ describe("Merge repeated order lines of fulfillment lines", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "Lake Tunes",
           productSku: "lake-tunes-mp3",
           quantity: 2,
           quantityFulfilled: 2,
+          quantityToFulfill: 0,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -1769,12 +1875,14 @@ describe("Merge repeated order lines of fulfillment lines", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "Lake Tunes",
           productSku: "lake-tunes-mp3",
           quantity: 2,
           quantityFulfilled: 2,
+          quantityToFulfill: 0,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",
@@ -1837,12 +1945,14 @@ describe("Merge repeated order lines of fulfillment lines", () => {
               }
             },
             quantityAvailable: 50,
+            preorder: null,
             __typename: "ProductVariant"
           },
           productName: "T-shirt",
           productSku: "29810068",
           quantity: 3,
           quantityFulfilled: 1,
+          quantityToFulfill: 2,
           undiscountedUnitPrice: {
             __typename: "TaxedMoney",
             currency: "USD",

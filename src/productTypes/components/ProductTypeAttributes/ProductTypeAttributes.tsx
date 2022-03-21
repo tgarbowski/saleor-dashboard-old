@@ -82,25 +82,12 @@ const ProductTypeAttributes: React.FC<ProductTypeAttributesProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card
-      data-test-id={
-        type === ProductAttributeType.PRODUCT
-          ? "product-attributes"
-          : "variant-attributes"
-      }
-    >
+    <Card data-test-id="product-attributes">
       <CardTitle
-        title={
-          type === ProductAttributeType.PRODUCT
-            ? intl.formatMessage({
-                defaultMessage: "Product Attributes",
-                description: "section header"
-              })
-            : intl.formatMessage({
-                defaultMessage: "Variant Attributes",
-                description: "section header"
-              })
-        }
+        title={intl.formatMessage({
+          defaultMessage: "Product Attributes",
+          description: "section header"
+        })}
         toolbar={
           <Button
             disabled={disabled}
@@ -163,7 +150,7 @@ const ProductTypeAttributes: React.FC<ProductTypeAttributesProps> = props => {
                   }
                   key={maybe(() => attribute.id)}
                   index={attributeIndex || 0}
-                  data-test-id={"id-" + maybe(() => attribute.id)}
+                  data-test-id={"id" + maybe(() => attribute.id)}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
