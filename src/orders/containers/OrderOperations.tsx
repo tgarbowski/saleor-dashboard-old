@@ -210,30 +210,29 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
             {(...paymentCapture) => (
               <TypedOrderParcelMutation onCompleted={onParcelDetails}>
                 {(...parcelDetails) => (
-                  <TypedOrderAddNoteMutation onCompleted={onNoteAdd}>
-                    {(...addNote) => (
-                      <TypedOrderUpdateMutation onCompleted={onUpdate}>
-                        {(...update) => (
-                          <TypedOrderDraftUpdateMutation
-                            onCompleted={onDraftUpdate}
+              <TypedOrderAddNoteMutation onCompleted={onNoteAdd}>
+                {(...addNote) => (
+                  <TypedOrderUpdateMutation onCompleted={onUpdate}>
+                    {(...update) => (
+                      <TypedOrderDraftUpdateMutation
+                        onCompleted={onDraftUpdate}
+                      >
+                        {(...updateDraft) => (
+                          <TypedOrderShippingMethodUpdateMutation
+                            onCompleted={onShippingMethodUpdate}
                           >
-                            {(...updateDraft) => (
-                              <TypedOrderShippingMethodUpdateMutation
-                                onCompleted={onShippingMethodUpdate}
+                            {(...updateShippingMethod) => (
+                              <TypedOrderLineDeleteMutation
+                                onCompleted={onOrderLineDelete}
                               >
-                                {(...updateShippingMethod) => (
-                                  <TypedOrderLineDeleteMutation
-                                    onCompleted={onOrderLineDelete}
+                                {(...deleteOrderLine) => (
+                                  <TypedOrderLinesAddMutation
+                                    onCompleted={onOrderLinesAdd}
                                   >
-                                    {(...deleteOrderLine) => (
-                                      <TypedOrderLinesAddMutation
-                                        onCompleted={onOrderLinesAdd}
+                                    {(...addOrderLine) => (
+                                      <TypedOrderLineUpdateMutation
+                                        onCompleted={onOrderLineUpdate}
                                       >
-                                        {(...addOrderLine) => (
-                                          <TypedOrderLineUpdateMutation
-                                            onCompleted={onOrderLineUpdate}
-                                          >
-                                            {(...updateOrderLine) => (
                                         {(...updateOrderLine) => (
                                           <TypedOrderFulfillmentApproveMutation
                                             onCompleted={
@@ -369,22 +368,23 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                                 )}
                                               </TypedOrderFulfillmentCancelMutation>
                                             )}
-                                          </TypedOrderLineUpdateMutation>
                                           </TypedOrderFulfillmentApproveMutation>
                                         )}
-                                      </TypedOrderLinesAddMutation>
+                                      </TypedOrderLineUpdateMutation>
                                     )}
-                                  </TypedOrderLineDeleteMutation>
+                                  </TypedOrderLinesAddMutation>
                                 )}
-                              </TypedOrderShippingMethodUpdateMutation>
+                              </TypedOrderLineDeleteMutation>
                             )}
-                          </TypedOrderDraftUpdateMutation>
+                          </TypedOrderShippingMethodUpdateMutation>
                         )}
-                      </TypedOrderUpdateMutation>
+                      </TypedOrderDraftUpdateMutation>
                     )}
-                  </TypedOrderAddNoteMutation>
+                  </TypedOrderUpdateMutation>
                 )}
-              </TypedOrderParcelMutation>
+              </TypedOrderAddNoteMutation>
+            )}
+            </TypedOrderParcelMutation>
             )}
           </TypedOrderCaptureMutation>
         )}

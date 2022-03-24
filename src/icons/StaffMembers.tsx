@@ -10,9 +10,6 @@ const StaffMembers = createSvgIcon(
   />,
   "StaffMembers"
 );
-StaffMembers.defaultProps = {
-  viewBox: "0 0 32 32"
-};
 
 export default (props: SvgIconProps) => (
   <StaffMembers {...props} viewBox="0 0 32 32" />

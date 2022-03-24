@@ -10,9 +10,6 @@ const Navigation = createSvgIcon(
   />,
   "Navigation"
 );
-Navigation.defaultProps = {
-  viewBox: "0 0 32 32"
-};
 
 export default (props: SvgIconProps) => (
   <Navigation {...props} viewBox="0 0 32 32" />

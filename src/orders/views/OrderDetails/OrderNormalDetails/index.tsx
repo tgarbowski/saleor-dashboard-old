@@ -1,4 +1,3 @@
-import { useUser } from "@saleor/auth";
 import { WindowTitle } from "@saleor/components/WindowTitle";
 import { useCustomerAddressesQuery } from "@saleor/customers/queries";
 import useNavigator from "@saleor/hooks/useNavigator";

@@ -194,8 +194,7 @@ const MultiAutocompleteSelectFieldComponent: React.FC<MultiAutocompleteSelectFie
                         if (fetchOnFocus) {
                           fetchChoices(inputValue);
                         }
-                      },
-                      ref: anchor
+                      }
                     }}
                     inputProps={{
                       ...getInputProps({

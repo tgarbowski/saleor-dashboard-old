@@ -1,4 +1,3 @@
-import { useUser } from "@saleor/auth";
 import { WindowTitle } from "@saleor/components/WindowTitle";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@saleor/config";
 import { useCustomerAddressesQuery } from "@saleor/customers/queries";

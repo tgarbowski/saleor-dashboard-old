@@ -11,13 +11,13 @@ import { actionButtonsMessages } from "./messages";
 import useStyles from "./styles";
 
 interface AcionButtonsProps {
-  classes: any;
   status: FulfillmentStatus;
   trackingNumber?: string;
-  onParcelDetails();
-  onParcelLabelDownload();
   orderIsPaid?: boolean;
   fulfillmentAllowUnpaid: boolean;
+  classes: any;
+  onParcelDetails();
+  onParcelLabelDownload();
   onTrackingCodeAdd();
   onRefund();
   onApprove();

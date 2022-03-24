@@ -18,9 +18,6 @@ const SiteSettings = createSvgIcon(
   </>,
   "SiteSettings"
 );
-SiteSettings.defaultProps = {
-  viewBox: "0 0 32 32"
-};
 
 export default (props: SvgIconProps) => (
   <SiteSettings {...props} viewBox="0 0 32 32" />

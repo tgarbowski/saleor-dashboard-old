@@ -1114,7 +1114,16 @@ export const order = (placeholder: string): OrderDetails_order => ({
               __typename: "ProductVariant",
               id: "dsfsfuhb",
               quantityAvailable: 10,
-              preorder: null
+              preorder: null,
+              product: {
+                __typename: "Product",
+                id: "345678393",
+                isAvailableForPurchase: true,
+                isPublished: true,
+                weight: {
+                  value: "12"
+                }
+              },
             }
           },
           quantity: 1
@@ -1275,7 +1284,16 @@ export const order = (placeholder: string): OrderDetails_order => ({
         __typename: "ProductVariant",
         id: "dsfsfuhb",
         quantityAvailable: 10,
-        preorder: null
+        preorder: null,
+        product: {
+          __typename: "Product",
+          id: "345678393",
+          isAvailableForPurchase: true,
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
+        },
       }
     },
     {
@@ -1331,7 +1349,16 @@ export const order = (placeholder: string): OrderDetails_order => ({
         __typename: "ProductVariant",
         id: "dsfsfuhb",
         quantityAvailable: 10,
-        preorder: null
+        preorder: null,
+        product: {
+          __typename: "Product",
+          id: "345678393",
+          isAvailableForPurchase: true,
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
+        },
       }
     }
   ],
@@ -1525,7 +1552,16 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
         __typename: "ProductVariant",
         id: "dsfsfuhb",
         quantityAvailable: 10,
-        preorder: null
+        preorder: null,
+        product: {
+          __typename: "Product",
+          id: "345678393",
+          isAvailableForPurchase: true,
+          isPublished: true,
+          weight: {
+            value: "12"
+          }
+        },
       }
     },
     {

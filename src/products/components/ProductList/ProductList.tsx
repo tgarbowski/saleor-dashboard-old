@@ -7,7 +7,6 @@ import {
 } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import WarningIcon from "@material-ui/icons/Warning";
-import AvailabilityStatusLabel from "@saleor/components/AvailabilityStatusLabel";
 import { ChannelsAvailabilityDropdown } from "@saleor/components/ChannelsAvailabilityDropdown";
 import {
   getChannelAvailabilityColor,

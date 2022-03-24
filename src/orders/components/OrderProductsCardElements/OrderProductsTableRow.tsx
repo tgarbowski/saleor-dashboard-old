@@ -1,7 +1,6 @@
 import { TableCell, TableRow } from "@material-ui/core";
 import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
-import StatusBadge from "@saleor/components/StatusBadge";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar/Avatar";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -11,9 +10,6 @@ import {
   OrderDetails_order_lines
 } from "@saleor/orders/types/OrderDetails";
 import React from "react";
-import { useIntl } from "react-intl";
-
-import { orderProductsCardElementsMessages as messages } from "./messages";
 
 const useStyles = makeStyles(
   theme => ({
@@ -57,13 +53,11 @@ const useStyles = makeStyles(
 interface TableLineProps {
   line: OrderDetails_order_fulfillments_lines | OrderDetails_order_lines;
   isOrderLine?: boolean;
-  isFulfilled: boolean;
 }
 
 const TableLine: React.FC<TableLineProps> = ({
   line: lineData,
-  isOrderLine = false,
-  isFulfilled
+  isOrderLine = false
 }) => {
   const classes = useStyles({});
   const { quantity, quantityToFulfill } = lineData as OrderDetails_order_lines;
@@ -81,29 +75,11 @@ const TableLine: React.FC<TableLineProps> = ({
 
   const quantityToDisplay = isOrderLine ? quantityToFulfill : quantity;
 
-  const isDeleted = !line.orderLine.variant;
-
   return (
     <TableRow key={line.id}>
       <TableCellAvatar
         className={classes.colName}
         thumbnail={maybe(() => line.orderLine.thumbnail.url)}
-        badge={
-          isDeleted &&
-          (isFulfilled ? (
-            <StatusBadge
-              variant="warning"
-              description={intl.formatMessage(messages.fulfilledVariantDeleted)}
-            />
-          ) : (
-            <StatusBadge
-              variant="error"
-              description={intl.formatMessage(
-                messages.unfulfilledVariantDeleted
-              )}
-            />
-          ))
-        }
       >
         {maybe(() => line.orderLine.productName) || <Skeleton />}
       </TableCellAvatar>

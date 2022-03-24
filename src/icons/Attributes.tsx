@@ -10,9 +10,6 @@ const Attributes = createSvgIcon(
   />,
   "Attributes"
 );
-Attributes.defaultProps = {
-  viewBox: "0 0 32 32"
-};
 
 export default (props: SvgIconProps) => (
   <Attributes {...props} viewBox="0 0 32 32" />

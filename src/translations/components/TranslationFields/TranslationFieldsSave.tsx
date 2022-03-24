@@ -40,7 +40,6 @@ const TranslationFieldsSave: React.FC<TranslationFieldsSaveProps> = props => {
       <ConfirmButton
         data-test="button-bar-confirm"
         className={classes.confirmButton}
-        data-test="button-bar-confirm"
         transitionState={saveButtonState}
         onClick={onSave}
       >

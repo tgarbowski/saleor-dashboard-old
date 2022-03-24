@@ -133,9 +133,7 @@ const OrderCustomerAddressesEditDialog: React.FC<OrderCustomerAddressesEditDialo
       customerAddresses.find(getById(selectedCustomerAddressID))
     );
 
-  const handleAddressesSubmit = (
-    data: OrderCustomerAddressesEditFormData
-  ): Partial<OrderCustomerAddressesEditDialogOutput> => {
+  const handleAddressesSubmit = (data: OrderCustomerAddressesEditFormData) => {
     const shippingAddress =
       customerAddresses.length > 0 &&
       data.shippingAddressInputOption ===

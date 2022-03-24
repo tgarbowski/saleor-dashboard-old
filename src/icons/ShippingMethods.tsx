@@ -10,9 +10,6 @@ const ShippingMethods = createSvgIcon(
   />,
   "ShippingMethods"
 );
-ShippingMethods.defaultProps = {
-  viewBox: "0 0 32 32"
-};
 
 export default (props: SvgIconProps) => (
   <ShippingMethods {...props} viewBox="0 0 32 32" />

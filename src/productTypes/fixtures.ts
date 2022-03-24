@@ -990,6 +990,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6NA==",
     isShippingRequired: true,
     name: "Candy",
+    slug: "candy",
     kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[0]],
     taxType: {
@@ -1005,6 +1006,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6NQ==",
     isShippingRequired: false,
     name: "E-books",
+    slug: "e-books",
     kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[5]],
     taxType: {
@@ -1020,6 +1022,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6Mg==",
     isShippingRequired: true,
     name: "Mugs",
+    slug: "mugs",
     kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[7]],
     taxType: {
@@ -1035,6 +1038,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6Mw==",
     isShippingRequired: true,
     name: "Coffee",
+    slug: "coffee",
     kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[8]],
     taxType: {
@@ -1050,6 +1054,7 @@ export const productTypes: Array<SearchProductTypes_search_edges_node &
     id: "UHJvZHVjdFR5cGU6MQ==",
     isShippingRequired: true,
     name: "T-Shirt",
+    slug: "t-shirt",
     kind: ProductTypeKindEnum.NORMAL,
     productAttributes: [attributes[4]],
     taxType: {

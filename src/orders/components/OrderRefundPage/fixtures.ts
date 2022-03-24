@@ -46,6 +46,10 @@ export const orderToRefund = (placeholder: string): OrderRefundData_order => ({
           amount: 26.02,
           currency: "USD"
         }
+      },
+      variant: {
+        __typename: "ProductVariant",
+        id: "dsfsfuhb",
       }
     },
     {
@@ -65,6 +69,10 @@ export const orderToRefund = (placeholder: string): OrderRefundData_order => ({
           amount: 10,
           currency: "USD"
         }
+      },
+      variant: {
+        __typename: "ProductVariant",
+        id: "dsfsfuhb",
       }
     }
   ],

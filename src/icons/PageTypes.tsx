@@ -10,9 +10,6 @@ const PageTypes = createSvgIcon(
   />,
   "PageTypes"
 );
-PageTypes.defaultProps = {
-  viewBox: "0 0 24 25"
-};
 
 export default (props: SvgIconProps) => (
   <PageTypes {...props} viewBox="0 0 24 25" />

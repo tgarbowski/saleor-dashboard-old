@@ -12,9 +12,6 @@ const ProductTypes = createSvgIcon(
   </>,
   "ProductTypes"
 );
-ProductTypes.defaultProps = {
-  viewBox: "0 0 44 44"
-};
 
 export default (props: SvgIconProps) => (
   <ProductTypes {...props} viewBox="0 0 44 44" />
