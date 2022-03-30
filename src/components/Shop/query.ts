@@ -48,6 +48,7 @@ const shopInfo = gql`
         phone
         postalCode
         country {
+          code
           country
         }
       }
