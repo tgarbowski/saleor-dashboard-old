@@ -573,7 +573,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           confirmButtonState={productBulkPublishOpts.status}
           onSubmitFunction={productBulkPublish}
         />
-      )}      
+      )}
       {params.action === "unpublish" && (
         <ProductUnpublishDialog
           params={params}
@@ -585,7 +585,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           confirmButtonState={productBulkPublishOpts.status}
           onSubmitFunction={productBulkPublish}
         />
-      )} 
+      )}
       <ProductExportDialog
         attributes={
           mapEdgesToItems(searchAttributes?.result?.data?.search) || []

@@ -9,7 +9,7 @@ import { ActionDialogVariant, Size } from "./types";
 export interface ActionDialogProps extends DialogProps {
   children?: React.ReactNode;
   confirmButtonLabel?: string;
-  confirmButtonState: ConfirmButtonTransitionState;
+  confirmButtonState?: ConfirmButtonTransitionState;
   disabled?: boolean;
   maxWidth?: Size | false;
   title: string;

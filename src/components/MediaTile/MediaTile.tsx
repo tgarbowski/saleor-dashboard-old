@@ -1,9 +1,10 @@
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, DialogContentText } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import SwapVertIcon from '@material-ui/icons/SwapVert';
 import { DeleteIcon, IconButton, makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
-import React from "react";
+import React, { useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
+import ActionDialog from "../ActionDialog";
 
 const useStyles = makeStyles(
   theme => ({
@@ -67,12 +68,15 @@ interface MediaTileProps {
 }
 
 const MediaTile: React.FC<MediaTileProps> = props => {
-  const { loading, onDelete, onEdit, onRetrieveFromBackup, media } = props;
+  const { loading, onDelete, onEdit, media } = props;
   const classes = useStyles(props);
   const parsedMediaOembedData = media?.oembedData
     ? JSON.parse(media.oembedData)
     : null;
   const mediaUrl = parsedMediaOembedData?.thumbnail_url || media.url;
+
+  const [isDeleting, setIsDeleting] = useState(false);
+  const intl = useIntl();
 
   return (
     <div className={classes.mediaContainer} data-test-id="product-image">
@@ -90,16 +94,28 @@ const MediaTile: React.FC<MediaTileProps> = props => {
                 <EditIcon />
               </IconButton>
             )}
-            {onRetrieveFromBackup && (
-              <IconButton color="primary" onClick={onRetrieveFromBackup}>
-                <SwapVertIcon />
-              </IconButton>
-            )}
             {onDelete && (
-              <IconButton color="primary" onClick={onDelete}>
+              <IconButton color="primary" onClick={() => setIsDeleting(true)}>
                 <DeleteIcon />
               </IconButton>
             )}
+            <ActionDialog
+              onClose={() => setIsDeleting(false)}
+              onConfirm={() => {
+                onDelete();
+                setIsDeleting(false);
+              }}
+              open={isDeleting}
+              title={intl.formatMessage({
+                defaultMessage: "Delete Image",
+                description: "dialog header"
+              })}
+              variant="delete"
+            >
+              <DialogContentText>
+                <FormattedMessage defaultMessage="Are you sure you want to delete this image?" />
+              </DialogContentText>
+            </ActionDialog>
           </div>
         )}
       </div>
