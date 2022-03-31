@@ -63,7 +63,7 @@ const useStyles = makeStyles(
       colType: {
         width: 200
       },
-      colCreatedAt: {
+      colCreated: {
         width: 200
       },
       colDate: {
@@ -185,8 +185,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
           <DisplayColumn column="isPublished" displayColumns={settings.columns}>
             <col className={classes.colPublished} />
           </DisplayColumn>
-          <DisplayColumn column="createdAt" displayColumns={settings.columns}>
-            <col className={classes.colCreatedAt} />
+          <DisplayColumn column="created" displayColumns={settings.columns}>
+            <col className={classes.colCreated} />
           </DisplayColumn>
           <DisplayColumn
             column="availability"
@@ -259,15 +259,15 @@ export const ProductList: React.FC<ProductListProps> = props => {
               />
             </TableCellHeader>
           </DisplayColumn>
-          <DisplayColumn column="createdAt" displayColumns={settings.columns}>
+          <DisplayColumn column="created" displayColumns={settings.columns}>
             <TableCellHeader
-              className={classes.colCreatedAt}
+              className={classes.colCreated}
               direction={
-                sort.sort === ProductListUrlSortField.createdAt
+                sort.sort === ProductListUrlSortField.created
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              onClick={() => onSort(ProductListUrlSortField.createdAt)}
+              onClick={() => onSort(ProductListUrlSortField.created)}
             >
               <FormattedMessage
                 defaultMessage="Data utworzenia"
@@ -507,16 +507,16 @@ export const ProductList: React.FC<ProductListProps> = props => {
                     </TableCell>
                   </DisplayColumn>
                   <DisplayColumn
-                    column="createdAt"
+                    column="created"
                     displayColumns={settings.columns}
                   >
-                    <TableCell className={classes.colCreatedAt}>
-                      {product && product.createdAt ? (
+                    <TableCell className={classes.colCreated}>
+                      {product && product.created ? (
                         new Intl.DateTimeFormat("en-GB", {
                           day: "2-digit",
                           month: "2-digit",
                           year: "numeric"
-                        }).format(new Date(product.createdAt))
+                        }).format(new Date(product.created))
                       ) : (
                         <Skeleton />
                       )}

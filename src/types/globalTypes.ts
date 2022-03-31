@@ -2679,7 +2679,7 @@ export interface WarehouseLocationRangeInput {
   lte?: string | null;
 }
 
-export interface CreatedAtRangeInput {
+export interface CreatedRangeInput {
   gte?: string | null;
   lte?: string | null;
 }
@@ -2702,7 +2702,7 @@ export interface ProductFilterInput {
   hasPreorderedVariants?: boolean | null;
   channel?: string | null;
   warehouseLocation?: WarehouseLocationRangeInput | null;
-  createdAt?: CreatedAtRangeInput | null;
+  created?: CreatedRangeInput | null;
 }
 
 export interface ProductInput {

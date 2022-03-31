@@ -214,17 +214,17 @@ export function getFilterOpts(
       active: maybe(() => params.stockStatus !== undefined, false),
       value: maybe(() => findValueInEnum(params.stockStatus, StockAvailability))
     },
-    createdAt: {
+    created: {
       active: maybe(
         () =>
-          [params.createdAtFrom, params.createdAtTo].some(
+          [params.createdFrom, params.createdTo].some(
             field => field !== undefined
           ),
         false
       ),
       value: {
-        max: maybe(() => params.createdAtTo, ""),
-        min: maybe(() => params.createdAtFrom, "")
+        max: maybe(() => params.createdTo, ""),
+        min: maybe(() => params.createdFrom, "")
       }
     },
     warehouseLocation: {
@@ -364,9 +364,9 @@ export function getFilterVariables(
       gte: params.warehouseFrom,
       lte: params.warehouseTo
     }),
-    createdAt: getGteLteVariables({
-      gte: params.createdAtFrom,
-      lte: params.createdAtTo
+    created: getGteLteVariables({
+      gte: params.createdFrom,
+      lte: params.createdTo
     })
   };
 }
@@ -443,11 +443,11 @@ export function getFilterQueryParam(
         ProductListUrlFiltersEnum.channel
       );
 
-    case ProductFilterKeys.createdAt:
+    case ProductFilterKeys.created:
       return getMinMaxQueryParam(
         filter,
-        ProductListUrlFiltersEnum.createdAtFrom,
-        ProductListUrlFiltersEnum.createdAtTo
+        ProductListUrlFiltersEnum.createdFrom,
+        ProductListUrlFiltersEnum.createdTo
       );
 
     case ProductFilterKeys.productKind:

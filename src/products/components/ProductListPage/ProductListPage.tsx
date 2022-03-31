@@ -138,9 +138,9 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
     {
       label: intl.formatMessage({
         defaultMessage: "Utworzono",
-        description: "created at"
+        description: "created"
       }),
-      value: "createdAt" as ProductListColumns
+      value: "created" as ProductListColumns
     },
     {
       label: intl.formatMessage(columnsMessages.updatedAt),

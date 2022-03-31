@@ -120,7 +120,7 @@ export const productFragment = gql`
         }
       }
     }
-    createdAt
+    created
   }
 `;
 
