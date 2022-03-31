@@ -748,7 +748,7 @@ export const products = (
     __typename: "Product",
     updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -843,7 +843,7 @@ export const products = (
     __typename: "Product",
     updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
 
@@ -938,7 +938,7 @@ export const products = (
     __typename: "Product",
     updatedAt: "2020-06-22T13:52:05.094636+00:00",
     attributes: [],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -1054,7 +1054,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -1170,7 +1170,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -1286,7 +1286,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -1403,7 +1403,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
 
@@ -1520,7 +1520,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -1636,7 +1636,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -1752,7 +1752,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -1868,7 +1868,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -1984,7 +1984,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -2100,7 +2100,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -2216,7 +2216,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -2332,7 +2332,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -2448,7 +2448,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -2564,7 +2564,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -2680,7 +2680,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -2796,7 +2796,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
@@ -2912,7 +2912,7 @@ export const products = (
         ]
       }
     ],
-    createdAt: "2020-07-14",
+    created: "2020-07-14",
     jsonPrivateMetadata: null,
     privateMetadata: null,
     channelListings: [
