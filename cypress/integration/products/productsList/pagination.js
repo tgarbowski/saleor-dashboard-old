@@ -1,5 +1,5 @@
-// / <reference types="cypress"/>
-// / <reference types="../../../support"/>
+/// <reference types="cypress"/>
+/// <reference types="../../../support"/>
 
 import { PRODUCTS_LIST } from "../../../elements/catalog/products/products-list";
 import { BUTTON_SELECTORS } from "../../../elements/shared/button-selectors";
@@ -19,8 +19,6 @@ filterTests({ definedTags: ["all"] }, () => {
 
     it("Should go to the next page", () => {
       cy.softExpectSkeletonIsVisible()
-        // cy.get(PRODUCTS_LIST.productsList)
-        //   .should("be.visible")
         .get(PRODUCTS_LIST.emptyProductRow)
         .should("not.exist")
         .get(PRODUCTS_LIST.previousPagePagination)

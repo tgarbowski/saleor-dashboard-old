@@ -192,7 +192,7 @@ const VoucherDetailsPage: React.FC<VoucherDetailsPageProps> = ({
   };
 
   return (
-    <Form initial={initialForm} onSubmit={onSubmit}>
+    <Form confirmLeave initial={initialForm} onSubmit={onSubmit}>
       {({ change, data, hasChanged, submit, triggerChange, set }) => {
         const handleDiscountTypeChange = createDiscountTypeChangeHandler(
           change
@@ -350,7 +350,6 @@ const VoucherDetailsPage: React.FC<VoucherDetailsPageProps> = ({
                         onRowClick={onProductClick}
                         pageInfo={pageInfo}
                         products={mapEdgesToItems(voucher.products)}
-                        channelsCount={allChannelsCount}
                         isChecked={isChecked}
                         selected={selected}
                         toggle={toggle}

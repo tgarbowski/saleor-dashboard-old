@@ -100,8 +100,11 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
     () => ({
       filter: {
         productTypes: values.data ? [values.data.search.edges[0].node.id] : [],
-        search: searchValue
+        search: searchValue,
+        hasChannel: true
       },
+      hasChannel: true,
+      hasSelectedAttributes: true,
       first: 100
     }),
     [params, searchValue]

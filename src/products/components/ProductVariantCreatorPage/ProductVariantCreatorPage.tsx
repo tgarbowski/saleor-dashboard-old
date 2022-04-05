@@ -3,6 +3,7 @@ import Container from "@saleor/components/Container";
 import Hr from "@saleor/components/Hr";
 import PageHeader from "@saleor/components/PageHeader";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
+import { SubmitPromise } from "@saleor/hooks/useForm";
 import useWizard from "@saleor/hooks/useWizard";
 import { Button, makeStyles } from "@saleor/macaw-ui";
 import { validatePrice } from "@saleor/products/utils/validation";
@@ -47,7 +48,9 @@ function canHitNext(
   switch (step) {
     case ProductVariantCreatorStep.values:
       return (
-        data.attributes.every(attribute => attribute.values.length > 0) &&
+        data.attributes.every(
+          attribute => !attribute.valueRequired || attribute.values.length > 0
+        ) &&
         (variantsLeft === null || getVariantsNumber(data) <= variantsLeft)
       );
     case ProductVariantCreatorStep.prices:
@@ -74,10 +77,8 @@ function canHitNext(
 
       return true;
     case ProductVariantCreatorStep.summary:
-      return !data.variants.some(
-        variant =>
-          variant.sku === "" ||
-          variant.channelListings.some(channel => validatePrice(channel.price))
+      return !data.variants.some(variant =>
+        variant.channelListings.some(channel => validatePrice(channel.price))
       );
 
     default:
@@ -91,7 +92,7 @@ export interface ProductVariantCreatePageProps
     "data" | "dispatchFormDataAction" | "step" | "variantsLeft" | "onStepClick"
   > {
   limits: RefreshLimits_shop_limits;
-  onSubmit: (data: ProductVariantBulkCreateInput[]) => void;
+  onSubmit: (data: ProductVariantBulkCreateInput[]) => SubmitPromise;
 }
 
 function getTitle(step: ProductVariantCreatorStep, intl: IntlShape): string {

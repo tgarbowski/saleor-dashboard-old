@@ -30,10 +30,11 @@ export interface CreateMultipleVariantsData_product_attributes_attribute_choices
   slug: string | null;
   file: CreateMultipleVariantsData_product_attributes_attribute_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface CreateMultipleVariantsData_product_attributes_attribute_choices_edges {
@@ -73,10 +74,11 @@ export interface CreateMultipleVariantsData_product_attributes_values {
   slug: string | null;
   file: CreateMultipleVariantsData_product_attributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface CreateMultipleVariantsData_product_attributes {
@@ -106,10 +108,11 @@ export interface CreateMultipleVariantsData_product_productType_variantAttribute
   slug: string | null;
   file: CreateMultipleVariantsData_product_productType_variantAttributes_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface CreateMultipleVariantsData_product_productType_variantAttributes_choices_edges {
@@ -129,6 +132,7 @@ export interface CreateMultipleVariantsData_product_productType_variantAttribute
   id: string;
   name: string | null;
   inputType: AttributeInputTypeEnum | null;
+  valueRequired: boolean;
   unit: MeasurementUnitsEnum | null;
   choices: CreateMultipleVariantsData_product_productType_variantAttributes_choices | null;
 }
@@ -146,43 +150,9 @@ export interface CreateMultipleVariantsData_product_channelListings_channel {
   currencyCode: string;
 }
 
-export interface CreateMultipleVariantsData_product_channelListings_pricing_priceRange_start_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface CreateMultipleVariantsData_product_channelListings_pricing_priceRange_start {
-  __typename: "TaxedMoney";
-  net: CreateMultipleVariantsData_product_channelListings_pricing_priceRange_start_net;
-}
-
-export interface CreateMultipleVariantsData_product_channelListings_pricing_priceRange_stop_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface CreateMultipleVariantsData_product_channelListings_pricing_priceRange_stop {
-  __typename: "TaxedMoney";
-  net: CreateMultipleVariantsData_product_channelListings_pricing_priceRange_stop_net;
-}
-
-export interface CreateMultipleVariantsData_product_channelListings_pricing_priceRange {
-  __typename: "TaxedMoneyRange";
-  start: CreateMultipleVariantsData_product_channelListings_pricing_priceRange_start | null;
-  stop: CreateMultipleVariantsData_product_channelListings_pricing_priceRange_stop | null;
-}
-
-export interface CreateMultipleVariantsData_product_channelListings_pricing {
-  __typename: "ProductPricingInfo";
-  priceRange: CreateMultipleVariantsData_product_channelListings_pricing_priceRange | null;
-}
-
 export interface CreateMultipleVariantsData_product_channelListings {
   __typename: "ProductChannelListing";
   channel: CreateMultipleVariantsData_product_channelListings_channel;
-  pricing: CreateMultipleVariantsData_product_channelListings_pricing | null;
 }
 
 export interface CreateMultipleVariantsData_product {

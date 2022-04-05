@@ -4,8 +4,7 @@ import { ShippingMethodTypeFragment_postalCodeRules } from "@saleor/fragments/ty
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import { commonMessages } from "@saleor/intl";
-import { getMutationErrors, getMutationState } from "@saleor/misc";
-import { FormData as ShippingZoneRatesPageFormData } from "@saleor/shipping/components/ShippingZoneRatesPage";
+import { extractMutationErrors, getMutationState } from "@saleor/misc";
 import { CreateShippingRateVariables } from "@saleor/shipping/types/CreateShippingRate";
 import { ShippingMethodChannelListingUpdateVariables } from "@saleor/shipping/types/ShippingMethodChannelListingUpdate";
 import { UpdateShippingRateVariables } from "@saleor/shipping/types/UpdateShippingRate";
@@ -18,12 +17,13 @@ import { getParsedDataForJsonStringField } from "@saleor/utils/richText/misc";
 import differenceBy from "lodash/differenceBy";
 import { useIntl } from "react-intl";
 
+import { ShippingZoneRateCommonFormData } from "./components/ShippingZoneRatesPage/types";
 import {
   useShippingMethodChannelListingUpdate,
   useShippingRateCreate,
   useShippingRateDelete
 } from "./mutations";
-import { shippingPriceRatesEditUrl, shippingWeightRatesEditUrl } from "./urls";
+import { shippingRateEditUrl } from "./urls";
 
 export const createChannelsChangeHandler = (
   selectedChannels: ChannelShippingData[],
@@ -62,7 +62,7 @@ const getPostalCodeRulesToAdd = (
     );
 
 export function getCreateShippingPriceRateVariables(
-  data: ShippingZoneRatesPageFormData,
+  data: ShippingZoneRateCommonFormData,
   id: string,
   addPostalCodeRules: ShippingMethodTypeFragment_postalCodeRules[],
   inclusionType: PostalCodeRuleInclusionTypeEnum
@@ -85,7 +85,7 @@ export function getCreateShippingPriceRateVariables(
 }
 
 export function getCreateShippingWeightRateVariables(
-  data: ShippingZoneRatesPageFormData,
+  data: ShippingZoneRateCommonFormData,
   id: string,
   addPostalCodeRules: ShippingMethodTypeFragment_postalCodeRules[],
   inclusionType: PostalCodeRuleInclusionTypeEnum
@@ -94,7 +94,7 @@ export function getCreateShippingWeightRateVariables(
   const parsedMaxValue = parseFloat(data.maxValue);
   const parsedMinDays = parseInt(data.minDays, 10);
   const parsedMaxDays = parseInt(data.maxDays, 10);
-  const isWeightSet = !data.noLimits;
+  const isWeightSet = data.orderValueRestricted;
   const postalCodeRules = getPostalCodeRulesToAdd(addPostalCodeRules);
   return {
     input: {
@@ -113,7 +113,7 @@ export function getCreateShippingWeightRateVariables(
 }
 
 export function getUpdateShippingPriceRateVariables(
-  data: ShippingZoneRatesPageFormData,
+  data: ShippingZoneRateCommonFormData,
   id: string,
   rateId: string,
   addPostalCodeRules: ShippingMethodTypeFragment_postalCodeRules[],
@@ -141,7 +141,7 @@ export function getUpdateShippingPriceRateVariables(
 }
 
 export function getUpdateShippingWeightRateVariables(
-  data: ShippingZoneRatesPageFormData,
+  data: ShippingZoneRateCommonFormData,
   id: string,
   rateId: string,
   addPostalCodeRules: ShippingMethodTypeFragment_postalCodeRules[],
@@ -151,7 +151,7 @@ export function getUpdateShippingWeightRateVariables(
   const parsedMaxValue = parseFloat(data.maxValue);
   const parsedMinDays = parseInt(data.minDays, 10);
   const parsedMaxDays = parseInt(data.maxDays, 10);
-  const isWeightSet = !data.noLimits;
+  const isWeightSet = data.orderValueRestricted;
   const postalCodeRules = getPostalCodeRulesToAdd(addPostalCodeRules);
   return {
     id: rateId,
@@ -174,7 +174,7 @@ export function getUpdateShippingWeightRateVariables(
 }
 export function getShippingMethodChannelVariables(
   id: string,
-  noLimits: boolean,
+  orderValueRestricted: boolean,
   formChannels: ChannelShippingData[],
   prevChannels?: ChannelShippingData[]
 ): ShippingMethodChannelListingUpdateVariables {
@@ -189,9 +189,9 @@ export function getShippingMethodChannelVariables(
         formChannels?.map(channel => ({
           channelId: channel.id,
           maximumOrderPrice:
-            channel.maxValue && !noLimits ? channel.maxValue : null,
+            channel.maxValue && orderValueRestricted ? channel.maxValue : null,
           minimumOrderPrice:
-            channel.minValue && !noLimits ? channel.minValue : null,
+            channel.minValue && orderValueRestricted ? channel.minValue : null,
           price: channel.price || null
         })) || [],
       removeChannels
@@ -222,47 +222,50 @@ export function useShippingRateCreator(
     type === ShippingMethodTypeEnum.PRICE
       ? getCreateShippingPriceRateVariables
       : getCreateShippingWeightRateVariables;
-  const getUrl =
-    type === ShippingMethodTypeEnum.PRICE
-      ? shippingPriceRatesEditUrl
-      : shippingWeightRatesEditUrl;
 
-  const createShippingRate = async (data: ShippingZoneRatesPageFormData) => {
+  const createShippingRate = async (data: ShippingZoneRateCommonFormData) => {
     const response = await createBaseShippingRate({
       variables: getVariables(data, shippingZoneId, postalCodes, inclusionType)
     });
 
     const createErrors = response.data.shippingPriceCreate.errors;
-    if (createErrors.length === 0) {
-      const rateId = response.data.shippingPriceCreate.shippingMethod.id;
 
-      const mutationResults = await Promise.all([
-        updateShippingMethodChannelListing({
-          variables: getShippingMethodChannelVariables(
-            rateId,
-            data.noLimits,
-            data.channelListings
-          )
-        })
-      ]);
+    if (createErrors.length > 0) {
+      return createErrors;
+    }
 
-      if (
-        mutationResults.find(
-          result => getMutationErrors(result.data as any).length > 0
+    const rateId = response.data.shippingPriceCreate.shippingMethod.id;
+
+    const errors = await extractMutationErrors(
+      updateShippingMethodChannelListing({
+        variables: getShippingMethodChannelVariables(
+          rateId,
+          data.orderValueRestricted,
+          data.channelListings
         )
-      ) {
-        deleteShippingRate({
-          variables: {
-            id: rateId
-          }
-        });
-      } else {
-        notify({
-          status: "success",
-          text: intl.formatMessage(commonMessages.savedChanges)
-        });
-        navigate(getUrl(shippingZoneId, rateId));
-      }
+      })
+    );
+
+    if (errors.length > 0) {
+      deleteShippingRate({
+        variables: {
+          id: rateId
+        }
+      });
+
+      notify({
+        status: "error",
+        text: intl.formatMessage(commonMessages.somethingWentWrong)
+      });
+
+      return errors;
+    } else {
+      notify({
+        status: "success",
+        text: intl.formatMessage(commonMessages.savedChanges)
+      });
+      navigate(shippingRateEditUrl(shippingZoneId, rateId));
+      return [];
     }
   };
 

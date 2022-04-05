@@ -32,19 +32,26 @@ import {
   usePrivateMetadataUpdate
 } from "@saleor/utils/metadata/updateMetadata";
 import { useWarehouseCreate } from "@saleor/warehouses/mutations";
+import { diff } from "fast-array-diff";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { findValueInEnum, getStringOrPlaceholder } from "../../../misc";
-import { CountryCode } from "../../../types/globalTypes";
+import {
+  extractMutationErrors,
+  findValueInEnum,
+  getStringOrPlaceholder
+} from "../../../misc";
+import {
+  CountryCode,
+  ShippingMethodTypeEnum,
+  ShippingZoneUpdateInput
+} from "../../../types/globalTypes";
 import ShippingZoneDetailsPage from "../../components/ShippingZoneDetailsPage";
-import { FormData } from "../../components/ShippingZoneDetailsPage/types";
+import { ShippingZoneUpdateFormData } from "../../components/ShippingZoneDetailsPage/types";
 import { useShippingZone } from "../../queries";
 import {
-  shippingPriceRatesEditUrl,
-  shippingPriceRatesUrl,
-  shippingWeightRatesEditUrl,
-  shippingWeightRatesUrl,
+  shippingRateCreateUrl,
+  shippingRateEditUrl,
   shippingZonesListUrl,
   shippingZoneUrl,
   ShippingZoneUrlDialog,
@@ -148,8 +155,10 @@ const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
   const [updateMetadata] = useMetadataUpdate({});
   const [updatePrivateMetadata] = usePrivateMetadataUpdate({});
 
-  const updateData = async (submitData: FormData) => {
-    const warehouseDiff = arrayDiff(
+  const getParsedUpdateInput = (
+    submitData: ShippingZoneUpdateFormData
+  ): ShippingZoneUpdateInput => {
+    const warehouseDiff = diff(
       data.shippingZone.warehouses.map(warehouse => warehouse.id),
       submitData.warehouses
     );
@@ -159,22 +168,25 @@ const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
       submitData.channels
     );
 
-    const result = await updateShippingZone({
-      variables: {
-        id,
-        input: {
-          addWarehouses: warehouseDiff.added,
-          addChannels: channelsDiff.added,
-          removeChannels: channelsDiff.removed,
-          description: submitData.description,
-          name: submitData.name,
-          removeWarehouses: warehouseDiff.removed
-        }
-      }
-    });
-
-    return result.data.shippingZoneUpdate.errors;
+    return {
+      addWarehouses: warehouseDiff.added,
+      addChannels: channelsDiff.added,
+      removeChannels: channelsDiff.removed,
+      description: submitData.description,
+      name: submitData.name,
+      removeWarehouses: warehouseDiff.removed
+    };
   };
+
+  const updateData = async (submitData: ShippingZoneUpdateFormData) =>
+    extractMutationErrors(
+      updateShippingZone({
+        variables: {
+          id,
+          input: getParsedUpdateInput(submitData)
+        }
+      })
+    );
 
   const handleSubmit = createMetadataUpdateHandler(
     data?.shippingZone,
@@ -200,10 +212,12 @@ const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
           })
         }
         onDelete={() => openModal("remove")}
-        onPriceRateAdd={() => navigate(shippingPriceRatesUrl(id))}
-        onPriceRateEdit={rateId =>
-          navigate(shippingPriceRatesEditUrl(id, rateId))
+        onPriceRateAdd={() =>
+          navigate(
+            shippingRateCreateUrl(id, { type: ShippingMethodTypeEnum.PRICE })
+          )
         }
+        onPriceRateEdit={rateId => navigate(shippingRateEditUrl(id, rateId))}
         onRateRemove={rateId =>
           openModal("remove-rate", {
             id: rateId
@@ -212,10 +226,12 @@ const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
         onSubmit={handleSubmit}
         allChannels={availableChannels}
         onWarehouseAdd={() => openModal("add-warehouse")}
-        onWeightRateAdd={() => navigate(shippingWeightRatesUrl(id))}
-        onWeightRateEdit={rateId =>
-          navigate(shippingWeightRatesEditUrl(id, rateId))
+        onWeightRateAdd={() =>
+          navigate(
+            shippingRateCreateUrl(id, { type: ShippingMethodTypeEnum.WEIGHT })
+          )
         }
+        onWeightRateEdit={rateId => navigate(shippingRateEditUrl(id, rateId))}
         saveButtonBarState={updateShippingZoneOpts.status}
         shippingZone={data?.shippingZone}
         warehouses={mapEdgesToItems(searchWarehousesOpts?.data?.search) || []}

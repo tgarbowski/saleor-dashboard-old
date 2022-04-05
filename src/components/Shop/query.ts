@@ -1,6 +1,6 @@
+import { gql } from "@apollo/client";
 import { limitFragment } from "@saleor/fragments/shop";
 import makeQuery, { UseQueryOpts } from "@saleor/hooks/makeQuery";
-import gql from "graphql-tag";
 
 import { TypedQuery } from "../../queries";
 import { RefreshLimits, RefreshLimitsVariables } from "./types/RefreshLimits";
@@ -48,9 +48,11 @@ const shopInfo = gql`
         phone
         postalCode
         country {
+          code
           country
         }
       }
+      version
     }
   }
 `;

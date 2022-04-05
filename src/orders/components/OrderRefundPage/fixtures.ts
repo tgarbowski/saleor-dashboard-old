@@ -34,11 +34,7 @@ export const orderToRefund = (placeholder: string): OrderRefundData_order => ({
       id: "diufhdsif",
       productName: "Milk",
       quantity: 19,
-      quantityFulfilled: 3,
-      variant: {
-        __typename: "ProductVariant",
-        id: "1"
-      },
+      quantityToFulfill: 16,
       thumbnail: {
         __typename: "Image",
         url: placeholder
@@ -50,6 +46,10 @@ export const orderToRefund = (placeholder: string): OrderRefundData_order => ({
           amount: 26.02,
           currency: "USD"
         }
+      },
+      variant: {
+        __typename: "ProductVariant",
+        id: "dsfsfuhb",
       }
     },
     {
@@ -57,11 +57,7 @@ export const orderToRefund = (placeholder: string): OrderRefundData_order => ({
       id: "fdsfdfdsf",
       productName: "Coffee",
       quantity: 13,
-      quantityFulfilled: 5,
-      variant: {
-        __typename: "ProductVariant",
-        id: "2"
-      },
+      quantityToFulfill: 8,
       thumbnail: {
         __typename: "Image",
         url: placeholder
@@ -73,6 +69,10 @@ export const orderToRefund = (placeholder: string): OrderRefundData_order => ({
           amount: 10,
           currency: "USD"
         }
+      },
+      variant: {
+        __typename: "ProductVariant",
+        id: "dsfsfuhb",
       }
     }
   ],

@@ -27,7 +27,7 @@ const useStyles = makeStyles(
     },
     colTotal: {
       textAlign: "right",
-      width: 150
+      width: 170
     },
     infoLabel: {
       display: "inline-block"

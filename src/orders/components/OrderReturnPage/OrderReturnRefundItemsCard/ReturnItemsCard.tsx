@@ -2,7 +2,6 @@ import {
   Card,
   CardContent,
   Checkbox,
-  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -11,24 +10,23 @@ import {
 } from "@material-ui/core";
 import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
-import StatusBadge from "@saleor/components/StatusBadge";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { FormsetChange } from "@saleor/hooks/useFormset";
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles, ResponsiveTable } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import {
   OrderDetails_order,
   OrderDetails_order_lines
 } from "@saleor/orders/types/OrderDetails";
 import React, { CSSProperties } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { defineMessages, FormattedMessage, useIntl } from "react-intl";
 
 import { FormsetQuantityData, FormsetReplacementData } from "../form";
-import { ReturnItemCardMessages as messages } from "../messages";
 import { getById } from "../utils";
 import CardTitle from "./CardTitle";
 import MaximalButton from "./MaximalButton";
+import ProductErrorCell from "./ProductErrorCell";
 
 const useStyles = makeStyles(
   theme => {
@@ -48,14 +46,14 @@ const useStyles = makeStyles(
         marginTop: theme.spacing(2)
       },
 
+      quantityField: {
+        minWidth: "80px"
+      },
       quantityInnerInput: {
         ...inputPadding
       },
       quantityInnerInputNoRemaining: {
         paddingRight: 0
-      },
-      colProduct: {
-        width: "50%"
       },
       remainingQuantity: {
         ...inputPadding,
@@ -71,6 +69,22 @@ const useStyles = makeStyles(
   },
   { name: "ItemsCard" }
 );
+
+const messages = defineMessages({
+  improperValue: {
+    defaultMessage: "Improper value",
+    description: "error message"
+  },
+
+  titleFulfilled: {
+    defaultMessage: "Fulfillment - #{fulfilmentId}",
+    description: "section header"
+  },
+  titleUnfulfilled: {
+    defaultMessage: "Unfulfilled Items",
+    description: "section header"
+  }
+});
 
 interface OrderReturnRefundLinesCardProps {
   onChangeQuantity: FormsetChange<number>;
@@ -115,7 +129,7 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
       <CardContent className={classes.cartContent}>
         <MaximalButton onClick={onSetMaxQuantity} />
       </CardContent>
-      <Table>
+      <ResponsiveTable>
         <TableHead>
           <TableRow>
             <TableCell>
@@ -124,6 +138,7 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
                 description="table column header"
               />
             </TableCell>
+            <TableCell />
             <TableCell align="right">
               <FormattedMessage
                 defaultMessage="Price"
@@ -150,7 +165,7 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
             line => {
               const {
                 quantity,
-                quantityFulfilled,
+                quantityToFulfill,
                 id,
                 thumbnail,
                 unitPrice,
@@ -161,31 +176,27 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
               const isRefunded = itemsQuantities.find(getById(id)).data
                 .isRefunded;
               const isReplacable = !!variant && !isRefunded;
-              const isDeleted = !variant;
-              const lineQuantity = fulfilmentId
-                ? quantity
-                : quantity - quantityFulfilled;
+              const isReturnable = !!variant;
+              const isPreorder = !!variant?.preorder;
+              const lineQuantity = fulfilmentId ? quantity : quantityToFulfill;
               const isSelected = itemsSelections.find(getById(id))?.value;
               const currentQuantity = itemsQuantities.find(getById(id))?.value;
+              const anyLineWithoutVariant = lines.some(
+                ({ variant }) => !variant
+              );
+              const productNameCellWidth = anyLineWithoutVariant
+                ? "30%"
+                : "50%";
 
               return (
                 <TableRow key={id}>
                   <TableCellAvatar
                     thumbnail={thumbnail?.url}
-                    className={classes.colProduct}
-                    badge={
-                      isDeleted && (
-                        <StatusBadge
-                          variant="error"
-                          description={intl.formatMessage(
-                            messages.deletedVariant
-                          )}
-                        />
-                      )
-                    }
+                    style={{ width: productNameCellWidth }}
                   >
                     {productName || <Skeleton />}
                   </TableCellAvatar>
+                  <ProductErrorCell hasVariant={isReturnable} />
                   <TableCell align="right">
                     <Money
                       money={{
@@ -195,34 +206,38 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
                     />
                   </TableCell>
                   <TableCell align="right">
-                    <TextField
-                      type="number"
-                      inputProps={{
-                        className: classes.quantityInnerInput,
-                        "data-test-id": "quantityInput",
-                        max: lineQuantity.toString(),
-                        min: 0,
-                        style: { textAlign: "right" }
-                      }}
-                      fullWidth
-                      value={currentQuantity}
-                      onChange={handleChangeQuantity(id)}
-                      InputProps={{
-                        endAdornment: lineQuantity && (
-                          <div className={classes.remainingQuantity}>
-                            / {lineQuantity}
-                          </div>
-                        )
-                      }}
-                      error={isValueError}
-                      helperText={
-                        isValueError &&
-                        intl.formatMessage(messages.improperValue)
-                      }
-                    />
+                    {isReturnable && (
+                      <TextField
+                        className={classes.quantityField}
+                        type="number"
+                        inputProps={{
+                          className: classes.quantityInnerInput,
+                          "data-test": "quantityInput",
+                          "data-test-id": id,
+                          max: lineQuantity.toString(),
+                          min: 0,
+                          style: { textAlign: "right" }
+                        }}
+                        fullWidth
+                        value={currentQuantity}
+                        onChange={handleChangeQuantity(id)}
+                        InputProps={{
+                          endAdornment: lineQuantity && (
+                            <div className={classes.remainingQuantity}>
+                              / {lineQuantity}
+                            </div>
+                          )
+                        }}
+                        error={isValueError}
+                        helperText={
+                          isValueError &&
+                          intl.formatMessage(messages.improperValue)
+                        }
+                      />
+                    )}
                   </TableCell>
                   <TableCell align="center">
-                    {isReplacable && (
+                    {isReplacable && !isPreorder && (
                       <Checkbox
                         checked={isSelected}
                         onChange={() => onChangeSelected(id, !isSelected)}
@@ -241,7 +256,7 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
             )
           )}
         </TableBody>
-      </Table>
+      </ResponsiveTable>
     </Card>
   );
 };

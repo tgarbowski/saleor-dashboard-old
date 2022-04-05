@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { OrderDiscountType, DiscountValueTypeEnum, OrderEventsEmailsEnum, OrderEventsEnum, FulfillmentStatus, PaymentChargeStatusEnum, OrderStatus, OrderAction, JobStatusEnum } from "./../../types/globalTypes";
+import { GiftCardEventsEnum, OrderDiscountType, DiscountValueTypeEnum, OrderEventsEmailsEnum, OrderEventsEnum, FulfillmentStatus, PaymentChargeStatusEnum, WarehouseClickAndCollectOptionEnum, OrderStatus, OrderAction, JobStatusEnum } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL fragment: OrderDetailsFragment
@@ -41,6 +41,51 @@ export interface OrderDetailsFragment_billingAddress {
   postalCode: string;
   streetAddress1: string;
   streetAddress2: string;
+}
+
+export interface OrderDetailsFragment_giftCards_events_balance_initialBalance {
+  __typename: "Money";
+  amount: number;
+  currency: string;
+}
+
+export interface OrderDetailsFragment_giftCards_events_balance_currentBalance {
+  __typename: "Money";
+  amount: number;
+  currency: string;
+}
+
+export interface OrderDetailsFragment_giftCards_events_balance_oldInitialBalance {
+  __typename: "Money";
+  amount: number;
+  currency: string;
+}
+
+export interface OrderDetailsFragment_giftCards_events_balance_oldCurrentBalance {
+  __typename: "Money";
+  amount: number;
+  currency: string;
+}
+
+export interface OrderDetailsFragment_giftCards_events_balance {
+  __typename: "GiftCardEventBalance";
+  initialBalance: OrderDetailsFragment_giftCards_events_balance_initialBalance | null;
+  currentBalance: OrderDetailsFragment_giftCards_events_balance_currentBalance;
+  oldInitialBalance: OrderDetailsFragment_giftCards_events_balance_oldInitialBalance | null;
+  oldCurrentBalance: OrderDetailsFragment_giftCards_events_balance_oldCurrentBalance | null;
+}
+
+export interface OrderDetailsFragment_giftCards_events {
+  __typename: "GiftCardEvent";
+  id: string;
+  type: GiftCardEventsEnum | null;
+  orderId: string | null;
+  balance: OrderDetailsFragment_giftCards_events_balance | null;
+}
+
+export interface OrderDetailsFragment_giftCards {
+  __typename: "GiftCard";
+  events: OrderDetailsFragment_giftCards_events[];
 }
 
 export interface OrderDetailsFragment_discounts_amount {
@@ -161,11 +206,16 @@ export interface OrderDetailsFragment_events {
   lines: (OrderDetailsFragment_events_lines | null)[] | null;
 }
 
+export interface OrderDetailsFragment_fulfillments_lines_orderLine_variant_preorder {
+  __typename: "PreorderData";
+  endDate: any | null;
+}
+
 export interface OrderDetailsFragment_fulfillments_lines_orderLine_variant {
   __typename: "ProductVariant";
   id: string;
-  quantityAvailable: number;
-  product: any;
+  quantityAvailable: number | null;
+  preorder: OrderDetailsFragment_fulfillments_lines_orderLine_variant_preorder | null;
 }
 
 export interface OrderDetailsFragment_fulfillments_lines_orderLine_unitDiscount {
@@ -222,9 +272,10 @@ export interface OrderDetailsFragment_fulfillments_lines_orderLine {
   isShippingRequired: boolean;
   variant: OrderDetailsFragment_fulfillments_lines_orderLine_variant | null;
   productName: string;
-  productSku: string;
+  productSku: string | null;
   quantity: number;
   quantityFulfilled: number;
+  quantityToFulfill: number;
   unitDiscount: OrderDetailsFragment_fulfillments_lines_orderLine_unitDiscount;
   unitDiscountValue: any;
   unitDiscountReason: string | null;
@@ -257,10 +308,16 @@ export interface OrderDetailsFragment_fulfillments {
   warehouse: OrderDetailsFragment_fulfillments_warehouse | null;
 }
 
+export interface OrderDetailsFragment_lines_variant_preorder {
+  __typename: "PreorderData";
+  endDate: any | null;
+}
+
 export interface OrderDetailsFragment_lines_variant {
   __typename: "ProductVariant";
   id: string;
-  quantityAvailable: number;
+  quantityAvailable: number | null;
+  preorder: OrderDetailsFragment_lines_variant_preorder | null;
 }
 
 export interface OrderDetailsFragment_lines_unitDiscount {
@@ -317,9 +374,10 @@ export interface OrderDetailsFragment_lines {
   isShippingRequired: boolean;
   variant: OrderDetailsFragment_lines_variant | null;
   productName: string;
-  productSku: string;
+  productSku: string | null;
   quantity: number;
   quantityFulfilled: number;
+  quantityToFulfill: number;
   unitDiscount: OrderDetailsFragment_lines_unitDiscount;
   unitDiscountValue: any;
   unitDiscountReason: string | null;
@@ -350,6 +408,19 @@ export interface OrderDetailsFragment_shippingAddress {
   streetAddress1: string;
   streetAddress2: string;
 }
+
+export interface OrderDetailsFragment_deliveryMethod_ShippingMethod {
+  __typename: "ShippingMethod";
+  id: string;
+}
+
+export interface OrderDetailsFragment_deliveryMethod_Warehouse {
+  __typename: "Warehouse";
+  id: string;
+  clickAndCollectOption: WarehouseClickAndCollectOptionEnum;
+}
+
+export type OrderDetailsFragment_deliveryMethod = OrderDetailsFragment_deliveryMethod_ShippingMethod | OrderDetailsFragment_deliveryMethod_Warehouse;
 
 export interface OrderDetailsFragment_shippingMethod {
   __typename: "ShippingMethod";
@@ -492,6 +563,7 @@ export interface OrderDetailsFragment {
   metadata: (OrderDetailsFragment_metadata | null)[];
   privateMetadata: (OrderDetailsFragment_privateMetadata | null)[];
   billingAddress: OrderDetailsFragment_billingAddress | null;
+  giftCards: (OrderDetailsFragment_giftCards | null)[] | null;
   isShippingRequired: boolean;
   canFinalize: boolean;
   created: any;
@@ -501,10 +573,13 @@ export interface OrderDetailsFragment {
   fulfillments: (OrderDetailsFragment_fulfillments | null)[];
   lines: (OrderDetailsFragment_lines | null)[];
   number: string | null;
+  isPaid: boolean;
   paymentStatus: PaymentChargeStatusEnum;
   shippingAddress: OrderDetailsFragment_shippingAddress | null;
+  deliveryMethod: OrderDetailsFragment_deliveryMethod | null;
   shippingMethod: OrderDetailsFragment_shippingMethod | null;
   shippingMethodName: string | null;
+  collectionPointName: string | null;
   shippingPrice: OrderDetailsFragment_shippingPrice;
   status: OrderStatus;
   subtotal: OrderDetailsFragment_subtotal;
@@ -515,8 +590,7 @@ export interface OrderDetailsFragment {
   undiscountedTotal: OrderDetailsFragment_undiscountedTotal;
   user: OrderDetailsFragment_user | null;
   userEmail: string | null;
-  shippingMethods: OrderDetailsFragment_shippingMethods[];
+  shippingMethods: (OrderDetailsFragment_shippingMethods | null)[] | null;
   invoices: (OrderDetailsFragment_invoices | null)[] | null;
   channel: OrderDetailsFragment_channel;
-  isPaid: boolean;
 }

@@ -4,9 +4,6 @@ export const commonMessages = defineMessages({
   availability: {
     defaultMessage: "Availability"
   },
-  cannotFullfillUnpaidOrder:{
-    defaultMessage: "Cannot fullfill unpaid order"
-  },
   catalog: {
     defaultMessage: "Catalog"
   },
@@ -130,6 +127,10 @@ export const commonMessages = defineMessages({
   time: {
     defaultMessage: "Time",
     description: "independent of any particular day, eg. 11:35"
+  },
+  cannotFullfillUnpaidOrder: {
+    defaultMessage: "Can’t fulfill until payment is captured",
+    description: "disabled option description"
   }
 });
 
@@ -140,12 +141,19 @@ export const errorMessages = defineMessages({
   imageUploadErrorText: {
     defaultMessage:
       "There was a poblem with the file you uploaded as an image and it couldn't be used. Please try a different file."
+  },
+  preorderEndDateInFutureErrorText: {
+    defaultMessage: "Preorder end time needs to be set in the future"
   }
 });
 
 export const buttonMessages = defineMessages({
   accept: {
     defaultMessage: "Accept",
+    description: "button"
+  },
+  approve: {
+    defaultMessage: "Approve",
     description: "button"
   },
   assign: {
@@ -235,6 +243,10 @@ export const sectionNames = defineMessages({
     defaultMessage: "Apps",
     description: "apps section name"
   },
+  appExtensions: {
+    defaultMessage: "Apps",
+    description: "app extensions subsection"
+  },
   attributes: {
     defaultMessage: "Attributes",
     description: "attributes section name"
@@ -266,6 +278,10 @@ export const sectionNames = defineMessages({
   exchangeRates: {
     defaultMessage: "Exchange Rates",
     description: "Manage and Update your warehouse information"
+  },
+  giftCards: {
+    defaultMessage: "Gift Cards",
+    description: "gift cards section name"
   },
   home: {
     defaultMessage: "Home",

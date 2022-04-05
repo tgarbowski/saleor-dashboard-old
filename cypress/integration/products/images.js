@@ -1,5 +1,5 @@
-// / <reference types="cypress"/>
-// / <reference types="../../support"/>
+/// <reference types="cypress"/>
+/// <reference types="../../support"/>
 
 import { PRODUCT_DETAILS } from "../../elements/catalog/products/product-details";
 import { PRODUCTS_LIST } from "../../elements/catalog/products/products-list";
@@ -74,6 +74,7 @@ filterTests({ definedTags: ["all"] }, () => {
       deleteProductsAndCreateNewOneWithNewDataAndDefaultChannel({ name })
         .then(({ product }) => {
           cy.visit(productDetailsUrl(product.id))
+            .waitForProgressBarToNotBeVisible()
             .get(PRODUCT_DETAILS.uploadImageButton)
             .click()
             .get(PRODUCT_DETAILS.uploadSavedImagesButton)

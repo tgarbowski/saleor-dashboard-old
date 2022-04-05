@@ -2,6 +2,7 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import ArrowRight from "@material-ui/icons/ArrowRight";
 import { IconButton, makeStyles, useTheme } from "@saleor/macaw-ui";
+import { isDarkTheme } from "@saleor/misc";
 import classNames from "classnames";
 import React from "react";
 
@@ -75,7 +76,7 @@ export const TablePaginationActions: React.FC<TablePaginationActionsProps> = pro
 
   const { direction, themeType } = useTheme();
 
-  const isDark = themeType === "dark";
+  const isDark = isDarkTheme(themeType);
 
   return (
     <div className={classNames(classes.root, className)} {...other}>

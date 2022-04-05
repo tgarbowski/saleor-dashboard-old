@@ -1,11 +1,17 @@
 import { OutputData } from "@editorjs/editorjs";
 import {
+  extensionMountPoints,
+  mapToMenuItems,
+  useExtensions
+} from "@saleor/apps/useExtensions";
+import {
   getAttributeValuesFromReferences,
   mergeAttributeValues
 } from "@saleor/attributes/utils/data";
 import { ChannelData } from "@saleor/channels/utils";
 import AssignAttributeValueDialog from "@saleor/components/AssignAttributeValueDialog";
 import Attributes, { AttributeInput } from "@saleor/components/Attributes";
+import CardMenu from "@saleor/components/CardMenu";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
 import Container from "@saleor/components/Container";
@@ -115,6 +121,7 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   onVariantsAdd: () => void;
   onVariantShow: (id: string) => () => void;
   onVariantReorder: ReorderAction;
+  onVariantEndPreorderDialogOpen: () => void;
   onImageDelete: (id: string) => () => void;
   onImageRetrieveFromBackup: (id: string) => () => void;
   onSubmit: (data: ProductUpdatePageSubmitData) => SubmitPromise;
@@ -199,6 +206,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onSetDefaultVariant,
   onVariantShow,
   onVariantReorder,
+  onVariantEndPreorderDialogOpen,
   onWarehouseConfigure,
   isChecked,
   isMediaUrlModalVisible,
@@ -277,6 +285,12 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
     onCloseDialog();
   };
 
+  const { PRODUCT_DETAILS_MORE_ACTIONS } = useExtensions(
+    extensionMountPoints.PRODUCT_DETAILS
+  );
+
+  const extensionMenuItems = mapToMenuItems(PRODUCT_DETAILS_MORE_ACTIONS);
+
   return (
     <ProductUpdateForm
       isSimpleProduct={isSimpleProduct}
@@ -307,6 +321,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
       {({
         change,
         data,
+        formErrors,
         disabled: formDisabled,
         handlers,
         hasChanged,
@@ -317,7 +332,11 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
             <Backlink onClick={onBack}>
               {intl.formatMessage(sectionNames.products)}
             </Backlink>
-            <PageHeader title={header} />
+            <PageHeader title={header}>
+              {extensionMenuItems.length > 0 && (
+                <CardMenu menuItems={extensionMenuItems} data-test-id="menu" />
+              )}
+            </PageHeader>
             <Grid>
               <div>
                 <ProductDetailsForm
@@ -406,14 +425,25 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                     />
                     <CardSpacer />
                     <ProductStocks
+                      onVariantChannelListingChange={
+                        handlers.changeChannelPreorder
+                      }
+                      productVariantChannelListings={data.channelListings}
+                      onEndPreorderTrigger={
+                        !!variants?.[0]?.preorder
+                          ? () => onVariantEndPreorderDialogOpen()
+                          : null
+                      }
                       data={data}
                       disabled={disabled}
                       hasVariants={false}
                       errors={errors}
+                      formErrors={formErrors}
                       stocks={data.stocks}
                       warehouses={warehouses}
                       onChange={handlers.changeStock}
                       onFormDataChange={change}
+                      onChangePreorderEndDate={handlers.changePreorderEndDate}
                       onWarehouseStockAdd={handlers.addStock}
                       onWarehouseStockDelete={handlers.deleteStock}
                       onWarehouseConfigure={onWarehouseConfigure}
@@ -506,8 +536,9 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                 )}
                 <CardSpacer />
                 <ProductBundleContent
-                  content={maybe(() =>
-                    JSON.parse((product.jsonPrivateMetadata))['bundle.content']
+                  content={maybe(
+                    () =>
+                      JSON.parse(product.jsonPrivateMetadata)["bundle.content"]
                   )}
                   id={id}
                   params={params}

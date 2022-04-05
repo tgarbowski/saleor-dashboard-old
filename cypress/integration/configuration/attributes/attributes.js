@@ -1,8 +1,9 @@
-// / <reference types="cypress"/>
-// / <reference types="../../../support"/>
+/// <reference types="cypress"/>
+/// <reference types="../../../support"/>
 
 import faker from "faker";
 
+import { ATTRIBUTES_DETAILS } from "../../../elements/attribute/attributes_details";
 import { ATTRIBUTES_LIST } from "../../../elements/attribute/attributes_list";
 import { BUTTON_SELECTORS } from "../../../elements/shared/button-selectors";
 import { attributeDetailsUrl, urlList } from "../../../fixtures/urlList";
@@ -131,6 +132,49 @@ filterTests({ definedTags: ["all"] }, () => {
             attributeType,
             valueRequired: false
           });
+        });
+    });
+
+    it("should create swatch attribute", () => {
+      const attributeType = "SWATCH";
+      const attributeName = `${startsWith}${faker.datatype.number()}`;
+      createAttributeWithInputType({
+        name: attributeName,
+        attributeType
+      })
+        .then(({ attribute }) => {
+          getAttribute(attribute.id);
+        })
+        .then(attribute => {
+          expectCorrectDataInAttribute(attribute, {
+            attributeName,
+            attributeType,
+            valueRequired: true
+          });
+        });
+    });
+
+    it("should create swatch attribute with image", () => {
+      const attributeType = "SWATCH";
+      const attributeName = `${startsWith}${faker.datatype.number()}`;
+      const swatchImage = "images/saleorDemoProductSneakers.png";
+      createAttributeWithInputType({
+        name: attributeName,
+        attributeType,
+        swatchImage
+      })
+        .then(({ attribute }) => {
+          getAttribute(attribute.id);
+        })
+        .then(attribute => {
+          expectCorrectDataInAttribute(attribute, {
+            attributeName,
+            attributeType,
+            valueRequired: true
+          });
+          cy.get(ATTRIBUTES_DETAILS.swatchValueImage)
+            .invoke("attr", "style")
+            .should("include", "saleorDemoProductSneakers");
         });
     });
 

@@ -1,10 +1,11 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
+import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { OrderSettingsFormData } from "../OrderSettingsPage/form";
+import { OrderSettingsFormData } from "../OrderSettingsPage/types";
 
 export interface OrderSettingsProps {
   data: OrderSettingsFormData;
@@ -29,9 +30,7 @@ const OrderSettings: React.FC<OrderSettingsProps> = ({
       />
       <CardContent>
         <ControlledCheckbox
-          name={
-            "automaticallyConfirmAllNewOrders" as keyof OrderSettingsFormData
-          }
+          name="automaticallyConfirmAllNewOrders"
           label={
             <>
               <FormattedMessage
@@ -50,6 +49,28 @@ const OrderSettings: React.FC<OrderSettingsProps> = ({
           onChange={onChange}
           disabled={disabled}
           data-test-id="automatically-confirm-all-new-orders-checkbox"
+        />
+        <CardSpacer />
+        <ControlledCheckbox
+          name="automaticallyFulfillNonShippableGiftCard"
+          label={
+            <>
+              <FormattedMessage
+                defaultMessage="Automatically fulfill non shippable gift cards"
+                description="checkbox gift cards label"
+              />
+              <Typography variant="caption">
+                <FormattedMessage
+                  defaultMessage="when activated non-shippable gift cards will be automatically set as fulfilled and sent to customer"
+                  description="checkbox gift cards label description"
+                />
+              </Typography>
+            </>
+          }
+          checked={data.automaticallyFulfillNonShippableGiftCard}
+          onChange={onChange}
+          disabled={disabled}
+          data-test-id="automatically-fulfill-non-shippable-gift-cards-checkbox"
         />
       </CardContent>
     </Card>

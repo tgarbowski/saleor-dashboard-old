@@ -74,16 +74,17 @@ import {
   useProductExport
 } from "../../mutations";
 import {
-  areFiltersApplied,
   deleteFilterTab,
   getActiveFilters,
   getFilterOpts,
   getFilterQueryParam,
+  getFiltersCurrentTab,
   getFilterTabs,
   getFilterVariables,
   saveFilterTab
 } from "./filters";
 import { canBeSorted, DEFAULT_SORT_KEY, getSortQueryVariables } from "./sort";
+import { getAvailableProductKinds, getProductKindOpts } from "./utils";
 
 interface ProductListProps {
   params: ProductListUrlQueryParams;
@@ -106,7 +107,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   const intl = useIntl();
   const {
     data: initialFilterAttributes
-  } = useInitialProductFilterAttributesQuery({});
+  } = useInitialProductFilterAttributesQuery();
   const {
     data: initialFilterCategories
   } = useInitialProductFilterCategoriesQuery({
@@ -170,6 +171,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     },
     skip: params.action !== "export"
   });
+  const availableProductKinds = getAvailableProductKinds();
   const { availableChannels } = useAppChannel(false);
   const limitOpts = useShopLimitsQuery({
     variables: {
@@ -188,12 +190,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
 
   const tabs = getFilterTabs();
 
-  const currentTab =
-    params.activeTab === undefined
-      ? areFiltersApplied(params)
-        ? tabs.length + 1
-        : 0
-      : parseInt(params.activeTab, 0);
+  const currentTab = getFiltersCurrentTab(params, tabs);
 
   const countAllProducts = useProductCountQuery({
     skip: params.action !== "export"
@@ -290,13 +287,16 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       })
     );
 
+  const kindOpts = getProductKindOpts(availableProductKinds, intl);
   const paginationState = createPaginationState(settings.rowNumber, params);
   const channelOpts = availableChannels
     ? mapNodeToChoice(availableChannels, channel => channel.slug)
     : null;
   const filter = getFilterVariables(params, !!selectedChannel);
   const sort = getSortQueryVariables(params, !!selectedChannel);
-  const queryVariables = React.useMemo<ProductListVariables>(
+  const queryVariables = React.useMemo<
+    Omit<ProductListVariables, "hasChannel" | "hasSelectedAttributes">
+  >(
     () => ({
       ...paginationState,
       filter,
@@ -305,22 +305,28 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     }),
     [params, settings.rowNumber]
   );
-  // TODO: When channel is undefined we should skip detailed pricing listings
-  const { data, loading, refetch } = useProductListQuery({
-    displayLoader: true,
-    variables: queryVariables
-  });
 
   function filterColumnIds(columns: ProductListColumns[]) {
     return columns
       .filter(isAttributeColumnValue)
       .map(getAttributeIdFromColumnValue);
   }
+  const filteredColumnIds = filterColumnIds(settings.columns);
+
+  const { data, loading, refetch } = useProductListQuery({
+    displayLoader: true,
+    variables: {
+      ...queryVariables,
+      hasChannel: !!selectedChannel,
+      hasSelectedAttributes: filteredColumnIds.length > 0
+    }
+  });
+
   const availableInGridAttributes = useAvailableInGridAttributesQuery({
     variables: { first: 24 }
   });
   const gridAttributes = useGridAttributesQuery({
-    variables: { ids: filterColumnIds(settings.columns) }
+    variables: { ids: filteredColumnIds }
   });
 
   const [
@@ -374,6 +380,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       initial: mapEdgesToItems(initialFilterProductTypes?.productTypes) || [],
       search: searchProductTypes
     },
+    kindOpts,
     channelOpts
   );
 
@@ -566,7 +573,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           confirmButtonState={productBulkPublishOpts.status}
           onSubmitFunction={productBulkPublish}
         />
-      )}      
+      )}
       {params.action === "unpublish" && (
         <ProductUnpublishDialog
           params={params}
@@ -578,7 +585,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           confirmButtonState={productBulkPublishOpts.status}
           onSubmitFunction={productBulkPublish}
         />
-      )} 
+      )}
       <ProductExportDialog
         attributes={
           mapEdgesToItems(searchAttributes?.result?.data?.search) || []

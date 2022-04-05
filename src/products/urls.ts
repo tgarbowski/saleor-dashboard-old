@@ -39,14 +39,15 @@ export enum ProductListUrlFiltersEnum {
   price = "price",
   warehouseFrom = "warehouseFrom",
   warehouseTo = "warehouseTo",
-  createdAtFrom = "createdAtFrom",
-  createdAtTo = "createdAtTo"
+  createdFrom = "createdFrom",
+  createdTo = "createdTo",
+  productKind = "productKind"
 }
 export enum ProductListUrlFiltersWithMultipleValues {
   categories = "categories",
   collections = "collections",
   productTypes = "productTypes",
-  createdAt = "createdAt"
+  created = "created"
 }
 export enum ProductListUrlFiltersAsDictWithMultipleValues {
   attributes = "attributes"
@@ -63,7 +64,7 @@ export enum ProductListUrlSortField {
   status = "status",
   price = "price",
   rank = "rank",
-  createdAt = "createdAt",
+  created = "created",
   date = "date"
 }
 export type ProductListUrlSort = Sort<ProductListUrlSortField>;

@@ -58,6 +58,9 @@ export interface ShopSettingsUpdate_shopSettingsUpdate_shop {
   description: string | null;
   domain: ShopSettingsUpdate_shopSettingsUpdate_shop_domain;
   name: string;
+  reserveStockDurationAnonymousUser: number | null;
+  reserveStockDurationAuthenticatedUser: number | null;
+  limitQuantityPerCheckout: number | null;
 }
 
 export interface ShopSettingsUpdate_shopSettingsUpdate {

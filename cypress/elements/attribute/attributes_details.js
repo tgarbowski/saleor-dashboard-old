@@ -17,7 +17,8 @@ export const ATTRIBUTES_DETAILS = {
     REFERENCE: '[data-test-id="select-field-option-REFERENCE"]',
     RICH_TEXT: '[data-test-id="select-field-option-RICH_TEXT"]',
     NUMERIC: '[data-test-id="select-field-option-NUMERIC"]',
-    BOOLEAN: '[data-test-id="select-field-option-BOOLEAN"]'
+    BOOLEAN: '[data-test-id="select-field-option-BOOLEAN"]',
+    SWATCH: '[data-test-id="select-field-option-SWATCH"]'
   },
   entityTypeSelect: '[id="mui-component-select-entityType"]',
   entityTypeOptions: {
@@ -40,5 +41,8 @@ export const ATTRIBUTES_DETAILS = {
     CUBIC_CENTIMETER: '[data-test-id="select-field-option-CUBIC_CENTIMETER"]',
     FT: '[data-test-id="select-field-option-FT"]'
   },
-  pageTypeAttributeCheckbox: '[value="PAGE_TYPE"]'
+  imageCheckbox: '[value= "image"]',
+  uploadFileButton: '[data-test-id="button-upload-file"]',
+  pageTypeAttributeCheckbox: '[value="PAGE_TYPE"]',
+  swatchValueImage: '[data-test-id="swatch-image"]'
 };

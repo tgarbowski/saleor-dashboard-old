@@ -65,6 +65,8 @@ interface TimelineNoteProps {
   message: string | null;
   user: {
     email: string;
+    firstName?: string;
+    lastName?: string;
   };
 }
 
@@ -89,6 +91,14 @@ export const TimelineNote: React.FC<TimelineNoteProps> = props => {
 
   const classes = useStyles(props);
 
+  const getUserTitleOrEmail = () => {
+    if (user?.firstName && user?.lastName) {
+      return `${user.firstName} ${user.lastName}`;
+    }
+
+    return user?.email;
+  };
+
   return (
     <div className={classes.root}>
       {user && (
@@ -100,7 +110,7 @@ export const TimelineNote: React.FC<TimelineNoteProps> = props => {
         </Avatar>
       )}
       <div className={classes.title}>
-        <Typography>{user?.email}</Typography>
+        <Typography>{getUserTitleOrEmail()}</Typography>
         <Typography>
           <DateTime date={date} />
         </Typography>

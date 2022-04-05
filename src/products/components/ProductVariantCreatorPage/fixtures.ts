@@ -18,6 +18,7 @@ export const channels: ChannelPriceData[] = [
 export const attributes = [
   {
     id: "attr-1",
+    valueRequired: false,
     values: Array(9)
       .fill(0)
       .map((_, index) => ({
@@ -32,12 +33,14 @@ export const attributes = [
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       }))
   },
   {
     id: "attr-2",
+    valueRequired: false,
     values: Array(6)
       .fill(0)
       .map((_, index) => ({
@@ -52,12 +55,14 @@ export const attributes = [
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       }))
   },
   {
     id: "attr-3",
+    valueRequired: false,
     values: Array(4)
       .fill(0)
       .map((_, index) => ({
@@ -72,12 +77,14 @@ export const attributes = [
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       }))
   },
   {
     id: "attr-4",
+    valueRequired: false,
     values: Array(11)
       .fill(0)
       .map((_, index) => ({
@@ -92,7 +99,8 @@ export const attributes = [
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       }))
   }
@@ -126,14 +134,17 @@ export const secondStep: ProductVariantCreateFormData = {
   attributes: [
     {
       id: attributes[0].id,
+      valueRequired: attributes[0].valueRequired,
       values: []
     },
     {
       id: attributes[1].id,
+      valueRequired: attributes[1].valueRequired,
       values: []
     },
     {
       id: attributes[3].id,
+      valueRequired: attributes[3].valueRequired,
       values: []
     }
   ]
@@ -144,14 +155,17 @@ export const thirdStep: ProductVariantCreateFormData = {
   attributes: [
     {
       id: attributes[0].id,
+      valueRequired: attributes[0].valueRequired,
       values: [0, 6].map(index => attributes[0].values[index])
     },
     {
       id: attributes[1].id,
+      valueRequired: attributes[1].valueRequired,
       values: [1, 3].map(index => attributes[1].values[index])
     },
     {
       id: attributes[3].id,
+      valueRequired: attributes[3].valueRequired,
       values: [0, 4].map(index => attributes[3].values[index])
     }
   ],

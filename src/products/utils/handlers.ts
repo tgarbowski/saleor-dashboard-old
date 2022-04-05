@@ -1,14 +1,17 @@
 import {
   ChannelData,
+  ChannelPreorderArgs,
+  ChannelPriceAndPreorderData,
   ChannelPriceArgs,
   ChannelPriceData
 } from "@saleor/channels/utils";
-import { FormChange } from "@saleor/hooks/useForm";
 import { SearchProductTypes_search_edges_node } from "@saleor/searches/types/SearchProductTypes";
 
 import {
   generateSkuCode
 } from "./data";
+import { FormChange, UseFormResult } from "@saleor/hooks/useForm";
+import moment from "moment";
 
 export function createChannelsPriceChangeHandler(
   channelListings: ChannelData[],
@@ -17,20 +20,29 @@ export function createChannelsPriceChangeHandler(
 ) {
   return (id: string, priceData: ChannelPriceArgs) => {
     const { costPrice, price } = priceData;
-    const channelIndex = channelListings.findIndex(
-      channel => channel.id === id
-    );
-    const channel = channelListings[channelIndex];
 
-    const updatedChannels = [
-      ...channelListings.slice(0, channelIndex),
-      {
-        ...channel,
-        costPrice,
-        price
-      },
-      ...channelListings.slice(channelIndex + 1)
-    ];
+    const updatedChannels = channelListings.map(channel =>
+      channel.id === id ? { ...channel, costPrice, price } : channel
+    );
+
+    updateChannels(updatedChannels);
+
+    triggerChange();
+  };
+}
+
+export function createChannelsPreorderChangeHandler(
+  channelListings: ChannelData[],
+  updateChannels: (data: ChannelData[]) => void,
+  triggerChange: () => void
+) {
+  return (id: string, preorderData: ChannelPreorderArgs) => {
+    const { preorderThreshold, unitsSold } = preorderData;
+
+    const updatedChannels = channelListings.map(channel =>
+      channel.id === id ? { ...channel, preorderThreshold, unitsSold } : channel
+    );
+
     updateChannels(updatedChannels);
 
     triggerChange();
@@ -115,14 +127,15 @@ export function createProductTypeSelectHandler(
   };
 }
 
-export const getChannelsInput = (channels: ChannelPriceData[]) =>
+export const getChannelsInput = (channels: ChannelPriceAndPreorderData[]) =>
   channels?.map(channel => ({
     data: channel,
     id: channel.id,
     label: channel.name,
     value: {
       costPrice: channel.costPrice || "",
-      price: channel.price || ""
+      price: channel.price || "",
+      preorderThreshold: channel.preorderThreshold || null
     }
   }));
 
@@ -146,3 +159,17 @@ export const getAvailabilityVariables = (channels: ChannelData[]) =>
       visibleInListings: channel.visibleInListings
     };
   });
+
+export const createPreorderEndDateChangeHandler = (
+  form: UseFormResult<{ preorderEndDateTime?: string }>,
+  triggerChange: () => void,
+  preorderPastDateErrorMessage: string
+): FormChange => event => {
+  form.change(event);
+  if (moment(event.target.value).isSameOrBefore(Date.now())) {
+    form.setError("preorderEndDateTime", preorderPastDateErrorMessage);
+  } else {
+    form.clearErrors("preorderEndDateTime");
+  }
+  triggerChange();
+};

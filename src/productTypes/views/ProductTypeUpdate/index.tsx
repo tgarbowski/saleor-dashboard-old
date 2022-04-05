@@ -13,7 +13,10 @@ import { commonMessages } from "@saleor/intl";
 import { Button } from "@saleor/macaw-ui";
 import { getStringOrPlaceholder, maybe } from "@saleor/misc";
 import useProductTypeDelete from "@saleor/productTypes/hooks/useProductTypeDelete";
-import { useProductTypeUpdateMutation } from "@saleor/productTypes/mutations";
+import {
+  useProductAttributeAssignmentUpdateMutation,
+  useProductTypeUpdateMutation
+} from "@saleor/productTypes/mutations";
 import { ReorderEvent } from "@saleor/types";
 import { ProductAttributeType } from "@saleor/types/globalTypes";
 import createMetadataUpdateHandler from "@saleor/utils/handlers/metadataUpdateHandler";
@@ -90,13 +93,47 @@ export const ProductTypeUpdate: React.FC<ProductTypeUpdateProps> = ({
       }
     }
   });
+  const [
+    updateProductAttributes,
+    updateProductAttributesOpts
+  ] = useProductAttributeAssignmentUpdateMutation({
+    onCompleted: updateData => {
+      if (
+        updateData.productAttributeAssignmentUpdate.errors !== null &&
+        updateData.productAttributeAssignmentUpdate.errors.length > 0
+      ) {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          formErrors: updateData.productAttributeAssignmentUpdate.errors
+        }));
+      }
+    }
+  });
 
   const [updateMetadata] = useMetadataUpdate({});
   const [updatePrivateMetadata] = usePrivateMetadataUpdate({});
 
   const handleBack = () => navigate(productTypeListUrl());
+  const [
+    selectedVariantAttributes,
+    setSelectedVariantAttributes
+  ] = React.useState<string[]>([]);
 
   const handleProductTypeUpdate = async (formData: ProductTypeForm) => {
+    const operations = formData.variantAttributes.map(variantAttribute => ({
+      id: variantAttribute.value,
+      variantSelection: selectedVariantAttributes.includes(
+        variantAttribute.value
+      )
+    }));
+
+    const productAttributeUpdateResult = await updateProductAttributes({
+      variables: {
+        productTypeId: id,
+        operations
+      }
+    });
+
     const result = await updateProductType({
       variables: {
         id,
@@ -104,6 +141,7 @@ export const ProductTypeUpdate: React.FC<ProductTypeUpdateProps> = ({
           hasVariants: formData.hasVariants,
           isShippingRequired: formData.isShippingRequired,
           name: formData.name,
+          kind: formData.kind,
           productAttributes: formData.productAttributes.map(
             choice => choice.value
           ),
@@ -116,7 +154,11 @@ export const ProductTypeUpdate: React.FC<ProductTypeUpdateProps> = ({
       }
     });
 
-    return result.data.productTypeUpdate.errors;
+    return [
+      ...result.data.productTypeUpdate.errors,
+      ...productAttributeUpdateResult.data.productAttributeAssignmentUpdate
+        .errors
+    ];
   };
 
   const productTypeDeleteData = useProductTypeDelete({
@@ -232,7 +274,10 @@ export const ProductTypeUpdate: React.FC<ProductTypeUpdateProps> = ({
                   ids: params.ids
                 });
 
-              const loading = updateProductTypeOpts.loading || dataLoading;
+              const loading =
+                updateProductTypeOpts.loading ||
+                updateProductAttributesOpts.loading ||
+                dataLoading;
 
               const handleAttributeReorder = (
                 event: ReorderEvent,
@@ -262,8 +307,13 @@ export const ProductTypeUpdate: React.FC<ProductTypeUpdateProps> = ({
                     errors={errors.formErrors}
                     pageTitle={maybe(() => data.productType.name)}
                     productType={maybe(() => data.productType)}
-                    saveButtonBarState={updateProductTypeOpts.status}
+                    saveButtonBarState={
+                      updateProductTypeOpts.status ||
+                      updateProductAttributesOpts.status
+                    }
                     taxTypes={maybe(() => data.taxTypes, [])}
+                    selectedVariantAttributes={selectedVariantAttributes}
+                    setSelectedVariantAttributes={setSelectedVariantAttributes}
                     onAttributeAdd={type =>
                       navigate(
                         productTypeUrl(id, {

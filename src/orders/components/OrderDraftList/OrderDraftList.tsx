@@ -210,7 +210,7 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = props => {
                     <Skeleton />
                   )}
                 </TableCell>
-                <TableCell className={classes.colTotal}>
+                <TableCell className={classes.colTotal} align="right">
                   {maybe(() => order.total.gross) ? (
                     <Money money={order.total.gross} />
                   ) : (

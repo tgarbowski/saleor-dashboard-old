@@ -1,5 +1,5 @@
-// / <reference types="cypress"/>
-// / <reference types="../../../support"/>
+/// <reference types="cypress"/>
+/// <reference types="../../../support"/>
 
 import faker from "faker";
 
@@ -14,6 +14,7 @@ import {
 import * as channelsUtils from "../../../support/api/utils/channelsUtils";
 import * as shippingUtils from "../../../support/api/utils/shippingUtils";
 import filterTests from "../../../support/filterTests";
+import { getCurrencyAndAmountInString } from "../../../support/formatData/formatCurrencyAmount";
 import { getFormattedCurrencyAmount } from "../../../support/formatData/formatCurrencyAmount";
 import { enterHomePageChangeChannelAndReturn } from "../../../support/pages/channelsPage";
 import {
@@ -99,7 +100,7 @@ filterTests({ definedTags: ["all"] }, () => {
               SHIPPING_ZONE_DETAILS.shippingRatePriceTableCell
             )
             .then(text => {
-              const expectedValue = getFormattedCurrencyAmount(
+              const expectedValue = getCurrencyAndAmountInString(
                 defaultChannelPrice,
                 defaultChannel.currencyCode
               );
@@ -116,7 +117,7 @@ filterTests({ definedTags: ["all"] }, () => {
               );
             })
             .then(text => {
-              const expectedValue = getFormattedCurrencyAmount(
+              const expectedValue = getCurrencyAndAmountInString(
                 createdChannelPrice,
                 createdChannelCurrency
               );

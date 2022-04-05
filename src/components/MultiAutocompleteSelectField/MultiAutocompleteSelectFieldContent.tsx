@@ -39,7 +39,7 @@ export interface MultiAutocompleteSelectFieldContentProps
   choices: MultiAutocompleteChoiceType[];
   displayCustomValue: boolean;
   displayValues: MultiAutocompleteChoiceType[];
-  getItemProps: (options: GetItemPropsOptions) => void;
+  getItemProps: (options: GetItemPropsOptions<string>) => any;
   highlightedIndex: number;
   inputValue: string;
 }
@@ -231,7 +231,7 @@ const MultiAutocompleteSelectFieldContent: React.FC<MultiAutocompleteSelectField
                 {...getItemProps({
                   item: inputValue
                 })}
-                data-test-id="multi-autocomplete-select-option"
+                data-test-id="multi-autocomplete-select-option-custom"
               >
                 <AddIcon className={classes.addIcon} color="primary" />
                 <FormattedMessage

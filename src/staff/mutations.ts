@@ -1,10 +1,10 @@
+import { gql } from "@apollo/client";
 import {
   accountErrorFragment,
   staffErrorFragment
 } from "@saleor/fragments/errors";
 import { staffMemberDetailsFragment } from "@saleor/fragments/staff";
 import makeMutation from "@saleor/hooks/makeMutation";
-import gql from "graphql-tag";
 
 import { TypedMutation } from "../mutations";
 import {
@@ -62,7 +62,7 @@ const staffMemberUpdateMutation = gql`
     }
   }
 `;
-export const TypedStaffMemberUpdateMutation = TypedMutation<
+export const useStaffMemberUpdateMutation = makeMutation<
   StaffMemberUpdate,
   StaffMemberUpdateVariables
 >(staffMemberUpdateMutation);

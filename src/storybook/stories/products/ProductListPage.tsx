@@ -49,7 +49,7 @@ const props: ProductListPageProps = {
   selectedChannelId: "123",
   settings: {
     ...pageListProps.default.settings,
-    columns: ["availability", "productType", "price", "createdAt"]
+    columns: ["availability", "productType", "price", "created"]
   },
   totalGridAttributes: attributes.length
 };

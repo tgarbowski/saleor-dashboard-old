@@ -1,3 +1,4 @@
+import { gql } from "@apollo/client";
 import {
   bulkProductErrorFragment,
   bulkStockErrorFragment,
@@ -8,9 +9,10 @@ import {
   stockErrorFragment
 } from "@saleor/fragments/errors";
 import {
-  channelListingProductFragment,
   channelListingProductVariantFragment,
+  channelListingProductWithoutPricingFragment,
   exportFileFragment,
+  fragmentPreorder,
   fragmentProductMedia,
   fragmentVariant,
   productFragmentDetails
@@ -36,7 +38,6 @@ import {
   VariantMediaUnassign,
   VariantMediaUnassignVariables
 } from "@saleor/products/types/VariantMediaUnassign";
-import gql from "graphql-tag";
 
 import {
   ProductBulkClearWarehouseLocation,
@@ -74,6 +75,10 @@ import {
   ProductVariantChannelListingUpdate,
   ProductVariantChannelListingUpdateVariables
 } from "./types/ProductVariantChannelListingUpdate";
+import {
+  ProductVariantPreorderDeactivate,
+  ProductVariantPreorderDeactivateVariables
+} from "./types/ProductVariantPreorderDeactivate";
 import {
   ProductVariantReorder,
   ProductVariantReorderVariables
@@ -377,8 +382,10 @@ export const variantUpdateMutation = gql`
     $id: ID!
     $attributes: [AttributeValueInput!]
     $sku: String
+    $quantityLimitPerCustomer: Int
     $trackInventory: Boolean!
     $stocks: [StockInput!]!
+    $preorder: PreorderSettingsInput
     $weight: WeightScalar
     $firstValues: Int
     $afterValues: String
@@ -391,7 +398,9 @@ export const variantUpdateMutation = gql`
         attributes: $attributes
         sku: $sku
         trackInventory: $trackInventory
+        preorder: $preorder
         weight: $weight
+        quantityLimitPerCustomer: $quantityLimitPerCustomer
       }
     ) {
       errors {
@@ -668,7 +677,7 @@ export const useProductExport = makeMutation<
 >(productExportMutation);
 
 export const ProductChannelListingUpdateMutation = gql`
-  ${channelListingProductFragment}
+  ${channelListingProductWithoutPricingFragment}
   ${channelListingProductVariantFragment}
   ${productChannelListingErrorFragment}
   mutation ProductChannelListingUpdate(
@@ -679,7 +688,7 @@ export const ProductChannelListingUpdateMutation = gql`
       product {
         id
         channelListings {
-          ...ChannelListingProductFragment
+          ...ChannelListingProductWithoutPricingFragment
         }
         variants {
           id
@@ -736,7 +745,7 @@ export const useProductChannelListingUpdate = makeMutation<
 
 export const ProductVariantChannelListingUpdateMutation = gql`
   ${channelListingProductVariantFragment}
-  ${channelListingProductFragment}
+  ${channelListingProductWithoutPricingFragment}
   ${productChannelListingErrorFragment}
   mutation ProductVariantChannelListingUpdate(
     $id: ID!
@@ -751,7 +760,7 @@ export const ProductVariantChannelListingUpdateMutation = gql`
         product {
           id
           channelListings {
-            ...ChannelListingProductFragment
+            ...ChannelListingProductWithoutPricingFragment
           }
         }
       }
@@ -766,3 +775,25 @@ export const useProductVariantChannelListingUpdate = makeMutation<
   ProductVariantChannelListingUpdate,
   ProductVariantChannelListingUpdateVariables
 >(ProductVariantChannelListingUpdateMutation);
+
+export const ProductVariantPreorderDeactivateMutation = gql`
+  ${fragmentPreorder}
+  ${productErrorFragment}
+  mutation ProductVariantPreorderDeactivate($id: ID!) {
+    productVariantPreorderDeactivate(id: $id) {
+      productVariant {
+        id
+        preorder {
+          ...PreorderFragment
+        }
+      }
+      errors {
+        ...ProductErrorFragment
+      }
+    }
+  }
+`;
+export const useProductVariantPreorderDeactivateMutation = makeMutation<
+  ProductVariantPreorderDeactivate,
+  ProductVariantPreorderDeactivateVariables
+>(ProductVariantPreorderDeactivateMutation);

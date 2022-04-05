@@ -14,7 +14,7 @@ import {
 import { deleteAttributesStartsWith } from "../attributes/attributeUtils";
 import { deleteCollectionsStartsWith } from "../catalog/collectionsUtils";
 import { getDefaultChannel } from "../channelsUtils";
-import { createShipping } from "../shippingUtils";
+import { createShipping, deleteShippingStartsWith } from "../shippingUtils";
 
 export function createProductInChannel({
   name,
@@ -31,40 +31,37 @@ export function createProductInChannel({
   collectionId = null,
   description = null,
   trackInventory = true,
-  weight = 1
+  weight = 1,
+  preorder,
+  sku = name
 }) {
   let product;
   let variantsList;
-  return productRequest
-    .createProduct({
-      attributeId,
-      name,
-      productTypeId,
-      categoryId,
-      collectionId,
-      description
-    })
+  return createProductInChannelWithoutVariants({
+    name,
+    channelId,
+    productTypeId,
+    attributeId,
+    categoryId,
+    isPublished,
+    isAvailableForPurchase,
+    visibleInListings,
+    collectionId,
+    description
+  })
     .then(productResp => {
       product = productResp;
-      productRequest.updateChannelInProduct({
-        productId: product.id,
-        channelId,
-        isPublished,
-        isAvailableForPurchase,
-        visibleInListings
-      });
-    })
-    .then(() => {
       productRequest.createVariant({
         productId: product.id,
-        sku: name,
+        sku,
         attributeId,
         warehouseId,
         quantityInWarehouse,
         channelId,
         price,
         trackInventory,
-        weight
+        weight,
+        preorder
       });
     })
     .then(variantsResp => {
@@ -123,6 +120,9 @@ export function deleteProductsAndCreateNewOneWithNewDataAndDefaultChannel({
   name,
   description = name,
   warehouseId,
+  preorder,
+  attributeValues = ["value"],
+  sku = name,
   productPrice = 10
 }) {
   let defaultChannel;
@@ -138,7 +138,7 @@ export function deleteProductsAndCreateNewOneWithNewDataAndDefaultChannel({
     })
     .then(collectionResp => {
       collection = collectionResp;
-      createTypeAttributeAndCategoryForProduct({ name });
+      createTypeAttributeAndCategoryForProduct({ name, attributeValues });
     })
     .then(({ attribute: attributeResp, category, productType }) => {
       attribute = attributeResp;
@@ -151,7 +151,9 @@ export function deleteProductsAndCreateNewOneWithNewDataAndDefaultChannel({
         collectionId: collection.id,
         description,
         warehouseId,
-        price: productPrice
+        price: productPrice,
+        preorder,
+        sku
       });
     })
     .then(({ product, variantsList }) => ({ product, variantsList }));
@@ -159,8 +161,11 @@ export function deleteProductsAndCreateNewOneWithNewDataAndDefaultChannel({
 
 export function createProductWithShipping({
   name,
+  attributeValues = ["value"],
+  sku = name,
   productPrice = 10,
-  shippingPrice = 10
+  shippingPrice = 10,
+  preorder
 }) {
   let address;
   let warehouse;
@@ -168,6 +173,7 @@ export function createProductWithShipping({
   let defaultChannel;
   let shippingZone;
 
+  deleteShippingStartsWith(name);
   return cy
     .fixture("addresses")
     .then(addresses => {
@@ -195,7 +201,10 @@ export function createProductWithShipping({
         deleteProductsAndCreateNewOneWithNewDataAndDefaultChannel({
           name,
           warehouseId: warehouse.id,
-          productPrice
+          productPrice,
+          preorder,
+          attributeValues,
+          sku
         });
       }
     )
@@ -208,6 +217,41 @@ export function createProductWithShipping({
       shippingMethod,
       address
     }));
+}
+
+export function createProductInChannelWithoutVariants({
+  name,
+  channelId,
+  productTypeId,
+  attributeId,
+  categoryId,
+  isPublished = true,
+  isAvailableForPurchase = true,
+  visibleInListings = true,
+  collectionId = null,
+  description = null
+}) {
+  let product;
+  return productRequest
+    .createProduct({
+      attributeId,
+      name,
+      productTypeId,
+      categoryId,
+      collectionId,
+      description
+    })
+    .then(productResp => {
+      product = productResp;
+      productRequest.updateChannelInProduct({
+        productId: product.id,
+        channelId,
+        isPublished,
+        isAvailableForPurchase,
+        visibleInListings
+      });
+    })
+    .then(() => product);
 }
 
 export function addDigitalContentAndUpdateProductType(

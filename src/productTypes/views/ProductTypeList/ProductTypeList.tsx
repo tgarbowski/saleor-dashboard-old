@@ -37,11 +37,11 @@ import {
   productTypeUrl
 } from "../../urls";
 import {
-  areFiltersApplied,
   deleteFilterTab,
   getActiveFilters,
   getFilterOpts,
   getFilterQueryParam,
+  getFiltersCurrentTab,
   getFilterTabs,
   getFilterVariables,
   saveFilterTab
@@ -85,12 +85,7 @@ export const ProductTypeList: React.FC<ProductTypeListProps> = ({ params }) => {
 
   const tabs = getFilterTabs();
 
-  const currentTab =
-    params.activeTab === undefined
-      ? areFiltersApplied(params)
-        ? tabs.length + 1
-        : 0
-      : parseInt(params.activeTab, 0);
+  const currentTab = getFiltersCurrentTab(params, tabs);
 
   const [
     changeFilters,
@@ -191,7 +186,7 @@ export const ProductTypeList: React.FC<ProductTypeListProps> = ({ params }) => {
               disabled={loading}
               productTypes={productTypesData}
               pageInfo={pageInfo}
-              onAdd={() => navigate(productTypeAddUrl)}
+              onAdd={() => navigate(productTypeAddUrl())}
               onBack={() => navigate(configurationMenuUrl)}
               onNextPage={loadNextPage}
               onPreviousPage={loadPreviousPage}

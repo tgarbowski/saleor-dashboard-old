@@ -54,7 +54,7 @@ export interface ShopInfo_shop {
   trackInventoryByDefault: boolean | null;
   permissions: (ShopInfo_shop_permissions | null)[];
   companyAddress: SiteSettings_shop_companyAddress | null;
-  version: any;
+  version: string;
 }
 
 export interface ShopInfo {

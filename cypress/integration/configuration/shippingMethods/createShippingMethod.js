@@ -1,5 +1,5 @@
-// / <reference types="cypress"/>
-// / <reference types="../../../support"/>
+/// <reference types="cypress"/>
+/// <reference types="../../../support"/>
 
 import faker from "faker";
 
@@ -86,7 +86,7 @@ filterTests({ definedTags: ["all"] }, () => {
             productId: product.id,
             sku: secondName,
             attributeId: attribute.id,
-            attributeValues: ["value2"],
+            attributeName: "value2",
             warehouseId: warehouse.id,
             quantityInWarehouse: 10,
             channelId: defaultChannel.id,

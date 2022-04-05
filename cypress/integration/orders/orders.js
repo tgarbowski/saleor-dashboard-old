@@ -1,5 +1,5 @@
-// / <reference types="cypress"/>
-// / <reference types="../../support"/>
+/// <reference types="cypress"/>
+/// <reference types="../../support"/>
 
 import faker from "faker";
 
@@ -116,8 +116,6 @@ filterTests({ definedTags: ["all"] }, () => {
     });
 
     it("should create order with selected channel", () => {
-      // Remove login as admin after fixing SALEOR-3154
-      cy.clearSessionData().loginUserViaRequest();
       cy.visit(urlList.orders)
         .get(ORDERS_SELECTORS.createOrder)
         .click();
@@ -131,7 +129,6 @@ filterTests({ definedTags: ["all"] }, () => {
       });
     });
 
-    // This test will pass after fixing SALEOR-3154
     it("should not be possible to change channel in order", () => {
       createOrder({
         customerId: customer.id,
@@ -165,8 +162,6 @@ filterTests({ definedTags: ["all"] }, () => {
           cy.contains(ORDERS_SELECTORS.orderRow, order.number).click();
           cy.get(SHARED_ELEMENTS.skeleton)
             .should("not.exist")
-            .get(ORDERS_SELECTORS.fulfillMenuButton)
-            .click()
             .get(ORDERS_SELECTORS.cancelFulfillment)
             .click()
             .fillAutocompleteSelect(

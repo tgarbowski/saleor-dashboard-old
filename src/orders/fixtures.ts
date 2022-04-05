@@ -1,8 +1,9 @@
 import { ShopInfo_shop_countries } from "@saleor/components/Shop/types/ShopInfo";
 import { InvoiceFragment } from "@saleor/fragments/types/InvoiceFragment";
 import { OrderSettingsFragment } from "@saleor/fragments/types/OrderSettingsFragment";
+import { ShopOrderSettingsFragment } from "@saleor/fragments/types/ShopOrderSettingsFragment";
 import { SearchCustomers_search_edges_node } from "@saleor/searches/types/SearchCustomers";
-import { warehouseList } from "@saleor/warehouses/fixtures";
+import { warehouseForPickup, warehouseList } from "@saleor/warehouses/fixtures";
 import { MessageDescriptor } from "react-intl";
 
 import { transformOrderStatus, transformPaymentStatus } from "../misc";
@@ -13,11 +14,27 @@ import {
   OrderEventsEmailsEnum,
   OrderEventsEnum,
   OrderStatus,
-  PaymentChargeStatusEnum
+  PaymentChargeStatusEnum,
+  WeightUnitsEnum
 } from "../types/globalTypes";
-import { OrderDetails_order } from "./types/OrderDetails";
+import { OrderDetails_order, OrderDetails_shop } from "./types/OrderDetails";
 import { OrderList_orders_edges_node } from "./types/OrderList";
 import { SearchOrderVariant_search_edges_node } from "./types/SearchOrderVariant";
+
+export const countries: ShopInfo_shop_countries[] = [
+  { __typename: "CountryDisplay", code: "AF", country: "Afghanistan" },
+  { __typename: "CountryDisplay", code: "AX", country: "Åland Islands" },
+  { __typename: "CountryDisplay", code: "AL", country: "Albania" },
+  { __typename: "CountryDisplay", code: "DZ", country: "Algeria" },
+  { __typename: "CountryDisplay", code: "AS", country: "American Samoa" }
+];
+export const shop: OrderDetails_shop = {
+  __typename: "Shop",
+  countries,
+  defaultWeightUnit: WeightUnitsEnum.KG,
+  fulfillmentAllowUnpaid: true,
+  fulfillmentAutoApprove: true
+};
 
 export const clients: SearchCustomers_search_edges_node[] = [
   {
@@ -755,6 +772,7 @@ export const orders: OrderList_orders_edges_node[] = [
 ];
 export const order = (placeholder: string): OrderDetails_order => ({
   __typename: "Order",
+  giftCards: [],
   actions: [
     OrderAction.CAPTURE,
     OrderAction.MARK_AS_PAID,
@@ -1052,6 +1070,7 @@ export const order = (placeholder: string): OrderDetails_order => ({
             productSku: "5-1337",
             quantity: 2,
             quantityFulfilled: 2,
+            quantityToFulfill: 0,
             thumbnail: {
               __typename: "Image" as "Image",
               url: placeholder
@@ -1094,6 +1113,8 @@ export const order = (placeholder: string): OrderDetails_order => ({
             variant: {
               __typename: "ProductVariant",
               id: "dsfsfuhb",
+              quantityAvailable: 10,
+              preorder: null,
               product: {
                 __typename: "Product",
                 id: "345678393",
@@ -1103,7 +1124,6 @@ export const order = (placeholder: string): OrderDetails_order => ({
                   value: "12"
                 }
               },
-              quantityAvailable: 10
             }
           },
           quantity: 1
@@ -1131,6 +1151,7 @@ export const order = (placeholder: string): OrderDetails_order => ({
             productSku: "5-1337",
             quantity: 2,
             quantityFulfilled: 2,
+            quantityToFulfill: 0,
             thumbnail: {
               __typename: "Image" as "Image",
               url: placeholder
@@ -1182,7 +1203,8 @@ export const order = (placeholder: string): OrderDetails_order => ({
                 }
               },
               id: "dsfsfuhb",
-              quantityAvailable: 10
+              quantityAvailable: 10,
+              preorder: null
             }
           },
           quantity: 1
@@ -1218,6 +1240,7 @@ export const order = (placeholder: string): OrderDetails_order => ({
       productSku: "59-1337",
       quantity: 3,
       quantityFulfilled: 0,
+      quantityToFulfill: 3,
       thumbnail: {
         __typename: "Image" as "Image",
         url: placeholder
@@ -1260,6 +1283,8 @@ export const order = (placeholder: string): OrderDetails_order => ({
       variant: {
         __typename: "ProductVariant",
         id: "dsfsfuhb",
+        quantityAvailable: 10,
+        preorder: null,
         product: {
           __typename: "Product",
           id: "345678393",
@@ -1269,7 +1294,6 @@ export const order = (placeholder: string): OrderDetails_order => ({
             value: "12"
           }
         },
-        quantityAvailable: 10,
       }
     },
     {
@@ -1280,6 +1304,7 @@ export const order = (placeholder: string): OrderDetails_order => ({
       productSku: "5-1337",
       quantity: 2,
       quantityFulfilled: 2,
+      quantityToFulfill: 0,
       thumbnail: {
         __typename: "Image" as "Image",
         url: placeholder
@@ -1323,6 +1348,8 @@ export const order = (placeholder: string): OrderDetails_order => ({
       variant: {
         __typename: "ProductVariant",
         id: "dsfsfuhb",
+        quantityAvailable: 10,
+        preorder: null,
         product: {
           __typename: "Product",
           id: "345678393",
@@ -1332,7 +1359,6 @@ export const order = (placeholder: string): OrderDetails_order => ({
             value: "12"
           }
         },
-        quantityAvailable: 10
       }
     }
   ],
@@ -1367,6 +1393,8 @@ export const order = (placeholder: string): OrderDetails_order => ({
   },
   shippingMethod: null,
   shippingMethodName: "Registred priority",
+  collectionPointName: "Warehouse",
+  deliveryMethod: warehouseForPickup,
   shippingPrice: {
     __typename: "TaxedMoney",
     gross: {
@@ -1435,6 +1463,7 @@ export const order = (placeholder: string): OrderDetails_order => ({
 });
 export const draftOrder = (placeholder: string): OrderDetails_order => ({
   __typename: "Order" as "Order",
+  giftCards: [],
   actions: [OrderAction.CAPTURE],
   shippingMethods: null,
   billingAddress: null,
@@ -1479,6 +1508,7 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
       productSku: "58-1338",
       quantity: 2,
       quantityFulfilled: 0,
+      quantityToFulfill: 2,
       thumbnail: {
         __typename: "Image" as "Image",
         url: placeholder
@@ -1521,6 +1551,8 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
       variant: {
         __typename: "ProductVariant",
         id: "dsfsfuhb",
+        quantityAvailable: 10,
+        preorder: null,
         product: {
           __typename: "Product",
           id: "345678393",
@@ -1530,7 +1562,6 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
             value: "12"
           }
         },
-        quantityAvailable: 10
       }
     },
     {
@@ -1541,6 +1572,7 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
       productSku: "15-1337",
       quantity: 2,
       quantityFulfilled: 0,
+      quantityToFulfill: 2,
       thumbnail: {
         __typename: "Image" as "Image",
         url: placeholder
@@ -1592,7 +1624,8 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
           }
         },
         id: "dsfsfuhb",
-        quantityAvailable: 10
+        quantityAvailable: 10,
+        preorder: null
       }
     }
   ],
@@ -1603,6 +1636,8 @@ export const draftOrder = (placeholder: string): OrderDetails_order => ({
   shippingAddress: null,
   shippingMethod: null,
   shippingMethodName: null,
+  collectionPointName: null,
+  deliveryMethod: null,
   shippingPrice: {
     __typename: "TaxedMoney" as "TaxedMoney",
     gross: {
@@ -1680,13 +1715,6 @@ export const variants = [
   { id: "p7", name: "Product 5: variant 2", sku: "14345", stockQuantity: 11 }
 ];
 export const prefixes = ["01", "02", "41", "49"];
-export const countries: ShopInfo_shop_countries[] = [
-  { __typename: "CountryDisplay", code: "AF", country: "Afghanistan" },
-  { __typename: "CountryDisplay", code: "AX", country: "Åland Islands" },
-  { __typename: "CountryDisplay", code: "AL", country: "Albania" },
-  { __typename: "CountryDisplay", code: "DZ", country: "Algeria" },
-  { __typename: "CountryDisplay", code: "AS", country: "American Samoa" }
-];
 export const shippingMethods = [
   { country: "whole world", id: "s1", name: "DHL", price: {} },
   { country: "Afghanistan", id: "s2", name: "UPS" }
@@ -2107,5 +2135,12 @@ export const invoices: InvoiceFragment[] = [
 
 export const orderSettings: OrderSettingsFragment = {
   __typename: "OrderSettings",
-  automaticallyConfirmAllNewOrders: true
+  automaticallyConfirmAllNewOrders: true,
+  automaticallyFulfillNonShippableGiftCard: false
+};
+
+export const shopOrderSettings: ShopOrderSettingsFragment = {
+  __typename: "Shop",
+  fulfillmentAutoApprove: true,
+  fulfillmentAllowUnpaid: true
 };

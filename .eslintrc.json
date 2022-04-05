@@ -172,9 +172,9 @@
     "no-restricted-imports": [
       "error",
       {
-        "paths": ["lodash", "@material-ui/icons/Delete"]
+        "paths": ["lodash"]
       }
     ]
   },
-  "ignorePatterns": ["node_modules/", "**/types/**/*"]
+  "ignorePatterns": ["node_modules/", "**/types/**/*", "type-policies.ts"]
 }

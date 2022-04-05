@@ -57,6 +57,7 @@ import {
   ProductListUrlFiltersWithMultipleValues,
   ProductListUrlQueryParams
 } from "../../urls";
+import { getProductGiftCardFilterParam } from "./utils";
 export const PRODUCT_FILTERS_KEY = "productFilters";
 
 export function getFilterOpts(
@@ -78,6 +79,7 @@ export function getFilterOpts(
     initial: InitialProductFilterProductTypes_productTypes_edges_node[];
     search: UseSearchResult<SearchProductTypes, SearchProductTypesVariables>;
   },
+  productKind: SingleAutocompleteChoiceType[],
   channels: SingleAutocompleteChoiceType[]
 ): ProductListFilterOpts {
   return {
@@ -163,6 +165,11 @@ export function getFilterOpts(
       onSearchChange: collections.search.search,
       value: dedupeFilter(params.collections || [])
     },
+    productKind: {
+      active: params?.productKind !== undefined,
+      choices: productKind,
+      value: params?.productKind
+    },
     price: {
       active: maybe(
         () =>
@@ -207,17 +214,17 @@ export function getFilterOpts(
       active: maybe(() => params.stockStatus !== undefined, false),
       value: maybe(() => findValueInEnum(params.stockStatus, StockAvailability))
     },
-    createdAt: {
+    created: {
       active: maybe(
         () =>
-          [params.createdAtFrom, params.createdAtTo].some(
+          [params.createdFrom, params.createdTo].some(
             field => field !== undefined
           ),
         false
       ),
       value: {
-        max: maybe(() => params.createdAtTo, ""),
-        min: maybe(() => params.createdAtFrom, "")
+        max: maybe(() => params.createdTo, ""),
+        min: maybe(() => params.createdFrom, "")
       }
     },
     warehouseLocation: {
@@ -348,6 +355,7 @@ export function getFilterVariables(
     productTypes:
       params.productTypes !== undefined ? params.productTypes : null,
     search: params.query,
+    giftCard: getProductGiftCardFilterParam(params.productKind),
     stockAvailability:
       params.stockStatus !== undefined
         ? findValueInEnum(params.stockStatus, StockAvailability)
@@ -356,9 +364,9 @@ export function getFilterVariables(
       gte: params.warehouseFrom,
       lte: params.warehouseTo
     }),
-    createdAt: getGteLteVariables({
-      gte: params.createdAtFrom,
-      lte: params.createdAtTo
+    created: getGteLteVariables({
+      gte: params.createdFrom,
+      lte: params.createdTo
     })
   };
 }
@@ -435,11 +443,17 @@ export function getFilterQueryParam(
         ProductListUrlFiltersEnum.channel
       );
 
-    case ProductFilterKeys.createdAt:
+    case ProductFilterKeys.created:
       return getMinMaxQueryParam(
         filter,
-        ProductListUrlFiltersEnum.createdAtFrom,
-        ProductListUrlFiltersEnum.createdAtTo
+        ProductListUrlFiltersEnum.createdFrom,
+        ProductListUrlFiltersEnum.createdTo
+      );
+
+    case ProductFilterKeys.productKind:
+      return getSingleValueQueryParam(
+        filter,
+        ProductListUrlFiltersEnum.productKind
       );
   }
 }
@@ -450,10 +464,11 @@ export const {
   saveFilterTab
 } = createFilterTabUtils<ProductListUrlFilters>(PRODUCT_FILTERS_KEY);
 
-export const { areFiltersApplied, getActiveFilters } = createFilterUtils<
-  ProductListUrlQueryParams,
-  ProductListUrlFilters
->({
+export const {
+  areFiltersApplied,
+  getActiveFilters,
+  getFiltersCurrentTab
+} = createFilterUtils<ProductListUrlQueryParams, ProductListUrlFilters>({
   ...ProductListUrlFiltersEnum,
   ...ProductListUrlFiltersWithMultipleValues,
   ...ProductListUrlFiltersAsDictWithMultipleValues

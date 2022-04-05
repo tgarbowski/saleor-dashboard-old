@@ -1,7 +1,7 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 import {
-  attributeValueFragment,
+  attributeValueDetailsFragment,
   attributeValueListFragment
 } from "./attributes";
 import { metadataFragment } from "./metadata";
@@ -24,6 +24,14 @@ export const fragmentMoney = gql`
   fragment Money on Money {
     amount
     currency
+  }
+`;
+
+export const fragmentPreorder = gql`
+  fragment PreorderFragment on PreorderData {
+    globalThreshold
+    globalSoldUnits
+    endDate
   }
 `;
 
@@ -68,18 +76,6 @@ export const channelListingProductWithoutPricingFragment = gql`
     }
   }
 `;
-export const channelListingProductFragment = gql`
-  ${priceRangeFragment}
-  ${channelListingProductWithoutPricingFragment}
-  fragment ChannelListingProductFragment on ProductChannelListing {
-    ...ChannelListingProductWithoutPricingFragment
-    pricing {
-      priceRange {
-        ...PriceRangeFragment
-      }
-    }
-  }
-`;
 
 export const channelListingProductVariantFragment = gql`
   ${fragmentMoney}
@@ -95,11 +91,16 @@ export const channelListingProductVariantFragment = gql`
     costPrice {
       ...Money
     }
+    preorderThreshold {
+      quantity
+      soldUnits
+    }
   }
 `;
 
 export const productFragment = gql`
-  ${channelListingProductFragment}
+  ${channelListingProductWithoutPricingFragment}
+  ${priceRangeFragment}
   fragment ProductFragment on Product {
     id
     name
@@ -112,15 +113,19 @@ export const productFragment = gql`
       hasVariants
     }
     channelListings {
-      ...ChannelListingProductFragment
+      ...ChannelListingProductWithoutPricingFragment
+      pricing @include(if: $hasChannel) {
+        priceRange {
+          ...PriceRangeFragment
+        }
+      }
     }
-    createdAt
+    created
   }
 `;
 
 export const productVariantAttributesFragment = gql`
-  ${priceRangeFragment}
-  ${attributeValueFragment}
+  ${attributeValueDetailsFragment}
   ${attributeValueListFragment}
   fragment ProductVariantAttributesFragment on Product {
     id
@@ -143,7 +148,7 @@ export const productVariantAttributesFragment = gql`
         }
       }
       values {
-        ...AttributeValueFragment
+        ...AttributeValueDetailsFragment
       }
     }
     productType {
@@ -152,6 +157,7 @@ export const productVariantAttributesFragment = gql`
         id
         name
         inputType
+        valueRequired
         unit
         choices(
           first: $firstValues
@@ -169,23 +175,19 @@ export const productVariantAttributesFragment = gql`
         name
         currencyCode
       }
-      pricing {
-        priceRange {
-          ...PriceRangeFragment
-        }
-      }
     }
   }
 `;
 
 export const productFragmentDetails = gql`
+  ${fragmentPreorder}
   ${fragmentProductMedia}
   ${productVariantAttributesFragment}
   ${stockFragment}
   ${weightFragment}
   ${metadataFragment}
   ${taxTypeFragment}
-  ${channelListingProductFragment}
+  ${channelListingProductWithoutPricingFragment}
   ${channelListingProductVariantFragment}
   fragment Product on Product {
     ...ProductVariantAttributesFragment
@@ -209,7 +211,7 @@ export const productFragmentDetails = gql`
     }
     chargeTaxes
     channelListings {
-      ...ChannelListingProductFragment
+      ...ChannelListingProductWithoutPricingFragment
     }
     media {
       ...ProductMediaFragment
@@ -227,9 +229,13 @@ export const productFragmentDetails = gql`
         ...StockFragment
       }
       trackInventory
+      preorder {
+        ...PreorderFragment
+      }
       channelListings {
         ...ChannelListingProductVariantFragment
       }
+      quantityLimitPerCustomer
     }
     productType {
       id
@@ -272,22 +278,22 @@ export const variantAttributeFragment = gql`
 `;
 
 export const selectedVariantAttributeFragment = gql`
-  ${attributeValueFragment}
+  ${attributeValueDetailsFragment}
   ${variantAttributeFragment}
   fragment SelectedVariantAttributeFragment on SelectedAttribute {
     attribute {
       ...VariantAttributeFragment
     }
     values {
-      ...AttributeValueFragment
+      ...AttributeValueDetailsFragment
     }
   }
 `;
 
 export const fragmentVariant = gql`
+  ${fragmentPreorder}
   ${fragmentProductMedia}
   ${selectedVariantAttributeFragment}
-  ${priceRangeFragment}
   ${fragmentProductMedia}
   ${stockFragment}
   ${weightFragment}
@@ -331,11 +337,6 @@ export const fragmentVariant = gql`
           name
           currencyCode
         }
-        pricing {
-          priceRange {
-            ...PriceRangeFragment
-          }
-        }
       }
       variants {
         id
@@ -360,9 +361,13 @@ export const fragmentVariant = gql`
       ...StockFragment
     }
     trackInventory
+    preorder {
+      ...PreorderFragment
+    }
     weight {
       ...WeightFragment
     }
+    quantityLimitPerCustomer
   }
 `;
 

@@ -15,6 +15,7 @@ import {
   TypedOrderDraftCancelMutation,
   TypedOrderDraftFinalizeMutation,
   TypedOrderDraftUpdateMutation,
+  TypedOrderFulfillmentApproveMutation,
   TypedOrderFulfillmentCancelMutation,
   TypedOrderFulfillmentUpdateTrackingMutation,
   TypedOrderLineDeleteMutation,
@@ -49,6 +50,10 @@ import {
   OrderDraftUpdate,
   OrderDraftUpdateVariables
 } from "../types/OrderDraftUpdate";
+import {
+  OrderFulfillmentApprove,
+  OrderFulfillmentApproveVariables
+} from "../types/OrderFulfillmentApprove";
 import {
   OrderFulfillmentCancel,
   OrderFulfillmentCancelVariables
@@ -87,6 +92,10 @@ interface OrderOperationsProps {
     orderCancel: PartialMutationProviderOutput<
       OrderCancel,
       OrderCancelVariables
+    >;
+    orderFulfillmentApprove: PartialMutationProviderOutput<
+      OrderFulfillmentApprove,
+      OrderFulfillmentApproveVariables
     >;
     orderFulfillmentCancel: PartialMutationProviderOutput<
       OrderFulfillmentCancel,
@@ -150,6 +159,7 @@ interface OrderOperationsProps {
       InvoiceEmailSendVariables
     >;
   }) => React.ReactNode;
+  onOrderFulfillmentApprove: (data: OrderFulfillmentApprove) => void;
   onOrderFulfillmentCancel: (data: OrderFulfillmentCancel) => void;
   onOrderFulfillmentUpdate: (data: OrderFulfillmentUpdateTracking) => void;
   onOrderCancel: (data: OrderCancel) => void;
@@ -185,6 +195,7 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
   onUpdate,
   onDraftCancel,
   onDraftFinalize,
+  onOrderFulfillmentApprove,
   onOrderFulfillmentCancel,
   onOrderFulfillmentUpdate,
   onOrderMarkAsPaid,
@@ -199,30 +210,36 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
             {(...paymentCapture) => (
               <TypedOrderParcelMutation onCompleted={onParcelDetails}>
                 {(...parcelDetails) => (
-                  <TypedOrderAddNoteMutation onCompleted={onNoteAdd}>
-                    {(...addNote) => (
-                      <TypedOrderUpdateMutation onCompleted={onUpdate}>
-                        {(...update) => (
-                          <TypedOrderDraftUpdateMutation
-                            onCompleted={onDraftUpdate}
+              <TypedOrderAddNoteMutation onCompleted={onNoteAdd}>
+                {(...addNote) => (
+                  <TypedOrderUpdateMutation onCompleted={onUpdate}>
+                    {(...update) => (
+                      <TypedOrderDraftUpdateMutation
+                        onCompleted={onDraftUpdate}
+                      >
+                        {(...updateDraft) => (
+                          <TypedOrderShippingMethodUpdateMutation
+                            onCompleted={onShippingMethodUpdate}
                           >
-                            {(...updateDraft) => (
-                              <TypedOrderShippingMethodUpdateMutation
-                                onCompleted={onShippingMethodUpdate}
+                            {(...updateShippingMethod) => (
+                              <TypedOrderLineDeleteMutation
+                                onCompleted={onOrderLineDelete}
                               >
-                                {(...updateShippingMethod) => (
-                                  <TypedOrderLineDeleteMutation
-                                    onCompleted={onOrderLineDelete}
+                                {(...deleteOrderLine) => (
+                                  <TypedOrderLinesAddMutation
+                                    onCompleted={onOrderLinesAdd}
                                   >
-                                    {(...deleteOrderLine) => (
-                                      <TypedOrderLinesAddMutation
-                                        onCompleted={onOrderLinesAdd}
+                                    {(...addOrderLine) => (
+                                      <TypedOrderLineUpdateMutation
+                                        onCompleted={onOrderLineUpdate}
                                       >
-                                        {(...addOrderLine) => (
-                                          <TypedOrderLineUpdateMutation
-                                            onCompleted={onOrderLineUpdate}
+                                        {(...updateOrderLine) => (
+                                          <TypedOrderFulfillmentApproveMutation
+                                            onCompleted={
+                                              onOrderFulfillmentApprove
+                                            }
                                           >
-                                            {(...updateOrderLine) => (
+                                            {(...approveFulfillment) => (
                                               <TypedOrderFulfillmentCancelMutation
                                                 onCompleted={
                                                   onOrderFulfillmentCancel
@@ -292,6 +309,9 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                                                               orderDraftUpdate: getMutationProviderData(
                                                                                 ...updateDraft
                                                                               ),
+                                                                              orderFulfillmentApprove: getMutationProviderData(
+                                                                                ...approveFulfillment
+                                                                              ),
                                                                               orderFulfillmentCancel: getMutationProviderData(
                                                                                 ...cancelFulfillment
                                                                               ),
@@ -348,21 +368,23 @@ const OrderOperations: React.FC<OrderOperationsProps> = ({
                                                 )}
                                               </TypedOrderFulfillmentCancelMutation>
                                             )}
-                                          </TypedOrderLineUpdateMutation>
+                                          </TypedOrderFulfillmentApproveMutation>
                                         )}
-                                      </TypedOrderLinesAddMutation>
+                                      </TypedOrderLineUpdateMutation>
                                     )}
-                                  </TypedOrderLineDeleteMutation>
+                                  </TypedOrderLinesAddMutation>
                                 )}
-                              </TypedOrderShippingMethodUpdateMutation>
+                              </TypedOrderLineDeleteMutation>
                             )}
-                          </TypedOrderDraftUpdateMutation>
+                          </TypedOrderShippingMethodUpdateMutation>
                         )}
-                      </TypedOrderUpdateMutation>
+                      </TypedOrderDraftUpdateMutation>
                     )}
-                  </TypedOrderAddNoteMutation>
+                  </TypedOrderUpdateMutation>
                 )}
-              </TypedOrderParcelMutation>
+              </TypedOrderAddNoteMutation>
+            )}
+            </TypedOrderParcelMutation>
             )}
           </TypedOrderCaptureMutation>
         )}

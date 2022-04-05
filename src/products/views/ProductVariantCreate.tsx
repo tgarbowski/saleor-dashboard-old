@@ -3,7 +3,6 @@ import {
   handleUploadMultipleFiles,
   prepareAttributesInput
 } from "@saleor/attributes/utils/handlers";
-import { ChannelPriceData } from "@saleor/channels/utils";
 import { AttributeInput } from "@saleor/components/Attributes";
 import NotFoundPage from "@saleor/components/NotFoundPage";
 import { WindowTitle } from "@saleor/components/WindowTitle";
@@ -26,7 +25,7 @@ import { warehouseAddPath } from "@saleor/warehouses/urls";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { weight } from "../../misc";
+import { getMutationErrors, weight } from "../../misc";
 import ProductVariantCreatePage from "../components/ProductVariantCreatePage";
 import { ProductVariantCreateData } from "../components/ProductVariantCreatePage/form";
 import {
@@ -77,16 +76,6 @@ export const ProductVariant: React.FC<ProductVariantCreateProps> = ({
   const [uploadFile, uploadFileOpts] = useFileUploadMutation({});
 
   const product = data?.product;
-
-  const channels: ChannelPriceData[] = product?.channelListings.map(
-    listing => ({
-      costPrice: null,
-      currency: listing.channel.currencyCode,
-      id: listing.channel.id,
-      name: listing.channel.name,
-      price: null
-    })
-  );
 
   const handleVariantCreationSuccess = (data: VariantCreate) => {
     const variantId = data.productVariantCreate.productVariant.id;
@@ -148,15 +137,26 @@ export const ProductVariant: React.FC<ProductVariantCreateProps> = ({
             warehouse: stock.id
           })),
           trackInventory: true,
-          weight: weight(formData.weight)
+          weight: weight(formData.weight),
+          quantityLimitPerCustomer:
+            Number(formData.quantityLimitPerCustomer) || null,
+          preorder: formData.isPreorder
+            ? {
+                globalThreshold: formData.globalThreshold
+                  ? parseInt(formData.globalThreshold, 10)
+                  : null,
+                endDate: formData.preorderEndDateTime || null
+              }
+            : undefined
         },
         firstValues: 10
       }
     });
-    const id = result.data?.productVariantCreate?.productVariant?.id;
+    const id = result.data?.productVariantCreate?.productVariant?.id || null;
 
-    return id || null;
+    return { id, errors: getMutationErrors(result) };
   };
+
   const handleSubmit = createMetadataCreateHandler(
     handleCreate,
     updateMetadata,
@@ -229,7 +229,6 @@ export const ProductVariant: React.FC<ProductVariantCreateProps> = ({
         })}
       />
       <ProductVariantCreatePage
-        channels={channels}
         disabled={disableForm}
         errors={variantCreateResult.data?.productVariantCreate.errors || []}
         header={intl.formatMessage({

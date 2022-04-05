@@ -12,6 +12,32 @@ const choices = [
   { label: "Accessories", value: "4" }
 ];
 
+const manyChoices = [
+  { label: "Apparel", value: "1" },
+  { label: "Groceries", value: "2" },
+  { label: "Books", value: "3" },
+  { label: "Accessories", value: "4" },
+  { label: "Audiobooks", value: "5" },
+  { label: "Bananas", value: "6" },
+  { label: "Apples", value: "7" },
+  { label: "Fridge", value: "8" },
+  { label: "PCs", value: "9" },
+  { label: "Music", value: "10" },
+  { label: "Clothes", value: "11" },
+  { label: "Smartphones", value: "12" },
+  { label: "Keyboards", value: "13" },
+  { label: "LEDs", value: "14" },
+  { label: "Cars", value: "15" },
+  { label: "Petrol", value: "16" }
+];
+
+const disabledChoices = [
+  { label: "Apparel", value: "1" },
+  { label: "Groceries", value: "2", disabled: true },
+  { label: "Books", value: "3", disabled: true },
+  { label: "Accessories", value: "4" }
+];
+
 storiesOf("Generics / SingleSelectField", module)
   .addDecorator(CardDecorator)
   .addDecorator(Decorator)
@@ -23,6 +49,13 @@ storiesOf("Generics / SingleSelectField", module)
       choices={choices}
       onChange={undefined}
       value={choices[0].value}
+    />
+  ))
+  .add("with many values", () => (
+    <SingleSelectField
+      choices={manyChoices}
+      onChange={undefined}
+      value={manyChoices[0].value}
     />
   ))
   .add("with label", () => (
@@ -63,4 +96,7 @@ storiesOf("Generics / SingleSelectField", module)
       hint="Lorem error"
       error={true}
     />
+  ))
+  .add("with disabled options", () => (
+    <SingleSelectField choices={disabledChoices} onChange={undefined} />
   ));

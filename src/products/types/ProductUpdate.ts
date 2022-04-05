@@ -37,10 +37,11 @@ export interface ProductUpdate_productUpdate_product_attributes_attribute_choice
   slug: string | null;
   file: ProductUpdate_productUpdate_product_attributes_attribute_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductUpdate_productUpdate_product_attributes_attribute_choices_edges {
@@ -80,10 +81,11 @@ export interface ProductUpdate_productUpdate_product_attributes_values {
   slug: string | null;
   file: ProductUpdate_productUpdate_product_attributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductUpdate_productUpdate_product_attributes {
@@ -113,10 +115,11 @@ export interface ProductUpdate_productUpdate_product_productType_variantAttribut
   slug: string | null;
   file: ProductUpdate_productUpdate_product_productType_variantAttributes_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductUpdate_productUpdate_product_productType_variantAttributes_choices_edges {
@@ -136,6 +139,7 @@ export interface ProductUpdate_productUpdate_product_productType_variantAttribut
   id: string;
   name: string | null;
   inputType: AttributeInputTypeEnum | null;
+  valueRequired: boolean;
   unit: MeasurementUnitsEnum | null;
   choices: ProductUpdate_productUpdate_product_productType_variantAttributes_choices | null;
 }
@@ -162,43 +166,9 @@ export interface ProductUpdate_productUpdate_product_channelListings_channel {
   currencyCode: string;
 }
 
-export interface ProductUpdate_productUpdate_product_channelListings_pricing_priceRange_start_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface ProductUpdate_productUpdate_product_channelListings_pricing_priceRange_start {
-  __typename: "TaxedMoney";
-  net: ProductUpdate_productUpdate_product_channelListings_pricing_priceRange_start_net;
-}
-
-export interface ProductUpdate_productUpdate_product_channelListings_pricing_priceRange_stop_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface ProductUpdate_productUpdate_product_channelListings_pricing_priceRange_stop {
-  __typename: "TaxedMoney";
-  net: ProductUpdate_productUpdate_product_channelListings_pricing_priceRange_stop_net;
-}
-
-export interface ProductUpdate_productUpdate_product_channelListings_pricing_priceRange {
-  __typename: "TaxedMoneyRange";
-  start: ProductUpdate_productUpdate_product_channelListings_pricing_priceRange_start | null;
-  stop: ProductUpdate_productUpdate_product_channelListings_pricing_priceRange_stop | null;
-}
-
-export interface ProductUpdate_productUpdate_product_channelListings_pricing {
-  __typename: "ProductPricingInfo";
-  priceRange: ProductUpdate_productUpdate_product_channelListings_pricing_priceRange | null;
-}
-
 export interface ProductUpdate_productUpdate_product_channelListings {
   __typename: "ProductChannelListing";
   channel: ProductUpdate_productUpdate_product_channelListings_channel;
-  pricing: ProductUpdate_productUpdate_product_channelListings_pricing | null;
   isPublished: boolean;
   publicationDate: any | null;
   isAvailableForPurchase: boolean | null;
@@ -264,6 +234,13 @@ export interface ProductUpdate_productUpdate_product_variants_stocks {
   warehouse: ProductUpdate_productUpdate_product_variants_stocks_warehouse;
 }
 
+export interface ProductUpdate_productUpdate_product_variants_preorder {
+  __typename: "PreorderData";
+  globalThreshold: number | null;
+  globalSoldUnits: number;
+  endDate: any | null;
+}
+
 export interface ProductUpdate_productUpdate_product_variants_channelListings_channel {
   __typename: "Channel";
   id: string;
@@ -283,23 +260,32 @@ export interface ProductUpdate_productUpdate_product_variants_channelListings_co
   currency: string;
 }
 
+export interface ProductUpdate_productUpdate_product_variants_channelListings_preorderThreshold {
+  __typename: "PreorderThreshold";
+  quantity: number | null;
+  soldUnits: number;
+}
+
 export interface ProductUpdate_productUpdate_product_variants_channelListings {
   __typename: "ProductVariantChannelListing";
   channel: ProductUpdate_productUpdate_product_variants_channelListings_channel;
   price: ProductUpdate_productUpdate_product_variants_channelListings_price | null;
   costPrice: ProductUpdate_productUpdate_product_variants_channelListings_costPrice | null;
+  preorderThreshold: ProductUpdate_productUpdate_product_variants_channelListings_preorderThreshold | null;
 }
 
 export interface ProductUpdate_productUpdate_product_variants {
   __typename: "ProductVariant";
   id: string;
-  sku: string;
+  sku: string | null;
   name: string;
   margin: number | null;
   media: ProductUpdate_productUpdate_product_variants_media[] | null;
   stocks: (ProductUpdate_productUpdate_product_variants_stocks | null)[] | null;
   trackInventory: boolean;
+  preorder: ProductUpdate_productUpdate_product_variants_preorder | null;
   channelListings: ProductUpdate_productUpdate_product_variants_channelListings[] | null;
+  quantityLimitPerCustomer: number | null;
 }
 
 export interface ProductUpdate_productUpdate_product_weight {

@@ -1,12 +1,16 @@
+import { gql } from "@apollo/client";
 import { productTypeDetailsFragment } from "@saleor/fragments/productTypes";
 import makeMutation from "@saleor/hooks/makeMutation";
-import gql from "graphql-tag";
 
 import { TypedMutation } from "../mutations";
 import {
   AssignProductAttribute,
   AssignProductAttributeVariables
 } from "./types/AssignProductAttribute";
+import {
+  ProductAttributeAssignmentUpdate,
+  ProductAttributeAssignmentUpdateVariables
+} from "./types/ProductAttributeAssignmentUpdate";
 import {
   ProductTypeAttributeReorder,
   ProductTypeAttributeReorderVariables
@@ -170,3 +174,30 @@ export const ProductTypeAttributeReorderMutation = TypedMutation<
   ProductTypeAttributeReorder,
   ProductTypeAttributeReorderVariables
 >(productTypeAttributeReorder);
+
+export const productAttributeAssignmentUpdate = gql`
+  ${productTypeDetailsFragment}
+  mutation ProductAttributeAssignmentUpdate(
+    $operations: [ProductAttributeAssignmentUpdateInput]!
+    $productTypeId: ID!
+  ) {
+    productAttributeAssignmentUpdate(
+      operations: $operations
+      productTypeId: $productTypeId
+    ) {
+      errors {
+        field
+        message
+        attributes
+      }
+      productType {
+        ...ProductTypeDetailsFragment
+      }
+    }
+  }
+`;
+
+export const useProductAttributeAssignmentUpdateMutation = makeMutation<
+  ProductAttributeAssignmentUpdate,
+  ProductAttributeAssignmentUpdateVariables
+>(productAttributeAssignmentUpdate);

@@ -21,7 +21,10 @@ import useNotifier from "@saleor/hooks/useNotifier";
 import useOnSetDefaultVariant from "@saleor/hooks/useOnSetDefaultVariant";
 import useShop from "@saleor/hooks/useShop";
 import { commonMessages } from "@saleor/intl";
-import { useProductVariantChannelListingUpdate } from "@saleor/products/mutations";
+import {
+  useProductVariantChannelListingUpdate,
+  useProductVariantPreorderDeactivateMutation
+} from "@saleor/products/mutations";
 import { ProductVariantDetails_productVariant } from "@saleor/products/types/ProductVariantDetails";
 import usePageSearch from "@saleor/searches/usePageSearch";
 import useProductSearch from "@saleor/searches/useProductSearch";
@@ -38,7 +41,7 @@ import { warehouseAddPath } from "@saleor/warehouses/urls";
 import React, { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 
-import { weight } from "../../misc";
+import { extractMutationErrors, weight } from "../../misc";
 import ProductVariantDeleteDialog from "../components/ProductVariantDeleteDialog";
 import ProductVariantPage from "../components/ProductVariantPage";
 import { ProductVariantUpdateSubmitData } from "../components/ProductVariantPage/form";
@@ -155,26 +158,41 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
     data: ProductVariantUpdateSubmitData,
     variant: ProductVariantDetails_productVariant
   ) => {
-    const isChannelPriceChange = data.channelListings.some(channel => {
+    const channelsHaveChanged = data.channelListings.some(channel => {
       const variantChannel = variant.channelListings.find(
         variantChannel => variantChannel.channel.id === channel.id
       );
+
+      const priceHasChanged =
+        channel.value.price !== variantChannel?.price?.amount.toString();
+
+      const costPriceHasChanged =
+        channel.value.costPrice !==
+        variantChannel?.costPrice?.amount.toString();
+
+      const preorderThresholdHasChanged =
+        channel.value?.preorderThreshold !==
+        variantChannel.preorderThreshold.quantity;
+
       return (
-        channel.value.price !== variantChannel?.price?.amount.toString() ||
-        channel.value.costPrice !== variantChannel?.costPrice?.amount.toString()
+        priceHasChanged || costPriceHasChanged || preorderThresholdHasChanged
       );
     });
-    if (isChannelPriceChange) {
-      await updateChannels({
-        variables: {
-          id: variant.id,
-          input: data.channelListings.map(listing => ({
-            channelId: listing.id,
-            costPrice: listing.value.costPrice || null,
-            price: listing.value.price
-          }))
-        }
-      });
+
+    if (channelsHaveChanged) {
+      return extractMutationErrors(
+        updateChannels({
+          variables: {
+            id: variant.id,
+            input: data.channelListings.map(listing => ({
+              channelId: listing.id,
+              costPrice: listing.value.costPrice || null,
+              price: listing.value.price,
+              preorderThreshold: listing.value.preorderThreshold
+            }))
+          }
+        })
+      );
     }
   };
 
@@ -184,6 +202,13 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
   if (variant === null) {
     return <NotFoundPage onBack={handleBack} />;
   }
+
+  const [
+    deactivatePreorder,
+    deactivatePreoderOpts
+  ] = useProductVariantPreorderDeactivateMutation({});
+  const handleDeactivateVariantPreorder = (id: string) =>
+    deactivatePreorder({ variables: { id } });
 
   const [
     reorderProductVariants,
@@ -204,6 +229,7 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
     updateVariantOpts.loading ||
     assignMediaOpts.loading ||
     unassignMediaOpts.loading ||
+    deactivatePreoderOpts.loading ||
     reorderProductVariantsOpts.loading ||
     deleteAttributeValueOpts.loading;
 
@@ -254,8 +280,17 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
         id: variantId,
         removeStocks: data.removeStocks,
         sku: data.sku,
+        quantityLimitPerCustomer: Number(data.quantityLimitPerCustomer) || null,
         stocks: data.updateStocks.map(mapFormsetStockToStockInput),
         trackInventory: data.trackInventory,
+        preorder: data.isPreorder
+          ? {
+              globalThreshold: data.globalThreshold
+                ? parseInt(data.globalThreshold, 10)
+                : null,
+              endDate: data?.preorderEndDateTime || null
+            }
+          : null,
         weight: weight(data.weight),
         firstValues: 10
       }
@@ -352,13 +387,16 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
         onDelete={() => openModal("remove")}
         onMediaSelect={handleMediaSelect}
         onSubmit={async data => {
-          await handleSubmit(data);
-          await handleSubmitChannels(data, variant);
+          const errors = await handleSubmit(data);
+          const channelErrors = await handleSubmitChannels(data, variant);
+          return [...errors, ...channelErrors];
         }}
         onWarehouseConfigure={() => navigate(warehouseAddPath)}
         onVariantClick={variantId => {
           navigate(productVariantEditUrl(productId, variantId));
         }}
+        onVariantPreorderDeactivate={handleDeactivateVariantPreorder}
+        variantDeactivatePreoderButtonState={deactivatePreoderOpts.status}
         onVariantReorder={handleVariantReorder}
         assignReferencesAttributeId={
           params.action === "assign-attribute-value" && params.id

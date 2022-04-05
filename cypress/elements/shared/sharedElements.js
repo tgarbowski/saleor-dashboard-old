@@ -20,7 +20,7 @@ export const SHARED_ELEMENTS = {
   contentEditable: '[contenteditable="true"]',
   filters: {
     filterGroupActivateCheckbox: '[data-test-id*="filter-group-active"]',
-    filterRow: '[data-test-id="channel-availability-item"]'
+    filterRow: '[data-test-id*="channel-availability-item"]'
   },
   warningDialog: '[data-test-id="warning-dialog"]'
 };

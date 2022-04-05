@@ -133,7 +133,7 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
               <FormattedMessage defaultMessage="Product Type" />
             </Typography>
             <Link
-              href={productTypeUrl(productType?.id)}
+              href={productTypeUrl(productType?.id) ?? ""}
               disabled={!productType?.id}
             >
               {productType?.name ?? "..."}

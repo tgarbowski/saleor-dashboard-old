@@ -1,5 +1,5 @@
-// / <reference types="cypress"/>
-// / <reference types="../../support"/>
+/// <reference types="cypress"/>
+/// <reference types="../../support"/>
 
 import { urlList } from "../../fixtures/urlList";
 import { TEST_ADMIN_USER, USER_WITHOUT_NAME } from "../../fixtures/users";

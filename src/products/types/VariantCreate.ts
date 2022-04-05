@@ -49,10 +49,11 @@ export interface VariantCreate_productVariantCreate_productVariant_selectionAttr
   slug: string | null;
   file: VariantCreate_productVariantCreate_productVariant_selectionAttributes_attribute_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface VariantCreate_productVariantCreate_productVariant_selectionAttributes_attribute_choices_edges {
@@ -92,10 +93,11 @@ export interface VariantCreate_productVariantCreate_productVariant_selectionAttr
   slug: string | null;
   file: VariantCreate_productVariantCreate_productVariant_selectionAttributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface VariantCreate_productVariantCreate_productVariant_selectionAttributes {
@@ -125,10 +127,11 @@ export interface VariantCreate_productVariantCreate_productVariant_nonSelectionA
   slug: string | null;
   file: VariantCreate_productVariantCreate_productVariant_nonSelectionAttributes_attribute_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface VariantCreate_productVariantCreate_productVariant_nonSelectionAttributes_attribute_choices_edges {
@@ -168,10 +171,11 @@ export interface VariantCreate_productVariantCreate_productVariant_nonSelectionA
   slug: string | null;
   file: VariantCreate_productVariantCreate_productVariant_nonSelectionAttributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface VariantCreate_productVariantCreate_productVariant_nonSelectionAttributes {
@@ -215,45 +219,11 @@ export interface VariantCreate_productVariantCreate_productVariant_product_chann
   currencyCode: string;
 }
 
-export interface VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange_start_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange_start {
-  __typename: "TaxedMoney";
-  net: VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange_start_net;
-}
-
-export interface VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange_stop_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange_stop {
-  __typename: "TaxedMoney";
-  net: VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange_stop_net;
-}
-
-export interface VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange {
-  __typename: "TaxedMoneyRange";
-  start: VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange_start | null;
-  stop: VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange_stop | null;
-}
-
-export interface VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing {
-  __typename: "ProductPricingInfo";
-  priceRange: VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing_priceRange | null;
-}
-
 export interface VariantCreate_productVariantCreate_productVariant_product_channelListings {
   __typename: "ProductChannelListing";
   publicationDate: any | null;
   isPublished: boolean;
   channel: VariantCreate_productVariantCreate_productVariant_product_channelListings_channel;
-  pricing: VariantCreate_productVariantCreate_productVariant_product_channelListings_pricing | null;
 }
 
 export interface VariantCreate_productVariantCreate_productVariant_product_variants_media {
@@ -268,7 +238,7 @@ export interface VariantCreate_productVariantCreate_productVariant_product_varia
   __typename: "ProductVariant";
   id: string;
   name: string;
-  sku: string;
+  sku: string | null;
   media: VariantCreate_productVariantCreate_productVariant_product_variants_media[] | null;
 }
 
@@ -302,11 +272,18 @@ export interface VariantCreate_productVariantCreate_productVariant_channelListin
   currency: string;
 }
 
+export interface VariantCreate_productVariantCreate_productVariant_channelListings_preorderThreshold {
+  __typename: "PreorderThreshold";
+  quantity: number | null;
+  soldUnits: number;
+}
+
 export interface VariantCreate_productVariantCreate_productVariant_channelListings {
   __typename: "ProductVariantChannelListing";
   channel: VariantCreate_productVariantCreate_productVariant_channelListings_channel;
   price: VariantCreate_productVariantCreate_productVariant_channelListings_price | null;
   costPrice: VariantCreate_productVariantCreate_productVariant_channelListings_costPrice | null;
+  preorderThreshold: VariantCreate_productVariantCreate_productVariant_channelListings_preorderThreshold | null;
 }
 
 export interface VariantCreate_productVariantCreate_productVariant_stocks_warehouse {
@@ -321,6 +298,13 @@ export interface VariantCreate_productVariantCreate_productVariant_stocks {
   quantity: number;
   quantityAllocated: number;
   warehouse: VariantCreate_productVariantCreate_productVariant_stocks_warehouse;
+}
+
+export interface VariantCreate_productVariantCreate_productVariant_preorder {
+  __typename: "PreorderData";
+  globalThreshold: number | null;
+  globalSoldUnits: number;
+  endDate: any | null;
 }
 
 export interface VariantCreate_productVariantCreate_productVariant_weight {
@@ -340,10 +324,12 @@ export interface VariantCreate_productVariantCreate_productVariant {
   name: string;
   product: VariantCreate_productVariantCreate_productVariant_product;
   channelListings: VariantCreate_productVariantCreate_productVariant_channelListings[] | null;
-  sku: string;
+  sku: string | null;
   stocks: (VariantCreate_productVariantCreate_productVariant_stocks | null)[] | null;
   trackInventory: boolean;
+  preorder: VariantCreate_productVariantCreate_productVariant_preorder | null;
   weight: VariantCreate_productVariantCreate_productVariant_weight | null;
+  quantityLimitPerCustomer: number | null;
 }
 
 export interface VariantCreate_productVariantCreate {

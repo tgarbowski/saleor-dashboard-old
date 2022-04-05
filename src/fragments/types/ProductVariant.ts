@@ -42,10 +42,11 @@ export interface ProductVariant_selectionAttributes_attribute_choices_edges_node
   slug: string | null;
   file: ProductVariant_selectionAttributes_attribute_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductVariant_selectionAttributes_attribute_choices_edges {
@@ -85,10 +86,11 @@ export interface ProductVariant_selectionAttributes_values {
   slug: string | null;
   file: ProductVariant_selectionAttributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductVariant_selectionAttributes {
@@ -118,10 +120,11 @@ export interface ProductVariant_nonSelectionAttributes_attribute_choices_edges_n
   slug: string | null;
   file: ProductVariant_nonSelectionAttributes_attribute_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductVariant_nonSelectionAttributes_attribute_choices_edges {
@@ -161,10 +164,11 @@ export interface ProductVariant_nonSelectionAttributes_values {
   slug: string | null;
   file: ProductVariant_nonSelectionAttributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface ProductVariant_nonSelectionAttributes {
@@ -208,45 +212,11 @@ export interface ProductVariant_product_channelListings_channel {
   currencyCode: string;
 }
 
-export interface ProductVariant_product_channelListings_pricing_priceRange_start_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface ProductVariant_product_channelListings_pricing_priceRange_start {
-  __typename: "TaxedMoney";
-  net: ProductVariant_product_channelListings_pricing_priceRange_start_net;
-}
-
-export interface ProductVariant_product_channelListings_pricing_priceRange_stop_net {
-  __typename: "Money";
-  amount: number;
-  currency: string;
-}
-
-export interface ProductVariant_product_channelListings_pricing_priceRange_stop {
-  __typename: "TaxedMoney";
-  net: ProductVariant_product_channelListings_pricing_priceRange_stop_net;
-}
-
-export interface ProductVariant_product_channelListings_pricing_priceRange {
-  __typename: "TaxedMoneyRange";
-  start: ProductVariant_product_channelListings_pricing_priceRange_start | null;
-  stop: ProductVariant_product_channelListings_pricing_priceRange_stop | null;
-}
-
-export interface ProductVariant_product_channelListings_pricing {
-  __typename: "ProductPricingInfo";
-  priceRange: ProductVariant_product_channelListings_pricing_priceRange | null;
-}
-
 export interface ProductVariant_product_channelListings {
   __typename: "ProductChannelListing";
   publicationDate: any | null;
   isPublished: boolean;
   channel: ProductVariant_product_channelListings_channel;
-  pricing: ProductVariant_product_channelListings_pricing | null;
 }
 
 export interface ProductVariant_product_variants_media {
@@ -261,7 +231,7 @@ export interface ProductVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
-  sku: string;
+  sku: string | null;
   media: ProductVariant_product_variants_media[] | null;
 }
 
@@ -295,11 +265,18 @@ export interface ProductVariant_channelListings_costPrice {
   currency: string;
 }
 
+export interface ProductVariant_channelListings_preorderThreshold {
+  __typename: "PreorderThreshold";
+  quantity: number | null;
+  soldUnits: number;
+}
+
 export interface ProductVariant_channelListings {
   __typename: "ProductVariantChannelListing";
   channel: ProductVariant_channelListings_channel;
   price: ProductVariant_channelListings_price | null;
   costPrice: ProductVariant_channelListings_costPrice | null;
+  preorderThreshold: ProductVariant_channelListings_preorderThreshold | null;
 }
 
 export interface ProductVariant_stocks_warehouse {
@@ -314,6 +291,13 @@ export interface ProductVariant_stocks {
   quantity: number;
   quantityAllocated: number;
   warehouse: ProductVariant_stocks_warehouse;
+}
+
+export interface ProductVariant_preorder {
+  __typename: "PreorderData";
+  globalThreshold: number | null;
+  globalSoldUnits: number;
+  endDate: any | null;
 }
 
 export interface ProductVariant_weight {
@@ -333,8 +317,10 @@ export interface ProductVariant {
   name: string;
   product: ProductVariant_product;
   channelListings: ProductVariant_channelListings[] | null;
-  sku: string;
+  sku: string | null;
   stocks: (ProductVariant_stocks | null)[] | null;
   trackInventory: boolean;
+  preorder: ProductVariant_preorder | null;
   weight: ProductVariant_weight | null;
+  quantityLimitPerCustomer: number | null;
 }

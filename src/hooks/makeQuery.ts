@@ -1,10 +1,15 @@
+import {
+  ApolloError,
+  ApolloQueryResult,
+  QueryResult,
+  useQuery as useBaseQuery,
+  WatchQueryFetchPolicy
+} from "@apollo/client";
 import { handleQueryAuthError } from "@saleor/auth";
 import { useUser } from "@saleor/auth";
 import { RequireAtLeastOne } from "@saleor/misc";
-import { ApolloQueryResult } from "apollo-client";
 import { DocumentNode } from "graphql";
 import { useEffect } from "react";
-import { QueryResult, useQuery as useBaseQuery } from "react-apollo";
 import { useIntl } from "react-intl";
 
 import { User_userPermissions } from "../fragments/types/User";
@@ -46,9 +51,11 @@ export type UseQueryOpts<TVariables> = Partial<{
   displayLoader: boolean;
   skip: boolean;
   variables: TVariables;
+  fetchPolicy: WatchQueryFetchPolicy;
+  handleError?: (error: ApolloError) => void | undefined;
 }>;
 type UseQueryHook<TData, TVariables> = (
-  opts: UseQueryOpts<Omit<TVariables, PrefixedPermissions>>
+  opts?: UseQueryOpts<Omit<TVariables, PrefixedPermissions>>
 ) => UseQueryResult<TData, TVariables>;
 
 function makeQuery<TData, TVariables>(
@@ -57,8 +64,10 @@ function makeQuery<TData, TVariables>(
   function useQuery({
     displayLoader,
     skip,
-    variables
-  }: UseQueryOpts<TVariables>): UseQueryResult<TData, TVariables> {
+    variables,
+    fetchPolicy,
+    handleError
+  }: UseQueryOpts<TVariables> = {}): UseQueryResult<TData, TVariables> {
     const notify = useNotifier();
     const intl = useIntl();
     const [, dispatchAppState] = useAppState();
@@ -78,8 +87,14 @@ function makeQuery<TData, TVariables>(
         useBatching: true
       },
       errorPolicy: "all",
-      fetchPolicy: "cache-and-network",
-      onError: error => handleQueryAuthError(error, notify, user.logout, intl),
+      fetchPolicy: fetchPolicy || "cache-and-network",
+      onError: error => {
+        if (!!handleError) {
+          handleError(error);
+        } else {
+          handleQueryAuthError(error, notify, user.logout, intl);
+        }
+      },
       skip,
       variables: variablesWithPermissions
     });

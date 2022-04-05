@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 import { fragmentAddress } from "./address";
 
@@ -41,5 +41,8 @@ export const shopFragment = gql`
       host
     }
     name
+    reserveStockDurationAnonymousUser
+    reserveStockDurationAuthenticatedUser
+    limitQuantityPerCheckout
   }
 `;

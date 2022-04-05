@@ -2,7 +2,6 @@ import {
   getAttributeValuesFromReferences,
   mergeAttributeValues
 } from "@saleor/attributes/utils/data";
-import { ChannelPriceData } from "@saleor/channels/utils";
 import AssignAttributeValueDialog from "@saleor/components/AssignAttributeValueDialog";
 import Attributes, {
   AttributeInput,
@@ -28,6 +27,7 @@ import { defineMessages, useIntl } from "react-intl";
 import { ProductVariantCreateData_product } from "../../types/ProductVariantCreateData";
 import ProductShipping from "../ProductShipping/ProductShipping";
 import ProductStocks from "../ProductStocks";
+import ProductVariantCheckoutSettings from "../ProductVariantCheckoutSettings/ProductVariantCheckoutSettings";
 import ProductVariantNavigation from "../ProductVariantNavigation";
 import ProductVariantPrice from "../ProductVariantPrice";
 import ProductVariantCreateForm, {
@@ -60,7 +60,6 @@ const messages = defineMessages({
 });
 
 interface ProductVariantCreatePageProps {
-  channels: ChannelPriceData[];
   disabled: boolean;
   errors: ProductErrorWithAttributesFragment[];
   header: string;
@@ -89,7 +88,6 @@ interface ProductVariantCreatePageProps {
 }
 
 const ProductVariantCreatePage: React.FC<ProductVariantCreatePageProps> = ({
-  channels,
   disabled,
   errors,
   header,
@@ -141,7 +139,6 @@ const ProductVariantCreatePage: React.FC<ProductVariantCreatePageProps> = ({
       product={product}
       onSubmit={onSubmit}
       warehouses={warehouses}
-      currentChannels={channels}
       referencePages={referencePages}
       referenceProducts={referenceProducts}
       fetchReferencePages={fetchReferencePages}
@@ -150,7 +147,14 @@ const ProductVariantCreatePage: React.FC<ProductVariantCreatePageProps> = ({
       fetchMoreReferenceProducts={fetchMoreReferenceProducts}
       assignReferencesAttributeId={assignReferencesAttributeId}
     >
-      {({ change, data, disabled: formDisabled, handlers, submit }) => (
+      {({
+        change,
+        data,
+        formErrors,
+        disabled: formDisabled,
+        handlers,
+        submit
+      }) => (
         <Container>
           <Backlink onClick={onBack}>{product?.name}</Backlink>
           <PageHeader title={header} />
@@ -212,6 +216,13 @@ const ProductVariantCreatePage: React.FC<ProductVariantCreatePageProps> = ({
                 onAttributeSelectBlur={onAttributeSelectBlur}
               />
               <CardSpacer />
+              <ProductVariantCheckoutSettings
+                data={data}
+                disabled={disabled}
+                errors={errors}
+                onChange={change}
+              />
+              <CardSpacer />
               <ProductShipping
                 data={data}
                 disabled={disabled}
@@ -229,10 +240,12 @@ const ProductVariantCreatePage: React.FC<ProductVariantCreatePageProps> = ({
                 disabled={disabled}
                 hasVariants={true}
                 onFormDataChange={change}
+                formErrors={formErrors}
                 errors={errors}
                 stocks={data.stocks}
                 warehouses={warehouses}
                 onChange={handlers.changeStock}
+                onChangePreorderEndDate={handlers.changePreorderEndDate}
                 onWarehouseStockAdd={handlers.addStock}
                 onWarehouseStockDelete={handlers.deleteStock}
                 onWarehouseConfigure={onWarehouseConfigure}

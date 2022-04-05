@@ -26,7 +26,12 @@ import FilterContentHeader from "./FilterContentHeader";
 import FilterErrorsList from "./FilterErrorsList";
 
 const useExpanderStyles = makeStyles(
-  () => ({
+  theme => ({
+    btn: {
+      border: "none",
+      marginRight: theme.spacing(1)
+    },
+
     expanded: {},
     root: {
       boxShadow: "none",
@@ -119,7 +124,7 @@ const FilterContent: React.FC<FilterContentProps> = ({
       if (filterField.multipleFields) {
         return filterField.multipleFields.reduce(
           getAutocompleteValuesWithNewValues,
-          {}
+          acc
         );
       }
 
@@ -211,10 +216,16 @@ const FilterContent: React.FC<FilterContentProps> = ({
               <Accordion
                 key={filter.name}
                 classes={expanderClasses}
-                data-test-id="channel-availability-item"
+                data-test-id={"channel-availability-item-" + filter.name}
                 expanded={filter.name === openedFilter?.name}
               >
                 <AccordionSummary
+                  IconButtonProps={{
+                    classes: {
+                      root: expanderClasses.btn
+                    },
+                    disableRipple: true
+                  }}
                   expandIcon={<IconChevronDown />}
                   classes={summaryClasses}
                   onClick={() => handleFilterOpen(filter)}

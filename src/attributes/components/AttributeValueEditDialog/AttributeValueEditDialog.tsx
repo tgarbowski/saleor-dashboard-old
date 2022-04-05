@@ -13,14 +13,14 @@ import { AttributeErrorFragment } from "@saleor/fragments/types/AttributeErrorFr
 import useModalDialogErrors from "@saleor/hooks/useModalDialogErrors";
 import { buttonMessages } from "@saleor/intl";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
-import { maybe } from "@saleor/misc";
+import { AttributeInputTypeEnum } from "@saleor/types/globalTypes";
 import { getFormErrors } from "@saleor/utils/errors";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-export interface AttributeValueEditDialogFormData {
-  name: string;
-}
+import { AttributeValueEditDialogFormData } from "../../utils/data";
+import AttributeSwatchField from "../AttributeSwatchField";
+
 export interface AttributeValueEditDialogProps {
   attributeValue: AttributeValueEditDialogFormData | null;
   confirmButtonState: ConfirmButtonTransitionState;
@@ -29,6 +29,7 @@ export interface AttributeValueEditDialogProps {
   open: boolean;
   onSubmit: (data: AttributeValueEditDialogFormData) => void;
   onClose: () => void;
+  inputType?: AttributeInputTypeEnum;
 }
 
 const AttributeValueEditDialog: React.FC<AttributeValueEditDialogProps> = ({
@@ -38,14 +39,24 @@ const AttributeValueEditDialog: React.FC<AttributeValueEditDialogProps> = ({
   errors: apiErrors,
   onClose,
   onSubmit,
-  open
+  open,
+  inputType
 }) => {
   const intl = useIntl();
+  const attributeValueFields = attributeValue?.fileUrl
+    ? {
+        fileUrl: attributeValue?.fileUrl,
+        contentType: attributeValue?.contentType
+      }
+    : { value: attributeValue?.value ?? "" };
+
   const initialForm: AttributeValueEditDialogFormData = {
-    name: maybe(() => attributeValue.name, "")
+    name: attributeValue?.name ?? "",
+    ...attributeValueFields
   };
   const errors = useModalDialogErrors(apiErrors, open);
   const formErrors = getFormErrors(["name"], errors);
+  const isSwatch = inputType === AttributeInputTypeEnum.SWATCH;
 
   return (
     <Dialog onClose={onClose} open={open} fullWidth maxWidth="sm">
@@ -63,7 +74,7 @@ const AttributeValueEditDialog: React.FC<AttributeValueEditDialogProps> = ({
         )}
       </DialogTitle>
       <Form initial={initialForm} onSubmit={onSubmit}>
-        {({ change, data, submit }) => (
+        {({ errors, set, change, clearErrors, setError, data, submit }) => (
           <>
             <DialogContent>
               <TextField
@@ -84,6 +95,15 @@ const AttributeValueEditDialog: React.FC<AttributeValueEditDialogProps> = ({
                 value={data.name}
                 onChange={change}
               />
+              {isSwatch && (
+                <AttributeSwatchField
+                  data={data}
+                  errors={errors}
+                  clearErrors={clearErrors}
+                  setError={setError}
+                  set={set}
+                />
+              )}
             </DialogContent>
             <DialogActions>
               <BackButton onClick={onClose} />

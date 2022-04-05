@@ -52,7 +52,8 @@ export const attribute: AttributeDetails_attribute = {
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       },
       {
@@ -68,7 +69,8 @@ export const attribute: AttributeDetails_attribute = {
           richText: null,
           boolean: null,
           date: null,
-          dateTime: null
+          dateTime: null,
+          value: null
         }
       }
     ]
@@ -88,6 +90,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "author",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -150,6 +153,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "box-size",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -248,6 +252,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "brand",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -292,6 +297,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "candy-box-size",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -372,6 +378,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "coffee-genre",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -434,6 +441,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "collar",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -514,6 +522,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "color",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -576,6 +585,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "cover",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -710,6 +720,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "flavor",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -772,6 +783,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "language",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -834,6 +846,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       slug: "publisher",
       type: AttributeTypeEnum.PRODUCT_TYPE,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       unit: null,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
@@ -897,6 +910,7 @@ export const attributes: Array<AttributeList_attributes_edges_node &
       type: AttributeTypeEnum.PRODUCT_TYPE,
       unit: null,
       inputType: AttributeInputTypeEnum.DROPDOWN,
+      valueRequired: false,
       choices: {
         __typename: "AttributeValueCountableConnection" as "AttributeValueCountableConnection",
         pageInfo: {

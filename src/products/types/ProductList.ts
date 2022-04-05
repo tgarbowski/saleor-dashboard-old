@@ -91,10 +91,10 @@ export interface ProductList_products_edges_node_attributes_values {
   slug: string | null;
   file: ProductList_products_edges_node_attributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
 }
 
 export interface ProductList_products_edges_node_attributes {
@@ -113,7 +113,7 @@ export interface ProductList_products_edges_node {
   updatedAt: any | null;
   attributes: ProductList_products_edges_node_attributes[];
   jsonPrivateMetadata: any;
-  createdAt: any | null;
+  created: any | null;
   privateMetadata: ProductPrivateMetadataData_privateMetadata[];
 }
 
@@ -149,4 +149,6 @@ export interface ProductListVariables {
   filter?: ProductFilterInput | null;
   channel?: string | null;
   sort?: ProductOrder | null;
+  hasChannel: boolean;
+  hasSelectedAttributes: boolean;
 }

@@ -37,10 +37,11 @@ export interface PageUpdate_pageUpdate_page_attributes_attribute_choices_edges_n
   slug: string | null;
   file: PageUpdate_pageUpdate_page_attributes_attribute_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface PageUpdate_pageUpdate_page_attributes_attribute_choices_edges {
@@ -80,10 +81,11 @@ export interface PageUpdate_pageUpdate_page_attributes_values {
   slug: string | null;
   file: PageUpdate_pageUpdate_page_attributes_values_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface PageUpdate_pageUpdate_page_attributes {
@@ -113,10 +115,11 @@ export interface PageUpdate_pageUpdate_page_pageType_attributes_choices_edges_no
   slug: string | null;
   file: PageUpdate_pageUpdate_page_pageType_attributes_choices_edges_node_file | null;
   reference: string | null;
-  richText: any | null;
   boolean: boolean | null;
   date: any | null;
   dateTime: any | null;
+  value: string | null;
+  richText: any | null;
 }
 
 export interface PageUpdate_pageUpdate_page_pageType_attributes_choices_edges {
