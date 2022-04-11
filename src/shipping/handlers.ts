@@ -314,3 +314,38 @@ export function isRestWorldCountriesSelected(
     restWorldCountries?.every(countryCode => countrySelectionMap[countryCode])
   );
 }
+
+export interface PackageData {
+  weight: string;
+  size1: string;
+  size2: string;
+  size3: string;
+  fieldIndex: number;
+}
+
+export const checkIfParcelDialogCorrect = (formData: PackageData[]) => {
+  let dataCorrect: boolean = true;
+  formData.forEach(element => {
+    if (
+      isNaN(parseFloat(element.size1)) ||
+      isNaN(parseFloat(element.size2)) ||
+      isNaN(parseFloat(element.size3)) ||
+      isNaN(parseFloat(element.weight))
+    ) {
+      dataCorrect = false;
+    }
+  });
+  return dataCorrect;
+};
+
+export const downloadBase64File = (
+  contentType: string,
+  base64Data: string,
+  fileName: string
+) => {
+  const linkSource = `data:${contentType};base64,${base64Data}`;
+  const downloadLink = document.createElement("a");
+  downloadLink.href = linkSource;
+  downloadLink.download = fileName;
+  downloadLink.click();
+};

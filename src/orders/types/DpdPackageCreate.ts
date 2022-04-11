@@ -5,58 +5,33 @@
 import { CountryCode } from "@saleor/types/globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: DpdPackageCreate
+// GraphQL mutation operation: PackageCreate
 // ====================================================
 
-export interface DpdPackage_packageCreated {
-  packageId:  number;
-  parcelIds: number[];
-  waybills: string[];
-  status: string;
-}
-
-export interface DpdPackage {
-  dpdPackageCreate: DpdPackage_packageCreated;
-}
-
-
-export interface DpdPackage_senderData {
-  company?: string | null;
-  address?: string | null;
-  city?: string | null;
-  email?: string | null;
-  countryCode?: CountryCode | string | null;
-  phone?: string | null;
-  fid?: string | null;
-  postalCode?: string | null;
-
-}
-
-export interface DpdPackage_receivedData {
-  company?: string | null;
-  address?: string | null;
-  city?: string | null;
-  email?: string | null;
-  countryCode?: CountryCode | string | null;
-  phone?: string | null;
-  postalCode?: string | null;
-}
-
-export interface DpdPackage_parcelData{
+export interface Package_parcelData{
   weight: number;
-  content: string;
   sizeX: number;
   sizeY: number;
   sizeZ: number;
 }
 
-export interface DpdPackage_input {
-    senderData: DpdPackage_senderData;
-    receiverData: DpdPackage_receivedData;
-    packageData: DpdPackage_parcelData[];
-    fulfillment: string;
+export interface Package_packageCreated {
+  packageId:  number;
+  //parcelIds: number[];
+  //status: string;
 }
 
-export interface DpdPackageVariables {
-  input: DpdPackage_input;
+export interface Package {
+  packageCreate: Package_packageCreated;
+}
+
+
+export interface Package_input {
+  packageData: Package_parcelData[];
+  fulfillment: string;
+  order: string;
+}
+
+export interface PackageVariables {
+  input: Package_input;
 }

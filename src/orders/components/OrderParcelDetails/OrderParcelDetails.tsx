@@ -25,7 +25,7 @@ import { nameInputPrefix, nameSeparator } from "@saleor/components/Metadata";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { buttonMessages } from "@saleor/intl";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
-import { PackageData } from "@saleor/orders/views/OrderDetails";
+import { PackageData } from "@saleor/shipping/handlers";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -152,7 +152,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   const autogenerateIndex = () => packageData.length;
   const onParcelAdd = () => {
     packageData.push({
-      content: "Ubrania",
       fieldIndex: autogenerateIndex(),
       size1: "",
       size2: "",
@@ -287,19 +286,19 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                     </TableCell>
                     <TableCell className={classes.colValue}>
                       <FormattedMessage
-                        defaultMessage="Wymiar 1"
+                        defaultMessage="Długość"
                         description="metadata field value, header"
                       />
                     </TableCell>
                     <TableCell className={classes.colValue}>
                       <FormattedMessage
-                        defaultMessage="Wymiar 2"
+                        defaultMessage="Szerokość"
                         description="metadata field value, header"
                       />
                     </TableCell>
                     <TableCell className={classes.colValue}>
                       <FormattedMessage
-                        defaultMessage="Wymiar 3"
+                        defaultMessage="Wysokość"
                         description="metadata field value, header"
                       />
                     </TableCell>
@@ -325,25 +324,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                               "weight"
                             )
                           }
-                        />
-                      </TableCell>
-                      <TableCell className={classes.colName}>
-                        <TextField
-                          InputProps={{
-                            classes: {
-                              input: classes.nameInput
-                            }
-                          }}
-                          name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
-                          fullWidth
-                          onChange={event =>
-                            onParcelChange(
-                              element.fieldIndex,
-                              event.target.value,
-                              "content"
-                            )
-                          }
-                          defaultValue={element.content}
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>

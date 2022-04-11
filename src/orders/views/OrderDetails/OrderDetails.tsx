@@ -31,19 +31,12 @@ import { OrderDraftDetails } from "./OrderDraftDetails";
 import { OrderNormalDetails } from "./OrderNormalDetails";
 import { OrderUnconfirmedDetails } from "./OrderUnconfirmedDetails";
 import {
-  useDpdLabelCreateMutation,
-  useDpdPackageCreateMutation
+  useLabelCreateMutation,
+  usePackageCreateMutation,
+    
 } from "@saleor/orders/mutations";
 import useShop from "@saleor/hooks/useShop";
-
-export interface PackageData {
-  weight: string;
-  content: string;
-  size1: string;
-  size2: string;
-  size3: string;
-  fieldIndex: number;
-}
+import { checkIfParcelDialogCorrect, downloadBase64File, PackageData } from "@saleor/shipping/handlers";
 
 interface OrderDetailsProps {
   id: string;
@@ -83,9 +76,9 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
     }
   });
 
-  const [dpdLabelCreate] = useDpdLabelCreateMutation({});
+  const [labelCreate] = useLabelCreateMutation({});
 
-  const [dpdPackageCreate] = useDpdPackageCreateMutation({
+  const [packageCreate] = usePackageCreateMutation({
     onCompleted: data => {
       notify({
         status: "success",
@@ -95,33 +88,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
       return data;
     }
   });
-
-  const checkIfParcelDialogCorrect = (formData: PackageData[]) => {
-    let dataCorrect: boolean = true;
-    formData.forEach(element => {
-      if (
-        isNaN(parseFloat(element.size1)) ||
-        isNaN(parseFloat(element.size2)) ||
-        isNaN(parseFloat(element.size3)) ||
-        isNaN(parseFloat(element.weight))
-      ) {
-        dataCorrect = false;
-      }
-    });
-    return dataCorrect;
-  };
-
-  const downloadBase64File = (
-    contentType: string,
-    base64Data: string,
-    fileName: string
-  ) => {
-    const linkSource = `data:${contentType};base64,${base64Data}`;
-    const downloadLink = document.createElement("a");
-    downloadLink.href = linkSource;
-    downloadLink.download = fileName;
-    downloadLink.click();
-  };
 
   return (
     <TypedOrderDetailsQuery displayLoader variables={{ id }}>
@@ -160,7 +126,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
 
         const initialPackageData: PackageData[] = [
           {
-            content: "Ubrania",
             fieldIndex: 0,
             size1: "",
             size2: "",
@@ -169,66 +134,38 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           }
         ];
 
-        const handleDpdPackageCreateSubmit = async (
+        const handlePackageCreateSubmit = async (
           formData: PackageData[],
           generateLabel: boolean
         ) => {
           const dataCorrect = checkIfParcelDialogCorrect(formData);
           if (dataCorrect) {
-            const result = await dpdPackageCreate({
+            const result = await packageCreate({
               variables: {
                 input: {
                   fulfillment: order?.fulfillments[0]?.id,
+                  order: order.id,
                   packageData: formData.map(data => ({
-                    content: data.content,
                     sizeX: parseInt(data.size1, 5),
                     sizeY: parseInt(data.size2, 5),
                     sizeZ: parseInt(data.size3, 5),
                     weight: parseFloat(data.weight)
-                  })),
-                  receiverData: {
-                    address:
-                      order?.shippingAddress?.streetAddress1 +
-                      order?.shippingAddress?.streetAddress2,
-                    city: order?.shippingAddress?.city,
-                    company:
-                      order?.shippingAddress?.firstName +
-                      " " +
-                      order?.shippingAddress?.lastName +
-                      order?.shippingAddress?.companyName,
-                    countryCode: order?.shippingAddress?.country?.code,
-                    email: order?.userEmail,
-                    phone: order?.shippingAddress?.phone,
-                    postalCode: order?.shippingAddress?.postalCode
-                  },
-                  senderData: {
-                    address:
-                      shop?.companyAddress?.streetAddress1 +
-                      " " +
-                      shop?.companyAddress?.streetAddress2,
-                    city: "Stargard",
-                    company: "Szczecińska 1",
-                    countryCode: order?.shippingAddress?.country?.code,
-                    email: order?.userEmail,
-                    fid: "1495",
-                    phone: "500500500",
-                    postalCode: "73-110"
-                  }
+                  }))
                 }
               }
             });
             if (generateLabel) {
-              const labelCreated = await dpdLabelCreate({
+              const labelCreated = await labelCreate({
                 variables: {
                   input: {
-                    packageId: result.data.dpdPackageCreate.packageId
+                    packageId: result.data.packageCreate.packageId
                   }
                 }
               });
               downloadBase64File(
                 "application/pdf",
-                labelCreated.data.dpdLabelCreate.label,
-                result.data.dpdPackageCreate.packageId.toString()
+                labelCreated.data.labelCreate.label,
+                result.data.packageCreate.packageId.toString()
               );
             }
             window.location.reload();
@@ -247,7 +184,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               ?.find(item => item.key === "package")
               .value.replace(/'/g, '"')
           ).id;
-          const labelCreated = await dpdLabelCreate({
+          const labelCreated = await labelCreate({
             variables: {
               input: {
                 packageId: packageIdentifier
@@ -256,7 +193,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           });
           downloadBase64File(
             "application/pdf",
-            labelCreated.data.dpdLabelCreate.label,
+            labelCreated.data.labelCreate.label,
             packageIdentifier
           );
         };
@@ -337,7 +274,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                         params={params}
                         data={data}
                         initialPackageData={initialPackageData}
-                        handleDpdPackageCreate={handleDpdPackageCreateSubmit}
+                        handlePackageCreate={handlePackageCreateSubmit}
                         onParcelLabelDownload={handleLabelDownloadOnButton}
                         orderParcelDetails={orderParcelDetails}
                         orderAddNote={orderAddNote}

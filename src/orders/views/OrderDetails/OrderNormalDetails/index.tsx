@@ -54,7 +54,7 @@ interface OrderNormalDetailsProps {
   initialPackageData: any;
   orderAddNote: any;
   orderInvoiceRequest: any;
-  handleDpdPackageCreate: any;
+  handlePackageCreate: any;
   handleSubmit: any;
   onParcelLabelDownload: () => void;
   orderUpdate: PartialMutationProviderOutput<OrderUpdate, OrderUpdateVariables>;
@@ -84,7 +84,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
   orderAddNote,
   orderInvoiceRequest,
   handleSubmit,
-  handleDpdPackageCreate,
+  handlePackageCreate,
   orderUpdate,
   orderCancel,
   orderPaymentMarkAsPaid,
@@ -348,7 +348,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
         packageData={initialPackageData}
         productWeight={order?.lines}
         shopDetails={shopData?.companyAddress}
-        onSubmit={handleDpdPackageCreate}
+        onSubmit={handlePackageCreate}
       />
       <OrderInvoiceEmailSendDialog
         confirmButtonState={orderInvoiceSend.opts.status}
