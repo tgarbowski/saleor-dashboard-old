@@ -669,7 +669,7 @@
   },
   "src_dot_apps_dot_components_dot_TokenDeleteDialog_dot_981802752": {
     "context": "delete token",
-    "string": "Are you sure you want to delete token {token}?"
+    "string": "Czy na pewno chcesz usunąć token {token}?"
   },
   "src_dot_apps_dot_views_dot_AppDetailsSettings_dot_2140018198": {
     "context": "app settings error",
@@ -2003,15 +2003,15 @@
   },
   "src_dot_components_dot_SaveFilterTabDialog_dot_1514415736": {
     "context": "save filter tab, header",
-    "string": "Zapisz wyszukiwanie własne"
+    "string": "Zapisz własne wyszukiwanie"
   },
   "src_dot_components_dot_SaveFilterTabDialog_dot_1556856943": {
     "context": "save search tab",
-    "string": "Wyszukaj Nazwa"
+    "string": "Nazwa wyszukiwania"
   },
   "src_dot_components_dot_SearchBar_dot_2173195312": {
     "context": "button",
-    "string": "Usuń Szukaj"
+    "string": "Usuń własne wyszukiwanie"
   },
   "src_dot_components_dot_SearchBar_dot_2340527467": {
     "string": "Własny filtr"
@@ -4049,7 +4049,7 @@
     "string": "utwórz typ strony"
   },
   "src_dot_pageTypes_dot_components_dot_PageTypeListPage_dot_1793828289": {
-    "string": "Typ strony wyszukiwania"
+    "string": "Szukaj typ strony..."
   },
   "src_dot_pageTypes_dot_components_dot_PageTypeListPage_dot_464566131": {
     "context": "tab name",
@@ -4360,7 +4360,7 @@
   },
   "src_dot_plugins": {
     "context": "plugins section name",
-    "string": "Plugins"
+    "string": "Pluginy"
   },
   "src_dot_plugins_dot_components_dot_PluginAuthorization_dot_768575093": {
     "context": "section header",
@@ -4409,11 +4409,11 @@
     "string": "Są to ogólne informacje o Twoim sklepie. Określają one, jaki jest adres URL Twojego sklepu oraz co jest wyświetlane na pasku zadań przeglądarki."
   },
   "src_dot_plugins_dot_components_dot_PluginsListPage_dot_3233248823": {
-    "string": "Wyszukaj pluginów..."
+    "string": "Szukaj pluginu..."
   },
   "src_dot_plugins_dot_components_dot_PluginsListPage_dot_3523826683": {
     "context": "tab name",
-    "string": "Wszystkie wtyczki"
+    "string": "Wszystkie pluginy"
   },
   "src_dot_plugins_dot_components_dot_PluginsListPage_dot_active": {
     "context": "plugin",
@@ -5260,7 +5260,7 @@
     "string": "Zapisz"
   },
   "src_dot_savedChanges": {
-    "string": "Zapisane zmiany"
+    "string": "Zapisano zmiany"
   },
   "src_dot_selectAll": {
     "context": "select all options, button",
@@ -6745,5 +6745,80 @@
   "src_dot_orders_dot_components_dot_OrderPayment_dot_preauthorized": {
     "context": "order payment",
     "string": "Kwota przedpłacona"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteDetailsSettingsCard_dot_1008586926": {
+    "string": "Nazwa sklepu jest widoczna na karcie w przeglądarce internetowej."
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteDetailsSettingsCard_dot_1170194728": {
+    "string": "Domena sklepu"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteDetailsSettingsCard_dot_2286355060": {
+    "string": "Nazwa sklepu"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteDetailsSettingsCard_dot_3868874271": {
+    "string": "Opis sklepu"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteDetailsSettingsCard_dot_529433178": {
+    "string": "Opis sklepu jest wyświetlany na pasku zadań po nazwie sklepu."
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteSettingsPage_dot_sectionDetailsDescription": {
+    "context": "section description",
+    "string": "Są to ogólne informacje o Twoim sklepie. Określają one, jaki jest adres URL sklepu i co jest wyświetlane na pasku zadań przeglądarki."
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteCheckoutSettingsCard_dot_reservedStock": {
+    "context": "title",
+    "string": "Rezerwacja towaru"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteSettingsPage_dot_sectionCheckoutTitle": {
+    "context": "section title",
+    "string": "Konfiguracja kasy"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteSettingsPage_dot_sectionCheckoutDescription": {
+    "context": "section description",
+    "string": "Można ustawić podstawowe zasady kasowe, które będą stosowane globalnie we wszystkich kanałach."
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteCheckoutSettingsCard_dot_reservedStockDescription": {
+    "context": "description",
+    "string": "Umożliwia określenie czasu, przez jaki stan magazynowy w kasie jest zarezerwowany dla klienta. Możesz ustawić osobne wartości dla klientów uwierzytelnionych i anonimowych."
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteCheckoutSettingsCard_dot_stockReservationForAnonymousUser": {
+    "context": "input label",
+    "string": "Rezerwacja zapasów dla anonimowego użytkownika (w minutach)"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteCheckoutSettingsCard_dot_stockReservationForAuthenticatedUser": {
+    "context": "input label",
+    "string": "Rezerwacja zapasów dla uwierzytelnionego użytkownika (w minutach)"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteCheckoutSettingsCard_dot_stockWillNotBeReserved": {
+    "context": "input helper text",
+    "string": "Pozostawienie tego ustawienia pustego oznacza, że zapasy nie będą rezerwowane."
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteCheckoutSettingsCard_dot_checkoutLineLimit": {
+    "context": "input label",
+    "string": "Limit linii kasowej"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteCheckoutSettingsCard_dot_checkoutLimitsDescription": {
+    "context": "input helper text",
+    "string": "Liczba ta określa ilość pozycji w linii kasowej, które można kupić. Możesz zmienić to ustawienie dla każdego wariantu. Pozostawienie tego ustawienia pustego oznacza, że nie ma żadnych ograniczeń."
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCheckoutSettings_dot_checkoutLimits": {
+    "context": "title",
+    "string": "Limity w kasie"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteSettingsPage_dot_sectionCompanyTitle": {
+    "context": "section title",
+    "string": "Informacje firmowe"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteSettingsPage_dot_49182366": {
+    "context": "company information description message",
+    "string": "Ten adres będzie używany do generowania faktur i obliczania kosztów wysyłki. Podany tutaj adres e-mail będzie wykorzystywany jako adres kontaktowy dla klientów."
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteSettingsPage_dot_sectionCompanyDescription": {
+    "context": "section description",
+    "string": "Ten adres będzie używany do generowania faktur i obliczania kosztów wysyłki. Podany tutaj adres e-mail będzie wykorzystywany jako adres kontaktowy dla klientów."
+  },
+  "src_dot_components_dot_Metadata_dot_2741366539": {
+    "context": "empty metadata text",
+    "string": "Nie utworzono metadanych dla tego elementu. Użyj poniższego przycisku, aby dodać nowe pole metadanych."
   }
 }
