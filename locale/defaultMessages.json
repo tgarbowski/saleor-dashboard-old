@@ -878,10 +878,6 @@
     "context": "button",
     "string": "Assign"
   },
-  "src_dot_assign": {
-    "context": "button",
-    "string": "Assign"
-  },
   "src_dot_attributes": {
     "context": "attributes section name",
     "string": "Attributes"
