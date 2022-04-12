@@ -127,10 +127,10 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
         const initialPackageData: PackageData[] = [
           {
             fieldIndex: 0,
-            size1: "",
-            size2: "",
-            size3: "",
-            weight: order?.lines[0]?.variant?.product?.weight?.value
+            size1: null,
+            size2: null,
+            size3: null,
+            weight: null
           }
         ];
 
@@ -146,10 +146,10 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                   fulfillment: order?.fulfillments[0]?.id,
                   order: order.id,
                   packageData: formData.map(data => ({
-                    sizeX: parseInt(data.size1, 5),
-                    sizeY: parseInt(data.size2, 5),
-                    sizeZ: parseInt(data.size3, 5),
-                    weight: parseFloat(data.weight)
+                    sizeX: data.size1,
+                    sizeY: data.size2,
+                    sizeZ: data.size3,
+                    weight: data.weight
                   }))
                 }
               }
@@ -158,7 +158,8 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               const labelCreated = await labelCreate({
                 variables: {
                   input: {
-                    packageId: result.data.packageCreate.packageId
+                    packageId: result.data.packageCreate.packageId,
+                    order: order.id
                   }
                 }
               });
@@ -187,7 +188,8 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           const labelCreated = await labelCreate({
             variables: {
               input: {
-                packageId: packageIdentifier
+                packageId: packageIdentifier,
+                order: order.id
               }
             }
           });

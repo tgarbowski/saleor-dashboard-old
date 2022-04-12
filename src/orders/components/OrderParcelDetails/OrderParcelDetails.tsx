@@ -153,9 +153,9 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   const onParcelAdd = () => {
     packageData.push({
       fieldIndex: autogenerateIndex(),
-      size1: "",
-      size2: "",
-      size3: "",
+      size1: null,
+      size2: null,
+      size3: null,
       weight: productWeight[0]?.variant?.product?.weight?.value
     });
     setState({ ...state });
@@ -276,12 +276,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                       <FormattedMessage
                         defaultMessage="Waga"
                         description="metadata field name, header"
-                      />
-                    </TableCell>
-                    <TableCell className={classes.colValue}>
-                      <FormattedMessage
-                        defaultMessage="Zawartość"
-                        description="metadata field value, header"
                       />
                     </TableCell>
                     <TableCell className={classes.colValue}>

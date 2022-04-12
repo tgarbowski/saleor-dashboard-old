@@ -16,6 +16,7 @@ export interface Label_labelCreate {
   
   export interface Label_input {
       packageId: number;
+      order: string;
   }
   
   export interface LabelVariables {

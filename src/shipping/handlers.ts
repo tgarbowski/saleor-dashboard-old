@@ -316,10 +316,10 @@ export function isRestWorldCountriesSelected(
 }
 
 export interface PackageData {
-  weight: string;
-  size1: string;
-  size2: string;
-  size3: string;
+  weight: number;
+  size1: number;
+  size2: number;
+  size3: number;
   fieldIndex: number;
 }
 
@@ -327,10 +327,10 @@ export const checkIfParcelDialogCorrect = (formData: PackageData[]) => {
   let dataCorrect: boolean = true;
   formData.forEach(element => {
     if (
-      isNaN(parseFloat(element.size1)) ||
-      isNaN(parseFloat(element.size2)) ||
-      isNaN(parseFloat(element.size3)) ||
-      isNaN(parseFloat(element.weight))
+      isNaN(element.size1) ||
+      isNaN(element.size2) ||
+      isNaN(element.size3) ||
+      isNaN(element.weight)
     ) {
       dataCorrect = false;
     }
