@@ -6820,5 +6820,35 @@
   "src_dot_components_dot_Metadata_dot_2741366539": {
     "context": "empty metadata text",
     "string": "Nie utworzono metadanych dla tego elementu. Użyj poniższego przycisku, aby dodać nowe pole metadanych."
+  },
+  "src_dot_home_dot_components_dot_HomeNotificationTable_dot_orderReady": {
+    "string": "{amount, plural,one {Jedno zamówienie jest gotowe do realizacji} other {{amount} zamówienia są gotowe do realizacji}}"
+  },
+  "src_dot_home_dot_components_dot_HomeNotificationTable_dot_paymentCapture": {
+    "string": "{amount, plural,one {Jedna płatność do przejęcia} other {{amount} płatności do przejęcia}}"
+  },
+  "src_dot_home_dot_components_dot_HomeNotificationTable_dot_productOut": {
+    "string": "{amount, plural,one {Jeden produkt jest niedostępny w magazynie} other {{amount} produkty niedostępne w magazynie}}"
+  },
+  "src_dot_home_dot_components_dot_HomeNotificationTable_dot_noOrders": {
+    "string": "Brak zamówień gotowych do realizacji"
+  },
+  "src_dot_home_dot_components_dot_HomeNotificationTable_dot_noPaymentWaiting": {
+    "string": "Brak płatności oczekujących na przechwycenie"
+  },
+  "src_dot_home_dot_components_dot_HomeNotificationTable_dot_noProductsOut": {
+    "string": "Żaden z produktów nie jest niedostępny w magazynie"
+  },
+  "src_dot_orders_dot_components_dot_OrderHistory_dot_2308853031": {
+    "context": "order history message",
+    "string": "Informacja o złożonym zamówieniu została wysłana do klienta"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_paymentTitle": {
+    "context": "Payment card title",
+    "string": "Status płatności"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_addTracking": {
+    "context": "add tracking button",
+    "string": "Dodaj śledzenie"
   }
 }
