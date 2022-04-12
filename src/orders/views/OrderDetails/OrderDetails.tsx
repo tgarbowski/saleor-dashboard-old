@@ -35,7 +35,6 @@ import {
   usePackageCreateMutation,
     
 } from "@saleor/orders/mutations";
-import useShop from "@saleor/hooks/useShop";
 import { checkIfParcelDialogCorrect, downloadBase64File, PackageData } from "@saleor/shipping/handlers";
 
 interface OrderDetailsProps {
@@ -45,8 +44,6 @@ interface OrderDetailsProps {
 
 export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   const navigate = useNavigator();
-
-  const shop = useShop();
   const { queue } = useBackgroundTask();
   const intl = useIntl();
   const [updateMetadata, updateMetadataOpts] = useMetadataUpdate({});

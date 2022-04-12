@@ -2,7 +2,6 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { CountryCode } from "@saleor/types/globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: PackageCreate
