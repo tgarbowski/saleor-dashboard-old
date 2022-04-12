@@ -91,7 +91,7 @@ const HomePage: React.FC<HomePageProps> = props => {
           >
             <div className={classes.cardContainer}>
               <HomeAnalyticsCard
-                title={"Sales"}
+                title={"Sprzedaż"}
                 testId="sales-analytics"
                 icon={
                   <Sales
@@ -110,7 +110,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                 )}
               </HomeAnalyticsCard>
               <HomeAnalyticsCard
-                title={"Orders"}
+                title={"Zamówienia"}
                 testId="orders-analytics"
                 icon={
                   <Orders
