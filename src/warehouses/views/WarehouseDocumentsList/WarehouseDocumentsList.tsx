@@ -38,6 +38,7 @@ import React from "react";
 import { useAvailableInGridAttributesQuery } from "../../../products/queries";
 import {
   wmsDocumentsListUrl,
+  WMSDocumentsListUrlQueryParams,
   WMSDocumentsListUrlSortField,
   wmsDocumentUrl,
   WMSDocumentUrlDialog,
@@ -55,7 +56,7 @@ import {
 } from "./filters";
 
 interface WMSDocumentsListProps {
-  params: any;
+  params: WMSDocumentsListUrlQueryParams;
 }
 
 export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
@@ -270,8 +271,8 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
         toggleAll={toggleAll}
         onSearchChange={handleSearchChange}
         onFilterChange={changeFilters}
+        onTabDelete={() => openModal("delete-search")}
         onTabSave={() => openModal("save-search")}
-        onTabDelete={() => openModal("save-search")}
         onTabChange={handleTabChange}
         initialSearch={params.query || ""}
         tabs={getFilterTabs().map(tab => tab.name)}
