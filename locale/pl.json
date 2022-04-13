@@ -6850,5 +6850,545 @@
   "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_addTracking": {
     "context": "add tracking button",
     "string": "Dodaj śledzenie"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_fulfilled": {
+    "context": "fulfillment group",
+    "string": "Realizowane z: "
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_tracking": {
+    "context": "tracking number",
+    "string": "Numer śledzenia: {trackingNumber}"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_refund": {
+    "context": "refund button",
+    "string": "Zwróć"
+  },
+  "src_dot_customers_dot_components_dot_CustomerInfo_dot_4121042904": {
+    "context": "account information, header",
+    "string": "Informacje o koncie"
+  },
+  "src_dot_customers_dot_components_dot_CustomerInfo_dot_2312694610": {
+    "context": "customer contact section, header",
+    "string": "Informacje kontaktowe"
+  },
+  "src_dot_orders_dot_components_dot_OrderDetailsPage_dot_returnOrder": {
+    "context": "return button",
+    "string": "Zwrot / wymiana zamówienia"
+  },
+  "PageTypeDeleteWarningDialog multiple assigned items description": {
+    "context": "PageTypeDeleteWarningDialog multiple assigned items description",
+    "string": "Czy na pewno chcesz usunąć wybrane typy stron? Jeśli je usuniesz, nie będziesz mógł przypisać ich do utworzonych stron."
+  },
+  "PageTypeDeleteWarningDialog multiple consent label": {
+    "context": "PageTypeDeleteWarningDialog multiple consent label",
+    "string": "Tak, chcę usunąć te typy stron i przypisane do nich strony"
+  },
+  "PageTypeDeleteWarningDialog single assigned items description": {
+    "context": "PageTypeDeleteWarningDialog single assigned items description",
+    "string": "Zamierzasz usunąć typ strony <b>{typeName}</b>. Jest on przypisany do {assignedItemsCount} {assignedItemsCount,plural,one{page} other{pages}}. Usunięcie tego typu strony spowoduje również usunięcie tych stron. Czy na pewno chcesz to zrobić?"
+  },
+  "PageTypeDeleteWarningDialog single consent label": {
+    "context": "PageTypeDeleteWarningDialog single consent label",
+    "string": "Tak, chcę usunąć ten typ strony i przypisane do niego strony"
+  },
+  "PageTypeDeleteWarningDialog single no assigned items description": {
+    "context": "PageTypeDeleteWarningDialog single no assigned items description",
+    "string": "Czy na pewno chcesz usunąć <b>{typeName}</b>? Jeśli go usuniesz, nie będziesz mógł przypisać go do utworzonych stron."
+  },
+  "PageTypeDeleteWarningDialog with items multiple description": {
+    "context": "PageTypeDeleteWarningDialog with items multiple description",
+    "string": "Zamierzasz usunąć wiele typów stron. Niektóre z nich są przypisane do stron. Usunięcie tych typów stron spowoduje również usunięcie tych stron."
+  },
+  "Previous discount label id": {
+    "context": "Previous discount label",
+    "string": "Poprzednia wartość rabatu"
+  },
+  "ProductTypeDeleteWarningDialog multiple assigned items description": {
+    "context": "ProductTypeDeleteWarningDialog multiple assigned items description",
+    "string": "Czy na pewno chcesz usunąć wybrane typy produktów? Jeśli je usuniesz, nie będziesz mógł przypisać ich do utworzonych produktów."
+  },
+  "ProductTypeDeleteWarningDialog multiple consent label": {
+    "context": "ProductTypeDeleteWarningDialog multiple consent label",
+    "string": "Tak, chcę usunąć te typy produktów i przypisane do nich produkty"
+  },
+  "ProductTypeDeleteWarningDialog single assigned items description": {
+    "context": "ProductTypeDeleteWarningDialog single assigned items description",
+    "string": "Zamierzasz usunąć typ produktu <b>{typeName}</b>. Jest on przypisany do {assignedItemsCount} {assignedItemsCount,plural,one{product} other{products}}. . Usunięcie tego typu produktu spowoduje również usunięcie tych produktów. Czy na pewno chcesz to zrobić?"
+  },
+  "ProductTypeDeleteWarningDialog single consent label": {
+    "context": "ProductTypeDeleteWarningDialog single consent label",
+    "string": "Tak, chcę usunąć ten typ produktu i przypisane do niego produkty"
+  },
+  "ProductTypeDeleteWarningDialog single no assigned items description": {
+    "context": "ProductTypeDeleteWarningDialog single no assigned items description",
+    "string": "Czy na pewno chcesz usunąć <b>{typeName}</b>? Jeśli go usuniesz, nie będziesz mógł przypisać go do utworzonych produktów."
+  },
+  "ProductTypeDeleteWarningDialog with items multiple description": {
+    "context": "ProductTypeDeleteWarningDialog with items multiple description",
+    "string": "Zamierzasz usunąć wiele typów produktów. Niektóre z nich są przypisane do produktów. Usunięcie tych typów produktów spowoduje również usunięcie tych produktów"
+  },
+  "by preposition": {
+    "context": "by preposition",
+    "string": "przez"
+  },
+  "channel hidden": {
+    "context": "channel publication status",
+    "string": "Ukryty"
+  },
+  "channel publication date visible since": {
+    "context": "channel publication date",
+    "string": "Widoczny od {date}"
+  },
+  "channel publication date will become available": {
+    "context": "channel publication date",
+    "string": "Będzie dostępny {date}"
+  },
+  "channel visible": {
+    "context": "channel publication status",
+    "string": "Widoczny"
+  },
+  "discount value id": {
+    "context": "discount value",
+    "string": "zniżka"
+  },
+  "discount value label id": {
+    "context": "discount value label",
+    "string": "wartość zniżki"
+  },
+  "event products list title refunded": {
+    "context": "refunded products list title",
+    "string": "Produkty zwrócone"
+  },
+  "event products list title replaced": {
+    "context": "replaced products list title",
+    "string": "Wymienione produkty"
+  },
+  "event products list title returned": {
+    "context": "returned products list title",
+    "string": "Produkty zwrócone"
+  },
+  "event products title draft reissued": {
+    "context": "draft created from replace products list title",
+    "string": "Wymienione produkty"
+  },
+  "event title draft reissued": {
+    "context": "draft created from replace event title",
+    "string": "Projekt został ponownie wydany z polecenia"
+  },
+  "event title marked as paid": {
+    "context": "order marked as paid event title",
+    "string": "Zamówienie zostało oznaczone jako opłacone przez "
+  },
+  "event title order discount auto updated": {
+    "context": "order discount was updated automatically event title",
+    "string": "Rabat na zamówienie został zaktualizowany automatycznie"
+  },
+  "event title order discount updated": {
+    "context": "order discount was updated event title",
+    "string": "Rabat na zamówienie został zaktualizowany przez"
+  },
+  "event title order discounted": {
+    "context": "order was discounted event title",
+    "string": "Zamówienie zostało przecenione o"
+  },
+  "event title order line discount added": {
+    "context": "order line discount added title",
+    "string": "{productName} zniżka została dodana przez "
+  },
+  "event title order line discount updated": {
+    "context": "order line discount updated title",
+    "string": "{productName} rabat został zaktualizowany przez "
+  },
+  "event title refunded": {
+    "context": "refunded event title",
+    "string": "Produkty zostały zwrócone przez "
+  },
+  "event title replaced": {
+    "context": "replaced event title",
+    "string": "Produkty zostały zastąpione przez "
+  },
+  "event title returned": {
+    "context": "returned event title",
+    "string": "Produkty zostały zwrócone przez"
+  },
+  "fixed amount subtitle id": {
+    "context": "Fixed amount subtitle",
+    "string": "Stała kwota"
+  },
+  "globalConfigPluginMessages title": {
+    "context": "global config plugin status popup title",
+    "string": "Plugin globalny"
+  },
+  "is filter range between value": {
+    "context": "is filter range or value",
+    "string": "pomiędzy"
+  },
+  "is filter range equal to value": {
+    "context": "is filter range or value",
+    "string": "równy"
+  },
+  "new discount label id": {
+    "context": "new discount label",
+    "string": "Nowa wartość zniżki"
+  },
+  "not published channel": {
+    "context": "product label",
+    "string": "Nie opublikowano"
+  },
+  "pluginChannelConfigurationCellMessages per channel": {
+    "context": "PluginChannelConfigurationCell channel title",
+    "string": "Na każdy kanał"
+  },
+  "product available for purchase": {
+    "context": "product availability",
+    "string": "Dostępne do zakupu"
+  },
+  "productExportFieldVariantId": {
+    "context": "product field",
+    "string": "ID wariantu eksportu"
+  },
+  "published channel": {
+    "context": "product label",
+    "string": "Opublikowany"
+  },
+  "saleDetailsPageVariantsQuantity": {
+    "context": "number of variants",
+    "string": "Warianty ({quantity})"
+  },
+  "set availability date": {
+    "context": "product availability date label",
+    "string": "Ustaw datę dostępności"
+  },
+  "shipment refund title": {
+    "context": "shipment refund title",
+    "string": "Przesyłka została zwrócona"
+  },
+  "shippingZoneChannels_dot_autocomplete_dot_label": {
+    "context": "ChannelsSection select field label",
+    "string": "Kanał"
+  },
+  "src_dot_appExtensions": {
+    "context": "app extensions subsection",
+    "string": "Aplikacje"
+  },
+  "src_dot_approve": {
+    "context": "button",
+    "string": "Zatwierdź"
+  },
+  "src_dot_apps_dot_appActivated": {
+    "context": "snackbar text",
+    "string": "Aplikacja aktywowana"
+  },
+  "src_dot_apps_dot_appDeactivated": {
+    "context": "snackbar text",
+    "string": "Aplikacja dezaktywowana"
+  },
+  "src_dot_apps_dot_components_dot_AppActivateDialog_dot_2449960665": {
+    "context": "activate app",
+    "string": "Czy na pewno chcesz aktywować tę aplikację? Aktywacja spowoduje rozpoczęcie zbierania zdarzeń."
+  },
+  "src_dot_apps_dot_components_dot_AppDeactivateDialog_dot_deactivateApp": {
+    "context": "deactivate app",
+    "string": "Czy na pewno chcesz wyłączyć tę aplikację? Twoje dane będą przechowywane do czasu ponownej aktywacji aplikacji. Nadal będziesz otrzymywać opłaty za korzystanie z aplikacji."
+  },
+  "src_dot_apps_dot_components_dot_AppDeactivateDialog_dot_deactivateLocalApp": {
+    "context": "deactivate local app",
+    "string": "Czy na pewno chcesz wyłączyć tę aplikację? Twoje dane będą przechowywane do czasu ponownej aktywacji aplikacji."
+  },
+  "src_dot_apps_dot_components_dot_AppDeactivateDialog_dot_deactivateLocalNamedApp": {
+    "context": "deactivate local named app",
+    "string": "Czy na pewno chcesz wyłączyć aplikację {name}? Twoje dane będą przechowywane do czasu ponownej aktywacji aplikacji."
+  },
+  "src_dot_apps_dot_components_dot_AppDeactivateDialog_dot_deactivateNamedApp": {
+    "context": "deactivate named app",
+    "string": "Czy na pewno chcesz wyłączyć aplikację {name}? Twoje dane będą przechowywane do czasu ponownej aktywacji aplikacji. Nadal będziesz otrzymywać opłaty za korzystanie z aplikacji."
+  },
+  "src_dot_apps_dot_components_dot_AppPage_dot_1636202177": {
+    "context": "button",
+    "string": "Informacje o stronie"
+  },
+  "src_dot_apps_dot_components_dot_AppPage_dot_198187074": {
+    "context": "button",
+    "string": "Pomoc techniczna/FAQ"
+  },
+  "src_dot_apps_dot_components_dot_AppPage_dot_3182672904": {
+    "context": "button",
+    "string": "Strona główna aplikacji"
+  },
+  "src_dot_apps_dot_components_dot_CustomAppDetailsPage_dot_1782042241": {
+    "context": "link",
+    "string": "Dezaktywuj"
+  },
+  "src_dot_apps_dot_components_dot_CustomAppDetailsPage_dot_3865193889": {
+    "context": "link",
+    "string": "Aktywuj stronę"
+  },
+  "src_dot_apps_dot_components_dot_CustomApps_dot_4044120866": {
+    "context": "custom apps content",
+    "string": "W tym miejscu będą widoczne aplikacje utworzone przez użytkownika."
+  },
+  "src_dot_apps_dot_failedToFetchAppSettings": {
+    "context": "app settings error",
+    "string": "Nie udało się pobrać ustawień aplikacji"
+  },
+  "src_dot_apps_dot_views_dot_AppInstall_dot_installApp": {
+    "context": "window title",
+    "string": "Zainstaluj aplikację"
+  },
+  "src_dot_apps_dot_views_dot_AppsList_dot_appCouldntInstall": {
+    "context": "message title",
+    "string": "Nie można zainstalować {name}"
+  },
+  "src_dot_apps_dot_views_dot_AppsList_dot_appInstalled": {
+    "context": "message title",
+    "string": "Zainstalowana aplikacja"
+  },
+  "src_dot_apps_dot_views_dot_AppsList_dot_appReadyToUse": {
+    "context": "app has been installed",
+    "string": "{name} jest gotowy do użycia"
+  },
+  "src_dot_apps_dot_views_dot_AppsList_dot_appRemoved": {
+    "context": "app has been removed",
+    "string": "Aplikacja została pomyślnie usunięta"
+  },
+  "src_dot_apps_dot_views_dot_CustomAppCreate_dot_createApp": {
+    "context": "window title",
+    "string": "Utwórz aplikację"
+  },
+  "src_dot_assign": {
+    "context": "button",
+    "string": "Przypisz"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_acreFt": {
+    "context": "acre-ft unit",
+    "string": "acre-ft"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_acreInch": {
+    "context": "acre-inch unit",
+    "string": "acre-inch"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_area": {
+    "context": "area units type",
+    "string": "Obszar"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_attributeLabel": {
+    "context": "attribute's label",
+    "string": "Domyślna etykieta"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_attributeSlug": {
+    "context": "attribute's slug short code label",
+    "string": "Kod atrybutu"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_attributeSlugHelperText": {
+    "context": "attribute slug input field helper text",
+    "string": "Jest on używany wewnętrznie. Upewnij się, że nie używasz spacji"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_boolean": {
+    "context": "boolean attribute type",
+    "string": "Boolean"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_date": {
+    "context": "date attribute type",
+    "string": "Data"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_dateTime": {
+    "context": "date time attribute type",
+    "string": "Data Godzina"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_distance": {
+    "context": "distance units type",
+    "string": "Dystans"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_dropdown": {
+    "context": "product attribute type",
+    "string": "Rozwijana"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_entityType": {
+    "context": "attribute's editor component entity",
+    "string": "Jednostka"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_file": {
+    "context": "file attribute type",
+    "string": "Plik"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_imperial": {
+    "context": "imperial unit system",
+    "string": "Imperial"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_inputType": {
+    "context": "attribute's editor component",
+    "string": "Typ danych wejściowych katalogu dla właściciela sklepu"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_metric": {
+    "context": "metric unit system",
+    "string": "Metry"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_multiselect": {
+    "context": "product attribute type",
+    "string": "Wybór wielokrotny"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_numeric": {
+    "context": "numeric attribute type",
+    "string": "Numeric"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_page": {
+    "context": "page attribute entity type",
+    "string": "Strony"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_pint": {
+    "context": "pint unit",
+    "string": "pint"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_product": {
+    "context": "product attribute entity type",
+    "string": "Produkty"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_references": {
+    "context": "references attribute type",
+    "string": "Odnośniki"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_selectUnit": {
+    "context": "check to require numeric attribute unit",
+    "string": "Wybierz jednostkę"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_swatch": {
+    "context": "swatch attribute type",
+    "string": "Swatch"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_text": {
+    "context": "text attribute type",
+    "string": "Text"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_unit": {
+    "context": "numeric attribute unit",
+    "string": "Unit"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_unitOf": {
+    "context": "numeric attribute units of",
+    "string": "Units of"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_unitSystem": {
+    "context": "numeric attribute unit system",
+    "string": "System"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_valueRequired": {
+    "context": "check to require attribute to have value",
+    "string": "Wartość wymagana"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_volume": {
+    "context": "volume units types",
+    "string": "Volume"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_weight": {
+    "context": "weight units type",
+    "string": "Weight"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_availableInGrid": {
+    "context": "add attribute as column in product list table",
+    "string": "Dodaj do opcji kolumn"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_availableInGridCaption": {
+    "context": "caption",
+    "string": "Jeśli ten atrybut jest włączony, może być używany jako kolumna w tabeli produktów."
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_dashboardPropertiesTitle": {
+    "context": "attribute properties regarding dashboard",
+    "string": "Właściwości pulpitu"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_filterableInDashboard": {
+    "context": "use attribute in filtering",
+    "string": "Użycie w filtrowaniu"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_filterableInDashboardCaption": {
+    "context": "caption",
+    "string": "Jeśli ten atrybut zostanie włączony, będzie można go używać do filtrowania produktów na liście produktów."
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_filterableInStorefront": {
+    "context": "attribute is filterable in storefront",
+    "string": "Użycie w nawigacji fasetowej"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_storefrontPropertiesTitle": {
+    "context": "attribute properties regarding storefront",
+    "string": "Właściwości storefront"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_storefrontSearchPosition": {
+    "context": "attribute position in storefront filters",
+    "string": "Pozycja w nawigacji fasetowej"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_visibleInStorefront": {
+    "context": "attribute visibility in storefront",
+    "string": "Publiczny"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_visibleInStorefrontCaption": {
+    "context": "caption",
+    "string": "Jeśli atrybut zostanie włączony, będzie dostępny dla klientów."
+  },
+  "src_dot_attributes_dot_components_dot_AttributeSwatchField_dot_image": {
+    "context": "swatch attribute image label",
+    "string": "Obraz"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeSwatchField_dot_picker": {
+    "context": "swatch attribute color picker label",
+    "string": "Picker"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeValues_dot_4086835540": {
+    "context": "attribute values list: slug column header",
+    "string": "Swatch"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_1173110163": {
+    "context": "card header",
+    "string": "Zaloguj się"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_1405865627": {
+    "context": "button",
+    "string": "Zaloguj się"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_3242928626": {
+    "context": "description",
+    "string": "Zapomniałeś hasło?"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_3762459576": {
+    "context": "description",
+    "string": "lub zaloguj się, używając"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_externalLoginError": {
+    "context": "error message",
+    "string": "Przepraszamy, logowanie nie powiodło się. Prosimy spróbować ponownie."
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_loginError": {
+    "context": "error message",
+    "string": "Przepraszamy, Twoja nazwa użytkownika i/lub hasło są nieprawidłowe. Prosimy spróbować ponownie."
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_serverError": {
+    "context": "error message",
+    "string": "Usługa Saleor jest niedostępna, sprawdź połączenie sieciowe i spróbuj ponownie."
+  },
+  "src_dot_auth_dot_components_dot_NewPasswordPage_dot_3349581442": {
+    "string": "Ustaw nowe hasło do swojego konta. Powtórz nowe hasło, aby upewnić się, że będziesz w stanie je zapamiętać."
+  },
+  "src_dot_auth_dot_components_dot_NewPasswordPage_dot_533029895": {
+    "context": "page title",
+    "string": "Ustaw nowe hasło"
+  },
+  "src_dot_auth_dot_components_dot_ResetPasswordPage_dot_2422931690": {
+    "context": "password reset, button",
+    "string": "Wyślij wiadomość e-mail z łączem do resetowania"
+  },
+  "src_dot_auth_dot_components_dot_ResetPasswordPage_dot_2925394684": {
+    "string": "Zresetuj hasło"
+  },
+  "src_dot_auth_dot_components_dot_ResetPasswordPage_dot_365271428": {
+    "string": "Podaj nam swój adres e-mail - jeśli znajdziemy go w naszej bazie danych, wyślemy Ci link do zresetowania hasła. W ciągu najbliższych kilku minut powinieneś znaleźć go w swojej skrzynce odbiorczej."
+  },
+  "src_dot_auth_dot_components_dot_ResetPasswordSuccessPage_dot_2925394684": {
+    "string": "Zresetuj hasło"
+  },
+  "src_dot_cannotFullfillUnpaidOrder": {
+    "context": "disabled option description",
+    "string": "Nie można zrealizować zamówienia, dopóki płatność nie zostanie zaksięgowana"
+  },
+  "src_dot_categories_dot_components_dot_CategoryProducts_dot_4078580795": {
+    "context": "button",
+    "string": "Wyświetl produkty"
   }
 }
