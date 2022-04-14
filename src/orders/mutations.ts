@@ -20,8 +20,8 @@ import {
 } from "@saleor/orders/types/OrderParcel";
 
 import { TypedMutation } from "../mutations";
-import { DpdLabel, DpdLabelVariables } from "./types/DpdLabelCreate";
-import { DpdPackage, DpdPackageVariables } from "./types/DpdPackageCreate";
+import { Label, LabelVariables } from "./types/DpdLabelCreate";
+import { Package, PackageVariables } from "./types/DpdPackageCreate";
 import {
   FulfillmentReturnProducts,
   FulfillmentReturnProductsVariables
@@ -815,31 +815,29 @@ export const useOrderSettingsUpdateMutation = makeMutation<
   OrderSettingsUpdateVariables
 >(orderSettingsUpdateMutation);
 
-const dpdPackageCreateMutation = gql`
-  mutation dpdPackageCreate($input: DpdCreatePackageInput!) {
-    dpdPackageCreate(input: $input) {
+const PackageCreateMutation = gql`
+  mutation PackageCreate($input: PackageCreateInput!) {
+    packageCreate(input: $input) {
       packageId
-      parcelIds
-      waybills
-      status
     }
   }
 `;
 
-export const useDpdPackageCreateMutation = makeMutation<
-  DpdPackage,
-  DpdPackageVariables
->(dpdPackageCreateMutation);
+export const usePackageCreateMutation = makeMutation<
+  Package,
+  PackageVariables
+>(PackageCreateMutation);
 
-const dpdLabelCreateMutation = gql`
-  mutation DpdLabelCreate($input: DpdCreateLabelInput!) {
-    dpdLabelCreate(input: $input) {
+
+const labelCreateMutation = gql`
+  mutation LabelCreate($input: LabelCreateInput!) {
+    labelCreate(input: $input) {
       label
     }
   }
 `;
 
-export const useDpdLabelCreateMutation = makeMutation<
-  DpdLabel,
-  DpdLabelVariables
->(dpdLabelCreateMutation);
+export const useLabelCreateMutation = makeMutation<
+  Label,
+  LabelVariables
+>(labelCreateMutation);
