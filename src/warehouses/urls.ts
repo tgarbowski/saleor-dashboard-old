@@ -42,6 +42,7 @@ export type WMSDocumentsListUrlFilters = Filters<
 >;
 export type WarehouseListUrlFilters = Filters<WarehouseListUrlFiltersEnum>;
 export type WarehouseListUrlDialog = "delete" | TabActionDialog;
+export type WMSDocumentUrlDialog = "save-search" | TabActionDialog;
 export enum WarehouseListUrlSortField {
   name = "name"
 }
@@ -67,7 +68,7 @@ export interface WarehouseListUrlQueryParams
 }
 
 export type WMSDocumentsListUrlQueryParams = ActiveTab &
-  Dialog<WarehouseListUrlDialog> &
+  Dialog<WMSDocumentUrlDialog> &
   Pagination &
   WMSDocumentsListUrlFilters &
   WMSDocumentsListUrlSort &
@@ -86,7 +87,6 @@ export type WarehouseUrlQueryParams = Dialog<WarehouseUrlDialog> & SingleAction;
 export const warehouseUrl = (id: string, params?: WarehouseUrlQueryParams) =>
   warehousePath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
-export type WMSDocumentUrlDialog = "save-search";
 export type WMSDocumentUrlQueryparams = Dialog<WMSDocumentUrlDialog> &
   SingleAction;
 export const wmsDocumentUrl = (

@@ -12,6 +12,10 @@ export const actionButtonsMessages = defineMessages({
   addTracking: {
     defaultMessage: "Add tracking",
     description: "add tracking button"
+  },
+  parcelDetails: {
+    defaultMessage: "Szczegóły wysyłki",
+    description: "add parcel details button"
   }
 });
 

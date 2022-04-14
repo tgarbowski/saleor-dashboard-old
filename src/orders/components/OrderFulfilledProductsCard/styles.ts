@@ -4,13 +4,18 @@ const useStyles = makeStyles(
   theme => ({
     actions: {
       flexDirection: "row-reverse",
-      padding: theme.spacing(2, 4)
+      padding: theme.spacing(2, 4),
+      gap: "30px"
     },
     deleteIcon: {
       height: 40,
       paddingRight: 0,
       paddingLeft: theme.spacing(1),
       width: 40
+    },
+    courierImg: {
+      width: "2rem",
+      marginLeft: 24
     },
     table: {
       "& td, & th": {
