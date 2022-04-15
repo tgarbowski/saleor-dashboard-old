@@ -6850,5 +6850,3262 @@
   "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_addTracking": {
     "context": "add tracking button",
     "string": "Dodaj śledzenie"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_fulfilled": {
+    "context": "fulfillment group",
+    "string": "Realizowane z: "
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_tracking": {
+    "context": "tracking number",
+    "string": "Numer śledzenia: {trackingNumber}"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_refund": {
+    "context": "refund button",
+    "string": "Zwróć"
+  },
+  "src_dot_customers_dot_components_dot_CustomerInfo_dot_4121042904": {
+    "context": "account information, header",
+    "string": "Informacje o koncie"
+  },
+  "src_dot_customers_dot_components_dot_CustomerInfo_dot_2312694610": {
+    "context": "customer contact section, header",
+    "string": "Informacje kontaktowe"
+  },
+  "src_dot_orders_dot_components_dot_OrderDetailsPage_dot_returnOrder": {
+    "context": "return button",
+    "string": "Zwrot / wymiana zamówienia"
+  },
+  "PageTypeDeleteWarningDialog multiple assigned items description": {
+    "context": "PageTypeDeleteWarningDialog multiple assigned items description",
+    "string": "Czy na pewno chcesz usunąć wybrane typy stron? Jeśli je usuniesz, nie będziesz mógł przypisać ich do utworzonych stron."
+  },
+  "PageTypeDeleteWarningDialog multiple consent label": {
+    "context": "PageTypeDeleteWarningDialog multiple consent label",
+    "string": "Tak, chcę usunąć te typy stron i przypisane do nich strony"
+  },
+  "PageTypeDeleteWarningDialog single assigned items description": {
+    "context": "PageTypeDeleteWarningDialog single assigned items description",
+    "string": "Zamierzasz usunąć typ strony <b>{typeName}</b>. Jest on przypisany do {assignedItemsCount} {assignedItemsCount,plural,one{page} other{pages}}. Usunięcie tego typu strony spowoduje również usunięcie tych stron. Czy na pewno chcesz to zrobić?"
+  },
+  "PageTypeDeleteWarningDialog single consent label": {
+    "context": "PageTypeDeleteWarningDialog single consent label",
+    "string": "Tak, chcę usunąć ten typ strony i przypisane do niego strony"
+  },
+  "PageTypeDeleteWarningDialog single no assigned items description": {
+    "context": "PageTypeDeleteWarningDialog single no assigned items description",
+    "string": "Czy na pewno chcesz usunąć <b>{typeName}</b>? Jeśli go usuniesz, nie będziesz mógł przypisać go do utworzonych stron."
+  },
+  "PageTypeDeleteWarningDialog with items multiple description": {
+    "context": "PageTypeDeleteWarningDialog with items multiple description",
+    "string": "Zamierzasz usunąć wiele typów stron. Niektóre z nich są przypisane do stron. Usunięcie tych typów stron spowoduje również usunięcie tych stron."
+  },
+  "Previous discount label id": {
+    "context": "Previous discount label",
+    "string": "Poprzednia wartość rabatu"
+  },
+  "ProductTypeDeleteWarningDialog multiple assigned items description": {
+    "context": "ProductTypeDeleteWarningDialog multiple assigned items description",
+    "string": "Czy na pewno chcesz usunąć wybrane typy produktów? Jeśli je usuniesz, nie będziesz mógł przypisać ich do utworzonych produktów."
+  },
+  "ProductTypeDeleteWarningDialog multiple consent label": {
+    "context": "ProductTypeDeleteWarningDialog multiple consent label",
+    "string": "Tak, chcę usunąć te typy produktów i przypisane do nich produkty"
+  },
+  "ProductTypeDeleteWarningDialog single assigned items description": {
+    "context": "ProductTypeDeleteWarningDialog single assigned items description",
+    "string": "Zamierzasz usunąć typ produktu <b>{typeName}</b>. Jest on przypisany do {assignedItemsCount} {assignedItemsCount,plural,one{product} other{products}}. . Usunięcie tego typu produktu spowoduje również usunięcie tych produktów. Czy na pewno chcesz to zrobić?"
+  },
+  "ProductTypeDeleteWarningDialog single consent label": {
+    "context": "ProductTypeDeleteWarningDialog single consent label",
+    "string": "Tak, chcę usunąć ten typ produktu i przypisane do niego produkty"
+  },
+  "ProductTypeDeleteWarningDialog single no assigned items description": {
+    "context": "ProductTypeDeleteWarningDialog single no assigned items description",
+    "string": "Czy na pewno chcesz usunąć <b>{typeName}</b>? Jeśli go usuniesz, nie będziesz mógł przypisać go do utworzonych produktów."
+  },
+  "ProductTypeDeleteWarningDialog with items multiple description": {
+    "context": "ProductTypeDeleteWarningDialog with items multiple description",
+    "string": "Zamierzasz usunąć wiele typów produktów. Niektóre z nich są przypisane do produktów. Usunięcie tych typów produktów spowoduje również usunięcie tych produktów"
+  },
+  "by preposition": {
+    "context": "by preposition",
+    "string": "przez"
+  },
+  "channel hidden": {
+    "context": "channel publication status",
+    "string": "Ukryty"
+  },
+  "channel publication date visible since": {
+    "context": "channel publication date",
+    "string": "Widoczny od {date}"
+  },
+  "channel publication date will become available": {
+    "context": "channel publication date",
+    "string": "Będzie dostępny {date}"
+  },
+  "channel visible": {
+    "context": "channel publication status",
+    "string": "Widoczny"
+  },
+  "discount value id": {
+    "context": "discount value",
+    "string": "zniżka"
+  },
+  "discount value label id": {
+    "context": "discount value label",
+    "string": "wartość zniżki"
+  },
+  "event products list title refunded": {
+    "context": "refunded products list title",
+    "string": "Produkty zwrócone"
+  },
+  "event products list title replaced": {
+    "context": "replaced products list title",
+    "string": "Wymienione produkty"
+  },
+  "event products list title returned": {
+    "context": "returned products list title",
+    "string": "Produkty zwrócone"
+  },
+  "event products title draft reissued": {
+    "context": "draft created from replace products list title",
+    "string": "Wymienione produkty"
+  },
+  "event title draft reissued": {
+    "context": "draft created from replace event title",
+    "string": "Projekt został ponownie wydany z polecenia"
+  },
+  "event title marked as paid": {
+    "context": "order marked as paid event title",
+    "string": "Zamówienie zostało oznaczone jako opłacone przez "
+  },
+  "event title order discount auto updated": {
+    "context": "order discount was updated automatically event title",
+    "string": "Rabat na zamówienie został zaktualizowany automatycznie"
+  },
+  "event title order discount updated": {
+    "context": "order discount was updated event title",
+    "string": "Rabat na zamówienie został zaktualizowany przez"
+  },
+  "event title order discounted": {
+    "context": "order was discounted event title",
+    "string": "Zamówienie zostało przecenione o"
+  },
+  "event title order line discount added": {
+    "context": "order line discount added title",
+    "string": "{productName} zniżka została dodana przez "
+  },
+  "event title order line discount updated": {
+    "context": "order line discount updated title",
+    "string": "{productName} rabat został zaktualizowany przez "
+  },
+  "event title refunded": {
+    "context": "refunded event title",
+    "string": "Produkty zostały zwrócone przez "
+  },
+  "event title replaced": {
+    "context": "replaced event title",
+    "string": "Produkty zostały zastąpione przez "
+  },
+  "event title returned": {
+    "context": "returned event title",
+    "string": "Produkty zostały zwrócone przez"
+  },
+  "fixed amount subtitle id": {
+    "context": "Fixed amount subtitle",
+    "string": "Stała kwota"
+  },
+  "globalConfigPluginMessages title": {
+    "context": "global config plugin status popup title",
+    "string": "Plugin globalny"
+  },
+  "is filter range between value": {
+    "context": "is filter range or value",
+    "string": "pomiędzy"
+  },
+  "is filter range equal to value": {
+    "context": "is filter range or value",
+    "string": "równy"
+  },
+  "new discount label id": {
+    "context": "new discount label",
+    "string": "Nowa wartość zniżki"
+  },
+  "not published channel": {
+    "context": "product label",
+    "string": "Nie opublikowano"
+  },
+  "pluginChannelConfigurationCellMessages per channel": {
+    "context": "PluginChannelConfigurationCell channel title",
+    "string": "Na każdy kanał"
+  },
+  "product available for purchase": {
+    "context": "product availability",
+    "string": "Dostępne do zakupu"
+  },
+  "productExportFieldVariantId": {
+    "context": "product field",
+    "string": "ID wariantu eksportu"
+  },
+  "published channel": {
+    "context": "product label",
+    "string": "Opublikowany"
+  },
+  "saleDetailsPageVariantsQuantity": {
+    "context": "number of variants",
+    "string": "Warianty ({quantity})"
+  },
+  "set availability date": {
+    "context": "product availability date label",
+    "string": "Ustaw datę dostępności"
+  },
+  "shipment refund title": {
+    "context": "shipment refund title",
+    "string": "Przesyłka została zwrócona"
+  },
+  "shippingZoneChannels_dot_autocomplete_dot_label": {
+    "context": "ChannelsSection select field label",
+    "string": "Kanał"
+  },
+  "src_dot_appExtensions": {
+    "context": "app extensions subsection",
+    "string": "Aplikacje"
+  },
+  "src_dot_approve": {
+    "context": "button",
+    "string": "Zatwierdź"
+  },
+  "src_dot_apps_dot_appActivated": {
+    "context": "snackbar text",
+    "string": "Aplikacja aktywowana"
+  },
+  "src_dot_apps_dot_appDeactivated": {
+    "context": "snackbar text",
+    "string": "Aplikacja dezaktywowana"
+  },
+  "src_dot_apps_dot_components_dot_AppActivateDialog_dot_2449960665": {
+    "context": "activate app",
+    "string": "Czy na pewno chcesz aktywować tę aplikację? Aktywacja spowoduje rozpoczęcie zbierania zdarzeń."
+  },
+  "src_dot_apps_dot_components_dot_AppDeactivateDialog_dot_deactivateApp": {
+    "context": "deactivate app",
+    "string": "Czy na pewno chcesz wyłączyć tę aplikację? Twoje dane będą przechowywane do czasu ponownej aktywacji aplikacji. Nadal będziesz otrzymywać opłaty za korzystanie z aplikacji."
+  },
+  "src_dot_apps_dot_components_dot_AppDeactivateDialog_dot_deactivateLocalApp": {
+    "context": "deactivate local app",
+    "string": "Czy na pewno chcesz wyłączyć tę aplikację? Twoje dane będą przechowywane do czasu ponownej aktywacji aplikacji."
+  },
+  "src_dot_apps_dot_components_dot_AppDeactivateDialog_dot_deactivateLocalNamedApp": {
+    "context": "deactivate local named app",
+    "string": "Czy na pewno chcesz wyłączyć aplikację {name}? Twoje dane będą przechowywane do czasu ponownej aktywacji aplikacji."
+  },
+  "src_dot_apps_dot_components_dot_AppDeactivateDialog_dot_deactivateNamedApp": {
+    "context": "deactivate named app",
+    "string": "Czy na pewno chcesz wyłączyć aplikację {name}? Twoje dane będą przechowywane do czasu ponownej aktywacji aplikacji. Nadal będziesz otrzymywać opłaty za korzystanie z aplikacji."
+  },
+  "src_dot_apps_dot_components_dot_AppPage_dot_1636202177": {
+    "context": "button",
+    "string": "Informacje o stronie"
+  },
+  "src_dot_apps_dot_components_dot_AppPage_dot_198187074": {
+    "context": "button",
+    "string": "Pomoc techniczna/FAQ"
+  },
+  "src_dot_apps_dot_components_dot_AppPage_dot_3182672904": {
+    "context": "button",
+    "string": "Strona główna aplikacji"
+  },
+  "src_dot_apps_dot_components_dot_CustomAppDetailsPage_dot_1782042241": {
+    "context": "link",
+    "string": "Dezaktywuj"
+  },
+  "src_dot_apps_dot_components_dot_CustomAppDetailsPage_dot_3865193889": {
+    "context": "link",
+    "string": "Aktywuj stronę"
+  },
+  "src_dot_apps_dot_components_dot_CustomApps_dot_4044120866": {
+    "context": "custom apps content",
+    "string": "W tym miejscu będą widoczne aplikacje utworzone przez użytkownika."
+  },
+  "src_dot_apps_dot_failedToFetchAppSettings": {
+    "context": "app settings error",
+    "string": "Nie udało się pobrać ustawień aplikacji"
+  },
+  "src_dot_apps_dot_views_dot_AppInstall_dot_installApp": {
+    "context": "window title",
+    "string": "Zainstaluj aplikację"
+  },
+  "src_dot_apps_dot_views_dot_AppsList_dot_appCouldntInstall": {
+    "context": "message title",
+    "string": "Nie można zainstalować {name}"
+  },
+  "src_dot_apps_dot_views_dot_AppsList_dot_appInstalled": {
+    "context": "message title",
+    "string": "Zainstalowana aplikacja"
+  },
+  "src_dot_apps_dot_views_dot_AppsList_dot_appReadyToUse": {
+    "context": "app has been installed",
+    "string": "{name} jest gotowy do użycia"
+  },
+  "src_dot_apps_dot_views_dot_AppsList_dot_appRemoved": {
+    "context": "app has been removed",
+    "string": "Aplikacja została pomyślnie usunięta"
+  },
+  "src_dot_apps_dot_views_dot_CustomAppCreate_dot_createApp": {
+    "context": "window title",
+    "string": "Utwórz aplikację"
+  },
+  "src_dot_assign": {
+    "context": "button",
+    "string": "Przypisz"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_acreFt": {
+    "context": "acre-ft unit",
+    "string": "acre-ft"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_acreInch": {
+    "context": "acre-inch unit",
+    "string": "acre-inch"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_area": {
+    "context": "area units type",
+    "string": "Obszar"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_attributeLabel": {
+    "context": "attribute's label",
+    "string": "Domyślna etykieta"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_attributeSlug": {
+    "context": "attribute's slug short code label",
+    "string": "Kod atrybutu"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_attributeSlugHelperText": {
+    "context": "attribute slug input field helper text",
+    "string": "Jest on używany wewnętrznie. Upewnij się, że nie używasz spacji"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_boolean": {
+    "context": "boolean attribute type",
+    "string": "Boolean"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_date": {
+    "context": "date attribute type",
+    "string": "Data"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_dateTime": {
+    "context": "date time attribute type",
+    "string": "Data Godzina"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_distance": {
+    "context": "distance units type",
+    "string": "Dystans"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_dropdown": {
+    "context": "product attribute type",
+    "string": "Rozwijana"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_entityType": {
+    "context": "attribute's editor component entity",
+    "string": "Jednostka"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_file": {
+    "context": "file attribute type",
+    "string": "Plik"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_imperial": {
+    "context": "imperial unit system",
+    "string": "Imperial"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_inputType": {
+    "context": "attribute's editor component",
+    "string": "Typ danych wejściowych katalogu dla właściciela sklepu"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_metric": {
+    "context": "metric unit system",
+    "string": "Metry"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_multiselect": {
+    "context": "product attribute type",
+    "string": "Wybór wielokrotny"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_numeric": {
+    "context": "numeric attribute type",
+    "string": "Numeric"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_page": {
+    "context": "page attribute entity type",
+    "string": "Strony"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_pint": {
+    "context": "pint unit",
+    "string": "pint"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_product": {
+    "context": "product attribute entity type",
+    "string": "Produkty"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_references": {
+    "context": "references attribute type",
+    "string": "Odnośniki"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_selectUnit": {
+    "context": "check to require numeric attribute unit",
+    "string": "Wybierz jednostkę"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_swatch": {
+    "context": "swatch attribute type",
+    "string": "Swatch"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_text": {
+    "context": "text attribute type",
+    "string": "Text"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_unit": {
+    "context": "numeric attribute unit",
+    "string": "Unit"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_unitOf": {
+    "context": "numeric attribute units of",
+    "string": "Units of"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_unitSystem": {
+    "context": "numeric attribute unit system",
+    "string": "System"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_valueRequired": {
+    "context": "check to require attribute to have value",
+    "string": "Wartość wymagana"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_volume": {
+    "context": "volume units types",
+    "string": "Volume"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeDetails_dot_weight": {
+    "context": "weight units type",
+    "string": "Weight"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_availableInGrid": {
+    "context": "add attribute as column in product list table",
+    "string": "Dodaj do opcji kolumn"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_availableInGridCaption": {
+    "context": "caption",
+    "string": "Jeśli ten atrybut jest włączony, może być używany jako kolumna w tabeli produktów."
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_dashboardPropertiesTitle": {
+    "context": "attribute properties regarding dashboard",
+    "string": "Właściwości pulpitu"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_filterableInDashboard": {
+    "context": "use attribute in filtering",
+    "string": "Użycie w filtrowaniu"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_filterableInDashboardCaption": {
+    "context": "caption",
+    "string": "Jeśli ten atrybut zostanie włączony, będzie można go używać do filtrowania produktów na liście produktów."
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_filterableInStorefront": {
+    "context": "attribute is filterable in storefront",
+    "string": "Użycie w nawigacji fasetowej"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_storefrontPropertiesTitle": {
+    "context": "attribute properties regarding storefront",
+    "string": "Właściwości storefront"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_storefrontSearchPosition": {
+    "context": "attribute position in storefront filters",
+    "string": "Pozycja w nawigacji fasetowej"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_visibleInStorefront": {
+    "context": "attribute visibility in storefront",
+    "string": "Publiczny"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeProperties_dot_visibleInStorefrontCaption": {
+    "context": "caption",
+    "string": "Jeśli atrybut zostanie włączony, będzie dostępny dla klientów."
+  },
+  "src_dot_attributes_dot_components_dot_AttributeSwatchField_dot_image": {
+    "context": "swatch attribute image label",
+    "string": "Obraz"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeSwatchField_dot_picker": {
+    "context": "swatch attribute color picker label",
+    "string": "Picker"
+  },
+  "src_dot_attributes_dot_components_dot_AttributeValues_dot_4086835540": {
+    "context": "attribute values list: slug column header",
+    "string": "Swatch"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_1173110163": {
+    "context": "card header",
+    "string": "Zaloguj się"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_1405865627": {
+    "context": "button",
+    "string": "Zaloguj się"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_3242928626": {
+    "context": "description",
+    "string": "Zapomniałeś hasło?"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_3762459576": {
+    "context": "description",
+    "string": "lub zaloguj się, używając"
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_externalLoginError": {
+    "context": "error message",
+    "string": "Przepraszamy, logowanie nie powiodło się. Prosimy spróbować ponownie."
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_loginError": {
+    "context": "error message",
+    "string": "Przepraszamy, Twoja nazwa użytkownika i/lub hasło są nieprawidłowe. Prosimy spróbować ponownie."
+  },
+  "src_dot_auth_dot_components_dot_LoginPage_dot_serverError": {
+    "context": "error message",
+    "string": "Usługa Saleor jest niedostępna, sprawdź połączenie sieciowe i spróbuj ponownie."
+  },
+  "src_dot_auth_dot_components_dot_NewPasswordPage_dot_3349581442": {
+    "string": "Ustaw nowe hasło do swojego konta. Powtórz nowe hasło, aby upewnić się, że będziesz w stanie je zapamiętać."
+  },
+  "src_dot_auth_dot_components_dot_NewPasswordPage_dot_533029895": {
+    "context": "page title",
+    "string": "Ustaw nowe hasło"
+  },
+  "src_dot_auth_dot_components_dot_ResetPasswordPage_dot_2422931690": {
+    "context": "password reset, button",
+    "string": "Wyślij wiadomość e-mail z łączem do resetowania"
+  },
+  "src_dot_auth_dot_components_dot_ResetPasswordPage_dot_2925394684": {
+    "string": "Zresetuj hasło"
+  },
+  "src_dot_auth_dot_components_dot_ResetPasswordPage_dot_365271428": {
+    "string": "Podaj nam swój adres e-mail - jeśli znajdziemy go w naszej bazie danych, wyślemy Ci link do zresetowania hasła. W ciągu najbliższych kilku minut powinieneś znaleźć go w swojej skrzynce odbiorczej."
+  },
+  "src_dot_auth_dot_components_dot_ResetPasswordSuccessPage_dot_2925394684": {
+    "string": "Zresetuj hasło"
+  },
+  "src_dot_cannotFullfillUnpaidOrder": {
+    "context": "disabled option description",
+    "string": "Nie można zrealizować zamówienia, dopóki płatność nie zostanie zaksięgowana"
+  },
+  "src_dot_categories_dot_components_dot_CategoryProducts_dot_4078580795": {
+    "context": "button",
+    "string": "Wyświetl produkty"
+  },
+  "src_dot_channel": {
+    "string": "Kanał"
+  },
+  "src_dot_channels_dot_ChannelsWithVariantsAvailabilityCard_dot_allVariantsLabel": {
+    "context": "all variants label",
+    "string": "Wszystkie warianty"
+  },
+  "src_dot_channels_dot_ChannelsWithVariantsAvailabilityCard_dot_variantCountLabel": {
+    "context": "variants count label",
+    "string": "{variantsCount} warianty"
+  },
+  "src_dot_channels_dot_components_dot_CannotDefineChannelsAvailabilityCard_dot_subtitle": {
+    "context": "CannotDefineChannelsAvailabilityCard subtitle",
+    "string": "Po utworzeniu wariantów będzie można określić dostępność produktu."
+  },
+  "src_dot_channels_dot_components_dot_CannotDefineChannelsAvailabilityCard_dot_title": {
+    "context": "CannotDefineChannelsAvailabilityCard title",
+    "string": "Dostępność"
+  },
+  "src_dot_channels_dot_components_dot_ChannelDeleteDialog_dot_deleteChannel": {
+    "context": "dialog header",
+    "string": "Usuń kanał"
+  },
+  "src_dot_channels_dot_components_dot_ChannelDeleteDialog_dot_deletingAllProductData": {
+    "context": "delete channel",
+    "string": "Usunięcie kanału spowoduje usunięcie wszystkich danych produktu dotyczących tego kanału. Czy na pewno chcesz usunąć ten kanał?"
+  },
+  "src_dot_channels_dot_components_dot_ChannelDeleteDialog_dot_needToBeMoved": {
+    "context": "delete channel",
+    "string": "Wszystkie informacje o zamówieniach z tego kanału muszą zostać przeniesione do innego kanału. Proszę wybrać kanał, do którego mają zostać przeniesione zamówienia:."
+  },
+  "src_dot_channels_dot_components_dot_ChannelDeleteDialog_dot_noAvailableChannel": {
+    "context": "currency channel",
+    "string": "Nie ma dostępnego kanału, na który można przenieść informacje o zleceniu. Proszę utworzyć kanał o tej samej walucie, aby można było przenieść do niego informacje."
+  },
+  "src_dot_channels_dot_components_dot_ChannelDeleteDialog_dot_selectChannel": {
+    "context": "dialog header",
+    "string": "Wybierz kanał"
+  },
+  "src_dot_channels_dot_components_dot_ChannelForm_dot_146559392": {
+    "context": "selected currency",
+    "string": "Wybrana waluta"
+  },
+  "src_dot_channels_dot_components_dot_ChannelForm_dot_3962880609": {
+    "string": "Kraj domyślny"
+  },
+  "src_dot_channels_dot_components_dot_ChannelForm_dot_507892781": {
+    "context": "channel name",
+    "string": "Nazwa kanału"
+  },
+  "src_dot_channels_dot_components_dot_ChannelsWithVariantsAvailabilityDialog_dot_title": {
+    "context": "channels variants availability dialog title",
+    "string": "Zarządzaj kanałami"
+  },
+  "src_dot_channels_dot_components_dot_ChannelsWithVariantsAvailabilityDialog_dot_variantsSelectedLabel": {
+    "context": "variants selected label",
+    "string": "{variantsAmount} wybrane warianty"
+  },
+  "src_dot_channels_dot_components_dot_ShippingZonesCard_dot_addZoneTitle": {
+    "context": "add shipping zone title",
+    "string": "Dodaj strefy wysyłki"
+  },
+  "src_dot_channels_dot_components_dot_ShippingZonesCard_dot_allSelectedMessage": {
+    "context": "all selected zones card message",
+    "string": "Zostały wybrane wszystkie dostępne strefy wysyłkowe"
+  },
+  "src_dot_channels_dot_components_dot_ShippingZonesCard_dot_subtitle": {
+    "context": "card subtitle",
+    "string": "Wybierz strefy wysyłkowe, które będą dostarczane za pośrednictwem tego kanału. Strefy wysyłkowe można przypisać do wielu kanałów."
+  },
+  "src_dot_channels_dot_components_dot_ShippingZonesCard_dot_title": {
+    "context": "title",
+    "string": "{zonesCount} / {totalCount} strefy wysyłki"
+  },
+  "src_dot_channels_dot_pages_dot_ChannelsListPage_dot_2754800034": {
+    "context": "alert",
+    "string": "Osiągnięto limit kanału"
+  },
+  "src_dot_channels_dot_pages_dot_ChannelsListPage_dot_3277722884": {
+    "context": "created channels counter",
+    "string": "{count}/{max} użyte kanały"
+  },
+  "src_dot_channels_dot_pages_dot_ChannelsListPage_dot_85767761": {
+    "string": "Osiągnąłeś limit kanałów, nie będziesz mógł już dodawać kanałów do swojego sklepu. Jeśli chcesz zwiększyć limit, skontaktuj się z pracownikami administracji w sprawie zwiększenia limitu."
+  },
+  "src_dot_channels_dot_views_dot_ChannelDetails_dot_3499322424": {
+    "string": "Usunięto kanał"
+  },
+  "src_dot_collections_dot_components_dot_CollectionListPage_dot_2685595924": {
+    "string": "Wyszukaj kolekcje"
+  },
+  "src_dot_components_dot_AssignAttributeDialog_dot_assignButton": {
+    "context": "button",
+    "string": "Przypisz atrybuty"
+  },
+  "src_dot_components_dot_AssignAttributeDialog_dot_noMembersFound": {
+    "context": "description",
+    "string": "Nie znaleziono wyników"
+  },
+  "src_dot_components_dot_AssignAttributeDialog_dot_searchInputLabel": {
+    "context": "input label",
+    "string": "Szukaj atrybutów"
+  },
+  "src_dot_components_dot_AssignAttributeDialog_dot_searchInputPlaceholder": {
+    "context": "input placeholder",
+    "string": "Szukaj według nazwy atrybutu"
+  },
+  "src_dot_components_dot_AssignAttributeDialog_dot_title": {
+    "context": "dialog header",
+    "string": "Przypisz atrybut"
+  },
+  "src_dot_components_dot_AssignAttributeValueDialog_dot_header": {
+    "context": "dialog header",
+    "string": "Przypisz wartość atrybutu"
+  },
+  "src_dot_components_dot_AssignAttributeValueDialog_dot_searchLabel": {
+    "context": "label",
+    "string": "Wyszukaj wartość atrybutu"
+  },
+  "src_dot_components_dot_AssignAttributeValueDialog_dot_searchPlaceholder": {
+    "context": "placeholder",
+    "string": "Wyszukiwanie według nazwy wartości itd."
+  },
+  "src_dot_components_dot_AssignCategoryDialog_dot_assignCategoryDialogHeader": {
+    "context": "dialog header",
+    "string": "Przypisz kategorię"
+  },
+  "src_dot_components_dot_AssignCategoryDialog_dot_assignCategoryDialogLabel": {
+    "context": "dialog header",
+    "string": "Wyszukaj kategorię"
+  },
+  "src_dot_components_dot_AssignCategoryDialog_dot_assignCategoryDialogPlaceholder": {
+    "context": "dialog search placeholder",
+    "string": "Wyszukiwanie według nazwy kategorii itp."
+  },
+  "src_dot_components_dot_AssignCollectionDialog_dot_assignCollectionDialogHeader": {
+    "context": "dialog header",
+    "string": "Przypisz kolekcję"
+  },
+  "src_dot_components_dot_AssignCollectionDialog_dot_assignCollectionDialogLabel": {
+    "context": "dialog header",
+    "string": "Wyszukaj kolekcję"
+  },
+  "src_dot_components_dot_AssignCollectionDialog_dot_assignCollectionDialogPlaceholder": {
+    "context": "dialog search placeholder",
+    "string": "Wyszukiwanie według nazwy kolekcji itp."
+  },
+  "src_dot_components_dot_AssignContainerDialog_dot_assignContainerDialogButton": {
+    "context": "button",
+    "string": "Przypisz"
+  },
+  "src_dot_components_dot_AssignProductDialog_dot_assignProductDialogButton": {
+    "context": "button",
+    "string": "Przypisz"
+  },
+  "src_dot_components_dot_AssignProductDialog_dot_assignProductDialogContent": {
+    "string": "Szukaj produktów"
+  },
+  "src_dot_components_dot_AssignProductDialog_dot_assignProductDialogSearch": {
+    "string": "Wyszukiwanie według nazwy produktu, atrybutu, typu produktu itd."
+  },
+  "src_dot_components_dot_AssignProductDialog_dot_assignVariantDialogHeader": {
+    "context": "dialog header",
+    "string": "Przypisz produkt"
+  },
+  "src_dot_components_dot_AssignVariantDialog_dot_3284796469": {
+    "string": "Brak dostępnych produktów w kanale zamówień pasujących do podanego zapytania"
+  },
+  "src_dot_components_dot_AssignVariantDialog_dot_assignVariantDialogButton": {
+    "context": "button",
+    "string": "Przypisz"
+  },
+  "src_dot_components_dot_AssignVariantDialog_dot_assignVariantDialogContent": {
+    "string": "Wyszukaj warianty"
+  },
+  "src_dot_components_dot_AssignVariantDialog_dot_assignVariantDialogHeader": {
+    "context": "dialog header",
+    "string": "Przypisz wariant"
+  },
+  "src_dot_components_dot_AssignVariantDialog_dot_assignVariantDialogSKU": {
+    "context": "variant sku",
+    "string": "SKU {sku}"
+  },
+  "src_dot_components_dot_AssignVariantDialog_dot_assignVariantDialogSearch": {
+    "string": "Wyszukiwanie według nazwy produktu, atrybutu, typu produktu itd."
+  },
+  "src_dot_components_dot_Attributes_dot_multipleValueLabel": {
+    "context": "attribute values",
+    "string": "Wartości"
+  },
+  "src_dot_components_dot_Attributes_dot_reference": {
+    "context": "button label",
+    "string": "Przypisz referencje"
+  },
+  "src_dot_components_dot_CardMenu_dot_cardMenuItemLoading": {
+    "context": "menu item loading",
+    "string": "pracujemy nad tym..."
+  },
+  "src_dot_components_dot_ChannelsAvailabilityCard_dot_3326160357": {
+    "context": "section header",
+    "string": "Dostępność"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityCard_dot_370220662": {
+    "context": "channels availability text",
+    "string": "Dostępny w {selectedChannelsCount} out of {allChannelsCount, plural, one {# channel} other {# channels}}"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityCard_dot_4037103586": {
+    "context": "section header button",
+    "string": "Zarządzaj"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityCard_dot_Channel_dot_1311467573": {
+    "string": "Pokaż na liście produktów"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityCard_dot_Channel_dot_1815688500": {
+    "context": "date",
+    "string": "od {date}"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityCard_dot_Channel_dot_2060790769": {
+    "context": "publish on date",
+    "string": "Opublikuj na"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityCard_dot_Channel_dot_2264302389": {
+    "string": "Wyłączenie tego pola wyboru spowoduje usunięcie produktu ze stron wyszukiwania i kategorii. Będzie on dostępny na stronach kolekcji."
+  },
+  "src_dot_components_dot_ChannelsAvailabilityCard_dot_Channel_dot_2699516026": {
+    "context": "available on date",
+    "string": "Ustaw dostępność na"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityCard_dot_Channel_dot_292404896": {
+    "string": "Ustal datę publikacji"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDialogWrapper_dot_4243012684": {
+    "string": "Przeszukiwanie kanałów"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDialogWrapper_dot_channelsAlphabeticallyTitle": {
+    "context": "channels alphabetically title",
+    "string": "Kanały od A do Z"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDialogWrapper_dot_notFoundTitle": {
+    "context": "no channels found title",
+    "string": "Nie znaleziono kanałów"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDialogWrapper_dot_selectAllChannelsLabel": {
+    "context": "select all channels label",
+    "string": "Wybierz wszystkie kanały"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDialogWrapper_dot_selectTitle": {
+    "context": "select title",
+    "string": "Wybierz kanały, na których ma być dostępny {contentType}."
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDropdown_dot_channel": {
+    "context": "Channel label",
+    "string": "Kanał"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDropdown_dot_dropdownLabel": {
+    "context": "product status title",
+    "string": "{channelCount} {channelCount,plural, =1 {Channel} other {Channels}}"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDropdown_dot_noChannels": {
+    "context": "dropdown label when there are no channels assigned",
+    "string": "Brak kanałów"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDropdown_dot_published": {
+    "context": "Status label when object is published in a channel",
+    "string": "Opublikowany"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDropdown_dot_scheduled": {
+    "context": "Status label when object is scheduled to publish in a channel",
+    "string": "Zaplanowane do publikacji"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDropdown_dot_status": {
+    "context": "Status label",
+    "string": "Status"
+  },
+  "src_dot_components_dot_ChannelsAvailabilityDropdown_dot_unpublished": {
+    "context": "Status label when object is unpublished in a channel",
+    "string": "Niepublikowany"
+  },
+  "src_dot_components_dot_DemoBanner_dot_1647850230": {
+    "string": "Storefront"
+  },
+  "src_dot_components_dot_DemoBanner_dot_214739616": {
+    "string": "Baw się z <emphasis>GraphQL API</emphasis>"
+  },
+  "src_dot_components_dot_DemoBanner_dot_2367386033": {
+    "string": "API"
+  },
+  "src_dot_components_dot_DemoBanner_dot_4093572282": {
+    "string": "Zobacz <emphasis>DEMO STOREFRONT</emphasis>"
+  },
+  "src_dot_components_dot_ErrorPage_dot_btnDashboard": {
+    "context": "button linking to dashboard",
+    "string": "Panel"
+  },
+  "src_dot_components_dot_ErrorPage_dot_btnRefresh": {
+    "context": "button refreshing page",
+    "string": "Odśwież stronę"
+  },
+  "src_dot_components_dot_ErrorPage_dot_content": {
+    "string": "Nie martw się, wkrótce to naprawimy. Spróbuj odświeżyć stronę lub wróć do pulpitu nawigacyjnego."
+  },
+  "src_dot_components_dot_ErrorPage_dot_header": {
+    "string": "Napotkaliśmy nieoczekiwany błąd"
+  },
+  "src_dot_components_dot_ErrorPage_dot_or": {
+    "context": "conjunction, choice between going to dashboard or refreshing page",
+    "string": "lub"
+  },
+  "src_dot_components_dot_Filter_dot_DEPENDENCIES_MISSING": {
+    "context": "filters error messages dependencies missing",
+    "string": "Filtr wymaga innych filtrów: {dependencies}"
+  },
+  "src_dot_components_dot_Filter_dot_FilterContent_dot_2779594451": {
+    "context": "filter range separator",
+    "string": "i"
+  },
+  "src_dot_components_dot_Filter_dot_FilterContent_dot_996289613": {
+    "string": "Filtry"
+  },
+  "src_dot_components_dot_Filter_dot_UNKNOWN_ERROR": {
+    "context": "filters error messages unknown error",
+    "string": "Wystąpił nieznany błąd"
+  },
+  "src_dot_components_dot_Filter_dot_VALUE_REQUIRED": {
+    "context": "filters error messages value required",
+    "string": "Wybierz wartość"
+  },
+  "src_dot_components_dot_Form_dot_cancelButton": {
+    "context": "ExitFormPrompt cancel button",
+    "string": "Wyjdź bez zapisywania"
+  },
+  "src_dot_components_dot_Form_dot_confirmButton": {
+    "context": "ExitFormPrompt confirm button",
+    "string": "Zapisz i kontynuuj"
+  },
+  "src_dot_components_dot_Form_dot_description": {
+    "context": "ExitFormPrompt description",
+    "string": "W tym widoku znajdują się niezapisane zmiany. Co chcesz z nimi zrobić?"
+  },
+  "src_dot_components_dot_Form_dot_title": {
+    "context": "ExitFormPrompt title",
+    "string": "Czy na pewno chcesz wyjść?"
+  },
+  "src_dot_components_dot_PreviewPill_dot_label": {
+    "context": "indicator that feature is in preview mode",
+    "string": "Podgląd"
+  },
+  "src_dot_components_dot_PreviewPill_dot_tooltip": {
+    "context": "tooltip",
+    "string": "Ta funkcja jest w stanie podglądu i może ulec zmianie w późniejszym czasie."
+  },
+  "src_dot_components_dot_TablePagination_dot_noOfRows": {
+    "context": "pagination",
+    "string": "Liczba wierszy"
+  },
+  "src_dot_components_dot_TooltipTableCellHeader_dot_noFilterSelected": {
+    "string": "Sortowanie według tej kolumny wymaga aktywnego filtra: {filterName}"
+  },
+  "src_dot_containers_dot_ServiceWorker_dot_newVersionContent": {
+    "context": "new version notification content",
+    "string": "Musisz zaktualizować program Saleor do najnowszej wersji. Zanim to zrobisz, zapisz wszystkie zmiany, aby zapobiec utracie danych. Aby zaktualizować program, użyj poniższego przycisku."
+  },
+  "src_dot_containers_dot_ServiceWorker_dot_newVersionTitle": {
+    "context": "notification title",
+    "string": "Wymagana aktualizacja systemu"
+  },
+  "src_dot_containers_dot_ServiceWorker_dot_refresh": {
+    "context": "button",
+    "string": "Odśwież"
+  },
+  "src_dot_continue": {
+    "context": "button",
+    "string": "Kontynuuj"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddressListPage_dot_addAddress": {
+    "context": "button",
+    "string": "Dodaj adres"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddressListPage_dot_doesntHaveAddresses": {
+    "string": "Ten klient nie ma jeszcze dodanych żadnych adresów w swojej książce adresowej. Możesz dodać adres, korzystając z poniższego przycisku."
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddressListPage_dot_fullNameAddress": {
+    "context": "customer's address book, header",
+    "string": "{fullName}'s książka adresowa"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddressListPage_dot_fullNameDetail": {
+    "context": "customer details, header",
+    "string": "{fullName} szczegóły"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddressListPage_dot_noAddressToShow": {
+    "string": "Dla tego klienta nie ma adresu do wyświetlenia"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddressListPage_dot_noNameToShow": {
+    "context": "customer's address book when no customer name is available, header",
+    "string": "Książka adresowa"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddress_dot_defaultAddress": {
+    "string": "Domyślny adres"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddress_dot_defaultBillingAddress": {
+    "string": "Domyślny adres rozliczeniowy"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddress_dot_defaultShippingAddress": {
+    "string": "Domyślny adres wysyłki"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddress_dot_deleteAddress": {
+    "context": "button",
+    "string": "Usuń adres"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddress_dot_editAddress": {
+    "context": "button",
+    "string": "Edytuj adres"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddress_dot_setDefaultBilling": {
+    "context": "button",
+    "string": "Ustaw jako domyślny adres rozliczeniowy"
+  },
+  "src_dot_customers_dot_components_dot_CustomerAddress_dot_setDefaultShipping": {
+    "context": "button",
+    "string": "Ustaw jako domyślny adres wysyłki"
+  },
+  "src_dot_date": {
+    "string": "Data"
+  },
+  "src_dot_descriptionOptional": {
+    "string": "Opis (opcjonalne)"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCategories_dot_discountCategoriesButton": {
+    "context": "button",
+    "string": "Przypisz kategorie"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCategories_dot_discountCategoriesHeader": {
+    "context": "section header",
+    "string": "Kwalifikujące się kategorie"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCategories_dot_discountCategoriesNotFound": {
+    "context": "no categories",
+    "string": "Nie znaleziono kategorii"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCategories_dot_discountCategoriesTableProductHeader": {
+    "context": "table head",
+    "string": "Nazwa kategorii"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCategories_dot_discountCategoriesTableProductNumber": {
+    "context": "number of products",
+    "string": "Produkty"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCollections_dot_discountCollectionsButton": {
+    "context": "button",
+    "string": "Przypisz kolekcje"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCollections_dot_discountCollectionsHeader": {
+    "context": "section header",
+    "string": "Kwalifikujące się kolekcje"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCollections_dot_discountCollectionsNotFound": {
+    "context": "no collections",
+    "string": "Nie znaleziono kolekcji"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCollections_dot_discountCollectionsTableProductHeader": {
+    "context": "table head",
+    "string": "Nazwa kolekcji"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountCollections_dot_discountCollectionsTableProductNumber": {
+    "context": "number of products",
+    "string": "Produkty"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountProducts_dot_discountProductsButton": {
+    "context": "button",
+    "string": "Przypisz produkty"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountProducts_dot_discountProductsHeader": {
+    "context": "section header",
+    "string": "Kwalifikujące się produkty"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountProducts_dot_discountProductsNotFound": {
+    "context": "no products",
+    "string": "Nie znaleziono produktów"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountProducts_dot_discountProductsTableAvailabilityHeader": {
+    "context": "product availability",
+    "string": "Dostępność"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountProducts_dot_discountProductsTableProductHeader": {
+    "context": "table head",
+    "string": "Nazwa produktu"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountProducts_dot_discountProductsTableTypeHeader": {
+    "context": "product type",
+    "string": "Typ produktu"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountVariants_dot_discountVariantsButton": {
+    "context": "button",
+    "string": "Przypisz warianty"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountVariants_dot_discountVariantsHeader": {
+    "context": "section header",
+    "string": "Kwalifikowalne warianty"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountVariants_dot_discountVariantsNotFound": {
+    "context": "no variants",
+    "string": "Nie znaleziono wariantów"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountVariants_dot_discountVariantsTableProductHeader": {
+    "context": "table head",
+    "string": "Nazwa produktu"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountVariants_dot_discountVariantsTableTypeHeader": {
+    "context": "table head",
+    "string": "Typ produktu"
+  },
+  "src_dot_discounts_dot_components_dot_DiscountVariants_dot_discountVariantsTableVariantHeader": {
+    "context": "table head",
+    "string": "Nazwa wariantu"
+  },
+  "src_dot_discounts_dot_components_dot_SaleListPage_dot_channel": {
+    "context": "sale channel",
+    "string": "Kanał"
+  },
+  "src_dot_discounts_dot_components_dot_VoucherLimits_dot_applyOncePerCustomer": {
+    "context": "limit voucher",
+    "string": "Ograniczenie do jednego użycia na klienta"
+  },
+  "src_dot_discounts_dot_components_dot_VoucherLimits_dot_hasUsageLimit": {
+    "context": "limit voucher",
+    "string": "Ograniczona liczba przypadków, w których można wykorzystać ten rabat."
+  },
+  "src_dot_discounts_dot_components_dot_VoucherLimits_dot_onlyForStaff": {
+    "context": "limit voucher",
+    "string": "Ograniczenie tylko do pracowników"
+  },
+  "src_dot_discounts_dot_components_dot_VoucherLimits_dot_usageLimit": {
+    "context": "limit voucher",
+    "string": "Limit zastosowań"
+  },
+  "src_dot_discounts_dot_components_dot_VoucherLimits_dot_usageLimitsTitle": {
+    "context": "voucher usage limit, header",
+    "string": "Limit użycia"
+  },
+  "src_dot_discounts_dot_components_dot_VoucherLimits_dot_usesLeftCaption": {
+    "context": "usage limit uses left caption",
+    "string": "Zastosowanie po lewej stronie"
+  },
+  "src_dot_discounts_dot_components_dot_VoucherListPage_dot_channel": {
+    "context": "voucher channel",
+    "string": "Kanał"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsChannelAvailabilityDialogHeader": {
+    "context": "channel availability dialog header",
+    "string": "Zarządzaj dostępnością kanałów"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsSaleDelate": {
+    "context": "sale Details delete button",
+    "string": "Usunięto sprzedaż"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsSaleDeleteDialog": {
+    "context": "dialog content",
+    "string": "Usunięto sprzedaż"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsSaleDeleteDialogHeader": {
+    "context": "dialog header",
+    "string": "Usuń sprzedaż"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignCategory": {
+    "context": "unassign category from sale, button",
+    "string": "Usuń przypisanie"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignCategoryDialog": {
+    "context": "dialog content",
+    "string": "{counter,plural,one{Czy na pewno chcesz zrezygnować z przypisania tej kategorii?} other{Czy na pewno chcesz usunąć przypisanie {displayQuantity} kategorie?}}"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignCategoryDialogHeader": {
+    "context": "dialog header",
+    "string": "Usuń przypisanie kategorii ze sprzedaży"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignCollection": {
+    "context": "unassign collection from sale, button",
+    "string": "Usuń przypisanie"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignCollectionDialog": {
+    "context": "dialog content",
+    "string": "{counter,plural,one{Czy na pewno chcesz zrezygnować z przypisania tej kolekcji?} other{Czy na pewno chcesz usunąć przypisanie kolekcji {displayQuantity}?}}"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignCollectionDialogHeader": {
+    "context": "dialog header",
+    "string": "Wycofaj kolekcję ze sprzedaży"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignDialogDelete": {
+    "context": "dialog content",
+    "string": "Czy na pewno chcesz usunąć {saleName}?"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignProduct": {
+    "context": "unassign product from sale, button",
+    "string": "Usuń przypisanie"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignProductDialog": {
+    "context": "dialog content",
+    "string": "{counter,plural,one{Czy na pewno chcesz usunąć przypisanie tego produktu?} other{Czy na pewno chcesz usunąć przypisanie produktów {displayQuantity}?}}"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignProductDialogHeader": {
+    "context": "dialog header",
+    "string": "Usuń przypisanie produktu ze sprzedaży"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignVariant": {
+    "context": "unassign variant from sale, button",
+    "string": "Usuń przypisanie"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignVariantDialog": {
+    "context": "dialog content",
+    "string": "{counter,plural,one{Czy na pewno chcesz zrezygnować z przypisania tego wariantu?} other{Czy na pewno chcesz usunąć przypisanie {displayQuantity} wariantów?}}"
+  },
+  "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsUnassignVariantDialogHeader": {
+    "context": "dialog header",
+    "string": "Wycofaj wariant ze sprzedaży"
+  },
+  "src_dot_error": {
+    "string": "Error"
+  },
+  "src_dot_giftCards": {
+    "context": "gift cards section name",
+    "string": "Karty podarunkowe"
+  },
+  "src_dot_giftCards_dot_GiftCardBulkCreateDialog_dot_createdSuccessAlertDescription": {
+    "context": "bulk issue gift cards success alert description",
+    "string": "Żądana liczba kart {cardsAmount} została pomyślnie wydana"
+  },
+  "src_dot_giftCards_dot_GiftCardBulkCreateDialog_dot_createdSuccessAlertTitle": {
+    "context": "bulk issue gift cards success alert title",
+    "string": "Wydane karty podarunkowe"
+  },
+  "src_dot_giftCards_dot_GiftCardBulkCreateDialog_dot_title": {
+    "context": "bulk issue gift cards dialog title",
+    "string": "Karty podarunkowe wydawane masowo"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_GiftCardCreateExpirySelect_dot_expiryDateLabel": {
+    "context": "expiry date label",
+    "string": "Dokładna data"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_GiftCardCreateExpirySelect_dot_expiryOnLabel": {
+    "context": "expires on label",
+    "string": "Wygasa z dniem:"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_GiftCardCreateExpirySelect_dot_expiryPeriodLabel": {
+    "context": "expires in label",
+    "string": "Wygasa w"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_GiftCardCreateExpirySelect_dot_expirySelectedLabel": {
+    "context": "set expiry date selected label",
+    "string": "Ustaw datę ważności karty podarunkowej"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_amountLabel": {
+    "context": "money amount input label",
+    "string": "Wpisz kwotę"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_bulkCreateExplanation": {
+    "context": "gift card bulk create modal bottom explanation",
+    "string": "Po utworzeniu Saleor utworzy listę kodów kart podarunkowych, które będziesz mógł pobrać. "
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_bulkCreateIssuedAccept": {
+    "context": "gift card bulk create success dialog accept button",
+    "string": "Ok"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_bulkCreateIssuedExplanation": {
+    "context": "gift card bulk create success dialog content",
+    "string": "Wydaliśmy wszystkie karty upominkowe, o które prosiliście. Listę nowych kart upominkowych można pobrać, korzystając z poniższego przycisku."
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_bulkCreateIssuedExportToEmail": {
+    "context": "gift card bulk create success dialog export button",
+    "string": "Eksport do wiadomości e-mail"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_bulkCreateIssuedTitle": {
+    "context": "gift card bulk create success dialog title",
+    "string": "Karty podarunkowe wydawane masowo"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_copiedToClipboardTitle": {
+    "context": "copied to clipboard alert title",
+    "string": "Skopiowano do schowka"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_copyCodeLabel": {
+    "context": "copy code button label",
+    "string": "Kopiuj kod"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_createdGiftCardLabel": {
+    "context": "created gift card code label",
+    "string": "Jest to kod utworzonej karty podarunkowej:"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_createdSuccessAlertTitle": {
+    "context": "successfully created gift card alert title",
+    "string": "Pomyślnie utworzono kartę podarunkową"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_customerLabel": {
+    "context": "customer input label",
+    "string": "Klient"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_giftCardsAmountLabel": {
+    "context": "issued cards amount label",
+    "string": "Karty wydane"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_issueButtonLabel": {
+    "context": "issue gift card button label",
+    "string": "Issue"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_noteLabel": {
+    "context": "note input label",
+    "string": "Notatka"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_noteSubtitle": {
+    "context": "note input subtitle",
+    "string": "Dlaczego wydano tę kartę upominkową. Ta notatka nie będzie pokazywana klientowi. Uwaga zostanie zapisana w historii karty podarunkowej."
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_requiresActivationCaption": {
+    "context": "requires activation checkbox caption",
+    "string": "Wszystkie wydane karty wymagają aktywacji przez personel przed użyciem."
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_requiresActivationLabel": {
+    "context": "requires activation checkbox label",
+    "string": "Wymagana aktywacja"
+  },
+  "src_dot_giftCards_dot_GiftCardCreateDialog_dot_title": {
+    "context": "issue gift card dialog title",
+    "string": "Wydanie karty podarunkowej"
+  },
+  "src_dot_giftCards_dot_GiftCardExportDialogContent_dot_2086397658": {
+    "context": "export all items to csv file",
+    "string": "Wszystkie karty podarunkowe ({number})"
+  },
+  "src_dot_giftCards_dot_GiftCardExportDialogContent_dot_701638571": {
+    "context": "export selected items to csv file",
+    "string": "Wybrane karty podarunkowe ({number})"
+  },
+  "src_dot_giftCards_dot_GiftCardExportDialogContent_dot_confirmButtonLabel": {
+    "context": "gift card export dialog confirm button label",
+    "string": "Kody eksportowe"
+  },
+  "src_dot_giftCards_dot_GiftCardExportDialogContent_dot_exportNote": {
+    "context": "note on export gift cards",
+    "string": "Uwaga: Tylko aktywne i niewykorzystane karty podarunkowe tracą ważność"
+  },
+  "src_dot_giftCards_dot_GiftCardExportDialogContent_dot_exportTypeLabel": {
+    "context": "gift card export type label",
+    "string": "karty podarunkowe"
+  },
+  "src_dot_giftCards_dot_GiftCardExportDialogContent_dot_successAlertDescription": {
+    "context": "gift card export success alert description",
+    "string": "Obecnie eksportujemy kody Twoich kart podarunkowych. Jak tylko plik będzie dostępny, zostanie wysłany na Twój adres e-mail."
+  },
+  "src_dot_giftCards_dot_GiftCardExportDialogContent_dot_successAlertTitle": {
+    "context": "gift card export csv success alert title",
+    "string": "Eksportowanie CSV"
+  },
+  "src_dot_giftCards_dot_GiftCardExportDialogContent_dot_title": {
+    "context": "gift card export dialog title",
+    "string": "Eksport kodów do kart podarunkowych"
+  },
+  "src_dot_giftCards_dot_GiftCardSettings_dot_GiftCardExpirySettingsCard_dot_expiryDateSectionDescription": {
+    "context": "expiry date selection info message",
+    "string": "Możesz ustawić, aby karty upominkowe traciły ważność po upływie określonego czasu od ich zakupu. Pamiętaj, że w niektórych krajach wygaśnięcie kart podarunkowych jest prawnie zabronione."
+  },
+  "src_dot_giftCards_dot_GiftCardSettings_dot_GiftCardExpirySettingsCard_dot_expiryDateTitle": {
+    "context": "expiry date section header",
+    "string": "Data ważności"
+  },
+  "src_dot_giftCards_dot_GiftCardSettings_dot_title": {
+    "context": "gift card settings header",
+    "string": "Ustawienia kart podarunkowych"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_activated": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została aktywowana przez {activatedBy}"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_activatedAnonymous": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została aktywowana"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_balanceReset": {
+    "context": "gift card history message",
+    "string": "Saldo karty podarunkowej zostało wyzerowane przez {resetBy}"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_balanceResetAnonymous": {
+    "context": "gift card history message",
+    "string": "Saldo karty podarunkowej zostało wyzerowane przez {resetBy}"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_bought": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została zakupiona w kolejności {orderNumber}"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_deactivated": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została dezaktywowana przez {deactivatedBy}"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_deactivatedAnonymous": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została dezaktywowana"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_expiryDateUpdate": {
+    "context": "gift card history message",
+    "string": "Data ważności karty podarunkowej została zaktualizowana przez {expiryUpdatedBy}"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_expiryDateUpdateAnonymous": {
+    "context": "gift card history message",
+    "string": "Data ważności karty podarunkowej została zaktualizowana"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_historyHeaderTitle": {
+    "context": "section header title",
+    "string": "Oś czasu karty podarunkowej"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_issued": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została wydana przez {issuedBy}"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_issuedAnonymous": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została wydana"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_noteAddError": {
+    "context": "notifier message",
+    "string": "Wystąpił błąd podczas dodawania notatki"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_noteAddedSuccessfully": {
+    "context": "notifier message",
+    "string": "Notatka została dodana pomyślnie"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_resent": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została wysłana ponownie"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_sentToCustomer": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została wysłana do klienta"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_tagsUpdated": {
+    "context": "gift card history message",
+    "string": "Zaktualizowano etykiety kart podarunkowych"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_usedInOrder": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została użyta jako metoda płatności w zamówieniu {orderLink} <buyer>by</buyer>."
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardHistory_dot_usedInOrderAnonymous": {
+    "context": "gift card history message",
+    "string": "Karta podarunkowa została użyta jako metoda płatności w zamówieniu {orderLink}."
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardResendCodeDialog_dot_consentCheckboxLabel": {
+    "context": "consent to send gift card to different address checkbox label",
+    "string": "Tak, chcę wysłać kartę podarunkową na inny adres"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardResendCodeDialog_dot_description": {
+    "context": "resend code to customer description",
+    "string": "Kod karty podarunkowej zostanie wysłany na adres e-mail podany podczas składania zamówienia. Jeśli chcesz, możesz podać inny adres e-mail:"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardResendCodeDialog_dot_emailInputPlaceholder": {
+    "context": "provided email input placeholder",
+    "string": "Podany adres e-mail"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardResendCodeDialog_dot_sendToChannelSelectLabel": {
+    "context": "send to channel select label",
+    "string": "Wyślij na kanał"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardResendCodeDialog_dot_submitButtonLabel": {
+    "context": "resend button label",
+    "string": "Wyślij ponownie"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardResendCodeDialog_dot_successResendAlertText": {
+    "context": "resent code success message",
+    "string": "Udało się wysłać kod do klienta!"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardResendCodeDialog_dot_title": {
+    "context": "resend code to customer title",
+    "string": "Wyślij ponownie kod do klienta"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateBalanceDialog_dot_changeButtonLabel": {
+    "context": "change button label",
+    "string": "Zmień"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateBalanceDialog_dot_subtitle": {
+    "context": "set balance dialog subtitle",
+    "string": "Na co chcesz ustawić saldo kart. Po zmianie salda obie wartości zostaną zmienione"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateBalanceDialog_dot_title": {
+    "context": "set balance dialog title label",
+    "string": "Ustaw saldo"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateBalanceDialog_dot_updatedSuccessAlertTitle": {
+    "context": "card update success alert title",
+    "string": "Pomyślna aktualizacja salda karty"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateDetailsCard_dot_cardBalanceLabel": {
+    "context": "card balance label",
+    "string": "Saldo karty"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateDetailsCard_dot_setBalanceButtonLabel": {
+    "context": "set balance button label",
+    "string": "Ustaw saldo"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateDetailsCard_dot_tagInputLabel": {
+    "context": "tag label",
+    "string": "Tag karty"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateDetailsCard_dot_title": {
+    "context": "details title",
+    "string": "Szczegóły"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateExpirySelect_dot_expiredOnLabel": {
+    "context": "expired on label",
+    "string": "Wygasło z dniem {date}"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateExpirySelect_dot_expiryDateCheckboxLabel": {
+    "context": "expiry date checkbox label",
+    "string": "Karta podarunkowa traci ważność"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateExpirySelect_dot_expiryDateLabel": {
+    "context": "expiration date label",
+    "string": "Data wygaśnięcia"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateInfoCard_dot_boughtByLabel": {
+    "context": "bought by label",
+    "string": "Kupiony przez"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateInfoCard_dot_creationLabel": {
+    "context": "creation label",
+    "string": "Tworzenie"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateInfoCard_dot_issuedByAppLabel": {
+    "context": "issued by app label",
+    "string": "Wydane przez aplikację"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateInfoCard_dot_issuedByLabel": {
+    "context": "issued by label",
+    "string": "Wydane przez"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateInfoCard_dot_orderNumberLabel": {
+    "context": "order number label",
+    "string": "Numer zamówienia"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateInfoCard_dot_productLabel": {
+    "context": "product label",
+    "string": "Produkt zakupiony w celu otrzymania karty podarunkowej"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateInfoCard_dot_title": {
+    "context": "info card title",
+    "string": "Informacje o karcie"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdateInfoCard_dot_usedByLabel": {
+    "context": "used by label",
+    "string": "Używane przez"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdatePageHeader_dot_disabledStatusLabel": {
+    "context": "disabled status label",
+    "string": "Wyłączona"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdatePageHeader_dot_expiredStatusLabel": {
+    "context": "expired status label",
+    "string": "Wygasły"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdatePageHeader_dot_resendButtonLabel": {
+    "context": "resend code label",
+    "string": "Wyślij ponownie kod"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdatePageHeader_dot_successfullyDisabledTitle": {
+    "context": "success gift card disable message",
+    "string": "Pomyślnie wyłączono kartę podarunkową"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_GiftCardUpdatePageHeader_dot_successfullyEnabledTitle": {
+    "context": "success gift card enable message",
+    "string": "Pomyślnie aktywowano kartę podarunkową"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_notFound": {
+    "context": "gift card not found message",
+    "string": "Nie mogłem znaleźć karty podarunkowej"
+  },
+  "src_dot_giftCards_dot_GiftCardUpdate_dot_title": {
+    "context": "title",
+    "string": "Szczegóły"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_balanceAmount": {
+    "context": "balance amound missing error message",
+    "string": "Brakuje kwoty salda"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_balanceAmountLabel": {
+    "context": "amount filter label",
+    "string": "Kwota"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_balanceCurrency": {
+    "context": "balance curreny missing error message",
+    "string": "Brak waluty bilansu"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_currencyLabel": {
+    "context": "currency filter label",
+    "string": "Waluta"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_currentBalanceLabel": {
+    "context": "current balance filter label",
+    "string": "Saldo bieżące"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_defaultTabLabel": {
+    "context": "all gift cards label",
+    "string": "Wszystkie karty podarunkowe"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_disabledOptionLabel": {
+    "context": "disabled status option label",
+    "string": "Wyłączona"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_enabledOptionLabel": {
+    "context": "enabled status option label",
+    "string": "Włączone"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_initialBalanceLabel": {
+    "context": "initial balance filter label",
+    "string": "Saldo początkowe"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_productLabel": {
+    "context": "product filter label",
+    "string": "Produkt"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_searchPlaceholder": {
+    "context": "search gift card placeholder",
+    "string": "Wyszukaj karty podarunkowe, np. {exampleGiftCardCode}"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_statusLabel": {
+    "context": "status filter label",
+    "string": "Status"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_tagLabel": {
+    "context": "tag filter label",
+    "string": "Tagi"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardListSearchAndFilters_dot_usedByLabel": {
+    "context": "used by filter label",
+    "string": "Używane przez"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardsListOrderInfoCard_dot_giftCardOrderInfoMessage": {
+    "context": "alert card message",
+    "string": "Karty podarunkowe zostaną wyświetlone po zrealizowaniu zamówienia. <link>Wyświetl zamówienia z kartami podarunkowymi</link>"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardsListTable_dot_GiftCardsListTableHeader_dot_deleteLabel": {
+    "context": "bulk delete label",
+    "string": "Usuń"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardsListTable_dot_GiftCardsListTableHeader_dot_disableLabel": {
+    "context": "bulk disable label",
+    "string": "Wyłącz"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardsListTable_dot_GiftCardsListTableHeader_dot_enableLabel": {
+    "context": "bulk activate label",
+    "string": "Aktywuj"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardsListTable_dot_GiftCardsListTableHeader_dot_errorActivateAlertText": {
+    "context": "error with activatation alert message",
+    "string": "Błąd przy aktywacji {count,plural,one{card} other{cards}}"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardsListTable_dot_GiftCardsListTableHeader_dot_errorDeactivateAlertText": {
+    "context": "error with deactivatation alert message",
+    "string": "Błędy podczas dezaktywacji {count,plural,one{card} other{cards}}"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardsListTable_dot_GiftCardsListTableHeader_dot_successActivateAlertText": {
+    "context": "success activate alert message",
+    "string": "Aktywacja zakończona sukcesem {count,plural,one{card} other{cards}}"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_GiftCardsListTable_dot_GiftCardsListTableHeader_dot_successDeactivateAlertText": {
+    "context": "success deactivate alert message",
+    "string": "Pomyślna dezaktywacja {count,plural,one{card} other{cards}}"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_bulkIssue": {
+    "context": "bulk issue menu item",
+    "string": "Wydanie zbiorcze"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_codeEndingWithLabel": {
+    "context": "code ending with label",
+    "string": "Kod kończący się na {last4CodeChars}"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_createGiftCardProduct": {
+    "context": "create gift card product alert message",
+    "string": "Utwórz produkt Karta podarunkowa"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_createGiftCardProductType": {
+    "context": "create gift card product type alert message",
+    "string": "Utwórz typ produktu Karta podarunkowa"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_exportCodes": {
+    "context": "export card codes menu item",
+    "string": "Eksportuj kody kart"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_giftCardInvalidExpiryDateContent": {
+    "context": "invalid date in expirydate field content",
+    "string": "Nie można utworzyć karty podarunkowej, której data ważności minęła"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_giftCardInvalidExpiryDateHeader": {
+    "context": "invalid date in expirydate field header",
+    "string": "Wprowadzono nieprawidłową datę"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_giftCardProduct": {
+    "context": "gift card product message",
+    "string": "produkt karta podarunkowa"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_giftCardsTableColumnBalanceTitle": {
+    "context": "column title balance",
+    "string": "Saldo"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_giftCardsTableColumnCustomerTitle": {
+    "context": "column title used by/customer",
+    "string": "Używane przez"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_giftCardsTableColumnGiftCardTitle": {
+    "context": "column title gift card",
+    "string": "Karta podarunkowa"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_giftCardsTableColumnProductTitle": {
+    "context": "column title product",
+    "string": "Produkt"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_giftCardsTableColumnTagTitle": {
+    "context": "column title tag",
+    "string": "Tag"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_issueButtonLabel": {
+    "context": "issue card button label",
+    "string": "Karta wydania"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_noGiftCardsAlertTitle": {
+    "context": "no card defuned alert message",
+    "string": "Nie zdefiniowałeś jeszcze produktu w postaci karty podarunkowej!"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_noGiftCardsFound": {
+    "context": "no cards found title message",
+    "string": "Nie znaleziono kart podarunkowych"
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_noGiftCardsProductTypes": {
+    "context": "no gift card product types alert message",
+    "string": "{createGiftCardProductType} aby rozpocząć sprzedaż kart podarunkowych w swoim sklepie."
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_noGiftCardsProducts": {
+    "context": "no gift card products alert message",
+    "string": "{createGiftCardProduct} aby rozpocząć sprzedaż kart podarunkowych w swoim sklepie."
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_noGiftCardsProductsAndProductTypes": {
+    "context": "no gift card products and types alert message",
+    "string": "{createGiftCardProductType} and {giftCardProduct} aby rozpocząć sprzedaż kart podarunkowych w swoim sklepie."
+  },
+  "src_dot_giftCards_dot_GiftCardsList_dot_settings": {
+    "context": "settings menu item",
+    "string": "Ustawienia"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardCustomerCard_dot_customerGiftCardsAbsentSubtitle": {
+    "context": "customer gift cards card no cards subtitle",
+    "string": "Do tego klienta nie są przypisane żadne karty podarunkowe"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardCustomerCard_dot_customerGiftCardsCardTitle": {
+    "context": "customer gift cards card title",
+    "string": "Karty podarunkowe"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardCustomerCard_dot_customerGiftCardsIssueNewCardButton": {
+    "context": "customer gift cards card issue button",
+    "string": "Wydaj nowej karty"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardCustomerCard_dot_customerGiftCardsPresentSubtitle": {
+    "context": "customer gift cards card subtitle",
+    "string": "Pokazuje tylko pięć najnowszych kart podarunkowych"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardCustomerCard_dot_customerGiftCardsViewAllButton": {
+    "context": "customer gift cards card view all button",
+    "string": "Wyświetl wszystkie"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardDeleteDialog_dot_consentLabel": {
+    "context": "consent removal of gift cards with balance button label",
+    "string": "{selectedItemsCount,plural,one{Jestem świadomy, że usuwam kartę podarunkową z saldem} other{Jestem świadomy, że usuwam karty upominkowe z saldem}}"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardDeleteDialog_dot_defaultDescription": {
+    "context": "default gift card delete description",
+    "string": "{selectedItemsCount,plural,one{Czy na pewno chcesz usunąć tę kartę podarunkową?} other{Czy na pewno chcesz usunąć {selectedItemsCount} karty upominkowe?}}"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardDeleteDialog_dot_deleteSuccessAlertText": {
+    "context": "gift card removed success alert message",
+    "string": "{selectedItemsCount,plural,one{Pomyślnie usunięto kartę podarunkową} other{Pomyślnie usunięto karty podarunkowe}}"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardDeleteDialog_dot_title": {
+    "context": "single gift card title",
+    "string": "{selectedItemsCount,plural,one{Usuń kartę podarunkową} other{Usuń karty podarunkowe}}"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardDeleteDialog_dot_withBalanceDescription": {
+    "context": "delete gift cards with balance description",
+    "string": "{selectedItemsCount,plural,one{Karta upominkowa, którą zamierzasz usunąć, ma dostępne saldo. Usuwając tę kartę, pozbawiasz klienta dostępnego salda.} other{Zamierzasz usunąć karty podarunkowe z dostępnym saldem. Czy na pewno chcesz to zrobić?}}"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardSendToCustomer_dot_channelSelectLabel": {
+    "context": "channel select label",
+    "string": "Kanał"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardSendToCustomer_dot_customerChannelSubtitle": {
+    "context": "selected customer channel subtitle",
+    "string": "Klient otrzyma kod karty podarunkowej na adres e-mail podany w tym kanale."
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardSendToCustomer_dot_customerSubtitle": {
+    "context": "selected customer gift card is sent to subtitle",
+    "string": "Wybranemu klientowi zostanie przesłany wygenerowany kod karty upominkowej. Kod karty podarunkowej może zostać zrealizowany przez inną osobę. Karta podarunkowa zostanie przypisana do konta, które zrealizowało kod."
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardSendToCustomer_dot_sendToCustomerSelectedLabel": {
+    "context": "send to customer selected label",
+    "string": "Wyślij kartę podarunkową do klienta"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardSettingsExpirySelect_dot_setExpirationPeriodDescription": {
+    "context": "checkbox label description",
+    "string": "Data ważności zostanie ustawiona automatycznie po wydaniu karty podarunkowej."
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardSettingsExpirySelect_dot_setExpirationPeriodTitle": {
+    "context": "checkbox label",
+    "string": "Ustaw okres ważności karty podarunkowej"
+  },
+  "src_dot_giftCards_dot_components_dot_GiftCardTagInput_dot_placeholder": {
+    "context": "input placeholder tag",
+    "string": "Tag"
+  },
+  "src_dot_giftCards_dot_components_dot_TimePeriodField_dot_dayLabel": {
+    "context": "days after label",
+    "string": "days after issue"
+  },
+  "src_dot_giftCards_dot_components_dot_TimePeriodField_dot_monthLabel": {
+    "context": "months after label",
+    "string": "months after issue"
+  },
+  "src_dot_giftCards_dot_components_dot_TimePeriodField_dot_weekLabel": {
+    "context": "weeks after label",
+    "string": "weeks after issue"
+  },
+  "src_dot_giftCards_dot_components_dot_TimePeriodField_dot_yearLabel": {
+    "context": "years after label",
+    "string": "years after issue"
+  },
+  "src_dot_home_dot_components_dot_HomeNotificationTable_dot_createNewChannel": {
+    "string": "Utwórz nowy kanał"
+  },
+  "src_dot_imageUploadErrorText": {
+    "string": "Wystąpił problem z plikiem przesłanym jako obraz i nie mógł on zostać użyty. Proszę spróbować użyć innego pliku."
+  },
+  "src_dot_imgageUploadErrorTitle": {
+    "string": "Nie można przetworzyć obrazu"
+  },
+  "src_dot_insufficientPermissions": {
+    "string": "Niewystarczające uprawnienia"
+  },
+  "src_dot_limitReached": {
+    "string": "Osiągnięto limit dla tego planu"
+  },
+  "src_dot_orders_dot_components_dot_2214147779": {
+    "context": "alert",
+    "string": "Osiągnięto limit zamówienia"
+  },
+  "src_dot_orders_dot_components_dot_3769643084": {
+    "string": "Osiągnąłeś limit zamówień, za zamówienia powyżej limitu zostanie naliczona dodatkowa opłata. Jeśli chcesz zwiększyć swój limit, skontaktuj się z pracownikiem administracji w sprawie zwiększenia limitu."
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_addressChangeDescription": {
+    "context": "dialog content",
+    "string": "Wybierz metodę, której chcesz użyć do zmiany adresu"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_billingChangeTitle": {
+    "context": "dialog header",
+    "string": "Zmiana adresu rozliczeniowego klienta"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_billingSameAsShipping": {
+    "context": "checkbox label",
+    "string": "To samo ustaw dla adresu rozliczeniowego"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_billingTitle": {
+    "context": "search modal billing title",
+    "string": "Adres rozliczeniowy"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_customerAddress": {
+    "context": "address type",
+    "string": "Użyj jednego z adresów klientów"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_customerChangeBillingDescription": {
+    "context": "dialog content",
+    "string": "Wybierz jeden z adresów klienta lub dodaj nowy adres:"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_customerChangeDescription": {
+    "context": "dialog content",
+    "string": "Jaki adres ma być używany jako adres wysyłki dla wybranego klienta:"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_customerChangeTitle": {
+    "context": "dialog header",
+    "string": "Zmiana adresu dla zamówienia"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_newAddress": {
+    "context": "address type",
+    "string": "Dodaj nowy adres"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_noAddressBillingDescription": {
+    "context": "dialog content",
+    "string": "Dodaj nowy adres:"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_noAddressDescription": {
+    "context": "dialog content",
+    "string": "Ten klient nie ma żadnych adresów w książce adresowej. Podaj adres do zamówienia:"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_noResultsFound": {
+    "context": "info when addresses search is unsuccessful",
+    "string": "Nie znaleziono żadnych wyników"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_searchInfo": {
+    "context": "modal information under title",
+    "string": "Wybierz z poniższej listy adres, którego chcesz użyć"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_shippingChangeTitle": {
+    "context": "dialog header",
+    "string": "Zmiana adresu wysyłki klienta"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_shippingSameAsBilling": {
+    "context": "checkbox label",
+    "string": "Ustaw to samo dla adresu wysyłki."
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerAddressesEditDialog_dot_shippingTitle": {
+    "context": "search modal shipping title",
+    "string": "Adres wysyłki"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerChangeDialog_dot_changeAddress": {
+    "context": "option label",
+    "string": "Zmiana adresu"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerChangeDialog_dot_description": {
+    "context": "dialog description",
+    "string": "Zmieniłeś klienta przypisanego do tego zamówienia. Co chcesz zrobić z adresem dostawy?"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerChangeDialog_dot_keepAddress": {
+    "context": "option label",
+    "string": "Zachowaj adres"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomerChangeDialog_dot_title": {
+    "context": "dialog header",
+    "string": "Zmieniony klient"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomer_dot_orderCustomerFulfillmentAll": {
+    "context": "OrderCustomer Fulfillment from All Warehouses",
+    "string": "Realizuj zamówienia z wszystkich magazynów"
+  },
+  "src_dot_orders_dot_components_dot_OrderCustomer_dot_orderCustomerFulfillmentLocal": {
+    "context": "OrderCustomer Fulfillment from Local Warehouse",
+    "string": "Wypełnij z lokalnych zapasów"
+  },
+  "src_dot_orders_dot_components_dot_OrderDetailsPage_dot_580490159": {
+    "string": "Zamówienie #{orderNumber}"
+  },
+  "src_dot_orders_dot_components_dot_OrderDetailsPage_dot_cancelOrder": {
+    "context": "cancel button",
+    "string": "Anuluj zamówienie"
+  },
+  "src_dot_orders_dot_components_dot_OrderDetailsPage_dot_confirmOrder": {
+    "context": "save button",
+    "string": "Potwierdź zamówienie"
+  },
+  "src_dot_orders_dot_components_dot_OrderDiscountCommonModal_dot_buttonLabel": {
+    "context": "add button label",
+    "string": "Dodaj"
+  },
+  "src_dot_orders_dot_components_dot_OrderDiscountCommonModal_dot_discountReasonLabel": {
+    "context": "discount reason input lavel",
+    "string": "Powód"
+  },
+  "src_dot_orders_dot_components_dot_OrderDiscountCommonModal_dot_discountValueLabel": {
+    "context": "value input label",
+    "string": "Wartość rabatu"
+  },
+  "src_dot_orders_dot_components_dot_OrderDiscountCommonModal_dot_fixedAmountOption": {
+    "context": "fixed amount",
+    "string": "Kwota stała"
+  },
+  "src_dot_orders_dot_components_dot_OrderDiscountCommonModal_dot_invalidValue": {
+    "context": "value input helper text",
+    "string": "Nieprawidłowa wartość"
+  },
+  "src_dot_orders_dot_components_dot_OrderDiscountCommonModal_dot_itemDiscountTitle": {
+    "context": "dialog title item discount",
+    "string": "Towar obniżony"
+  },
+  "src_dot_orders_dot_components_dot_OrderDiscountCommonModal_dot_orderDiscountTitle": {
+    "context": "dialog title order discount",
+    "string": "Zniżka na to zamówienie:"
+  },
+  "src_dot_orders_dot_components_dot_OrderDiscountCommonModal_dot_percentageOption": {
+    "context": "percentage option",
+    "string": "Procent"
+  },
+  "src_dot_orders_dot_components_dot_OrderDraftDetailsSummary_dot_addDiscount": {
+    "context": "add discount button",
+    "string": "Dodaj rabat"
+  },
+  "src_dot_orders_dot_components_dot_OrderDraftDetailsSummary_dot_addShippingAddressInfo": {
+    "context": "add shipping address first label",
+    "string": "najpierw dodaj adres wysyłki"
+  },
+  "src_dot_orders_dot_components_dot_OrderDraftDetailsSummary_dot_addShippingCarrier": {
+    "context": "add shipping carrier button",
+    "string": "Dodaj przewoźnika"
+  },
+  "src_dot_orders_dot_components_dot_OrderDraftDetailsSummary_dot_discount": {
+    "context": "discount button",
+    "string": "Rabat"
+  },
+  "src_dot_orders_dot_components_dot_OrderDraftDetailsSummary_dot_noShippingCarriers": {
+    "context": "no shipping carriers title",
+    "string": "Brak odpowiednich przewoźników"
+  },
+  "src_dot_orders_dot_components_dot_OrderDraftDetailsSummary_dot_subtotal": {
+    "context": "subtotal price",
+    "string": "Suma częściowa"
+  },
+  "src_dot_orders_dot_components_dot_OrderDraftDetailsSummary_dot_taxes": {
+    "context": "taxes title",
+    "string": "Podatki (w tym VAT)"
+  },
+  "src_dot_orders_dot_components_dot_OrderDraftDetailsSummary_dot_total": {
+    "context": "total price",
+    "string": "Razem"
+  },
+  "src_dot_orders_dot_components_dot_OrderDraftListPage_dot_1629108523": {
+    "context": "placed orders counter",
+    "string": "{count}/{max} zamówienia"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_headerOrder": {
+    "context": "page header",
+    "string": "Zamówienie"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_headerOrderNumber": {
+    "context": "page header",
+    "string": "Zamówienie #{orderNumber}"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_headerOrderNumberAddFulfillment": {
+    "context": "page header",
+    "string": "Zamówienie numer {orderNumber} - Dodaj realizację"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_itemsReadyToShip": {
+    "context": "header",
+    "string": "Pozycje gotowe do wysyłki"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_noStock": {
+    "context": "no variant stock in warehouse",
+    "string": "Brak zapasów"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_productName": {
+    "context": "name",
+    "string": "Nazwa produktu"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_quantityToFulfill": {
+    "context": "quantity of fulfilled products",
+    "string": "Ilość do zrealizowania"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_sentShipmentDetails": {
+    "context": "checkbox label",
+    "string": "Wyślij szczegóły przesyłki do klienta"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_sku": {
+    "context": "product's sku",
+    "string": "SKU"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_submitFulfillment": {
+    "context": "fulfill order, button",
+    "string": "Zrealizuj"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillPage_dot_submitPrepareFulfillment": {
+    "context": "prepare order fulfillment, button",
+    "string": "Przygotuj realizację"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_editTracking": {
+    "context": "edit tracking button",
+    "string": "Edycja śledzenia"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_restocked": {
+    "context": "restocked group",
+    "string": "Przywrócone z:"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillmentApproveDialog_dot_description": {
+    "context": "dialog description",
+    "string": "Czy na pewno chcesz zatwierdzić tą wypełnienie?"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillmentApproveDialog_dot_notifyCustomer": {
+    "context": "checkbox label, fulfillment approval",
+    "string": "Wyślij szczegóły przesyłki do klienta"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillmentApproveDialog_dot_title": {
+    "context": "dialog header",
+    "string": "Zatwierdź realizację"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillmentSettings_dot_1154699654": {
+    "context": "checkbox label",
+    "string": "Umożliwić realizację zamówienia bez płatności"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillmentSettings_dot_2478368540": {
+    "context": "checkbox label description",
+    "string": "Wszystkie wypełnienia zostaną automatycznie zatwierdzone"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillmentSettings_dot_3336812159": {
+    "context": "checkbox label",
+    "string": "Automatycznie zatwierdzaj wszystkie realizacje"
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillmentSettings_dot_3666602886": {
+    "context": "checkbox label description",
+    "string": "Będziesz mógł realizować produkty bez pobierania opłaty za zamówienie."
+  },
+  "src_dot_orders_dot_components_dot_OrderFulfillmentSettings_dot_4200951094": {
+    "context": "section header",
+    "string": "Ustawienia realizacji"
+  },
+  "src_dot_orders_dot_components_dot_OrderHistory_dot_2607524598": {
+    "context": "order history message",
+    "string": "Produkty zostały usunięte z zamówienia"
+  },
+  "src_dot_orders_dot_components_dot_OrderHistory_dot_3796744261": {
+    "context": "order history message",
+    "string": "Produkty zostały dodane do zamówienia"
+  },
+  "src_dot_orders_dot_components_dot_OrderHistory_dot_3854352507": {
+    "context": "order history message",
+    "string": "Realizacja czeka na zatwierdzenie"
+  },
+  "src_dot_orders_dot_components_dot_OrderHistory_dot_ExtendedDiscountTimelineEvent_dot_reasonLabel": {
+    "context": "reason for discount label",
+    "string": "Powód rabatu"
+  },
+  "src_dot_orders_dot_components_dot_OrderHistory_dot_description": {
+    "context": "replacement created order history message description",
+    "string": "został stworzony dla produktów zastąpionych"
+  },
+  "src_dot_orders_dot_components_dot_OrderHistory_dot_draftNumber": {
+    "context": "replacement created order history message draft number",
+    "string": "Projekt #{orderNumber} "
+  },
+  "src_dot_orders_dot_components_dot_OrderHistory_dot_orderDiscountRemoved": {
+    "context": "order discount removed title",
+    "string": "Zniżka na zamówienie została usunięta przez "
+  },
+  "src_dot_orders_dot_components_dot_OrderHistory_dot_productDiscountRemoved": {
+    "context": "product discount removed title",
+    "string": "{productName} rabat został usunięty przez"
+  },
+  "src_dot_orders_dot_components_dot_OrderListPage_dot_1629108523": {
+    "context": "placed order counter",
+    "string": "{count}/{max} zamówienia"
+  },
+  "src_dot_orders_dot_components_dot_OrderListPage_dot_channel": {
+    "context": "order",
+    "string": "Kanał"
+  },
+  "src_dot_orders_dot_components_dot_OrderListPage_dot_clickAndCollect": {
+    "context": "click and collect",
+    "string": "Kliknij i odbierz"
+  },
+  "src_dot_orders_dot_components_dot_OrderListPage_dot_giftCard": {
+    "context": "order",
+    "string": "Karta podarunkowa"
+  },
+  "src_dot_orders_dot_components_dot_OrderListPage_dot_giftCardOrdered": {
+    "context": "order",
+    "string": "Zamówiona karta podarunkowa"
+  },
+  "src_dot_orders_dot_components_dot_OrderListPage_dot_giftCardPaid": {
+    "context": "order",
+    "string": "Zapłacono kartą podarunkową"
+  },
+  "src_dot_orders_dot_components_dot_OrderListPage_dot_preorder": {
+    "context": "is preorder",
+    "string": "Zamówienie wstępne"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_capture": {
+    "context": "capture payment, button",
+    "string": "Przechwytywanie"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_clickAndCollectShippingMethod": {
+    "context": "OrderPayment click&collect shipping method",
+    "string": "kliknij i odbierz"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_discount": {
+    "context": "order discount",
+    "string": "Rabat"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_itemCount": {
+    "context": "ordered products",
+    "string": "{quantity} produkty"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_markAsPaid": {
+    "context": "order, button",
+    "string": "Oznacz jako zapłacone"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_paidWithGiftCard": {
+    "context": "order payment",
+    "string": "Zapłacono kartą podarunkową"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_refund": {
+    "context": "button",
+    "string": "Zwróć"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_shipping": {
+    "context": "order shipping method name",
+    "string": "Wysyłka"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_shippingDoesNotApply": {
+    "context": "OrderPayment does not require shipping",
+    "string": "nie dotyczy"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_shippingNotApplicable": {
+    "context": "order does not require shipping",
+    "string": "nie dotyczy"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_staffAdded": {
+    "context": "staff added type order discount",
+    "string": "Pracownicy dodali"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_subtotal": {
+    "context": "order subtotal price",
+    "string": "Suma częściowa"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_taxes": {
+    "string": "Podatki"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_total": {
+    "context": "order total price",
+    "string": "Razem"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_vatIncluded": {
+    "context": "vat included in order price",
+    "string": "Zawiera VAT"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_void": {
+    "context": "button",
+    "string": "Zwróć"
+  },
+  "src_dot_orders_dot_components_dot_OrderPayment_dot_voucher": {
+    "context": "voucher type order discount",
+    "string": "Kupon"
+  },
+  "src_dot_orders_dot_components_dot_OrderProductAddDialog_dot_3284796469": {
+    "string": "Brak dostępnych produktów w kanale zamówień pasujących do podanego zapytania"
+  },
+  "src_dot_orders_dot_components_dot_OrderProductsCardElements_dot_1134347598": {
+    "context": "product price",
+    "string": "Cena"
+  },
+  "src_dot_orders_dot_components_dot_OrderProductsCardElements_dot_1895667608": {
+    "context": "product name",
+    "string": "Produkt"
+  },
+  "src_dot_orders_dot_components_dot_OrderProductsCardElements_dot_2796503714": {
+    "context": "ordered product quantity",
+    "string": "Ilość"
+  },
+  "src_dot_orders_dot_components_dot_OrderProductsCardElements_dot_693960049": {
+    "context": "ordered product sku",
+    "string": "SKU"
+  },
+  "src_dot_orders_dot_components_dot_OrderProductsCardElements_dot_878013594": {
+    "context": "order line total price",
+    "string": "Razem"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundFulfilledProducts_dot_fulfillment": {
+    "context": "section header",
+    "string": "Realizacja zamówień"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundFulfilledProducts_dot_fulfillmentReturned": {
+    "context": "section header returned",
+    "string": "Realizacja zwrócona"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundFulfilledProducts_dot_fulfillmentWaitingForApproval": {
+    "context": "section header returned",
+    "string": "Realizacja czeka na zatwierdzenie"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_40513382": {
+    "context": "order refund amount, input button",
+    "string": "Zwróć {currency} {amount}"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_4224226791": {
+    "context": "label",
+    "string": "Kwota automatyczna"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_508357513": {
+    "context": "label",
+    "string": "Kwota ręczna"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_553737700": {
+    "context": "checkbox",
+    "string": "Koszty przesyłki zwrotnej"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_982301568": {
+    "context": "label",
+    "string": "Brak zwrotu kosztów"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_amountTooBig": {
+    "context": "Amount error message",
+    "string": "Kwota nie może być większa niż maksymalna refundacja"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_amountTooSmall": {
+    "context": "Amount error message",
+    "string": "Kwota musi być większa niż 0"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_authorizedAmount": {
+    "context": "order refund amount",
+    "string": "Zatwierdzona kwota"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_label": {
+    "context": "order refund amount, input label",
+    "string": "Kwota"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_maxRefund": {
+    "context": "order refund amount",
+    "string": "Maksymalny zwrot"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_previouslyRefunded": {
+    "context": "order refund amount",
+    "string": "Poprzednio zwrócone"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_proposedRefundAmount": {
+    "context": "order refund amount",
+    "string": "Proponowana kwota zwrotu"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_refundButton": {
+    "context": "order refund amount button",
+    "string": "Zwróć"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_refundCannotBeFulfilled": {
+    "context": "order refund subtitle",
+    "string": "Zwrócone przedmioty nie mogą zostać zrealizowane"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_refundTotalAmount": {
+    "context": "order refund amount",
+    "string": "Całkowita kwota zwrotu"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_replacedProductsValue": {
+    "context": "order refund amount",
+    "string": "Wartość produktów zastąpionych"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_returnButton": {
+    "context": "order return amount button",
+    "string": "Zwrot i wymiana produktów"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_returnCannotBeFulfilled": {
+    "context": "order return subtitle",
+    "string": "Zwrócone produkty nie mogą zostać zrealizowane"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_selectedProductsValue": {
+    "context": "order refund amount",
+    "string": "Wartość wybranych produktów"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_shipmentCost": {
+    "context": "order refund amount",
+    "string": "Koszt wysyłki"
+  },
+  "src_dot_orders_dot_components_dot_OrderRefundUnfulfilledProducts_dot_unfulfilledVariantDeleted": {
+    "context": "tooltip content when a deleted variant is detected",
+    "string": "Ten produkt nie znajduje się już w bazie danych. Nie będzie ponownie zamawiany."
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_1134347598": {
+    "context": "table column header",
+    "string": "Cena"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_1784788864": {
+    "context": "table column header",
+    "string": "Powrót"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_1895667608": {
+    "context": "table column header",
+    "string": "Produkt"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_2049070632": {
+    "context": "table column header",
+    "string": "Wymień"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_3988345170": {
+    "context": "button",
+    "string": "Ustalenie maksymalnych ilości"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_cancelled": {
+    "context": "cancelled fulfillment, section header",
+    "string": "Anulowano ({quantity})"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_description": {
+    "context": "product no longer exists error description",
+    "string": "Ten produkt nie jest już dostępny w bazie danych, więc nie można go wymienić ani zwrócić."
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_fulfilled": {
+    "context": "section header",
+    "string": "Fulfilled ({quantity})"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_fulfilledFrom": {
+    "context": "fulfilled fulfillment, section header",
+    "string": "Zrealizowano z {warehouseName}"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_improperValue": {
+    "context": "error message",
+    "string": "Niewłaściwa wartość"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_refunded": {
+    "context": "refunded fulfillment, section header",
+    "string": "Zwrócono ({quantity})"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_refundedAndReturned": {
+    "context": "cancelled fulfillment, section header",
+    "string": "Zwrócone i refundowane ({quantity})"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_replaced": {
+    "context": "refunded fulfillment, section header",
+    "string": "Wymieniono ({quantity})"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_returned": {
+    "context": "refunded fulfillment, section header",
+    "string": "Zwrócono ({quantity})"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_title": {
+    "context": "product no longer exists error title",
+    "string": "Produkt nie jest już dostępny"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_unfulfilled": {
+    "context": "section header",
+    "string": "Niewypełnione"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_waitingForApproval": {
+    "context": "unapproved fulfillment, section header",
+    "string": "Oczekiwanie na zatwierdzenie ({quantity})"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_appTitle": {
+    "context": "page header with order number",
+    "string": "Zamówienie #{orderNumber}"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_deletedVariant": {
+    "context": "status badge description on deleted variants",
+    "string": "Ten produkt nie znajduje się już w bazie danych. Nie będzie ponownie zamawiany."
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_improperValue": {
+    "context": "error message",
+    "string": "Niewłaściwa wartość"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_pageTitle": {
+    "context": "page header",
+    "string": "Nr zamówienia. {orderNumber} - Wymiana/zwrot"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_titleFulfilled": {
+    "context": "section header",
+    "string": "Realizacja - #{fulfilmentId}"
+  },
+  "src_dot_orders_dot_components_dot_OrderReturnPage_dot_titleUnfulfilled": {
+    "context": "section header",
+    "string": "Pozycje niezrealizowane"
+  },
+  "src_dot_orders_dot_components_dot_OrderSettings_dot_2116402092": {
+    "context": "checkbox gift cards label",
+    "string": "Automatyczna realizacja kart podarunkowych bez możliwości wysyłki"
+  },
+  "src_dot_orders_dot_components_dot_OrderSettings_dot_2879928595": {
+    "context": "checkbox gift cards label description",
+    "string": "po aktywacji karty podarunkowe bez możliwości wysyłki zostaną automatycznie ustawione jako zrealizowane i wysłane do klienta"
+  },
+  "src_dot_orders_dot_components_dot_OrderUnfulfilledProductsCard_dot_deletedVariantDetected": {
+    "context": "tooltip content when a deleted variant is detected",
+    "string": "Nie można realizować produktów, które zostały usunięte."
+  },
+  "src_dot_orders_dot_components_dot_OrderUnfulfilledProductsCard_dot_fulfillButton": {
+    "context": "Fulfill button",
+    "string": "Wypełnij"
+  },
+  "src_dot_orders_dot_views_dot_OrderDetails_dot_3897044696": {
+    "string": "Wypełnienie zatwierdzone"
+  },
+  "src_dot_orders_dot_views_dot_OrderDetails_dot_4207717971": {
+    "context": "snackbar title",
+    "string": "Nie można wygenerować faktury"
+  },
+  "src_dot_orders_dot_views_dot_OrderDetails_dot_811176136": {
+    "context": "error message",
+    "string": "Nie zainstalowano wtyczki do faktur"
+  },
+  "src_dot_orders_dot_views_dot_OrderDetails_dot_OrderDraftDetails_dot_694622335": {
+    "context": "window title",
+    "string": "Projekt zamówienia #{orderNumber}"
+  },
+  "src_dot_orders_dot_views_dot_OrderDetails_dot_OrderNormalDetails_dot_580490159": {
+    "context": "window title",
+    "string": "Zamówienie #{orderNumber}"
+  },
+  "src_dot_orders_dot_views_dot_OrderDetails_dot_OrderUnconfirmedDetails_dot_580490159": {
+    "context": "window title",
+    "string": "Zamówienie #{orderNumber}"
+  },
+  "src_dot_orders_dot_views_dot_OrderReturn_dot_cannotRefundDescription": {
+    "context": "order return error description when cannot refund",
+    "string": "Napotkaliśmy problem podczas refundacji produktów. Produkty nie zostały zwrócone. Prosimy spróbować ponownie."
+  },
+  "src_dot_orders_dot_views_dot_OrderReturn_dot_cannotRefundTitle": {
+    "context": "order return error title when cannot refund",
+    "string": "Nie można było dokonać zwrotu pieniędzy za produkty"
+  },
+  "src_dot_orders_dot_views_dot_OrderReturn_dot_successAlert": {
+    "context": "order returned success message",
+    "string": "Produkty zostały pomyślnie zwrócone!"
+  },
+  "src_dot_pageTypes_dot_components_dot_PageTypeListPage_dot_4077151320": {
+    "context": "button",
+    "string": "Utwórz typ strony"
+  },
+  "src_dot_pageTypes_dot_hooks_dot_usePageTypeDelete_dot_title": {
+    "context": "PageTypeDeleteWarningDialog title",
+    "string": "Usuń stronę {selectedTypesCount,plural,one{type} other{types}}"
+  },
+  "src_dot_pageTypes_dot_hooks_dot_usePageTypeDelete_dot_viewAssignedItemsButtonLabel": {
+    "context": "PageTypeDeleteWarningDialog single assigned items button label",
+    "string": "Wyświetl strony"
+  },
+  "src_dot_partiallyReturned": {
+    "context": "order status",
+    "string": "Częściowo zwrócone"
+  },
+  "src_dot_paymentStatus": {
+    "string": "Payment status"
+  },
+  "src_dot_pending": {
+    "context": "payment status",
+    "string": "Oczekujące"
+  },
+  "src_dot_permissionGroups_dot_components_dot_AssignMembersDialog_dot_noMembersFound": {
+    "context": "description",
+    "string": "Nie znaleziono członków"
+  },
+  "src_dot_permissionGroups_dot_components_dot_AssignMembersDialog_dot_searchInputLabel": {
+    "context": "input label",
+    "string": "Wyszukaj pracowników"
+  },
+  "src_dot_permissionGroups_dot_components_dot_AssignMembersDialog_dot_searchInputPlaceholder": {
+    "context": "input placeholder",
+    "string": "Wyszukiwanie według nazwiska, adresu e-mail itp."
+  },
+  "src_dot_permissionGroups_dot_components_dot_AssignMembersDialog_dot_staffActive": {
+    "context": "staff member status",
+    "string": "Aktywny"
+  },
+  "src_dot_permissionGroups_dot_components_dot_AssignMembersDialog_dot_staffInactive": {
+    "context": "staff member status",
+    "string": "Nieaktywny"
+  },
+  "src_dot_permissionGroups_dot_components_dot_AssignMembersDialog_dot_title": {
+    "context": "dialog header",
+    "string": "Przydzielanie pracowników"
+  },
+  "src_dot_plugins_dot_components_dot_PluginDetailsChannelsCard_dot_noChannelsSubtitle": {
+    "context": "PluginDetailsChannelsCard no channels subtitle",
+    "string": "Ustawienia wtyczki są ustawione jako wspólne dla wszystkich kanałów"
+  },
+  "src_dot_plugins_dot_components_dot_PluginInfo_dot_3954867850": {
+    "string": "Ustaw plugin jako aktywny"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsListPage_dot_channelStatusSectionSubtitle": {
+    "context": "status section subtitle",
+    "string": "Status kanału"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsListPage_dot_channelStatusSectionTitle": {
+    "context": "status section title",
+    "string": "Status w kanale"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsListPage_dot_channels": {
+    "context": "plugin filters error messages channels",
+    "string": "Nie wybrano żadnych kanałów"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsListPage_dot_configTypeSectionTitle": {
+    "context": "config type section title",
+    "string": "Typ konfiguracji"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsList_dot_active": {
+    "context": "status label active",
+    "string": "Aktywny"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsList_dot_channelLabel": {
+    "context": "table header channel col label",
+    "string": "Kanał"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsList_dot_channelTitle": {
+    "context": "plugin channel availability status title",
+    "string": "{activeChannelsCount,plural, =0 {Deactivated} other {Aktywny w {activeChannelsCount}}}"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsList_dot_confLabel": {
+    "context": "table header configuration col label",
+    "string": "Konfiguracja"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsList_dot_deactivated": {
+    "context": "status label deactivated",
+    "string": "Dezaktywowano"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsList_dot_description": {
+    "context": "global config plugin status popup description",
+    "string": "Wtyczki globalne są ustawione dla wszystkich kanałów w Twoim ecommerce. Dla tych typów wtyczek wyświetlany jest tylko status"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsList_dot_globalLabel": {
+    "context": "PluginChannelConfigurationCell global title",
+    "string": "Globalny"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsList_dot_nameLabel": {
+    "context": "table header name col label",
+    "string": "Nazwa"
+  },
+  "src_dot_plugins_dot_components_dot_PluginsList_dot_title": {
+    "context": "channel config plugin status popup title",
+    "string": "Przypisany do {activeChannelsCount} of {allChannelsCount} kanałów"
+  },
+  "src_dot_preorderEndDateInFutureErrorText": {
+    "string": "Czas zakończenia zamówienia wstępnego musi być ustawiony w przyszłości"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeDetails_dot_optionGiftCardDescription": {
+    "context": "option description",
+    "string": "Ten produkt będzie pełnił funkcję metody płatności"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeDetails_dot_optionGiftCardTitle": {
+    "context": "option",
+    "string": "Typ produktu karty podarunkowej"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeDetails_dot_optionNormalTitle": {
+    "context": "option",
+    "string": "Typ produktu zwykłego"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeDetails_dot_productTypeName": {
+    "context": "label",
+    "string": "Nazwa typu produktu"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeVariantAttributes_dot_1192828581": {
+    "string": "Nie znaleziono atrybutów"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeVariantAttributes_dot_1228425832": {
+    "string": "Nazwa atrybutu"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeVariantAttributes_dot_1656462109": {
+    "context": "button",
+    "string": "Przypisz atrybut"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeVariantAttributes_dot_1779771890": {
+    "string": "{inputType} atrybuty nie mogą być używane jako atrybuty wyboru wariantu."
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeVariantAttributes_dot_1835784218": {
+    "context": "variant attribute checkbox",
+    "string": "Wybór wariantu"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeVariantAttributes_dot_3478065224": {
+    "context": "attribute internal name",
+    "string": "Slug"
+  },
+  "src_dot_productTypes_dot_components_dot_ProductTypeVariantAttributes_dot_888493112": {
+    "context": "section header",
+    "string": "Atrybuty wariantu"
+  },
+  "src_dot_productTypes_dot_hooks_dot_useProductTypeDelete_dot_title": {
+    "context": "ProductTypeDeleteWarningDialog title",
+    "string": "Usuń produkt {selectedTypesCount,plural,one{type} other{types}}"
+  },
+  "src_dot_productTypes_dot_hooks_dot_useProductTypeDelete_dot_viewAssignedItemsButtonLabel": {
+    "context": "ProductTypeDeleteWarningDialog single assigned items button label",
+    "string": "Wyświetl produkty"
+  },
+  "src_dot_products_dot_components_dot_ProductExportDialog_dot_confirmButtonLabel": {
+    "context": "export products to csv file, button",
+    "string": "Eksportuj produkty"
+  },
+  "src_dot_products_dot_components_dot_ProductExportDialog_dot_productsLabel": {
+    "context": "products export type label",
+    "string": "produkty"
+  },
+  "src_dot_products_dot_components_dot_ProductExportDialog_dot_title": {
+    "context": "export products to csv file, dialog header",
+    "string": "Informacje o eksporcie"
+  },
+  "src_dot_products_dot_components_dot_ProductExternalMediaDialog_dot_4146081479": {
+    "context": "modal header",
+    "string": "Media z podanego adresu URL będą wyświetlane w galerii mediów. Można określić kolejność galerii."
+  },
+  "src_dot_products_dot_components_dot_ProductExternalMediaDialog_dot_buttonMessage": {
+    "context": "modal button",
+    "string": "Prześlij adres URL"
+  },
+  "src_dot_products_dot_components_dot_ProductListPage_dot_3024822321": {
+    "context": "alert",
+    "string": "SKU limit został osiągnięty"
+  },
+  "src_dot_products_dot_components_dot_ProductListPage_dot_3155791658": {
+    "context": "created products counter",
+    "string": "{count}/{max} SKUs używano"
+  },
+  "src_dot_products_dot_components_dot_ProductListPage_dot_911702010": {
+    "string": "Osiągnąłeś limit jednostek SKU, nie będziesz mógł dodawać jednostek SKU do swojego sklepu. Jeśli chcesz zwiększyć swój limit, skontaktuj się z pracownikami administracji w sprawie zwiększenia limitu."
+  },
+  "src_dot_products_dot_components_dot_ProductListPage_dot_channel": {
+    "context": "sales channel",
+    "string": "Kanał"
+  },
+  "src_dot_products_dot_components_dot_ProductList_dot_availability": {
+    "context": "product channels",
+    "string": "Dostępność"
+  },
+  "src_dot_products_dot_components_dot_ProductList_dot_price": {
+    "context": "product price",
+    "string": "Cena"
+  },
+  "src_dot_products_dot_components_dot_ProductList_dot_published": {
+    "context": "product publication date",
+    "string": "Opublikowano dnia {date}"
+  },
+  "src_dot_products_dot_components_dot_ProductList_dot_type": {
+    "context": "product type",
+    "string": "Typ"
+  },
+  "src_dot_products_dot_components_dot_ProductList_dot_unpublished": {
+    "context": "product publication date",
+    "string": "Niepublikowany"
+  },
+  "src_dot_products_dot_components_dot_ProductList_dot_updatedAt": {
+    "context": "product updated at",
+    "string": "Ostatnia aktualizacja"
+  },
+  "src_dot_products_dot_components_dot_ProductList_dot_willBePublished": {
+    "context": "product publication date",
+    "string": "Zostaje opublikowany {date}"
+  },
+  "src_dot_products_dot_components_dot_ProductMediaNavigation_dot_allMedia": {
+    "context": "section header",
+    "string": "Wszystkie media"
+  },
+  "src_dot_products_dot_components_dot_ProductMediaPage_dot_editMedia": {
+    "context": "header",
+    "string": "Edytuj media"
+  },
+  "src_dot_products_dot_components_dot_ProductMediaPage_dot_mediaInformation": {
+    "context": "section header",
+    "string": "Informacje o mediach"
+  },
+  "src_dot_products_dot_components_dot_ProductMediaPage_dot_mediaView": {
+    "context": "section header",
+    "string": "Widok mediów"
+  },
+  "src_dot_products_dot_components_dot_ProductMediaPage_dot_optional": {
+    "context": "field is optional",
+    "string": "Opcjonalnie"
+  },
+  "src_dot_products_dot_components_dot_ProductMediaPopper_dot_uploadImages": {
+    "context": "modal button images upload",
+    "string": "Prześlij zdjęcia"
+  },
+  "src_dot_products_dot_components_dot_ProductMediaPopper_dot_uploadUrl": {
+    "context": "modal button url upload",
+    "string": "Prześlij URL"
+  },
+  "src_dot_products_dot_components_dot_ProductMedia_dot_media": {
+    "context": "section header",
+    "string": "Media"
+  },
+  "src_dot_products_dot_components_dot_ProductMedia_dot_upload": {
+    "context": "modal button upload",
+    "string": "Prześlij"
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_1540024536": {
+    "context": "product inventory, checkbox",
+    "string": "Wariant obecnie w przedsprzedaży"
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_2473321447": {
+    "string": "ANULUJ DATĘ ZAKOŃCZENIA"
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_2481295410": {
+    "context": "app has been installed",
+    "string": "Pozostało {unitsLeft} jednostek"
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_2699291877": {
+    "string": "DATA ZAKOŃCZENIA USTAWIEŃ"
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_294624093": {
+    "context": "info text",
+    "string": "Produkty zamówione w przedsprzedaży będą dostępne we wszystkich magazynach. Można ustawić próg ilości sprzedanych produktów. Pozostawienie pustego pola będzie interpretowane jako brak limitu sprzedaży. Sprzedane elementy zostaną przydzielone do magazynu przypisanego do wybranej strefy wysyłkowej."
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_2999762286": {
+    "string": "Próg, którego nie można przekroczyć, nawet jeśli nadal dostępne są progi dla poszczególnych kanałów"
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_3420537107": {
+    "context": "tabel column header",
+    "string": "Kanały"
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_3862021157": {
+    "context": "info text",
+    "string": "Ustaw datę zakończenia preorderu. Po osiągnięciu daty końcowej produkt zostanie automatycznie przeniesiony z zamówienia wstępnego do sprzedaży standardowej."
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_4187357147": {
+    "string": "Bez ograniczeń"
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_578055997": {
+    "string": "Próg globalny"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCheckoutSettings_dot_checkoutLimitsDescription": {
+    "context": "input helper text",
+    "string": "Klient nie będzie mógł kupić w kasie większej ilości towaru niż podana tutaj."
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCheckoutSettings_dot_checkoutLineLimit": {
+    "context": "input label",
+    "string": "Limit quantity per checkout (optional)"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCreateDialog_dot_description": {
+    "context": "create product variants",
+    "string": "Jak chciałbyś tworzyć warianty:"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCreateDialog_dot_optionMultipleDescription": {
+    "context": "option description",
+    "string": "Użyj kreatora wariantów, aby utworzyć macierz wybranych wartości atrybutów w celu utworzenia wariantów"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCreateDialog_dot_optionMultipleTitle": {
+    "context": "option",
+    "string": "Tworzenie wielu wariantów za pomocą kreatora wariantów"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCreateDialog_dot_optionSingleDescription": {
+    "context": "option description",
+    "string": "Tworzenie nowego wariantu za pomocą widoku szczegółów wariantu"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCreateDialog_dot_optionSingleTitle": {
+    "context": "option",
+    "string": "Utwórz pojedynczy wariant"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCreateDialog_dot_title": {
+    "context": "dialog header",
+    "string": "Tworzenie wariantów"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCreatePage_dot_pricingCardSubtitle": {
+    "context": "variant pricing section subtitle",
+    "string": "Nie ma kanału, dla którego można zdefiniować ceny. Aby zdefiniować ceny, należy najpierw dodać warianty do kanałów."
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCreatorPage_dot_1419085897": {
+    "string": "Dokonane wybory dodadzą {variantsNumber} SKUs do katalogu, co spowoduje przekroczenie limitu o {aboveLimitVariantsNumber}. Jeśli chcesz zwiększyć swój limit, skontaktuj się z pracownikami administracji w sprawie zwiększenia limitów."
+  },
+  "src_dot_products_dot_components_dot_ProductVariantCreatorPage_dot_multipleValueLabel": {
+    "context": "attribute values",
+    "string": "Wartości"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantEndPreorderDialog_dot_dialogConfirmButtonLabel": {
+    "context": "button label",
+    "string": "PRZYJMIJ"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantEndPreorderDialog_dot_dialogMessage": {
+    "string": "Kończy się zamówienie wstępne na produkty. Sprzedałeś {variantGlobalSoldUnits} jednostek tego wariantu. Sprzedane jednostki zostaną przydzielone do odpowiednich magazynów. Pamiętaj, aby dodać do magazynów pozostałe zapasy progowe."
+  },
+  "src_dot_products_dot_components_dot_ProductVariantEndPreorderDialog_dot_dialogTitle": {
+    "context": "dialog header",
+    "string": "Zakończenie preorderu"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantImageSelectDialog_dot_2015102342": {
+    "context": "dialog header",
+    "string": "Wybór mediów"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantMedia_dot_chooseMedia": {
+    "context": "button",
+    "string": "Wybierz media"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantMedia_dot_media": {
+    "context": "section header",
+    "string": "Media"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantMedia_dot_selectSpecificVariant": {
+    "context": "select variant media",
+    "string": "Wybierz określony wariant nośnika z nośników produktu"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantPage_dot_itemSubtitleHidden": {
+    "context": "VariantDetailsChannelsAvailabilityCard item subtitle hidden",
+    "string": "Ukryty"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantPage_dot_itemSubtitlePublished": {
+    "context": "VariantDetailsChannelsAvailabilityCard item subtitle published",
+    "string": "Opublikowano {publicationDate}"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantPage_dot_noItemsAvailable": {
+    "context": "VariantDetailsChannelsAvailabilityCard no items available",
+    "string": "Ten wariant nie jest dostępny na żadnym z kanałów"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantPage_dot_subtitle": {
+    "context": "VariantDetailsChannelsAvailabilityCard subtitle",
+    "string": "Dostępne w {publishedInChannelsCount} out of {availableChannelsCount}"
+  },
+  "src_dot_products_dot_components_dot_ProductVariantPage_dot_title": {
+    "context": "VariantDetailsChannelsAvailabilityCard title",
+    "string": "Dostępność"
+  },
+  "src_dot_products_dot_components_dot_ProductVariants_dot_1819927358": {
+    "context": "product variant preorder threshold",
+    "string": "W przedsprzedaży"
+  },
+  "src_dot_products_dot_components_dot_ProductVariants_dot_3024822321": {
+    "context": "alert",
+    "string": "Limit SKU został osiągnięty"
+  },
+  "src_dot_products_dot_components_dot_ProductVariants_dot_4232843317": {
+    "context": "product variant preorder threshold",
+    "string": "{globalThreshold} Próg globalny"
+  },
+  "src_dot_products_dot_components_dot_ProductVariants_dot_911702010": {
+    "string": "Osiągnąłeś limit jednostek SKU, nie będziesz mógł dodawać jednostek SKU do swojego sklepu. Jeśli chcesz zwiększyć swój limit, skontaktuj się z pracownikami administracji w sprawie zwiększenia limitu."
+  },
+  "src_dot_products_dot_views_dot_ProductList_dot_giftCardLabel": {
+    "context": "label",
+    "string": "Karta podarunkowa"
+  },
+  "src_dot_products_dot_views_dot_ProductList_dot_normalLabel": {
+    "context": "label",
+    "string": "Normalny"
+  },
+  "src_dot_products_dot_views_dot_ProductUpdate_dot_deleteProductDialogSubtitle": {
+    "context": "delete product dialog subtitle",
+    "string": "Czy na pewno chcesz usunąć {name}?"
+  },
+  "src_dot_products_dot_views_dot_ProductUpdate_dot_deleteProductDialogTitle": {
+    "context": "delete product dialog title",
+    "string": "Usuń produkt"
+  },
+  "src_dot_products_dot_views_dot_ProductUpdate_dot_deleteVariantDialogSubtitle": {
+    "context": "delete variant dialog subtitle",
+    "string": "{counter,plural,one{Czy na pewno chcesz usunąć ten wariant?} other{Czy na pewno chcesz usunąć {displayQuantity} wariantów?}}"
+  },
+  "src_dot_products_dot_views_dot_ProductUpdate_dot_deleteVariantDialogTitle": {
+    "context": "delete variant dialog title",
+    "string": "Usuń warianty produktu"
+  },
+  "src_dot_products_dot_views_dot_variantCreatedSuccess": {
+    "context": "variant created success message",
+    "string": "Wariant utworzony"
+  },
+  "src_dot_refused": {
+    "context": "payment status",
+    "string": "Odrzucono"
+  },
+  "src_dot_select": {
+    "context": "select option, button",
+    "string": "Wybierz"
+  },
+  "src_dot_selected": {
+    "string": "Wybrano"
+  },
+  "src_dot_shipping_dot_components_dot_OrderValue_dot_1064401942": {
+    "context": "price rates info",
+    "string": "Ta stawka ma zastosowanie do wszystkich zamówień"
+  },
+  "src_dot_shipping_dot_components_dot_OrderValue_dot_491724403": {
+    "context": "checkbox label",
+    "string": "Ograniczenie wartości zamówienia"
+  },
+  "src_dot_shipping_dot_components_dot_OrderWeight_dot_1648082334": {
+    "context": "checkbox label",
+    "string": "Ograniczenie wagi zamówienia"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingRateInfo_dot_description": {
+    "context": "label",
+    "string": "Opis stawki za wysyłkę"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingRateInfo_dot_maxDays": {
+    "context": "label",
+    "string": "Maksymalny czas dostawy"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingRateInfo_dot_minDays": {
+    "context": "label",
+    "string": "Minimalny czas dostawy"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingRateInfo_dot_name": {
+    "context": "label",
+    "string": "Nazwa stawki wysyłki"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCountriesAssignDialog_dot_assignCountriesButton": {
+    "context": "button",
+    "string": "Przypisz kraje"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCountriesAssignDialog_dot_assignCountriesDescription": {
+    "context": "dialog description",
+    "string": "Wybierz z poniższej listy kraje, które chcesz dodać do strefy wysyłkowej."
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCountriesAssignDialog_dot_assignCountriesTitle": {
+    "context": "dialog header",
+    "string": "Przypisz kraje"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCountriesAssignDialog_dot_countriesSubtitle": {
+    "context": "country selection",
+    "string": "Kraje od A do Z"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCountriesAssignDialog_dot_quickPickSubtitle": {
+    "context": "section title",
+    "string": "Szybki wybór"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCountriesAssignDialog_dot_restOfTheWorldCheckbox": {
+    "context": "checkbox label",
+    "string": "Reszta świata"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCountriesAssignDialog_dot_restOfTheWorldCheckboxDescription": {
+    "context": "checkbox description",
+    "string": "Jeśli zostanie wybrana, spowoduje to dodanie wszystkich krajów, które nie zostały wybrane, do innych stref wysyłkowych."
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCountriesAssignDialog_dot_searchCountriesLabel": {
+    "context": "search label",
+    "string": "Wyszukaj kraje"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCountriesAssignDialog_dot_searchCountriesPlaceholder": {
+    "context": "search placeholder",
+    "string": "Szukaj według nazwy kraju"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCreatePage_dot_countries": {
+    "context": "country list header",
+    "string": "Kraje"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCreatePage_dot_createZone": {
+    "context": "section header",
+    "string": "Utwórz nową strefę wysyłkową"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneCreatePage_dot_noCountriesAssigned": {
+    "string": "Obecnie do tego obszaru żeglugi nie są przypisane żadne kraje"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneDetailsPage_dot_countries": {
+    "context": "country list header",
+    "string": "Kraje"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneDetailsPage_dot_noCountriesAssigned": {
+    "string": "Obecnie do tego obszaru żeglugi nie są przypisane żadne kraje"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneDetailsPage_dot_shipping": {
+    "context": "shipping section header",
+    "string": "Wysyłka"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneInfo_dot_descriptionCharacterLimit": {
+    "context": "character limit",
+    "string": "{numberOfCharacters} of {maxCharacters} znaków"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneInfo_dot_descriptionPlaceholder": {
+    "context": "field placeholder",
+    "string": "Opis strefy wysyłkowej"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneInfo_dot_name": {
+    "context": "label",
+    "string": "Nazwa strefy wysyłkowej"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodeRangeDialog_dot_3070993206": {
+    "context": "range input label",
+    "string": "Kody pocztowe (końcowe)"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodeRangeDialog_dot_3099331554": {
+    "context": "add postal code range, button",
+    "string": "Dodaj"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodeRangeDialog_dot_3419096551": {
+    "context": "range input label",
+    "string": "Kody pocztowe (początkowe)"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodeRangeDialog_dot_3668595137": {
+    "string": "Podaj zakres kodów pocztowych, które chcesz dodać do listy włączonych/wyłączonych."
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodeRangeDialog_dot_3849853790": {
+    "context": "dialog header",
+    "string": "Dodaj kody pocztowe"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodes_dot_1301350004": {
+    "string": "Ta stawka za wysyłkę nie ma przypisanych kodów pocztowych."
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodes_dot_1680649143": {
+    "context": "action",
+    "string": "Uwzględnij kody pocztowe"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodes_dot_1779803917": {
+    "string": "Dodane kody pocztowe nie będą mogły korzystać z tej metody dostawy. Jeśli żaden z nich nie zostanie dodany, wszystkie kody pocztowe będą mogły korzystać z tej metody wysyłki."
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodes_dot_1909179974": {
+    "context": "button",
+    "string": "Dodaj zakres kodów pocztowych"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodes_dot_2274108851": {
+    "context": "number of postal code ranges",
+    "string": "{number} zakresów kodów pocztowych"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodes_dot_2965119249": {
+    "string": "Tylko dodane kody pocztowe będą mogły korzystać z tej stawki za wysyłkę."
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodes_dot_3782353530": {
+    "context": "postal codes, header",
+    "string": "Kody pocztowe"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZonePostalCodes_dot_399764149": {
+    "context": "action",
+    "string": "Z wyjątkiem kodów pocztowych"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneSettingsCard_dot_selectFieldAddText": {
+    "context": "WarehousesSection select field add text",
+    "string": "Dodaj nowy magazyn"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneSettingsCard_dot_selectFieldPlaceholder": {
+    "context": "WarehousesSection select field placeholder",
+    "string": "Wybierz magazyn"
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneSettingsCard_dot_subtitle": {
+    "context": "WarehousesSection subtitle",
+    "string": "Wybierz magazyn, z którego będą wysyłane produkty dla tej strefy wysyłkowej. Ten adres magazynu będzie także używany do obliczania podatków."
+  },
+  "src_dot_shipping_dot_components_dot_ShippingZoneSettingsCard_dot_title": {
+    "context": "ShippingZoneSettingsCard title",
+    "string": "Ustawienia"
+  },
+  "src_dot_shipping_dot_views_dot_3823295269": {
+    "string": "Zarządzaj dostępnością kanałów"
+  },
+  "src_dot_shipping_dot_views_dot_870815507": {
+    "context": "unassign products from shipping method, button",
+    "string": "Usuń przypisanie"
+  },
+  "src_dot_siteSettings_dot_components_dot_SiteCheckoutSettingsCard_dot_checkoutLimits": {
+    "context": "title",
+    "string": "Limity kasowe"
+  },
+  "src_dot_staff_dot_components_dot_StaffDetailsPage_dot_userStatusActive": {
+    "context": "checkbox label",
+    "string": "Użytkownik aktywny"
+  },
+  "src_dot_staff_dot_components_dot_StaffListPage_dot_378240223": {
+    "string": "Osiągnąłeś limit pracowników, nie będziesz mógł już dodawać pracowników do swojego sklepu. Jeśli chcesz zwiększyć swój limit, skontaktuj się z pracownikami administracji w sprawie zwiększenia limitu."
+  },
+  "src_dot_staff_dot_components_dot_StaffListPage_dot_4002475974": {
+    "context": "alert",
+    "string": "Osiągnięto limit pracowników"
+  },
+  "src_dot_staff_dot_components_dot_StaffListPage_dot_938945387": {
+    "context": "used staff users counter",
+    "string": "{count}/{max} członków"
+  },
+  "src_dot_staff_dot_components_dot_StaffProperties_dot_1473195966": {
+    "context": "avatar change button",
+    "string": "Zmień"
+  },
+  "src_dot_staff_dot_components_dot_StaffProperties_dot_3645414921": {
+    "context": "avatar delete button",
+    "string": "Usuń"
+  },
+  "src_dot_staff_dot_components_dot_UserStatus_dot_userDisableInstruction": {
+    "string": "Jeśli chcesz wyłączyć tego użytkownika, usuń zaznaczenie pola poniżej."
+  },
+  "src_dot_staff_dot_components_dot_UserStatus_dot_userStatus": {
+    "context": "section header",
+    "string": "Status użytkownika"
+  },
+  "src_dot_time": {
+    "context": "independent of any particular day, eg. 11:35",
+    "string": "Czas"
+  },
+  "src_dot_unauthorizedDashboardAccess": {
+    "string": "Dostęp do pulpitu nawigacyjnego mają tylko pracownicy"
+  },
+  "src_dot_utils_dot_errors_dot_insufficientStock": {
+    "context": "error message",
+    "string": "Nie można zmienić ilości z powodu niewystarczających zapasów"
+  },
+  "src_dot_utils_dot_errors_dot_noCategorySet": {
+    "context": "no category set error",
+    "string": "Nie ustawiono kategorii produktu"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseListPage_dot_1082745946": {
+    "context": "used warehouses counter",
+    "string": "{count}/{max} używanych magazynów"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseListPage_dot_3562691996": {
+    "context": "alert",
+    "string": "Limit magazynowy osiągnięty"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseListPage_dot_478107533": {
+    "string": "Osiągnąłeś limit magazynów, nie będziesz mógł już dodawać magazynów do swojego sklepu. Jeśli chcesz zwiększyć swój limit, skontaktuj się z pracownikami administracji w sprawie zwiększenia limitu."
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsAllWarehouses": {
+    "context": "WarehouseSettings all warehouses label",
+    "string": "Wszystkie magazyny"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsAllWarehousesDescription": {
+    "context": "WarehouseSettings all warehouses description",
+    "string": "Jeśli zostanie wybrana, klient będzie mógł wybrać ten magazyn jako punkt odbioru. Zamówione produkty mogą zostać wysłane do tego miejsca z innego magazynu"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsDisabled": {
+    "context": "WarehouseSettings disabled warehouse label",
+    "string": "Wyłączona"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsDisabledDescription": {
+    "context": "WarehouseSettings disabled warehouse description",
+    "string": "Jeśli zostanie wybrana, klient nie będzie mógł wybrać tego magazynu jako miejsca odbioru."
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsLocal": {
+    "context": "WarehouseSettings local warehouse label",
+    "string": "Tylko lokalne zasoby"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsLocalDescription": {
+    "context": "WarehouseSettings local warehouse description",
+    "string": "Jeśli zostanie wybrana, klient będzie mógł wybrać ten magazyn jako punkt odbioru. Zamówione produkty będą realizowane tylko z tego magazynu"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsNoShippingZonesAssigned": {
+    "context": "WarehouseSettings no shipping zones assigned",
+    "string": "Ten magazyn nie ma przypisanych stref wysyłkowych."
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsPickupTitle": {
+    "context": "WarehouseSettings pickup title",
+    "string": "Odbiór"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsPrivateStock": {
+    "context": "WarehouseSettings private stock label",
+    "string": "Zapasy prywatne"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsPrivateStockDescription": {
+    "context": "WarehouseSettings private stock description",
+    "string": "Jeśli opcja ta jest włączona, zapasy w tym magazynie nie będą wyświetlane."
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsPublicStock": {
+    "context": "WarehouseSettings public stock label",
+    "string": "Zapasy publiczne"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsPublicStockDescription": {
+    "context": "WarehouseSettings public stock description",
+    "string": "Jeśli opcja ta jest włączona, wyświetlane będą zapasy w tym magazynie"
+  },
+  "src_dot_warehouses_dot_components_dot_WarehouseSettings_dot_warehouseSettingsTitle": {
+    "context": "WarehouseSettings title",
+    "string": "Ustawienia"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookDetailsPage_dot_header": {
+    "context": "header",
+    "string": "Szczegóły bez nazwy Webhook"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookDetailsPage_dot_headerCreate": {
+    "context": "header",
+    "string": "Utwórz Webhook"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookDetailsPage_dot_headerNamed": {
+    "context": "header",
+    "string": "Szczegóły {webhookName}"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookEvents_dot_assignPermissionsToAsynchronousEvents": {
+    "context": "section description",
+    "string": "Przyznaj uprawnienia do rejestrowania zdarzeń asynchronicznych dla tego webhooka."
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookEvents_dot_assignPermissionsToSynchronousEvents": {
+    "context": "section description",
+    "string": "Przydziel uprawnienia do rejestrowania zdarzeń synchronicznych dla tego webhooka."
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookEvents_dot_asynchronousEvents": {
+    "context": "section subheader",
+    "string": "Zdarzenia asynchroniczne"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookEvents_dot_events": {
+    "context": "section header",
+    "string": "Wydarzenia"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookEvents_dot_registeredEvents": {
+    "context": "input label",
+    "string": "Zarejestrowane wydarzenia"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookEvents_dot_synchronousEvents": {
+    "context": "section subheader",
+    "string": "Wydarzenia synchroniczne"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookInfo_dot_secretKey": {
+    "context": "webhook input label",
+    "string": "Sekretny klucz"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookInfo_dot_secretKeyDescription": {
+    "context": "webhook input help text",
+    "string": "klucz tajny jest używany do tworzenia podpisu hash z każdym ładunkiem. *pole opcjonalne"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookInfo_dot_targetUrl": {
+    "context": "webhook input label",
+    "string": "Docelowy adres URL"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookInfo_dot_targetUrlDescription": {
+    "context": "webhook input help text",
+    "string": "Ten adres URL będzie przyjmował żądania webhook POST"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookInfo_dot_webhookInformation": {
+    "context": "section header",
+    "string": "Informacje o Webhook"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookInfo_dot_webhookName": {
+    "context": "webhook input label",
+    "string": "Nazwa Webhook'a"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookStatus_dot_webhookActive": {
+    "context": "webhooks active label",
+    "string": "Webhook jest aktywny"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookStatus_dot_webhookActiveDescription": {
+    "context": "webhook active description",
+    "string": "Jeśli chcesz wyłączyć ten webhook, usuń zaznaczenie pola poniżej."
+  },
+  "src_dot_webhooks_dot_components_dot_WebhookStatus_dot_webhookStatus": {
+    "context": "section header",
+    "string": "Status Webhook"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhooksDetailsPage_dot_header": {
+    "context": "header",
+    "string": "Szczegóły bez nazwy Webhook"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhooksDetailsPage_dot_headerCreate": {
+    "context": "header",
+    "string": "Utwórz Webhook"
+  },
+  "src_dot_webhooks_dot_components_dot_WebhooksDetailsPage_dot_headerNamed": {
+    "context": "header",
+    "string": "Szczegóły {webhookName}"
+  },
+  "tableColChannelThreshold": {
+    "context": "table column header",
+    "string": "Próg kanału"
+  },
+  "tableColSoldUnits": {
+    "context": "table column header, sold units preorder quantity",
+    "string": "Sprzedane jednostki"
+  },
+  "transaction reference subtitle": {
+    "context": "transaction reference subtitle",
+    "string": "Odnośnik do transakcji"
+  },
+  "unavailable for purchase": {
+    "context": "product unavailability",
+    "string": "Niedostępny w sprzedaży"
+  },
+  "unlimitedUnitsLeft": {
+    "context": "section header",
+    "string": "Bez ograniczeń"
+  },
+  "will become available on": {
+    "context": "product available for purchase date",
+    "string": "będzie dostępny {date}"
+  },
+  "will become published on": {
+    "context": "product publication date label",
+    "string": "zostanie opublikowane {date}"
   }
 }
