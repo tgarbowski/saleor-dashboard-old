@@ -41,7 +41,7 @@ export interface OrderDetails_order_billingAddress {
   postalCode: string;
   streetAddress1: string;
   streetAddress2: string;
-  vatId: string;
+  vatId?: string;
 }
 
 export interface OrderDetails_order_giftCards_events_balance_initialBalance {
@@ -424,7 +424,7 @@ export interface OrderDetails_order_shippingAddress {
   postalCode: string;
   streetAddress1: string;
   streetAddress2: string;
-  vatId: string;
+  vatId?: string;
 }
 
 export interface OrderDetails_order_deliveryMethod_ShippingMethod {
