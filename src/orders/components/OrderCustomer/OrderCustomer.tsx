@@ -300,6 +300,9 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
             {shippingAddress.companyName && (
               <Typography>{shippingAddress.companyName}</Typography>
             )}
+            {shippingAddress.vatId && (
+              <Typography>{shippingAddress.vatId}</Typography>
+            )}
             <Typography>
               {shippingAddress.firstName} {shippingAddress.lastName}
             </Typography>
@@ -364,6 +367,9 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
           <>
             {billingAddress.companyName && (
               <Typography>{billingAddress.companyName}</Typography>
+            )}
+            {billingAddress.vatId && (
+              <Typography>{billingAddress.vatId}</Typography>
             )}
             <Typography>
               {billingAddress.firstName} {billingAddress.lastName}
