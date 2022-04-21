@@ -213,6 +213,23 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
     }
   ]);
 
+  const checkInvoice = () => {
+    let invoice = false;
+    order?.metadata.forEach(({ key, value }) => {
+      if (key === "invoice") {
+        if (value === "true") {
+          invoice = true;
+          return;
+        } else {
+          return;
+        }
+      }
+    });
+    return invoice;
+  };
+
+  const isInvoiceRequired = checkInvoice();
+
   return (
     <Form confirmLeave initial={initial} onSubmit={handleSubmit}>
       {({ change, data, hasChanged, submit }) => {
@@ -310,20 +327,23 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                   onProfileView={onProfileView}
                 />
                 <CardSpacer />
-                <OrderReceiptCard order={order} />
-                <CardSpacer />
                 <OrderChannelSectionCard
                   selectedChannelName={order?.channel?.name}
                 />
                 <CardSpacer />
                 {!isOrderUnconfirmed && (
                   <>
-                    <OrderInvoiceList
-                      invoices={order?.invoices}
-                      onInvoiceClick={onInvoiceClick}
-                      onInvoiceGenerate={onInvoiceGenerate}
-                      onInvoiceSend={onInvoiceSend}
-                    />
+                    {isInvoiceRequired ? (
+                      <OrderInvoiceList
+                        invoices={order?.invoices}
+                        onInvoiceClick={onInvoiceClick}
+                        onInvoiceGenerate={onInvoiceGenerate}
+                        onInvoiceSend={onInvoiceSend}
+                      />
+                    ) : (
+                      <OrderReceiptCard order={order} />
+                    )}
+
                     <CardSpacer />
                   </>
                 )}
