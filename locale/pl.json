@@ -3072,7 +3072,7 @@
     "string": "Saleor nie mógł anulować zamówienia"
   },
   "src_dot_orders_dot_components_dot_OrderCannotCancelOrderDialog_dot_775268031": {
-    "string": "Dla tego zamówienia są jeszcze utworzone wypełnienia. Najpierw anuluj je, a dopiero potem anuluj zamówienie."
+    "string": "Dla tego zamówienia są jeszcze utworzone realizacje. Najpierw anuluj realizacje, a dopiero potem anuluj zamówienie."
   },
   "src_dot_orders_dot_components_dot_OrderChannelSectionCard_dot_1243773440": {
     "context": "section header",
@@ -3272,7 +3272,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderFulfillmentDialog_dot_3123761129": {
     "context": "dialog header",
-    "string": "Wypełnij produkty"
+    "string": "Zrealizuj produkty"
   },
   "src_dot_orders_dot_components_dot_OrderFulfillmentDialog_dot_3252172269": {
     "context": "fulfillment group",
@@ -3363,7 +3363,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderHistory_dot_1521936480": {
     "context": "order history message",
-    "string": "Wypełnione pozycje {quantity}"
+    "string": "Zrealizowane pozycje {quantity}"
   },
   "src_dot_orders_dot_components_dot_OrderHistory_dot_1527620381": {
     "context": "order history message",
@@ -3957,7 +3957,7 @@
   },
   "src_dot_orders_dot_views_dot_OrderFulfill_dot_1892156526": {
     "context": "order fulfilled success message",
-    "string": "Pozycje wypełnione"
+    "string": "Pozycje zrealizowane"
   },
   "src_dot_orders_dot_views_dot_OrderFulfill_dot_3754102871": {
     "context": "window title",
@@ -6252,7 +6252,7 @@
   },
   "src_dot_utils_dot_errors_dot_cannotCancelFulfillment": {
     "context": "error message",
-    "string": "To wypełnienie nie może być anulowane"
+    "string": "Ta realizacja nie może być anulowana"
   },
   "src_dot_utils_dot_errors_dot_cannotCancelOrder": {
     "context": "error message",
@@ -6260,7 +6260,7 @@
   },
   "src_dot_utils_dot_errors_dot_cannotFulfillLine": {
     "context": "error message",
-    "string": "Za mało elementów do wypełnienia"
+    "string": "Za mało elementów do realizacji"
   },
   "src_dot_utils_dot_errors_dot_cannotRefund": {
     "context": "error message",
@@ -8725,7 +8725,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderCustomer_dot_orderCustomerFulfillmentLocal": {
     "context": "OrderCustomer Fulfillment from Local Warehouse",
-    "string": "Wypełnij z lokalnych zapasów"
+    "string": "Zrealizuj z lokalnych zapasów"
   },
   "src_dot_orders_dot_components_dot_OrderDetailsPage_dot_580490159": {
     "string": "Zamówienie #{orderNumber}"
@@ -8860,7 +8860,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderFulfillmentApproveDialog_dot_description": {
     "context": "dialog description",
-    "string": "Czy na pewno chcesz zatwierdzić tą wypełnienie?"
+    "string": "Czy na pewno chcesz zatwierdzić tą realizacje?"
   },
   "src_dot_orders_dot_components_dot_OrderFulfillmentApproveDialog_dot_notifyCustomer": {
     "context": "checkbox label, fulfillment approval",
@@ -8876,7 +8876,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderFulfillmentSettings_dot_2478368540": {
     "context": "checkbox label description",
-    "string": "Wszystkie wypełnienia zostaną automatycznie zatwierdzone"
+    "string": "Wszystkie realizacje zostaną automatycznie zatwierdzone"
   },
   "src_dot_orders_dot_components_dot_OrderFulfillmentSettings_dot_3336812159": {
     "context": "checkbox label",
@@ -9198,7 +9198,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_unfulfilled": {
     "context": "section header",
-    "string": "Niewypełnione"
+    "string": "Niezrealizowane"
   },
   "src_dot_orders_dot_components_dot_OrderReturnPage_dot_OrderReturnRefundItemsCard_dot_waitingForApproval": {
     "context": "unapproved fulfillment, section header",
@@ -9242,10 +9242,10 @@
   },
   "src_dot_orders_dot_components_dot_OrderUnfulfilledProductsCard_dot_fulfillButton": {
     "context": "Fulfill button",
-    "string": "Wypełnij"
+    "string": "Zrealizuj"
   },
   "src_dot_orders_dot_views_dot_OrderDetails_dot_3897044696": {
-    "string": "Wypełnienie zatwierdzone"
+    "string": "Realizacja została zatwierdzona"
   },
   "src_dot_orders_dot_views_dot_OrderDetails_dot_4207717971": {
     "context": "snackbar title",
