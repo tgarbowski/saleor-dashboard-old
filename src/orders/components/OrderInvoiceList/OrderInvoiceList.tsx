@@ -77,7 +77,10 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
         })}
         toolbar={
           onInvoiceGenerate && (
-            <Button onClick={onInvoiceGenerate}>
+            <Button
+              onClick={onInvoiceGenerate}
+              disabled={!!generatedInvoices?.length}
+            >
               <FormattedMessage
                 defaultMessage="Generate"
                 description="generate invoice button"

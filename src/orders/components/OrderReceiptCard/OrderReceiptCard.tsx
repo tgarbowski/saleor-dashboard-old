@@ -45,11 +45,11 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
               };
               lines.push(shippingPrice);
 
-              var http = new XMLHttpRequest();
-              var url = "http://localhost:3050/paragon";
-              var params = {
-                lines: lines,
-                summary: summary
+              const http = new XMLHttpRequest();
+              const url = "http://localhost:3050/paragon";
+              const params = {
+                lines,
+                summary
               };
 
               //      TEST DRUKOWANIA FAKTURY
