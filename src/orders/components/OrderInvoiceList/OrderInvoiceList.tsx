@@ -11,11 +11,19 @@ import Date from "@saleor/components/Date";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import { InvoiceFragment } from "@saleor/fragments/types/InvoiceFragment";
-import { buttonMessages } from "@saleor/intl";
 import { Button, makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { buttonMessages } from "@saleor/intl";
+import useNotifier from "@saleor/hooks/useNotifier";
+import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
+
+import {
+  useInvoiceDeleteMutation,
+} from "../../mutations";
+
+
 
 const useStyles = makeStyles(
   () => ({
@@ -34,6 +42,16 @@ const useStyles = makeStyles(
       },
       padding: "0 0.5rem",
       width: "auto"
+    },
+    colActionSecond: {
+      button: {
+        padding: "0"
+      },
+      padding: "0 24px 0 0.5rem",
+      width: "auto"
+    },
+    smallIconButton: {
+      padding: "2px 6px"
     },
     colNumber: { width: "100%" },
     colNumberClickable: {
@@ -59,7 +77,7 @@ export interface OrderInvoiceListProps {
 
 const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
   const { invoices, onInvoiceGenerate, onInvoiceClick, onInvoiceSend } = props;
-
+  const notify = useNotifier();
   const classes = useStyles(props);
 
   const intl = useIntl();
@@ -67,6 +85,25 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
   const generatedInvoices = invoices?.filter(
     invoice => invoice.status === "SUCCESS"
   );
+
+  const [invoiceDelete] = useInvoiceDeleteMutation({
+    onCompleted: data => {
+      notify({
+        status: "success",
+        text: "Faktura została usunięta"
+      });
+      window.location.reload();
+      return data;
+    }
+  })
+
+  const onInvoiceDelete = async (id: string) => {
+    await invoiceDelete({
+      variables: {
+        id
+      }
+    });
+  }
 
   return (
     <Card className={classes.card}>
@@ -136,6 +173,11 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
                       </Button>
                     </TableCell>
                   )}
+                    <TableCell className={classes.colActionSecond}>
+                    <IconButton onClick={() => onInvoiceDelete(invoice.id)} className={classes.smallIconButton}>
+                      <DeleteIcon/>
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
