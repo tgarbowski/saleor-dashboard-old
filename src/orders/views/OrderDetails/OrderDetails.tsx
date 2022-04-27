@@ -32,10 +32,13 @@ import { OrderNormalDetails } from "./OrderNormalDetails";
 import { OrderUnconfirmedDetails } from "./OrderUnconfirmedDetails";
 import {
   useLabelCreateMutation,
-  usePackageCreateMutation,
-    
+  usePackageCreateMutation
 } from "@saleor/orders/mutations";
-import { checkIfParcelDialogCorrect, downloadBase64File, PackageData } from "@saleor/shipping/handlers";
+import {
+  checkIfParcelDialogCorrect,
+  downloadBase64File,
+  PackageData
+} from "@saleor/shipping/handlers";
 
 interface OrderDetailsProps {
   id: string;
@@ -151,6 +154,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 }
               }
             });
+            console.log(result);
             if (generateLabel) {
               const labelCreated = await labelCreate({
                 variables: {

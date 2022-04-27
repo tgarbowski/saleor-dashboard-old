@@ -1,4 +1,13 @@
-import { Select, Card, Checkbox, FormControl, FormControlLabel, InputLabel, Box, MenuItem } from "@material-ui/core";
+import {
+  Select,
+  Card,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  Box,
+  MenuItem
+} from "@material-ui/core";
 import {
   CardContent,
   IconButton,
@@ -26,9 +35,8 @@ import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { buttonMessages } from "@saleor/intl";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { PackageData } from "@saleor/shipping/handlers";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
 
 const useStyles = makeStyles(
   theme => {
@@ -140,29 +148,29 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   } = props;
   const classes = useStyles(props);
 
-  const DefaultDimensions = [
-    {
-      firstDimension: 32,
-      secondDimension: 32,
-      thirdDimension: 32
-    },
-    {
-      firstDimension: 42,
-      secondDimension: 42,
-      thirdDimension: 42
-    },
-    {
-      firstDimension: 52,
-      secondDimension: 52,
-      thirdDimension: 52
-    }
-  ];
+  // const DefaultDimensions = [
+  //   {
+  //     firstDimension: 32,
+  //     secondDimension: 32,
+  //     thirdDimension: 32
+  //   },
+  //   {
+  //     firstDimension: 42,
+  //     secondDimension: 42,
+  //     thirdDimension: 42
+  //   },
+  //   {
+  //     firstDimension: 52,
+  //     secondDimension: 52,
+  //     thirdDimension: 52
+  //   }
+  // ];
 
-  const [selectedDimension, setSelectedDimension] = useState(null);
+  // const [selectedDimension, setSelectedDimension] = useState(null);
   const [dimentions, setDimentions] = useState({
-    firstDimension: 0,
-    secondDimension: 0,
-    thirdDimension: 0
+    firstDimension: "",
+    secondDimension: "",
+    thirdDimension: ""
   });
 
   const [state, setState] = useState({
@@ -175,7 +183,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
 
   const intl = useIntl();
 
-  const autogenerateIndex = () => packageData.length;
+  // const autogenerateIndex = () => packageData.length;
   // const onParcelAdd = () => {
   //   packageData.push({
   //     fieldIndex: autogenerateIndex(),
@@ -199,7 +207,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
 
   const onParcelChange = (index, value, inputType) => {
     packageData[index][inputType] = value;
-  }
+  };
 
   // const handleClick = (event) => {
   //   const id = event.target.id;
@@ -214,18 +222,18 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   // }
 
   const getDimension = e => {
-    // setSelectedDimension(e.target.value)
-    const dim = e.target.value
+    e.preventDefault();
+    const dim = e.target.value;
     setDimentions({
       firstDimension: dim,
       secondDimension: dim,
       thirdDimension: dim
-    })
-    console.log(selectedDimension);
-}
-  useEffect(()=>{
-    console.log(dimentions)
-  },[dimentions])
+    });
+
+    onParcelChange(packageData[0].fieldIndex, dim, "size1");
+    onParcelChange(packageData[0].fieldIndex, dim, "size2");
+    onParcelChange(packageData[0].fieldIndex, dim, "size3");
+  };
 
   return (
     <Dialog
@@ -237,7 +245,11 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
     >
       <Form
         initial={orderDetails?.shippingAddress}
-        onSubmit={() => onSubmit(packageData, state.generateReport)}
+        onSubmit={() => {
+          console.log(state);
+          console.log(packageData);
+          onSubmit(packageData, state.generateReport);
+        }}
       >
         {() => (
           <>
@@ -325,17 +337,29 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                 description: "dialog header"
               })}
             </DialogTitle>
-            <button id="getDimensionsA" onClick={(e) => getDimension(e)} className="getDimensionsA" value={0}>
-              A
-              32 x 32 x 32
+            <button
+              id="getDimensionsA"
+              onClick={e => getDimension(e)}
+              className="getDimensionsA"
+              value={"32"}
+            >
+              A 32 x 32 x 32
             </button>
-            <button id="getDimensionsB" onClick={(e) => getDimension(e)} className="getDimensionsB" value={1}>
-              B
-              42 x 42 x 42
+            <button
+              id="getDimensionsB"
+              onClick={e => getDimension(e)}
+              className="getDimensionsB"
+              value={"42"}
+            >
+              B 42 x 42 x 42
             </button>
-            <button id="getDimensionsC" onClick={(e) => getDimension(e)} className="getDimensionsC" value={2}>
-              C
-              52 x 52 x 52
+            <button
+              id="getDimensionsC"
+              onClick={e => getDimension(e)}
+              className="getDimensionsC"
+              value={"52"}
+            >
+              C 52 x 52 x 52
             </button>
             <DialogContent className={classes.overflow}>
               <Table className={classes.table}>
@@ -398,15 +422,16 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={event =>
-                            onParcelChange(
-                              element.fieldIndex,
-                              event.target.value,
-                              "size1"
-                            )
-                          }
+                          onChange={event => {
+                            const value = event.target.value;
+                            setDimentions(prevDimentions => ({
+                              ...prevDimentions,
+                              firstDimension: value
+                            }));
+                            onParcelChange(element.fieldIndex, value, "size1");
+                          }}
                           defaultValue={element.size1}
-                          // value={selectedDimension !== null ? (DefaultDimensions[selectedDimension].firstDimension) : ""}
+                          value={dimentions.firstDimension}
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>
@@ -418,15 +443,16 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={event =>
-                            onParcelChange(
-                              element.fieldIndex,
-                              event.target.value,
-                              "size2"
-                            )
-                          }
+                          onChange={event => {
+                            const value = event.target.value;
+                            setDimentions(prevDimentions => ({
+                              ...prevDimentions,
+                              secondDimension: value
+                            }));
+                            onParcelChange(element.fieldIndex, value, "size2");
+                          }}
                           defaultValue={element.size2}
-                          // value={selectedDimension !== null ? (DefaultDimensions[selectedDimension].secondDimension) : ""}
+                          value={dimentions.secondDimension}
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>
@@ -438,15 +464,16 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={event =>
-                            onParcelChange(
-                              element.fieldIndex,
-                              event.target.value,
-                              "size3"
-                            )
-                          }
+                          onChange={event => {
+                            const value = event.target.value;
+                            setDimentions(prevDimentions => ({
+                              ...prevDimentions,
+                              thirdDimension: value
+                            }));
+                            onParcelChange(element.fieldIndex, value, "size3");
+                          }}
                           defaultValue={element.size3}
-                          // value={selectedDimension !== null ? (DefaultDimensions[selectedDimension].thirdDimension) : ""}
+                          value={dimentions.thirdDimension}
                         />
                       </TableCell>
                       {/* <TableCell className={classes.colAction}>
