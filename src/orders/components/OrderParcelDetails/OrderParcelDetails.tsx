@@ -1,4 +1,4 @@
-import { Card, Checkbox, FormControlLabel } from "@material-ui/core";
+import { Select, Card, Checkbox, FormControl, FormControlLabel, InputLabel, Box, MenuItem } from "@material-ui/core";
 import {
   CardContent,
   IconButton,
@@ -26,8 +26,9 @@ import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { buttonMessages } from "@saleor/intl";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { PackageData } from "@saleor/shipping/handlers";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+
 
 const useStyles = makeStyles(
   theme => {
@@ -139,7 +140,32 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   } = props;
   const classes = useStyles(props);
 
-  const [state, setState] = React.useState({
+  const DefaultDimensions = [
+    {
+      firstDimension: 32,
+      secondDimension: 32,
+      thirdDimension: 32
+    },
+    {
+      firstDimension: 42,
+      secondDimension: 42,
+      thirdDimension: 42
+    },
+    {
+      firstDimension: 52,
+      secondDimension: 52,
+      thirdDimension: 52
+    }
+  ];
+
+  const [selectedDimension, setSelectedDimension] = useState(null);
+  const [dimentions, setDimentions] = useState({
+    firstDimension: 0,
+    secondDimension: 0,
+    thirdDimension: 0
+  });
+
+  const [state, setState] = useState({
     generateReport: false
   });
 
@@ -150,25 +176,56 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   const intl = useIntl();
 
   const autogenerateIndex = () => packageData.length;
-  const onParcelAdd = () => {
-    packageData.push({
-      fieldIndex: autogenerateIndex(),
-      size1: null,
-      size2: null,
-      size3: null,
-      weight: productWeight[0]?.variant?.product?.weight?.value
-    });
-    setState({ ...state });
-  };
+  // const onParcelAdd = () => {
+  //   packageData.push({
+  //     fieldIndex: autogenerateIndex(),
+  //     size1: null,
+  //     size2: null,
+  //     size3: null,
+  //     weight: productWeight[0]?.variant?.product?.weight?.value
+  //   });
+  //   setState({ ...state });
+  // };
 
-  const onParcelDelete = event => {
-    packageData.splice(event, 1);
-    setState({ ...state });
-  };
+  // const onParcelDelete = event => {
+  //   packageData.splice(event, 1);
+  //   setState({ ...state });
+  // };
+
+  // const handleFinishedDimensions = (event) => {
+  //   setFinishedDimensions(event.target.value);
+  //   setIsDefaultDimensions(true)
+  // };
 
   const onParcelChange = (index, value, inputType) => {
     packageData[index][inputType] = value;
-  };
+  }
+
+  // const handleClick = (event) => {
+  //   const id = event.target.id;
+  //   setIsChoosedDimension(id)
+  //   console.log(id);
+  // }
+
+  // const handleInput = (e) => {
+  //   const id = e.target.value;
+  //   setIsChoosedDimension(id)
+  //   console.log(id);
+  // }
+
+  const getDimension = e => {
+    // setSelectedDimension(e.target.value)
+    const dim = e.target.value
+    setDimentions({
+      firstDimension: dim,
+      secondDimension: dim,
+      thirdDimension: dim
+    })
+    console.log(selectedDimension);
+}
+  useEffect(()=>{
+    console.log(dimentions)
+  },[dimentions])
 
   return (
     <Dialog
@@ -268,6 +325,18 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                 description: "dialog header"
               })}
             </DialogTitle>
+            <button id="getDimensionsA" onClick={(e) => getDimension(e)} className="getDimensionsA" value={0}>
+              A
+              32 x 32 x 32
+            </button>
+            <button id="getDimensionsB" onClick={(e) => getDimension(e)} className="getDimensionsB" value={1}>
+              B
+              42 x 42 x 42
+            </button>
+            <button id="getDimensionsC" onClick={(e) => getDimension(e)} className="getDimensionsC" value={2}>
+              C
+              52 x 52 x 52
+            </button>
             <DialogContent className={classes.overflow}>
               <Table className={classes.table}>
                 <TableHead>
@@ -337,6 +406,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                             )
                           }
                           defaultValue={element.size1}
+                          // value={selectedDimension !== null ? (DefaultDimensions[selectedDimension].firstDimension) : ""}
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>
@@ -356,6 +426,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                             )
                           }
                           defaultValue={element.size2}
+                          // value={selectedDimension !== null ? (DefaultDimensions[selectedDimension].secondDimension) : ""}
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>
@@ -375,9 +446,27 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                             )
                           }
                           defaultValue={element.size3}
+                          // value={selectedDimension !== null ? (DefaultDimensions[selectedDimension].thirdDimension) : ""}
                         />
                       </TableCell>
-                      <TableCell className={classes.colAction}>
+                      {/* <TableCell className={classes.colAction}>
+                      <Box>
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">Wybierz gotowe wymiary</InputLabel>
+                          <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={finishedDimensions}
+                              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => handleFinishedDimensions(event)}
+                            >
+                            <MenuItem value={0}>A - 32 x 32 x 32</MenuItem>
+                            <MenuItem value={1}>B - 42 x 42 x 42</MenuItem>
+                            <MenuItem value={2}>C - 52 x 52 x 52</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                      </TableCell> */}
+                      {/* <TableCell className={classes.colAction}>
                         <IconButton
                           color="primary"
                           data-test="deleteField"
@@ -386,7 +475,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                         >
                           <DeleteIcon />
                         </IconButton>
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   ))}
                 </TableBody>
@@ -404,7 +493,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                 }
                 label="Wygeneruj etykiete"
               />
-              <Button
+              {/* <Button
                 color="primary"
                 data-test="addField"
                 onClick={onParcelAdd}
@@ -413,7 +502,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                   defaultMessage="Dodaj paczke"
                   description="add parcel,button"
                 />
-              </Button>
+              </Button> */}
               <Button onClick={onClose}>
                 <FormattedMessage {...buttonMessages.back} />
               </Button>
