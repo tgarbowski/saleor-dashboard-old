@@ -14,17 +14,17 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
   order
 }) => {
   const [printing, setPrinting] = useState(false);
-  const [receiptId, setReceiptId] = useState(null);
+  const [receiptNo, setReceiptNo] = useState(null);
 
   useEffect(() => {
     let receiptNumber = null;
     order.metadata.forEach(metadata => {
-      if (metadata.key === "receipt_id") {
+      if (metadata.key === "receipt_no") {
         receiptNumber = metadata.value;
         return;
       }
     });
-    setReceiptId(receiptNumber);
+    setReceiptNo(receiptNumber);
   }, [order.metadata]);
 
   const intl = useIntl();
@@ -32,7 +32,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
 
   const generateInvoice = () => {
     setPrinting(true);
-    if (!receiptId) {
+    if (!receiptNo) {
       const lines = [];
       const summary = {
         to: order.undiscountedTotal.gross.amount * 100
@@ -70,7 +70,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
             id: order.id,
             input: [
               {
-                key: "receipt_id",
+                key: "receipt_no",
                 value: http.responseText.match(/"bn":"(\d+)"/)[1]
               }
             ],
@@ -89,7 +89,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
       const params = [
         {
           cmd: "ecprndoc",
-          params: `sd,0\nty,0\nfn,${receiptId}\ntn,${receiptId}`
+          params: `sd,0\nty,0\nfn,${receiptNo}\ntn,${receiptNo}`
         }
       ];
       http.open("POST", url, true);
@@ -107,7 +107,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
     }
   };
 
-  const formattedMessage = receiptId ? (
+  const formattedMessage = receiptNo ? (
     <FormattedMessage
       defaultMessage="Drukuj (kopia)"
       description="generate invoice button"
