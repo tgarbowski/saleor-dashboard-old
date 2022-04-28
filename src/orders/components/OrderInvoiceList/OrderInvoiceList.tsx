@@ -13,17 +13,13 @@ import Skeleton from "@saleor/components/Skeleton";
 import { InvoiceFragment } from "@saleor/fragments/types/InvoiceFragment";
 import { Button, makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
-import React from "react";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { buttonMessages } from "@saleor/intl";
 import useNotifier from "@saleor/hooks/useNotifier";
 import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
 
-import {
-  useInvoiceDeleteMutation,
-} from "../../mutations";
-
-
+import { useInvoiceDeleteMutation } from "../../mutations";
 
 const useStyles = makeStyles(
   () => ({
@@ -80,6 +76,8 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
   const notify = useNotifier();
   const classes = useStyles(props);
 
+  const [generating, setGenerating] = useState(false);
+
   const intl = useIntl();
 
   const generatedInvoices = invoices?.filter(
@@ -95,7 +93,7 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
       window.location.reload();
       return data;
     }
-  })
+  });
 
   const onInvoiceDelete = async (id: string) => {
     await invoiceDelete({
@@ -103,7 +101,7 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
         id
       }
     });
-  }
+  };
 
   return (
     <Card className={classes.card}>
@@ -115,8 +113,11 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
         toolbar={
           onInvoiceGenerate && (
             <Button
-              onClick={onInvoiceGenerate}
-              disabled={!!generatedInvoices?.length}
+              onClick={() => {
+                setGenerating(true);
+                onInvoiceGenerate();
+              }}
+              disabled={!!generatedInvoices?.length || generating}
             >
               <FormattedMessage
                 defaultMessage="Generate"
@@ -173,9 +174,12 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
                       </Button>
                     </TableCell>
                   )}
-                    <TableCell className={classes.colActionSecond}>
-                    <IconButton onClick={() => onInvoiceDelete(invoice.id)} className={classes.smallIconButton}>
-                      <DeleteIcon/>
+                  <TableCell className={classes.colActionSecond}>
+                    <IconButton
+                      onClick={() => onInvoiceDelete(invoice.id)}
+                      className={classes.smallIconButton}
+                    >
+                      <DeleteIcon />
                     </IconButton>
                   </TableCell>
                 </TableRow>

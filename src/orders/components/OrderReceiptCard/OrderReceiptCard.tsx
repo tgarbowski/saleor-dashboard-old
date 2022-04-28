@@ -1,9 +1,10 @@
 import { Card, CardContent } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useMetadataUpdate } from "@saleor/utils/metadata/updateMetadata";
+import { Button } from "@saleor/macaw-ui";
 
 export interface OrderReceiptCardProps {
   order: OrderDetails_order;
@@ -12,11 +13,10 @@ export interface OrderReceiptCardProps {
 export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
   order
 }) => {
-  const intl = useIntl();
-  const [updateMetadata] = useMetadataUpdate({});
+  const [printing, setPrinting] = useState(false);
+  const [receiptId, setReceiptId] = useState(null);
 
-  const generateInvoice = () => {
-    console.log(order.metadata);
+  useEffect(() => {
     let receiptNumber = null;
     order.metadata.forEach(metadata => {
       if (metadata.key === "receipt_id") {
@@ -24,8 +24,15 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
         return;
       }
     });
-    console.log(receiptNumber);
-    if (!receiptNumber) {
+    setReceiptId(receiptNumber);
+  }, [order.metadata]);
+
+  const intl = useIntl();
+  const [updateMetadata] = useMetadataUpdate({});
+
+  const generateInvoice = () => {
+    setPrinting(true);
+    if (!receiptId) {
       const lines = [];
       const summary = {
         to: order.undiscountedTotal.gross.amount * 100
@@ -54,32 +61,11 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
         lines,
         summary
       };
-
-      //      TEST DRUKOWANIA FAKTURY
-      // var url = "http://localhost:3050/faktura";
-      // var params = {
-      //   lines: [
-      //     { na: "Towar 1", il: 1.0, vt: 0, pr: 2350 },
-      //     { na: "Towar 2", il: 1.0, vt: 0, pr: 1150 }
-      //   ],
-      //   header: {
-      //     nb: "56/2020",
-      //     ni: "584-222-98-89",
-      //     na: ["Nazwa firmy", "ul. Miejska 56", "88-888 Miasto"],
-      //     pd: "2020-02-15",
-      //     pt: "Visa ... ... 0456"
-      //   },
-      //   summary: {
-      //     to: 3500
-      //   }
-      // };
-
       http.open("POST", url, true);
       http.setRequestHeader("Content-type", "application/json");
 
       http.onreadystatechange = function() {
-        if (http.readyState == 4 && http.status == 200) {
-          console.log(http.responseText.match(/"bn":"(\d+)"/)[1]);
+        if (http.readyState === 4 && http.status === 200) {
           const variables = {
             id: order.id,
             input: [
@@ -91,6 +77,9 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
             keysToDelete: []
           };
           updateMetadata({ variables });
+          setPrinting(false);
+        } else if (http.readyState === 4 && http.status !== 200) {
+          setPrinting(false);
         }
       };
       http.send(JSON.stringify(params));
@@ -100,7 +89,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
       const params = [
         {
           cmd: "ecprndoc",
-          params: `sd,0\nty,0\nfn,${receiptNumber}\ntn,${receiptNumber}`
+          params: `sd,0\nty,0\nfn,${receiptId}\ntn,${receiptId}`
         }
       ];
       http.open("POST", url, true);
@@ -108,13 +97,27 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
       http.setRequestHeader("Content-type", "application/json");
 
       http.onreadystatechange = function() {
-        if (http.readyState == 4 && http.status == 200) {
-          console.log(http.responseText);
+        if (http.readyState === 4 && http.status === 200) {
+          setPrinting(false);
+        } else if (http.readyState === 4 && http.status !== 200) {
+          setPrinting(false);
         }
       };
       http.send(JSON.stringify(params));
     }
   };
+
+  const formattedMessage = receiptId ? (
+    <FormattedMessage
+      defaultMessage="Drukuj (kopia)"
+      description="generate invoice button"
+    />
+  ) : (
+    <FormattedMessage
+      defaultMessage="Drukuj"
+      description="generate invoice button"
+    />
+  );
 
   return (
     <Card>
@@ -124,12 +127,9 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
           description: "section header"
         })}
         toolbar={
-          <button onClick={generateInvoice}>
-            <FormattedMessage
-              defaultMessage="Generuj"
-              description="generate invoice button"
-            />
-          </button>
+          <Button onClick={generateInvoice} disabled={printing}>
+            {formattedMessage}
+          </Button>
         }
       />
       <CardContent></CardContent>
