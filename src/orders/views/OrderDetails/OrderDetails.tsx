@@ -154,7 +154,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 }
               }
             });
-            console.log(result);
             if (generateLabel) {
               const labelCreated = await labelCreate({
                 variables: {

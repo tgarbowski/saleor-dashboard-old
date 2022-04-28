@@ -1,16 +1,6 @@
-import {
-  Select,
-  Card,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  Box,
-  MenuItem
-} from "@material-ui/core";
+import { Card, Checkbox, FormControlLabel } from "@material-ui/core";
 import {
   CardContent,
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -25,7 +15,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles } from "@material-ui/core/styles";
 import TableHead from "@material-ui/core/TableHead";
 import TextField from "@material-ui/core/TextField";
-import DeleteIcon from "@material-ui/icons/Delete";
 import CardTitle from "@saleor/components/CardTitle";
 import ConfirmButton from "@saleor/components/ConfirmButton";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
@@ -35,7 +24,7 @@ import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { buttonMessages } from "@saleor/intl";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { PackageData } from "@saleor/shipping/handlers";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const useStyles = makeStyles(
@@ -51,6 +40,27 @@ const useStyles = makeStyles(
     return {
       card: {
         width: "40%"
+      },
+      defaultDimensionsContainer: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        marginTop: "32px",
+        marginBottom: "32px"
+      },
+      defaultDimensionsButton: {
+        border: "1px solid #056DFF",
+        padding: "7px 16px",
+        fontSize: "1.6rem",
+        minWidth: "64px",
+        boxSizing: "border-box",
+        lineHeight: "1.55",
+        borderRadius: "4px",
+        letterSpacing: "0.02rem",
+        textTransform: "none",
+        color: "#FFFFFF",
+        backgroundColor: "#FFCC07",
+        cursor: "pointer"
       },
       colAction: {
         "&:last-child": {
@@ -139,7 +149,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   const {
     confirmButtonState,
     orderDetails,
-    productWeight,
     shopDetails,
     packageData,
     onSubmit,
@@ -148,30 +157,29 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   } = props;
   const classes = useStyles(props);
 
-  // const DefaultDimensions = [
-  //   {
-  //     firstDimension: 32,
-  //     secondDimension: 32,
-  //     thirdDimension: 32
-  //   },
-  //   {
-  //     firstDimension: 42,
-  //     secondDimension: 42,
-  //     thirdDimension: 42
-  //   },
-  //   {
-  //     firstDimension: 52,
-  //     secondDimension: 52,
-  //     thirdDimension: 52
-  //   }
-  // ];
-
-  // const [selectedDimension, setSelectedDimension] = useState(null);
   const [dimentions, setDimentions] = useState({
     firstDimension: "",
     secondDimension: "",
     thirdDimension: ""
   });
+
+  const DefaultDimentions = [
+    {
+      firstDimension: "38",
+      secondDimension: "64",
+      thirdDimension: "8"
+    },
+    {
+      firstDimension: "38",
+      secondDimension: "64",
+      thirdDimension: "19"
+    },
+    {
+      firstDimension: "38",
+      secondDimension: "64",
+      thirdDimension: "41"
+    }
+  ];
 
   const [state, setState] = useState({
     generateReport: false
@@ -200,39 +208,23 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   //   setState({ ...state });
   // };
 
-  // const handleFinishedDimensions = (event) => {
-  //   setFinishedDimensions(event.target.value);
-  //   setIsDefaultDimensions(true)
-  // };
-
   const onParcelChange = (index, value, inputType) => {
     packageData[index][inputType] = value;
   };
 
-  // const handleClick = (event) => {
-  //   const id = event.target.id;
-  //   setIsChoosedDimension(id)
-  //   console.log(id);
-  // }
-
-  // const handleInput = (e) => {
-  //   const id = e.target.value;
-  //   setIsChoosedDimension(id)
-  //   console.log(id);
-  // }
-
   const getDimension = e => {
     e.preventDefault();
-    const dim = e.target.value;
+    const index = e.target.value;
+    const dim = DefaultDimentions[index];
     setDimentions({
-      firstDimension: dim,
-      secondDimension: dim,
-      thirdDimension: dim
+      firstDimension: dim.firstDimension,
+      secondDimension: dim.secondDimension,
+      thirdDimension: dim.thirdDimension
     });
 
-    onParcelChange(packageData[0].fieldIndex, dim, "size1");
-    onParcelChange(packageData[0].fieldIndex, dim, "size2");
-    onParcelChange(packageData[0].fieldIndex, dim, "size3");
+    onParcelChange(packageData[0].fieldIndex, dim.firstDimension, "size1");
+    onParcelChange(packageData[0].fieldIndex, dim.secondDimension, "size2");
+    onParcelChange(packageData[0].fieldIndex, dim.thirdDimension, "size3");
   };
 
   return (
@@ -246,8 +238,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
       <Form
         initial={orderDetails?.shippingAddress}
         onSubmit={() => {
-          console.log(state);
-          console.log(packageData);
           onSubmit(packageData, state.generateReport);
         }}
       >
@@ -337,30 +327,32 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                 description: "dialog header"
               })}
             </DialogTitle>
-            <button
-              id="getDimensionsA"
-              onClick={e => getDimension(e)}
-              className="getDimensionsA"
-              value={"32"}
-            >
-              A 32 x 32 x 32
-            </button>
-            <button
-              id="getDimensionsB"
-              onClick={e => getDimension(e)}
-              className="getDimensionsB"
-              value={"42"}
-            >
-              B 42 x 42 x 42
-            </button>
-            <button
-              id="getDimensionsC"
-              onClick={e => getDimension(e)}
-              className="getDimensionsC"
-              value={"52"}
-            >
-              C 52 x 52 x 52
-            </button>
+            <div className={classes.defaultDimensionsContainer}>
+              <button
+                id="getDimensionsA"
+                onClick={e => getDimension(e)}
+                className={classes.defaultDimensionsButton}
+                value={0}
+              >
+                A - 38 x 64 x 8
+              </button>
+              <button
+                id="getDimensionsB"
+                onClick={e => getDimension(e)}
+                className={classes.defaultDimensionsButton}
+                value={1}
+              >
+                B - 38 x 64 x 19
+              </button>
+              <button
+                id="getDimensionsC"
+                onClick={e => getDimension(e)}
+                className={classes.defaultDimensionsButton}
+                value={2}
+              >
+                C - 38 x 64 x 41
+              </button>
+            </div>
             <DialogContent className={classes.overflow}>
               <Table className={classes.table}>
                 <TableHead>
@@ -476,23 +468,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           value={dimentions.thirdDimension}
                         />
                       </TableCell>
-                      {/* <TableCell className={classes.colAction}>
-                      <Box>
-                        <FormControl fullWidth>
-                          <InputLabel id="demo-simple-select-label">Wybierz gotowe wymiary</InputLabel>
-                          <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={finishedDimensions}
-                              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => handleFinishedDimensions(event)}
-                            >
-                            <MenuItem value={0}>A - 32 x 32 x 32</MenuItem>
-                            <MenuItem value={1}>B - 42 x 42 x 42</MenuItem>
-                            <MenuItem value={2}>C - 52 x 52 x 52</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </Box>
-                      </TableCell> */}
                       {/* <TableCell className={classes.colAction}>
                         <IconButton
                           color="primary"
