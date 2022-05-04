@@ -5238,7 +5238,7 @@
   },
   "src_dot_readyToFulfill": {
     "context": "order status",
-    "string": "Gotowoy do realizacji"
+    "string": "Gotowy do realizacji"
   },
   "src_dot_refunded": {
     "context": "payment status",
@@ -7463,7 +7463,7 @@
   },
   "src_dot_channels_dot_components_dot_ShippingZonesCard_dot_title": {
     "context": "title",
-    "string": "{zonesCount} / {totalCount} strefy wysyłki"
+    "string": "Strefy wysyłki"
   },
   "src_dot_channels_dot_pages_dot_ChannelsListPage_dot_2754800034": {
     "context": "alert",
