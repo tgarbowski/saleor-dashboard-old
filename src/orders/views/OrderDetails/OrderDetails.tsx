@@ -164,7 +164,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 }
               });
               downloadBase64File(
-                "application/pdf",
+                "x-application/zpl",
                 labelCreated.data.labelCreate.label,
                 result.data.packageCreate.packageId.toString()
               );
@@ -194,7 +194,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
             }
           });
           downloadBase64File(
-            "application/pdf",
+            "x-application/zpl",
             labelCreated.data.labelCreate.label,
             packageIdentifier
           );
