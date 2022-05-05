@@ -3,15 +3,15 @@ import { defineMessages, IntlShape } from "react-intl";
 
 export const messages = defineMessages({
   fulfillment: {
-    defaultMessage: "Fulfillment",
+    defaultMessage: "Realizacja",
     description: "section header"
   },
   fulfillmentReturned: {
-    defaultMessage: "Fulfillment returned",
+    defaultMessage: "Realizacja zwrócona",
     description: "section header returned"
   },
   fulfillmentWaitingForApproval: {
-    defaultMessage: "Fulfillment waiting for approval",
+    defaultMessage: "Realizacja czeka na zatwierdzenie",
     description: "section header returned"
   }
 });

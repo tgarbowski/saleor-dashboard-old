@@ -62,19 +62,19 @@ const useStyles = makeStyles(
 
 const messages = defineMessages({
   refundButton: {
-    defaultMessage: "Refund",
+    defaultMessage: "Refundacja",
     description: "order refund amount button"
   },
   refundCannotBeFulfilled: {
-    defaultMessage: "Refunded items can't be fulfilled",
+    defaultMessage: "Zwrócone przedmioty nie mogą zostać zrealizowane",
     description: "order refund subtitle"
   },
   returnButton: {
-    defaultMessage: "Return & Replace products",
+    defaultMessage: "Zwrot i wymiana produktów",
     description: "order return amount button"
   },
   returnCannotBeFulfilled: {
-    defaultMessage: "Returned items can't be fulfilled",
+    defaultMessage: "Zwrócone produkty nie mogą zostać zrealizowane",
     description: "order return subtitle"
   }
 });

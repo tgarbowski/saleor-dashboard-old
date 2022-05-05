@@ -32,44 +32,44 @@ const useStyles = makeStyles(
 
 const messages = defineMessages({
   cancelled: {
-    defaultMessage: "Cancelled ({quantity})",
+    defaultMessage: "Anulowano ({quantity})",
     description: "cancelled fulfillment, section header"
   },
   fulfilled: {
-    defaultMessage: "Fulfilled ({quantity})",
+    defaultMessage: "Zrealizowano ({quantity})",
     description: "section header"
   },
   refunded: {
-    defaultMessage: "Refunded ({quantity})",
+    defaultMessage: "Refundowane ({quantity})",
     description: "refunded fulfillment, section header"
   },
   refundedAndReturned: {
-    defaultMessage: "Refunded and Returned ({quantity})",
+    defaultMessage: "Zwrócone i refundowane ({quantity})",
     description: "cancelled fulfillment, section header"
   },
   replaced: {
-    defaultMessage: "Replaced ({quantity})",
+    defaultMessage: "Wymieniono ({quantity})",
     description: "refunded fulfillment, section header"
   },
   returned: {
-    defaultMessage: "Returned ({quantity})",
+    defaultMessage: "Zwrócono ({quantity})",
     description: "refunded fulfillment, section header"
   },
   waitingForApproval: {
-    defaultMessage: "Waiting for approval ({quantity})",
+    defaultMessage: "Oczekiwanie na zatwierdzenie ({quantity})",
     description: "unapproved fulfillment, section header"
   },
   unfulfilled: {
-    defaultMessage: "Unfulfilled",
+    defaultMessage: "Niezrealizowane",
     description: "section header"
   },
   fulfilledFrom: {
-    defaultMessage: "Fulfilled from {warehouseName}",
+    defaultMessage: "Zrealizowane z {warehouseName}",
     description: "fulfilled fulfillment, section header"
   }
 });
 
-type CardTitleStatus = FulfillmentStatus | "unfulfilled";
+type CardTitleStatus = FulfillmentStatus | "niezrealizowane";
 
 type CardTitleLines = Array<{
   quantity: number;

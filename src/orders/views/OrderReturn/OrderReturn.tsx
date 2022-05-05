@@ -17,15 +17,15 @@ import ReturnFormDataParser from "./utils";
 export const messages = defineMessages({
   cannotRefundDescription: {
     defaultMessage:
-      "We’ve encountered a problem while refunding the products. Product’s were not refunded. Please try again.",
+      "Napotkaliśmy problem podczas refundacji produktów. Produkty nie zostały zwrócone. Prosimy spróbować ponownie.",
     description: "order return error description when cannot refund"
   },
   cannotRefundTitle: {
-    defaultMessage: "Couldn't refund products",
+    defaultMessage: "Nie można było dokonać zwrotu pieniędzy za produkty",
     description: "order return error title when cannot refund"
   },
   successAlert: {
-    defaultMessage: "Successfully returned products!",
+    defaultMessage: "Produkty zostały pomyślnie zwrócone!",
     description: "order returned success message"
   }
 });
