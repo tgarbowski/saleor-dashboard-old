@@ -71,7 +71,10 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
               onClick={onFulfill}
               disabled={notAllowedToFulfillUnpaid}
             >
-              <FormattedMessage defaultMessage="Fulfill" description="button" />
+              <FormattedMessage
+                defaultMessage="Zrealizuj"
+                description="button"
+              />
             </Button>
             {notAllowedToFulfillUnpaid && (
               <Typography color="error" variant="caption">
