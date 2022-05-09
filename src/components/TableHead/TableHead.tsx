@@ -30,7 +30,7 @@ const useStyles = makeStyles(
     },
     container: {
       alignItems: "center",
-      display: "flex",
+      display: "inline-flex",
       height: 47,
       marginRight: theme.spacing(-2)
     },
@@ -54,7 +54,8 @@ const useStyles = makeStyles(
       "& > *": {
         marginLeft: theme.spacing(1)
       },
-      marginRight: theme.spacing(1.5)
+      marginRight: theme.spacing(1.5),
+      marginLeft: theme.spacing(4)
     }
   }),
   { name: "TableHead" }
