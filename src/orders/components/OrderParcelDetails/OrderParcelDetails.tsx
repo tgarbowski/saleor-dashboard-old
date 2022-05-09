@@ -50,7 +50,7 @@ const useStyles = makeStyles(
       },
       defaultDimensionsButton: {
         border: "1px solid #056DFF",
-        padding: "7px 16px",
+        padding: "13px 35px",
         fontSize: "1.6rem",
         minWidth: "64px",
         boxSizing: "border-box",
@@ -240,6 +240,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
         onSubmit={() => {
           onSubmit(packageData, state.generateReport);
         }}
+        style={{ overflowY: "auto" }}
       >
         {() => (
           <>
