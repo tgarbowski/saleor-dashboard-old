@@ -79,7 +79,7 @@ const useStyles = makeStyles(
       colSku: {
         textAlign: "right",
         textOverflow: "ellipsis",
-        width: 150
+        width: 179
       },
       error: {
         color: theme.palette.error.main
