@@ -70,16 +70,15 @@ const useStyles = makeStyles(
         width: 210
       },
       colQuantityHeader: {
-        textAlign: "right"
+        textAlign: "center"
       },
       colQuantityTotal: {
-        textAlign: "right",
+        textAlign: "center",
         width: 180
       },
       colSku: {
-        textAlign: "right",
+        textAlign: "center",
         textOverflow: "ellipsis",
-        width: 179
       },
       error: {
         color: theme.palette.error.main
