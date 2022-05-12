@@ -36,9 +36,9 @@ import {
 } from "@saleor/orders/mutations";
 import {
   checkIfParcelDialogCorrect,
-  downloadBase64File,
   PackageData
 } from "@saleor/shipping/handlers";
+import { usePluginDetails } from "@saleor/plugins/queries";
 
 interface OrderDetailsProps {
   id: string;
@@ -77,6 +77,10 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   });
 
   const [labelCreate] = useLabelCreateMutation({});
+  const { data: pluginData } = usePluginDetails({
+    displayLoader: true,
+    variables: { id }
+  });
 
   const [packageCreate] = usePackageCreateMutation({
     onCompleted: data => {
@@ -138,6 +142,8 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           formData: PackageData[],
           generateLabel: boolean
         ) => {
+          const serverUrl =
+            pluginData.plugin.globalConfiguration.configuration[0].value;
           const dataCorrect = checkIfParcelDialogCorrect(formData);
           if (dataCorrect) {
             const result = await packageCreate({
@@ -163,11 +169,18 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                   }
                 }
               });
-              downloadBase64File(
-                "x-application/zpl",
-                labelCreated.data.labelCreate.label,
-                result.data.packageCreate.packageId.toString()
-              );
+              const tempSocket = new WebSocket(`ws://${serverUrl}`);
+              tempSocket.onopen = () => {
+                tempSocket.send(
+                  Buffer.from(
+                    labelCreated.data.labelCreate.label,
+                    "base64"
+                  ).toString()
+                );
+              };
+              tempSocket.onerror = error => {
+                throw error;
+              };
             }
             window.location.reload();
           } else {
@@ -180,6 +193,8 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
         };
 
         const handleLabelDownloadOnButton = async () => {
+          const serverUrl =
+            pluginData.plugin.globalConfiguration.configuration[0].value;
           const packageIdentifier = JSON.parse(
             order?.fulfillments[0]?.privateMetadata
               ?.find(item => item.key === "package")
@@ -193,11 +208,18 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               }
             }
           });
-          downloadBase64File(
-            "x-application/zpl",
-            labelCreated.data.labelCreate.label,
-            packageIdentifier
-          );
+          const tempSocket = new WebSocket(`ws://${serverUrl}`);
+          tempSocket.onopen = () => {
+            tempSocket.send(
+              Buffer.from(
+                labelCreated.data.labelCreate.label,
+                "base64"
+              ).toString()
+            );
+          };
+          tempSocket.onerror = error => {
+            throw error;
+          };
         };
 
         return (
