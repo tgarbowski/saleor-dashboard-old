@@ -36,7 +36,6 @@ import {
 } from "@saleor/orders/mutations";
 import {
   checkIfParcelDialogCorrect,
-  downloadBase64File,
   PackageData
 } from "@saleor/shipping/handlers";
 
@@ -163,11 +162,18 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                   }
                 }
               });
-              downloadBase64File(
-                "x-application/zpl",
-                labelCreated.data.labelCreate.label,
-                result.data.packageCreate.packageId.toString()
-              );
+              const tempSocket = new WebSocket("ws://127.0.0.1:3001/");
+              tempSocket.onopen = () => {
+                tempSocket.send(
+                  Buffer.from(
+                    labelCreated.data.labelCreate.label,
+                    "base64"
+                  ).toString()
+                );
+              };
+              tempSocket.onerror = error => {
+                throw error;
+              };
             }
             window.location.reload();
           } else {
@@ -193,11 +199,18 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               }
             }
           });
-          downloadBase64File(
-            "x-application/zpl",
-            labelCreated.data.labelCreate.label,
-            packageIdentifier
-          );
+          const tempSocket = new WebSocket("ws://127.0.0.1:3001/");
+          tempSocket.onopen = () => {
+            tempSocket.send(
+              Buffer.from(
+                labelCreated.data.labelCreate.label,
+                "base64"
+              ).toString()
+            );
+          };
+          tempSocket.onerror = error => {
+            throw error;
+          };
         };
 
         return (

@@ -6720,7 +6720,7 @@
   },
   "generateLabel": {
     "context": "Download tracking label",
-    "string": "Pobierz etykietę"
+    "string": "Drukuj etykietę"
   },
   "src_dot_orders_dot_components_dot_OrderPayment_dot_outstanding": {
     "context": "order payment",
