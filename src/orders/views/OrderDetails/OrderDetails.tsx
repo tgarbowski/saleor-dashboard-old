@@ -38,6 +38,7 @@ import {
   checkIfParcelDialogCorrect,
   PackageData
 } from "@saleor/shipping/handlers";
+import { usePluginDetails } from "@saleor/plugins/queries";
 
 interface OrderDetailsProps {
   id: string;
@@ -76,6 +77,10 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   });
 
   const [labelCreate] = useLabelCreateMutation({});
+  const { data: pluginData } = usePluginDetails({
+    displayLoader: true,
+    variables: { id }
+  });
 
   const [packageCreate] = usePackageCreateMutation({
     onCompleted: data => {
@@ -137,6 +142,8 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           formData: PackageData[],
           generateLabel: boolean
         ) => {
+          const serverUrl =
+            pluginData.plugin.globalConfiguration.configuration[0].value;
           const dataCorrect = checkIfParcelDialogCorrect(formData);
           if (dataCorrect) {
             const result = await packageCreate({
@@ -162,7 +169,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                   }
                 }
               });
-              const tempSocket = new WebSocket("ws://127.0.0.1:3001/");
+              const tempSocket = new WebSocket(`ws://${serverUrl}`);
               tempSocket.onopen = () => {
                 tempSocket.send(
                   Buffer.from(
@@ -186,6 +193,8 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
         };
 
         const handleLabelDownloadOnButton = async () => {
+          const serverUrl =
+            pluginData.plugin.globalConfiguration.configuration[0].value;
           const packageIdentifier = JSON.parse(
             order?.fulfillments[0]?.privateMetadata
               ?.find(item => item.key === "package")
@@ -199,7 +208,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               }
             }
           });
-          const tempSocket = new WebSocket("ws://127.0.0.1:3001/");
+          const tempSocket = new WebSocket(`ws://${serverUrl}`);
           tempSocket.onopen = () => {
             tempSocket.send(
               Buffer.from(
