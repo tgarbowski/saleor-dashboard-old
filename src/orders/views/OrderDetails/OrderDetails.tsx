@@ -160,7 +160,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               }
             });
             if (generateLabel) {
-              if (pluginData.plugin) {
+              if (pluginData.plugin && pluginData.plugin?.globalConfiguration) {
                 const serverUrl =
                   pluginData.plugin.globalConfiguration.configuration[0].value;
                 const labelCreated = await labelCreate({
