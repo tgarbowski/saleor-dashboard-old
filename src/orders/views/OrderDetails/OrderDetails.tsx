@@ -77,9 +77,10 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   });
 
   const [labelCreate] = useLabelCreateMutation({});
+  const pluginId = "printservers";
   const { data: pluginData } = usePluginDetails({
     displayLoader: true,
-    variables: { id }
+    variables: { id: pluginId }
   });
 
   const [packageCreate] = usePackageCreateMutation({
@@ -142,8 +143,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           formData: PackageData[],
           generateLabel: boolean
         ) => {
-          const serverUrl =
-            pluginData.plugin.globalConfiguration.configuration[0].value;
           const dataCorrect = checkIfParcelDialogCorrect(formData);
           if (dataCorrect) {
             const result = await packageCreate({
@@ -161,26 +160,30 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               }
             });
             if (generateLabel) {
-              const labelCreated = await labelCreate({
-                variables: {
-                  input: {
-                    packageId: result.data.packageCreate.packageId,
-                    order: order.id
+              if (pluginData.plugin && pluginData.plugin?.globalConfiguration) {
+                const serverUrl =
+                  pluginData.plugin.globalConfiguration.configuration[0].value;
+                const labelCreated = await labelCreate({
+                  variables: {
+                    input: {
+                      packageId: result.data.packageCreate.packageId,
+                      order: order.id
+                    }
                   }
-                }
-              });
-              const tempSocket = new WebSocket(`ws://${serverUrl}`);
-              tempSocket.onopen = () => {
-                tempSocket.send(
-                  Buffer.from(
-                    labelCreated.data.labelCreate.label,
-                    "base64"
-                  ).toString()
-                );
-              };
-              tempSocket.onerror = error => {
-                throw error;
-              };
+                });
+                const tempSocket = new WebSocket(`ws://${serverUrl}`);
+                tempSocket.onopen = () => {
+                  tempSocket.send(
+                    Buffer.from(
+                      labelCreated.data.labelCreate.label,
+                      "base64"
+                    ).toString()
+                  );
+                };
+                tempSocket.onerror = error => {
+                  throw error;
+                };
+              }
             }
             window.location.reload();
           } else {
