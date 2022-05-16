@@ -77,11 +77,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   });
 
   const [labelCreate] = useLabelCreateMutation({});
-  const { data: pluginData } = usePluginDetails({
-    displayLoader: true,
-    variables: { id }
-  });
-
   const pluginId = "printservers";
   const { data: pluginData } = usePluginDetails({
     displayLoader: true,
@@ -148,8 +143,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           formData: PackageData[],
           generateLabel: boolean
         ) => {
-          const serverUrl =
-            pluginData.plugin.globalConfiguration.configuration[0].value;
           const dataCorrect = checkIfParcelDialogCorrect(formData);
           if (dataCorrect) {
             const result = await packageCreate({
