@@ -1,4 +1,9 @@
-import { Card, Checkbox, FormControlLabel } from "@material-ui/core";
+import {
+  Card,
+  Checkbox,
+  FormControlLabel,
+  InputAdornment
+} from "@material-ui/core";
 import {
   CardContent,
   Table,
@@ -391,6 +396,9 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                       <TableCell className={classes.colName}>
                         <TextField
                           InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">kg</InputAdornment>
+                            ),
                             classes: {
                               input: classes.nameInput
                             }
@@ -409,6 +417,9 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                       <TableCell className={classes.colName}>
                         <TextField
                           InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">cm</InputAdornment>
+                            ),
                             classes: {
                               input: classes.nameInput
                             }
@@ -430,6 +441,9 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                       <TableCell className={classes.colName}>
                         <TextField
                           InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">cm</InputAdornment>
+                            ),
                             classes: {
                               input: classes.nameInput
                             }
@@ -451,6 +465,9 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                       <TableCell className={classes.colName}>
                         <TextField
                           InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">cm</InputAdornment>
+                            ),
                             classes: {
                               input: classes.nameInput
                             }
