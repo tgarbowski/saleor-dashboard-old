@@ -21,6 +21,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
   const [printing, setPrinting] = useState(false);
   const [pluginError, setPluginError] = useState(false);
   const [printserverError, setPrintserverError] = useState(false);
+  const [orderStatusError, setOrderStatusError] = useState(false);
 
   const id = "printservers";
   const intl = useIntl();
@@ -45,26 +46,33 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
         http.open("POST", url, true);
         http.setRequestHeader("Content-type", "application/json");
         receiptRequest({ variables: { orderId: order.id } }).then(response => {
-          const params = response.data.extReceiptRequest.payload;
-          const invoiceId = response.data.extReceiptRequest.invoice.id;
+          if (response.data.extReceiptRequest.errors.length) {
+            setOrderStatusError(true);
+            setPrinting(false);
+          } else {
+            const params = response.data.extReceiptRequest.payload;
+            const invoiceId = response.data.extReceiptRequest.invoice.id;
 
-          http.onreadystatechange = function() {
-            if (http.readyState === 4 && http.status === 200) {
-              receiptUpdate({
-                variables: {
-                  id: invoiceId,
-                  input: {
-                    receiptNumber: http.responseText.match(/"bn":"(\d+)"/)[1],
-                    metadata: { hn: http.responseText.match(/"hn":"(\d+)"/)[1] }
+            http.onreadystatechange = function() {
+              if (http.readyState === 4 && http.status === 200) {
+                receiptUpdate({
+                  variables: {
+                    id: invoiceId,
+                    input: {
+                      receiptNumber: http.responseText.match(/"bn":"(\d+)"/)[1],
+                      metadata: {
+                        hn: http.responseText.match(/"hn":"(\d+)"/)[1]
+                      }
+                    }
                   }
-                }
-              });
-              setPrinting(false);
-            } else if (http.readyState === 4 && http.status !== 200) {
-              setPrinting(false);
-            }
-          };
-          http.send(JSON.stringify(params));
+                });
+                setPrinting(false);
+              } else if (http.readyState === 4 && http.status !== 200) {
+                setPrinting(false);
+              }
+            };
+            http.send(JSON.stringify(params));
+          }
         });
       } else {
         const url = `http://${serverUrl}/command`;
@@ -94,6 +102,13 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
       setPrinting(false);
     }
   };
+
+  const closeDialog = () => {
+    setPluginError(false);
+    setPrintserverError(false);
+    setOrderStatusError(false);
+  };
+
   const formattedMessage = !order.invoices.length ? (
     <FormattedMessage
       defaultMessage="Drukuj"
@@ -119,14 +134,8 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
           </Button>
         }
       />
-      <Dialog open={pluginError || printserverError}>
-        <CardTitle
-          title="Błąd"
-          onClose={() => {
-            setPluginError(false);
-            setPrintserverError(false);
-          }}
-        />
+      <Dialog open={pluginError || printserverError || orderStatusError}>
+        <CardTitle title="Błąd" onClose={closeDialog} />
         <DialogContent>
           {pluginError && (
             <FormattedMessage defaultMessage="Błąd pluginu Printservers" />
@@ -134,16 +143,12 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
           {printserverError && (
             <FormattedMessage defaultMessage="Błąd serwera wydruku" />
           )}
+          {orderStatusError && (
+            <FormattedMessage defaultMessage="Zamówienie nie zostało zrealizowane" />
+          )}
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => {
-              setPluginError(false);
-              setPrintserverError(false);
-            }}
-          >
-            Dalej
-          </Button>
+          <Button onClick={closeDialog}>Dalej</Button>
         </DialogActions>
       </Dialog>
     </Card>

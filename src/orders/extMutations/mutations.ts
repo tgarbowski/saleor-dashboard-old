@@ -7,6 +7,10 @@ export const ExtReceiptRequestMutation = gql`
       invoice {
         id
       }
+      errors {
+        message
+        code
+      }
     }
   }
 `;
