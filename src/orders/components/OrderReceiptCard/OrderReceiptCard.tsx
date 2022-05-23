@@ -39,7 +39,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
         pluginData.plugin.globalConfiguration.configuration[1].value;
       const http = new XMLHttpRequest();
       if (!order.invoices.length) {
-        const url = `http://${serverUrl}/paragon`;
+        const url = `${serverUrl}/paragon`;
         http.onerror = () => {
           setPrintserverError(true);
         };
@@ -75,7 +75,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
           }
         });
       } else {
-        const url = `http://${serverUrl}/command`;
+        const url = `${serverUrl}/command`;
         http.onerror = () => {
           setPrintserverError(true);
         };

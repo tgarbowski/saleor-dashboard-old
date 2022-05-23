@@ -171,7 +171,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                     }
                   }
                 });
-                const tempSocket = new WebSocket(`ws://${serverUrl}`);
+                const tempSocket = new WebSocket(`${serverUrl}`);
                 tempSocket.onopen = () => {
                   tempSocket.send(
                     Buffer.from(
