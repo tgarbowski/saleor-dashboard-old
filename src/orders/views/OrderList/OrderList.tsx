@@ -1,5 +1,13 @@
+import { useLazyQuery } from "@apollo/client";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent
+} from "@material-ui/core";
 import ChannelPickerDialog from "@saleor/channels/components/ChannelPickerDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
+import CardTitle from "@saleor/components/CardTitle";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
@@ -13,14 +21,16 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import { getStringOrPlaceholder } from "@saleor/misc";
+import { warehouseListPdfQuery } from "@saleor/orders/extQueries/queries";
+import { downloadBase64File } from "@saleor/shipping/handlers";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import createSortHandler from "@saleor/utils/handlers/sortHandler";
 import { mapEdgesToItems, mapNodeToChoice } from "@saleor/utils/maps";
 import { getSortParams } from "@saleor/utils/sort";
-import React from "react";
-import { useIntl } from "react-intl";
+import React, { useEffect, useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import OrderListPage from "../../components/OrderListPage/OrderListPage";
 import { useOrderDraftCreateMutation } from "../../mutations";
@@ -147,6 +157,47 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   );
 
   const handleSort = createSortHandler(navigate, orderListUrl, params);
+  const [
+    warehouseListGenerationError,
+    setWarehouseListGenerationError
+  ] = useState(false);
+
+  const [
+    getWarehouseListPdfQuery,
+    {
+      data: warehouseListData,
+      loading: warehouseListLoading,
+      error: warehouseListError
+    }
+  ] = useLazyQuery(warehouseListPdfQuery);
+
+  const onGenerateWarehouseList = () => {
+    getWarehouseListPdfQuery({
+      variables: {
+        filters: getFilterVariables(params)
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (warehouseListError) {
+      setWarehouseListGenerationError(true);
+    } else {
+      if (!warehouseListLoading) {
+        if (warehouseListData) {
+          const today = new Date();
+          const dd = String(today.getDate()).padStart(2, "0");
+          const mm = String(today.getMonth() + 1).padStart(2, "0");
+          const yyyy = today.getFullYear();
+          downloadBase64File(
+            "application/pdf",
+            warehouseListData.warehouseListPdf,
+            `Lista pobrania z magazynu ${dd}${mm}${yyyy}.pdf`
+          );
+        }
+      }
+    }
+  }, [warehouseListLoading]);
 
   return (
     <>
@@ -174,6 +225,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         tabs={getFilterTabs().map(tab => tab.name)}
         onAll={resetFilters}
         onSettingsOpen={() => navigate(orderSettingsPath)}
+        onGenerateWarehouseList={onGenerateWarehouseList}
       />
       <SaveFilterTabDialog
         open={params.action === "save-search"}
@@ -204,6 +256,20 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
           }
         />
       )}
+      <Dialog open={warehouseListGenerationError}>
+        <CardTitle
+          title="Błąd"
+          onClose={() => setWarehouseListGenerationError(false)}
+        />
+        <DialogContent>
+          <FormattedMessage defaultMessage="Brak wybranych filtrów" />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setWarehouseListGenerationError(false)}>
+            Dalej
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

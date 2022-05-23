@@ -1,3 +1,4 @@
+import React from "react";
 import { Card } from "@material-ui/core";
 import CardMenu from "@saleor/components/CardMenu";
 import Container from "@saleor/components/Container";
@@ -9,7 +10,6 @@ import { Button, makeStyles } from "@saleor/macaw-ui";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
 import { hasLimits, isLimitReached } from "@saleor/utils/limits";
-import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { OrderList_orders_edges_node } from "../../types/OrderList";
@@ -28,6 +28,7 @@ export interface OrderListPageProps
   limits: RefreshLimits_shop_limits;
   orders: OrderList_orders_edges_node[];
   onSettingsOpen: () => void;
+  onGenerateWarehouseList?: () => void;
 }
 
 const useStyles = makeStyles(
@@ -53,6 +54,7 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   onTabChange,
   onTabDelete,
   onTabSave,
+  onGenerateWarehouseList,
   ...listProps
 }) => {
   const intl = useIntl();
@@ -127,6 +129,25 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
             defaultMessage: "Search Orders..."
           })}
         />
+        <div
+          style={{
+            display: "flex",
+            padding: "0.8rem 3.2rem",
+            flexWrap: "wrap",
+            borderBottom: "1px solid #EAEAEA"
+          }}
+        >
+          <Button
+            style={{ marginLeft: "auto" }}
+            variant="primary"
+            onClick={onGenerateWarehouseList}
+          >
+            <FormattedMessage
+              defaultMessage="Generuj listę pobrania"
+              description="button"
+            />
+          </Button>
+        </div>
         <OrderList {...listProps} />
       </Card>
     </Container>
