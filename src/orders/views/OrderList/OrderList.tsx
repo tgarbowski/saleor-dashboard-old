@@ -24,7 +24,6 @@ import { getStringOrPlaceholder } from "@saleor/misc";
 import { warehouseListPdfQuery } from "@saleor/orders/extQueries/queries";
 import { downloadBase64File } from "@saleor/shipping/handlers";
 import { ListViews } from "@saleor/types";
-import { OrderFilterInput } from "@saleor/types/globalTypes";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import createSortHandler from "@saleor/utils/handlers/sortHandler";
