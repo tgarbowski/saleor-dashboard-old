@@ -330,7 +330,11 @@ export const checkIfParcelDialogCorrect = (formData: PackageData[]) => {
       isNaN(element.size1) ||
       isNaN(element.size2) ||
       isNaN(element.size3) ||
-      isNaN(element.weight)
+      isNaN(element.weight) ||
+      !element.size1 ||
+      !element.size2 ||
+      !element.size3 ||
+      !element.weight
     ) {
       dataCorrect = false;
     }
