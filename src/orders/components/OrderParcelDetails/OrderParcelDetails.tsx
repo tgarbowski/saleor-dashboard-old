@@ -196,23 +196,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
 
   const intl = useIntl();
 
-  // const autogenerateIndex = () => packageData.length;
-  // const onParcelAdd = () => {
-  //   packageData.push({
-  //     fieldIndex: autogenerateIndex(),
-  //     size1: null,
-  //     size2: null,
-  //     size3: null,
-  //     weight: productWeight[0]?.variant?.product?.weight?.value
-  //   });
-  //   setState({ ...state });
-  // };
-
-  // const onParcelDelete = event => {
-  //   packageData.splice(event, 1);
-  //   setState({ ...state });
-  // };
-
   const onParcelChange = (index, value, inputType) => {
     packageData[index][inputType] = value;
   };
@@ -244,6 +227,11 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
         initial={orderDetails?.shippingAddress}
         onSubmit={() => {
           onSubmit(packageData, state.generateReport);
+          setDimentions({
+            firstDimension: "",
+            secondDimension: "",
+            thirdDimension: ""
+          });
         }}
         style={{ overflowY: "auto" }}
       >
@@ -486,16 +474,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           value={dimentions.thirdDimension}
                         />
                       </TableCell>
-                      {/* <TableCell className={classes.colAction}>
-                        <IconButton
-                          color="primary"
-                          data-test="deleteField"
-                          data-test-id={element.fieldIndex}
-                          onClick={() => onParcelDelete(element.fieldIndex)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell> */}
                     </TableRow>
                   ))}
                 </TableBody>
@@ -513,16 +491,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                 }
                 label="Wygeneruj etykiete"
               />
-              {/* <Button
-                color="primary"
-                data-test="addField"
-                onClick={onParcelAdd}
-              >
-                <FormattedMessage
-                  defaultMessage="Dodaj paczke"
-                  description="add parcel,button"
-                />
-              </Button> */}
               <Button onClick={onClose}>
                 <FormattedMessage {...buttonMessages.back} />
               </Button>

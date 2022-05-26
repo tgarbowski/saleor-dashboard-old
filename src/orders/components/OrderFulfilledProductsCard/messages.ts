@@ -14,7 +14,7 @@ export const actionButtonsMessages = defineMessages({
     description: "add tracking button"
   },
   parcelDetails: {
-    defaultMessage: "Szczegóły wysyłki",
+    defaultMessage: "Wygeneruj i drukuj etykietę",
     description: "add parcel details button"
   }
 });

@@ -16,6 +16,7 @@ interface AcionButtonsProps {
   orderIsPaid?: boolean;
   fulfillmentAllowUnpaid: boolean;
   classes: any;
+  printing?: boolean;
   onParcelDetails();
   onParcelLabelDownload();
   onTrackingCodeAdd();
@@ -32,6 +33,7 @@ const statusesToShow = [
 const ActionButtons: React.FC<AcionButtonsProps> = ({
   status,
   trackingNumber,
+  printing,
   onParcelDetails,
   onParcelLabelDownload,
   onRefund,
@@ -77,12 +79,20 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
 
   return hasTrackingNumber ? (
     <CardActions className={classes.actions}>
-      <Button variant="primary" onClick={onParcelLabelDownload}>
-        <FormattedMessage
-          defaultMessage="Download tracking label"
-          description="Download tracking label"
-          id="generateLabel"
-        />
+      <Button
+        variant="primary"
+        onClick={onParcelLabelDownload}
+        disabled={printing}
+      >
+        {printing ? (
+          <FormattedMessage defaultMessage="Drukowanie" />
+        ) : (
+          <FormattedMessage
+            defaultMessage="Download tracking label"
+            description="Download tracking label"
+            id="generateLabel"
+          />
+        )}
       </Button>
       <Button variant="primary" onClick={onTrackingCodeAdd}>
         <FormattedMessage {...actionButtonsMessages.editTracking} />
@@ -90,9 +100,13 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
     </CardActions>
   ) : (
     <CardActions className={classes.actions}>
-      <Button variant="primary" onClick={onParcelDetails}>
-        <FormattedMessage {...actionButtonsMessages.parcelDetails} />
-        <SVG src={courierIcon} className={classes.courierImg} />{" "}
+      <Button variant="primary" onClick={onParcelDetails} disabled={printing}>
+        {printing ? (
+          <FormattedMessage defaultMessage="Drukowanie" />
+        ) : (
+          <FormattedMessage {...actionButtonsMessages.parcelDetails} />
+        )}
+        <SVG src={courierIcon} className={classes.courierImg} />
       </Button>
       <Button variant="primary" onClick={onTrackingCodeAdd}>
         <FormattedMessage {...actionButtonsMessages.addTracking} />

@@ -63,6 +63,7 @@ export interface OrderDetailsPageProps {
     name: string;
   }>;
   disabled: boolean;
+  printing?: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
   onOrderLineAdd?: () => void;
   onOrderLineChange?: (
@@ -116,6 +117,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
     order,
     shop,
     saveButtonBarState,
+    printing,
     onBack,
     onBillingAddressEdit,
     onFulfillmentApprove,
@@ -290,6 +292,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                         onFulfillmentTrackingNumberUpdate(fulfillment.id)
                       }
                       onParcelLabelDownload={() => onParcelLabelDownload()}
+                      printing={printing}
                       onParcelDetails={onParcelDetails}
                       onRefund={onPaymentRefund}
                       onOrderFulfillmentApprove={() =>

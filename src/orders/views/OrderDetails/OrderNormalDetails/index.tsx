@@ -57,6 +57,7 @@ interface OrderNormalDetailsProps {
   handlePackageCreate: any;
   handleSubmit: any;
   onParcelLabelDownload: () => void;
+  printing?: boolean;
   orderUpdate: PartialMutationProviderOutput<OrderUpdate, OrderUpdateVariables>;
   orderCancel: any;
   orderParcelDetails: any;
@@ -95,6 +96,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
   orderFulfillmentCancel,
   orderFulfillmentUpdateTracking,
   onParcelLabelDownload,
+  printing,
   orderInvoiceSend,
   updateMetadataOpts,
   updatePrivateMetadataOpts,
@@ -205,6 +207,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
         }
         onParcelDetails={() => openModal("parcel")}
         onParcelLabelDownload={onParcelLabelDownload}
+        printing={printing}
         onPaymentCapture={() => openModal("capture")}
         onPaymentVoid={() => openModal("void")}
         onPaymentRefund={() => navigate(orderRefundUrl(id))}
@@ -352,7 +355,9 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
       />
       <OrderInvoiceEmailSendDialog
         confirmButtonState={orderInvoiceSend.opts.status}
-        errors={orderInvoiceSend.opts.data?.invoiceSendNotification.errors || []}
+        errors={
+          orderInvoiceSend.opts.data?.invoiceSendNotification.errors || []
+        }
         open={params.action === "invoice-send"}
         invoice={order?.invoices?.find(invoice => invoice.id === params.id)}
         onClose={closeModal}
