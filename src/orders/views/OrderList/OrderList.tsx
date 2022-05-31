@@ -21,7 +21,18 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import { getStringOrPlaceholder } from "@saleor/misc";
-import { warehouseListPdfQuery } from "@saleor/orders/extQueries/queries";
+import {
+  warehouseListPdfQuery,
+  wmsDocumentsListPdfQuery
+} from "@saleor/orders/extQueries/queries";
+import {
+  WarehouseListPdf,
+  WarehouseListPdfVariables
+} from "@saleor/orders/extTypes/WarehouseListPdf";
+import {
+  wmsDocumentsListPdf,
+  wmsDocumentsListPdfVariables
+} from "@saleor/orders/extTypes/WmsDocumentsListPdf";
 import { downloadBase64File } from "@saleor/shipping/handlers";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -163,19 +174,29 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   ] = useState(false);
 
   const [
-    getWarehouseListPdfQuery,
+    generateWarehouseListPdf,
     {
+      error: warehouseListError,
       data: warehouseListData,
-      loading: warehouseListLoading,
-      error: warehouseListError
+      loading: warehouseListLoading
     }
-  ] = useLazyQuery(warehouseListPdfQuery);
+  ] = useLazyQuery<WarehouseListPdf, WarehouseListPdfVariables>(
+    warehouseListPdfQuery
+  );
+
+  const [
+    generateWmsDocumentsListPdf,
+    { error: wmsListError, data: wmsListData, loading: wmsListLoading }
+  ] = useLazyQuery<wmsDocumentsListPdf, wmsDocumentsListPdfVariables>(
+    wmsDocumentsListPdfQuery
+  );
 
   const onGenerateWarehouseList = () => {
-    getWarehouseListPdfQuery({
-      variables: {
-        filters: getFilterVariables(params)
-      }
+    generateWarehouseListPdf({
+      variables: { filters: getFilterVariables(params) }
+    });
+    generateWmsDocumentsListPdf({
+      variables: { filters: getFilterVariables(params) }
     });
   };
 
@@ -198,6 +219,26 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
       }
     }
   }, [warehouseListLoading]);
+
+  useEffect(() => {
+    if (wmsListError) {
+      setWarehouseListGenerationError(true);
+    } else {
+      if (!wmsListLoading) {
+        if (wmsListData) {
+          const today = new Date();
+          const dd = String(today.getDate()).padStart(2, "0");
+          const mm = String(today.getMonth() + 1).padStart(2, "0");
+          const yyyy = today.getFullYear();
+          downloadBase64File(
+            "application/pdf",
+            wmsListData.wmsDocumentsListPdf,
+            `Lista WZ ${dd}${mm}${yyyy}.pdf`
+          );
+        }
+      }
+    }
+  }, [wmsListLoading]);
 
   return (
     <>
