@@ -55,7 +55,7 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
   return (
     <>
       <Card>
-        <CardTitle withStatus status="unfulfilled" />
+        <CardTitle withStatus status="niezrealizowane" />
         <ResponsiveTable className={classes.table}>
           <TableHeader />
           <TableBody>
@@ -71,7 +71,10 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
               onClick={onFulfill}
               disabled={notAllowedToFulfillUnpaid}
             >
-              <FormattedMessage defaultMessage="Fulfill" description="button" />
+              <FormattedMessage
+                defaultMessage="Zrealizuj"
+                description="button"
+              />
             </Button>
             {notAllowedToFulfillUnpaid && (
               <Typography color="error" variant="caption">

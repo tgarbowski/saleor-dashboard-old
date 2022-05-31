@@ -126,6 +126,8 @@ const useStyles = makeStyles(
       marginTop: theme.spacing()
     },
     paper: {
+      overflowY: "scroll",
+      maxHeight: "450px",
       padding: theme.spacing(2)
     },
     popper: {
@@ -447,6 +449,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                               {warehousesToAssign.map(warehouse => (
                                 <MenuItem
                                   className={classes.menuItem}
+                                  button
                                   onClick={() =>
                                     onWarehouseStockAdd(warehouse.id)
                                   }

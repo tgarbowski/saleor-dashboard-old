@@ -34,6 +34,7 @@ import OrderFulfilledProductsCard from "../OrderFulfilledProductsCard";
 import OrderHistory, { FormData as HistoryFormData } from "../OrderHistory";
 import OrderInvoiceList from "../OrderInvoiceList";
 import OrderPayment from "../OrderPayment/OrderPayment";
+import OrderReceiptCard from "../OrderReceiptCard";
 import OrderUnfulfilledProductsCard from "../OrderUnfulfilledProductsCard";
 import Title from "./Title";
 import { filteredConditionalItems, hasAnyItemsReplaceable } from "./utils";
@@ -62,6 +63,7 @@ export interface OrderDetailsPageProps {
     name: string;
   }>;
   disabled: boolean;
+  printing?: boolean;
   saveButtonBarState: ConfirmButtonTransitionState;
   onOrderLineAdd?: () => void;
   onOrderLineChange?: (
@@ -115,6 +117,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
     order,
     shop,
     saveButtonBarState,
+    printing,
     onBack,
     onBillingAddressEdit,
     onFulfillmentApprove,
@@ -212,6 +215,23 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
     }
   ]);
 
+  const checkInvoice = () => {
+    let invoice = false;
+    order?.metadata.forEach(({ key, value }) => {
+      if (key === "invoice") {
+        if (value === "true") {
+          invoice = true;
+          return;
+        } else {
+          return;
+        }
+      }
+    });
+    return invoice;
+  };
+
+  const isInvoiceRequired = checkInvoice();
+
   return (
     <Form confirmLeave initial={initial} onSubmit={handleSubmit}>
       {({ change, data, hasChanged, submit }) => {
@@ -272,6 +292,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                         onFulfillmentTrackingNumberUpdate(fulfillment.id)
                       }
                       onParcelLabelDownload={() => onParcelLabelDownload()}
+                      printing={printing}
                       onParcelDetails={onParcelDetails}
                       onRefund={onPaymentRefund}
                       onOrderFulfillmentApprove={() =>
@@ -313,14 +334,19 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                   selectedChannelName={order?.channel?.name}
                 />
                 <CardSpacer />
-                {!isOrderUnconfirmed && (
+                {!isOrderUnconfirmed && !!order && (
                   <>
-                    <OrderInvoiceList
-                      invoices={order?.invoices}
-                      onInvoiceClick={onInvoiceClick}
-                      onInvoiceGenerate={onInvoiceGenerate}
-                      onInvoiceSend={onInvoiceSend}
-                    />
+                    {isInvoiceRequired ? (
+                      <OrderInvoiceList
+                        invoices={order?.invoices}
+                        onInvoiceClick={onInvoiceClick}
+                        onInvoiceGenerate={onInvoiceGenerate}
+                        onInvoiceSend={onInvoiceSend}
+                      />
+                    ) : (
+                      <OrderReceiptCard order={order} />
+                    )}
+
                     <CardSpacer />
                   </>
                 )}

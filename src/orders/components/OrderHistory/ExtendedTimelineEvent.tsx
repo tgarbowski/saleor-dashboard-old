@@ -43,22 +43,22 @@ const useStyles = makeStyles(
 
 export const productTitles = defineMessages({
   draftCreatedFromReplace: {
-    defaultMessage: "Products replaced",
+    defaultMessage: "Wymienione produkty",
     description: "draft created from replace products list title",
     id: "event products title draft reissued"
   },
   fulfillmentRefunded: {
-    defaultMessage: "Products refunded",
+    defaultMessage: "Produkty refundowane",
     description: "refunded products list title",
     id: "event products list title refunded"
   },
   fulfillmentReplaced: {
-    defaultMessage: "Products replaced",
+    defaultMessage: "Wymienione produkty",
     description: "replaced products list title",
     id: "event products list title replaced"
   },
   fulfillmentReturned: {
-    defaultMessage: "Products returned",
+    defaultMessage: "Zwrócone produkty",
     description: "returned products list title",
     id: "event products list title returned"
   }
@@ -66,52 +66,52 @@ export const productTitles = defineMessages({
 
 export const titles = defineMessages({
   draftCreatedFromReplace: {
-    defaultMessage: "Draft was reissued from order ",
+    defaultMessage: "Projekt został ponownie wydany z polecenia ",
     description: "draft created from replace event title",
     id: "event title draft reissued"
   },
   fulfillmentRefunded: {
-    defaultMessage: "Products were refunded by ",
+    defaultMessage: "Produkty zostały zwrócone przez ",
     description: "refunded event title",
     id: "event title refunded"
   },
   fulfillmentReplaced: {
-    defaultMessage: "Products were replaced by ",
+    defaultMessage: "Produkty zostały zastąpione przez ",
     description: "replaced event title",
     id: "event title replaced"
   },
   fulfillmentReturned: {
-    defaultMessage: "Products were returned by",
+    defaultMessage: "Produkty zostały zwrócone przez",
     description: "returned event title",
     id: "event title returned"
   },
   orderDiscountAdded: {
-    defaultMessage: "Order was discounted by",
+    defaultMessage: "Zamówienie zostało przecenione o",
     description: "order was discounted event title",
     id: "event title order discounted"
   },
   orderDiscountAutomaticallyUpdated: {
-    defaultMessage: "Order discount was updated automatically updated",
+    defaultMessage: "Rabat na zamówienie został zaktualizowany automatycznie",
     description: "order discount was updated automatically event title",
     id: "event title order discount auto updated"
   },
   orderDiscountUpdated: {
-    defaultMessage: "Order discount was updated by",
+    defaultMessage: "Rabat na zamówienie został zaktualizowany przez",
     description: "order discount was updated event title",
     id: "event title order discount updated"
   },
   orderLineDiscountAdded: {
-    defaultMessage: "{productName} discount was added by ",
+    defaultMessage: "{productName} zniżka została dodana przez ",
     description: "order line discount added title",
     id: "event title order line discount added"
   },
   orderLineDiscountUpdated: {
-    defaultMessage: "{productName} discount was updated by ",
+    defaultMessage: "{productName} rabat został zaktualizowany przez ",
     description: "order line discount updated title",
     id: "event title order line discount updated"
   },
   orderMarkedAsPaid: {
-    defaultMessage: "Order was marked as paid by",
+    defaultMessage: "Zamówienie zostało oznaczone jako opłacone przez",
     description: "order marked as paid event title",
     id: "event title marked as paid"
   }
@@ -119,22 +119,22 @@ export const titles = defineMessages({
 
 export const messages = defineMessages({
   by: {
-    defaultMessage: "by",
+    defaultMessage: "przez",
     description: "by preposition",
     id: "by preposition"
   },
   refundedAmount: {
-    defaultMessage: "Refunded amount",
+    defaultMessage: "Kwota refundowana",
     description: "amount title",
     id: "amount title"
   },
   refundedShipment: {
-    defaultMessage: "Shipment was refunded",
+    defaultMessage: "Przesyłka została zwrócona",
     description: "shipment refund title",
     id: "shipment refund title"
   },
   transactionReference: {
-    defaultMessage: "Transaction reference",
+    defaultMessage: "Odniesienie do transakcji",
     description: "transaction reference subtitle",
     id: "transaction reference subtitle"
   }

@@ -40,11 +40,11 @@ const useStyles = makeStyles(
 const messages = defineMessages({
   description: {
     defaultMessage:
-      "This product is no longer in database so it can’t be replaced, nor returned",
+      "Ten produkt nie jest już dostępny w bazie danych, więc nie można go wymienić ani zwrócić.",
     description: "product no longer exists error description"
   },
   title: {
-    defaultMessage: "Product no longer exists",
+    defaultMessage: "Produkt już nie istnieje",
     description: "product no longer exists error title"
   }
 });

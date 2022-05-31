@@ -3,22 +3,22 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: DpdLabelCreate
+// GraphQL mutation operation: LabelCreate
 // ====================================================
 
-export interface DpdLabel_dpdLabelCreate {
-    label: string;
+export interface Label_labelCreate {
+  label: string;
+}
+
+  export interface Label {
+    labelCreate:  Label_labelCreate;
   }
   
-  export interface DpdLabel {
-    dpdLabelCreate:  DpdLabel_dpdLabelCreate;
-  }
-  
-  export interface DpdLabel_input {
+  export interface Label_input {
       packageId: number;
+      order: string;
   }
   
-  export interface DpdLabelVariables {
-    input: DpdLabel_input;
+  export interface LabelVariables {
+    input: Label_input;
   }
-  

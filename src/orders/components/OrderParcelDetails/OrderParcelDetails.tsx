@@ -1,7 +1,11 @@
-import { Card, Checkbox, FormControlLabel } from "@material-ui/core";
+import {
+  Card,
+  Checkbox,
+  FormControlLabel,
+  InputAdornment
+} from "@material-ui/core";
 import {
   CardContent,
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -16,7 +20,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles } from "@material-ui/core/styles";
 import TableHead from "@material-ui/core/TableHead";
 import TextField from "@material-ui/core/TextField";
-import DeleteIcon from "@material-ui/icons/Delete";
 import CardTitle from "@saleor/components/CardTitle";
 import ConfirmButton from "@saleor/components/ConfirmButton";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
@@ -25,8 +28,8 @@ import { nameInputPrefix, nameSeparator } from "@saleor/components/Metadata";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { buttonMessages } from "@saleor/intl";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
-import { PackageData } from "@saleor/orders/views/OrderDetails";
-import React from "react";
+import { PackageData } from "@saleor/shipping/handlers";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const useStyles = makeStyles(
@@ -42,6 +45,27 @@ const useStyles = makeStyles(
     return {
       card: {
         width: "40%"
+      },
+      defaultDimensionsContainer: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        marginTop: "32px",
+        marginBottom: "32px"
+      },
+      defaultDimensionsButton: {
+        border: "1px solid #056DFF",
+        padding: "13px 35px",
+        fontSize: "1.6rem",
+        minWidth: "64px",
+        boxSizing: "border-box",
+        lineHeight: "1.55",
+        borderRadius: "4px",
+        letterSpacing: "0.02rem",
+        textTransform: "none",
+        color: "#FFFFFF",
+        backgroundColor: "#FFCC07",
+        cursor: "pointer"
       },
       colAction: {
         "&:last-child": {
@@ -130,7 +154,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   const {
     confirmButtonState,
     orderDetails,
-    productWeight,
     shopDetails,
     packageData,
     onSubmit,
@@ -139,7 +162,31 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   } = props;
   const classes = useStyles(props);
 
-  const [state, setState] = React.useState({
+  const [dimentions, setDimentions] = useState({
+    firstDimension: "",
+    secondDimension: "",
+    thirdDimension: ""
+  });
+
+  const DefaultDimentions = [
+    {
+      firstDimension: "38",
+      secondDimension: "64",
+      thirdDimension: "8"
+    },
+    {
+      firstDimension: "38",
+      secondDimension: "64",
+      thirdDimension: "19"
+    },
+    {
+      firstDimension: "38",
+      secondDimension: "64",
+      thirdDimension: "41"
+    }
+  ];
+
+  const [state, setState] = useState({
     generateReport: false
   });
 
@@ -149,26 +196,23 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
 
   const intl = useIntl();
 
-  const autogenerateIndex = () => packageData.length;
-  const onParcelAdd = () => {
-    packageData.push({
-      content: "Ubrania",
-      fieldIndex: autogenerateIndex(),
-      size1: "",
-      size2: "",
-      size3: "",
-      weight: productWeight[0]?.variant?.product?.weight?.value
-    });
-    setState({ ...state });
-  };
-
-  const onParcelDelete = event => {
-    packageData.splice(event, 1);
-    setState({ ...state });
-  };
-
   const onParcelChange = (index, value, inputType) => {
     packageData[index][inputType] = value;
+  };
+
+  const getDimension = e => {
+    e.preventDefault();
+    const index = e.target.value;
+    const dim = DefaultDimentions[index];
+    setDimentions({
+      firstDimension: dim.firstDimension,
+      secondDimension: dim.secondDimension,
+      thirdDimension: dim.thirdDimension
+    });
+
+    onParcelChange(packageData[0].fieldIndex, dim.firstDimension, "size1");
+    onParcelChange(packageData[0].fieldIndex, dim.secondDimension, "size2");
+    onParcelChange(packageData[0].fieldIndex, dim.thirdDimension, "size3");
   };
 
   return (
@@ -181,7 +225,15 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
     >
       <Form
         initial={orderDetails?.shippingAddress}
-        onSubmit={() => onSubmit(packageData, state.generateReport)}
+        onSubmit={() => {
+          onSubmit(packageData, state.generateReport);
+          setDimentions({
+            firstDimension: "",
+            secondDimension: "",
+            thirdDimension: ""
+          });
+        }}
+        style={{ overflowY: "auto" }}
       >
         {() => (
           <>
@@ -269,6 +321,32 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                 description: "dialog header"
               })}
             </DialogTitle>
+            <div className={classes.defaultDimensionsContainer}>
+              <button
+                id="getDimensionsA"
+                onClick={e => getDimension(e)}
+                className={classes.defaultDimensionsButton}
+                value={0}
+              >
+                A - 38 x 64 x 8
+              </button>
+              <button
+                id="getDimensionsB"
+                onClick={e => getDimension(e)}
+                className={classes.defaultDimensionsButton}
+                value={1}
+              >
+                B - 38 x 64 x 19
+              </button>
+              <button
+                id="getDimensionsC"
+                onClick={e => getDimension(e)}
+                className={classes.defaultDimensionsButton}
+                value={2}
+              >
+                C - 38 x 64 x 41
+              </button>
+            </div>
             <DialogContent className={classes.overflow}>
               <Table className={classes.table}>
                 <TableHead>
@@ -281,25 +359,19 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                     </TableCell>
                     <TableCell className={classes.colValue}>
                       <FormattedMessage
-                        defaultMessage="Zawartość"
+                        defaultMessage="Długość"
                         description="metadata field value, header"
                       />
                     </TableCell>
                     <TableCell className={classes.colValue}>
                       <FormattedMessage
-                        defaultMessage="Wymiar 1"
+                        defaultMessage="Szerokość"
                         description="metadata field value, header"
                       />
                     </TableCell>
                     <TableCell className={classes.colValue}>
                       <FormattedMessage
-                        defaultMessage="Wymiar 2"
-                        description="metadata field value, header"
-                      />
-                    </TableCell>
-                    <TableCell className={classes.colValue}>
-                      <FormattedMessage
-                        defaultMessage="Wymiar 3"
+                        defaultMessage="Wysokość"
                         description="metadata field value, header"
                       />
                     </TableCell>
@@ -312,6 +384,9 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                       <TableCell className={classes.colName}>
                         <TextField
                           InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">kg</InputAdornment>
+                            ),
                             classes: {
                               input: classes.nameInput
                             }
@@ -330,88 +405,74 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                       <TableCell className={classes.colName}>
                         <TextField
                           InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">cm</InputAdornment>
+                            ),
                             classes: {
                               input: classes.nameInput
                             }
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={event =>
-                            onParcelChange(
-                              element.fieldIndex,
-                              event.target.value,
-                              "content"
-                            )
-                          }
-                          defaultValue={element.content}
-                        />
-                      </TableCell>
-                      <TableCell className={classes.colName}>
-                        <TextField
-                          InputProps={{
-                            classes: {
-                              input: classes.nameInput
-                            }
+                          onChange={event => {
+                            const value = event.target.value;
+                            setDimentions(prevDimentions => ({
+                              ...prevDimentions,
+                              firstDimension: value
+                            }));
+                            onParcelChange(element.fieldIndex, value, "size1");
                           }}
-                          name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
-                          fullWidth
-                          onChange={event =>
-                            onParcelChange(
-                              element.fieldIndex,
-                              event.target.value,
-                              "size1"
-                            )
-                          }
                           defaultValue={element.size1}
+                          value={dimentions.firstDimension}
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>
                         <TextField
                           InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">cm</InputAdornment>
+                            ),
                             classes: {
                               input: classes.nameInput
                             }
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={event =>
-                            onParcelChange(
-                              element.fieldIndex,
-                              event.target.value,
-                              "size2"
-                            )
-                          }
+                          onChange={event => {
+                            const value = event.target.value;
+                            setDimentions(prevDimentions => ({
+                              ...prevDimentions,
+                              secondDimension: value
+                            }));
+                            onParcelChange(element.fieldIndex, value, "size2");
+                          }}
                           defaultValue={element.size2}
+                          value={dimentions.secondDimension}
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>
                         <TextField
                           InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">cm</InputAdornment>
+                            ),
                             classes: {
                               input: classes.nameInput
                             }
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={event =>
-                            onParcelChange(
-                              element.fieldIndex,
-                              event.target.value,
-                              "size3"
-                            )
-                          }
+                          onChange={event => {
+                            const value = event.target.value;
+                            setDimentions(prevDimentions => ({
+                              ...prevDimentions,
+                              thirdDimension: value
+                            }));
+                            onParcelChange(element.fieldIndex, value, "size3");
+                          }}
                           defaultValue={element.size3}
+                          value={dimentions.thirdDimension}
                         />
-                      </TableCell>
-                      <TableCell className={classes.colAction}>
-                        <IconButton
-                          color="primary"
-                          data-test="deleteField"
-                          data-test-id={element.fieldIndex}
-                          onClick={() => onParcelDelete(element.fieldIndex)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -430,16 +491,6 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                 }
                 label="Wygeneruj etykiete"
               />
-              <Button
-                color="primary"
-                data-test="addField"
-                onClick={onParcelAdd}
-              >
-                <FormattedMessage
-                  defaultMessage="Dodaj paczke"
-                  description="add parcel,button"
-                />
-              </Button>
               <Button onClick={onClose}>
                 <FormattedMessage {...buttonMessages.back} />
               </Button>
