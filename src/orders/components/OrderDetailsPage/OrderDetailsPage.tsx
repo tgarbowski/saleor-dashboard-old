@@ -342,9 +342,14 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                         onInvoiceClick={onInvoiceClick}
                         onInvoiceGenerate={onInvoiceGenerate}
                         onInvoiceSend={onInvoiceSend}
+                        order={order}
                       />
                     ) : (
-                      <OrderReceiptCard order={order} />
+                      <OrderReceiptCard
+                        order={order}
+                        onInvoiceClick={onInvoiceClick}
+                        onInvoiceSend={onInvoiceSend}
+                      />
                     )}
 
                     <CardSpacer />
