@@ -286,7 +286,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
                     </Typography>
                     <Date date={invoice.createdAt} plain />
                   </TableCell>
-                  {onInvoiceSend && !invoice.number && (
+                  {onInvoiceSend && !!invoice.url && (
                     <TableCell
                       className={classes.colAction}
                       onClick={() => onInvoiceSend(invoice.id)}
