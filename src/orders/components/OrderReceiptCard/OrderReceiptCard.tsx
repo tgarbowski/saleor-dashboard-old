@@ -1,27 +1,91 @@
-import { Card, Dialog, DialogActions, DialogContent } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography
+} from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import React, { useState } from "react";
+import classNames from "classnames";
 import { FormattedMessage, useIntl } from "react-intl";
-import { Button } from "@saleor/macaw-ui";
+import Date from "@saleor/components/Date";
+import { buttonMessages } from "@saleor/intl";
+import { Button, ResponsiveTable, makeStyles } from "@saleor/macaw-ui";
 import { usePluginDetails } from "@saleor/plugins/queries";
 import { useMutation } from "@apollo/client";
 import {
+  ExtInvoiceCorrectionRequestMutation,
   ExtReceiptRequestMutation,
   ExtReceiptUpdateMutation
 } from "../../extMutations/mutations";
+import { Skeleton } from "@material-ui/lab";
+import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
+import { useInvoiceDeleteMutation } from "@saleor/orders/mutations";
+
+const useStyles = makeStyles(
+  () => ({
+    card: {
+      overflow: "hidden"
+    },
+    cardContentTable: {
+      "&:last-child": {
+        padding: 0
+      },
+      padding: 0
+    },
+    colAction: {
+      button: {
+        padding: "0"
+      },
+      padding: "0 0.5rem",
+      width: "auto"
+    },
+    colActionSecond: {
+      button: {
+        padding: "0"
+      },
+      padding: "0 24px 0 0.5rem",
+      width: "auto"
+    },
+    smallIconButton: {
+      padding: "2px 6px"
+    },
+    colNumber: { width: "100%" },
+    colNumberClickable: {
+      cursor: "pointer",
+      width: "100%"
+    },
+    invoicesTable: {
+      display: "flex"
+    },
+    invoicesTableBody: {
+      width: "100%"
+    }
+  }),
+  { name: "OrderInvoiceList" }
+);
 
 export interface OrderReceiptCardProps {
   order: OrderDetails_order;
+  onInvoiceClick: (invoiceId: string) => void;
+  onInvoiceSend: (invoiceId: string) => void;
 }
 
-export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
-  order
-}) => {
+export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
+  const { order, onInvoiceClick, onInvoiceSend } = props;
   const [printing, setPrinting] = useState(false);
   const [pluginError, setPluginError] = useState(false);
   const [printserverError, setPrintserverError] = useState(false);
   const [orderStatusError, setOrderStatusError] = useState(false);
+  const [generating, setGenerating] = useState(false);
+
+  const classes = useStyles(props);
 
   const id = "printservers";
   const intl = useIntl();
@@ -31,6 +95,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
   });
   const [receiptRequest] = useMutation(ExtReceiptRequestMutation);
   const [receiptUpdate] = useMutation(ExtReceiptUpdateMutation);
+  const [correctionGenerate] = useMutation(ExtInvoiceCorrectionRequestMutation);
 
   const printReceipt = () => {
     setPrinting(true);
@@ -103,6 +168,32 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
     }
   };
 
+  const onCorrectionGenerate = () => {
+    correctionGenerate({
+      variables: {
+        orderId: order.id
+      }
+    }).then(() => {
+      setGenerating(false);
+      window.location.reload();
+    });
+  };
+
+  const [invoiceDelete] = useInvoiceDeleteMutation({
+    onCompleted: data => {
+      window.location.reload();
+      return data;
+    }
+  });
+
+  const onInvoiceDelete = async (id: string) => {
+    invoiceDelete({
+      variables: {
+        id
+      }
+    }).then(() => window.location.reload());
+  };
+
   const closeDialog = () => {
     setPluginError(false);
     setPrintserverError(false);
@@ -129,11 +220,98 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
           description: "section header"
         })}
         toolbar={
-          <Button onClick={printReceipt} disabled={printing}>
-            {formattedMessage}
-          </Button>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Button onClick={printReceipt} disabled={printing}>
+              {formattedMessage}
+            </Button>
+            {!!order.invoices.length && (
+              <Button
+                onClick={() => {
+                  setGenerating(true);
+                  onCorrectionGenerate();
+                }}
+                disabled={
+                  generating ||
+                  !(
+                    order.status === "RETURNED" ||
+                    order.status === "PARTIALLY_RETURNED"
+                  ) ||
+                  !order.invoices[0]?.number
+                }
+                style={{ marginTop: "5px" }}
+              >
+                <FormattedMessage
+                  defaultMessage="Generuj korektę"
+                  description="generate invoice button"
+                />
+              </Button>
+            )}
+          </div>
         }
       />
+      <CardContent
+        className={classNames({
+          [classes.cardContentTable]: order.invoices?.length
+        })}
+      >
+        {!order.invoices ? (
+          <Skeleton />
+        ) : !order.invoices?.length ? (
+          <Typography color="textSecondary">
+            <FormattedMessage defaultMessage="No invoices to be shown" />
+          </Typography>
+        ) : (
+          <ResponsiveTable className={classes.invoicesTable}>
+            <TableBody className={classes.invoicesTableBody}>
+              {order.invoices.map(invoice => (
+                <TableRow key={invoice.id} hover={!!invoice}>
+                  <TableCell
+                    className={
+                      onInvoiceClick
+                        ? classes.colNumberClickable
+                        : classes.colNumber
+                    }
+                    onClick={() => onInvoiceClick(invoice.id)}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Invoice "
+                      description="invoice number prefix"
+                    />
+                    {invoice.number}
+                    <Typography variant="caption">
+                      <FormattedMessage
+                        defaultMessage="created"
+                        description="invoice create date prefix"
+                      />
+                    </Typography>
+                    <Date date={invoice.createdAt} plain />
+                  </TableCell>
+                  {onInvoiceSend && !!invoice.url && (
+                    <TableCell
+                      className={classes.colAction}
+                      onClick={() => onInvoiceSend(invoice.id)}
+                    >
+                      <Button>
+                        <FormattedMessage {...buttonMessages.send} />
+                      </Button>
+                    </TableCell>
+                  )}
+                  {!invoice.number && (
+                    <TableCell className={classes.colActionSecond}>
+                      <IconButton
+                        onClick={() => onInvoiceDelete(invoice.id)}
+                        className={classes.smallIconButton}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  )}
+                </TableRow>
+              ))}
+            </TableBody>
+          </ResponsiveTable>
+        )}
+      </CardContent>
       <Dialog open={pluginError || printserverError || orderStatusError}>
         <CardTitle title="Błąd" onClose={closeDialog} />
         <DialogContent>
@@ -141,7 +319,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = ({
             <FormattedMessage defaultMessage="Błąd pluginu Printservers" />
           )}
           {printserverError && (
-            <FormattedMessage defaultMessage="Błąd serwera wydruku" />
+            <FormattedMessage defaultMessage="Błąd serwera wydruku, odśwież stronę" />
           )}
           {orderStatusError && (
             <FormattedMessage defaultMessage="Zamówienie nie zostało zrealizowane" />

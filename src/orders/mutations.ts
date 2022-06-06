@@ -31,7 +31,7 @@ import {
   InvoiceEmailSend,
   InvoiceEmailSendVariables
 } from "./types/InvoiceEmailSend";
-import { InvoiceDelete, InvoiceDeleteVariables } from "./types/InvoiceDelete"
+import { InvoiceDelete, InvoiceDeleteVariables } from "./types/InvoiceDelete";
 import {
   InvoiceRequest,
   InvoiceRequestVariables
@@ -824,11 +824,9 @@ const PackageCreateMutation = gql`
   }
 `;
 
-export const usePackageCreateMutation = makeMutation<
-  Package,
-  PackageVariables
->(PackageCreateMutation);
-
+export const usePackageCreateMutation = makeMutation<Package, PackageVariables>(
+  PackageCreateMutation
+);
 
 const labelCreateMutation = gql`
   mutation LabelCreate($input: LabelCreateInput!) {
@@ -838,18 +836,15 @@ const labelCreateMutation = gql`
   }
 `;
 
-export const useLabelCreateMutation = makeMutation<
-  Label,
-  LabelVariables
->(labelCreateMutation);
-
+export const useLabelCreateMutation = makeMutation<Label, LabelVariables>(
+  labelCreateMutation
+);
 
 const invoiceDeleteMutation = gql`
-  ${invoiceErrorFragment}
   mutation InvoiceDelete($id: ID!) {
     invoiceDelete(id: $id) {
       errors {
-        ...InvoiceErrorFragment
+        message
       }
     }
   }

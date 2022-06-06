@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { ApolloError, useLazyQuery } from "@apollo/client";
 import {
   Button,
   Dialog,
@@ -171,7 +171,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   const [
     warehouseListGenerationError,
     setWarehouseListGenerationError
-  ] = useState(false);
+  ] = useState<ApolloError>(null);
 
   const [
     generateWarehouseListPdf,
@@ -202,7 +202,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
 
   useEffect(() => {
     if (warehouseListError) {
-      setWarehouseListGenerationError(true);
+      setWarehouseListGenerationError(warehouseListError);
     } else {
       if (!warehouseListLoading) {
         if (warehouseListData) {
@@ -222,7 +222,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
 
   useEffect(() => {
     if (wmsListError) {
-      setWarehouseListGenerationError(true);
+      setWarehouseListGenerationError(wmsListError);
     } else {
       if (!wmsListLoading) {
         if (wmsListData) {
@@ -297,20 +297,23 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
           }
         />
       )}
-      <Dialog open={warehouseListGenerationError}>
-        <CardTitle
-          title="Błąd"
-          onClose={() => setWarehouseListGenerationError(false)}
-        />
-        <DialogContent>
-          <FormattedMessage defaultMessage="Brak wybranych filtrów" />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setWarehouseListGenerationError(false)}>
-            Dalej
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {warehouseListGenerationError && (
+        <Dialog open={true}>
+          <CardTitle
+            title="Błąd"
+            onClose={() => setWarehouseListGenerationError(null)}
+          />
+          <DialogContent>
+            <FormattedMessage defaultMessage="Informacja o błędzie:" />
+            <div>{warehouseListGenerationError.message}</div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setWarehouseListGenerationError(null)}>
+              Dalej
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </>
   );
 };

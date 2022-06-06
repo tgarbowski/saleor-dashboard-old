@@ -24,3 +24,21 @@ export const ExtReceiptUpdateMutation = gql`
     }
   }
 `;
+
+export const ExtInvoiceCorrectionRequestMutation = gql`
+  mutation ExtInvoiceCorrectionRequest($orderId: ID!) {
+    extInvoiceCorrectionRequest(orderId: $orderId) {
+      invoice {
+        id
+      }
+      order {
+        id
+      }
+      errors {
+        field
+        message
+        code
+      }
+    }
+  }
+`;

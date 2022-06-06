@@ -16,10 +16,9 @@ import classNames from "classnames";
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { buttonMessages } from "@saleor/intl";
-import useNotifier from "@saleor/hooks/useNotifier";
-import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
-
-import { useInvoiceDeleteMutation } from "../../mutations";
+import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
+import { useMutation } from "@apollo/client";
+import { ExtInvoiceCorrectionRequestMutation } from "@saleor/orders/extMutations/mutations";
 
 const useStyles = makeStyles(
   () => ({
@@ -69,14 +68,21 @@ export interface OrderInvoiceListProps {
   onInvoiceGenerate: () => void;
   onInvoiceClick: (invoiceId: string) => void;
   onInvoiceSend: (invoiceId: string) => void;
+  order?: OrderDetails_order;
 }
 
 const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
-  const { invoices, onInvoiceGenerate, onInvoiceClick, onInvoiceSend } = props;
-  const notify = useNotifier();
+  const {
+    invoices,
+    onInvoiceGenerate,
+    onInvoiceClick,
+    onInvoiceSend,
+    order
+  } = props;
   const classes = useStyles(props);
 
   const [generating, setGenerating] = useState(false);
+  const [correctionGenerate] = useMutation(ExtInvoiceCorrectionRequestMutation);
 
   const intl = useIntl();
 
@@ -84,24 +90,49 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
     invoice => invoice.status === "SUCCESS"
   );
 
-  const [invoiceDelete] = useInvoiceDeleteMutation({
-    onCompleted: data => {
-      notify({
-        status: "success",
-        text: "Faktura została usunięta"
-      });
-      window.location.reload();
-      return data;
-    }
-  });
-
-  const onInvoiceDelete = async (id: string) => {
-    await invoiceDelete({
+  const onCorrectionGenerate = () => {
+    correctionGenerate({
       variables: {
-        id
+        orderId: order.id
       }
+    }).then(() => {
+      setGenerating(false);
+      window.location.reload();
     });
   };
+
+  const invoiceGenerateToolbar = !generatedInvoices?.length ? (
+    onInvoiceGenerate && (
+      <Button
+        onClick={() => {
+          setGenerating(true);
+          onInvoiceGenerate();
+        }}
+        disabled={!!generatedInvoices?.length || generating}
+      >
+        <FormattedMessage
+          defaultMessage="Generuj"
+          description="generate invoice button"
+        />
+      </Button>
+    )
+  ) : (
+    <Button
+      onClick={() => {
+        setGenerating(true);
+        onCorrectionGenerate();
+      }}
+      disabled={
+        generating ||
+        !(order.status === "RETURNED" || order.status === "PARTIALLY_RETURNED")
+      }
+    >
+      <FormattedMessage
+        defaultMessage="Generuj korektę"
+        description="generate invoice button"
+      />
+    </Button>
+  );
 
   return (
     <Card className={classes.card}>
@@ -110,22 +141,7 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
           defaultMessage: "Invoices",
           description: "section header"
         })}
-        toolbar={
-          onInvoiceGenerate && (
-            <Button
-              onClick={() => {
-                setGenerating(true);
-                onInvoiceGenerate();
-              }}
-              disabled={!!generatedInvoices?.length || generating}
-            >
-              <FormattedMessage
-                defaultMessage="Generate"
-                description="generate invoice button"
-              />
-            </Button>
-          )
-        }
+        toolbar={invoiceGenerateToolbar}
       />
       <CardContent
         className={classNames({
@@ -154,13 +170,13 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
                     <FormattedMessage
                       defaultMessage="Invoice"
                       description="invoice number prefix"
-                    />{" "}
+                    />
                     {invoice.number}
                     <Typography variant="caption">
                       <FormattedMessage
                         defaultMessage="created"
                         description="invoice create date prefix"
-                      />{" "}
+                      />
                       <Date date={invoice.createdAt} plain />
                     </Typography>
                   </TableCell>
@@ -174,14 +190,6 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
                       </Button>
                     </TableCell>
                   )}
-                  <TableCell className={classes.colActionSecond}>
-                    <IconButton
-                      onClick={() => onInvoiceDelete(invoice.id)}
-                      className={classes.smallIconButton}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
