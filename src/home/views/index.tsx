@@ -63,7 +63,7 @@ const HomeSection = () => {
       }
       ordersToCapture={data?.ordersToCapture?.totalCount}
       ordersToFulfill={data?.ordersToFulfill?.totalCount}
-      productsOutOfStock={data?.productsOutOfStock.totalCount}
+      productsOutOfStock={data?.productsOutOfStock?.totalCount}
       userName={getUserName(user, true)}
       noChannel={noChannel}
     />

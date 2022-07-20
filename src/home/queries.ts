@@ -33,12 +33,6 @@ const home = gql`
     ) @include(if: $PERMISSION_MANAGE_ORDERS) {
       totalCount
     }
-    productsOutOfStock: products(
-      filter: { stockAvailability: OUT_OF_STOCK }
-      channel: $channel
-    ) {
-      totalCount
-    }
     productTopToday: reportProductSales(
       period: TODAY
       first: 5
