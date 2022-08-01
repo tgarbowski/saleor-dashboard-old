@@ -37,7 +37,7 @@ import { isStockError } from "@saleor/orders/utils/data";
 import { OrderFulfillStockInput } from "@saleor/types/globalTypes";
 import { update } from "@saleor/utils/lists";
 import classNames from "classnames";
-import React from "react";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { messages } from "./messages";
@@ -78,7 +78,7 @@ const useStyles = makeStyles(
       },
       colSku: {
         textAlign: "center",
-        textOverflow: "ellipsis",
+        textOverflow: "ellipsis"
       },
       error: {
         color: theme.palette.error.main
@@ -206,6 +206,59 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
     return isAtLeastOneFulfilled && areProperlyFulfilled;
   };
 
+  const [skuInput, setSkuInput] = useState<string>("");
+  const [isSkuInputError, setIsSkuInputError] = useState<boolean>(false);
+  const [skuInputSuccess, setSkuInputSuccess] = useState<boolean>(false);
+  const [isEnterClicked, setIsEnterClicked] = useState<boolean>(false);
+
+  const handleSkuInputChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setSkuInput(event.currentTarget.value);
+  };
+
+  const changeWarehouseQuantityfulfilled = (line, warehouse, lineIndex) => {
+    formsetChange(
+      line.id,
+      update(
+        {
+          quantity: 1,
+          warehouse: warehouse.id
+        },
+        formsetData[lineIndex].value,
+        (a, b) => a.warehouse === b.warehouse
+      )
+    );
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      setIsEnterClicked(true);
+      let error = true;
+      order.lines.forEach((line, index) => {
+        if (skuInput === line.variant.sku) {
+          changeWarehouseQuantityfulfilled(line, warehouses[0], index);
+          error = false;
+          setSkuInputSuccess(true);
+        }
+      });
+      if (error) {
+        setIsSkuInputError(true);
+      }
+    } else if (event.key !== "Enter") {
+      if (isEnterClicked) {
+        setSkuInput("");
+        setIsEnterClicked(false);
+        setIsSkuInputError(false);
+        setSkuInputSuccess(false);
+      }
+    }
+  };
+
+  const borderColor = isSkuInputError
+    ? { border: "3px solid red" }
+    : skuInputSuccess
+    ? { border: "3px solid #00FF00" }
+    : { border: "3px solid gray" };
+
   return (
     <Container>
       <Backlink onClick={onBack}>
@@ -227,6 +280,56 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
               <CardTitle
                 title={intl.formatMessage(messages.itemsReadyToShip)}
               />
+              <p
+                style={{
+                  margin: "0px 0px 0px 32px"
+                }}
+              >
+                Zeskanuj kod produktu
+              </p>
+              <input
+                type="text"
+                autoFocus
+                value={skuInput}
+                onChange={handleSkuInputChange}
+                onKeyPress={handleKeyPress}
+                style={{
+                  ...{
+                    outline: "1px",
+                    font: "inherit",
+                    margin: "0px 0px 0px 32px",
+                    display: "block",
+                    padding: "6px 10px 7px 10px",
+                    minWidth: "0px",
+                    background: "none",
+                    boxSizing: "content-box",
+                    borderRadius: "4px",
+                    letterSpacing: "inherit"
+                  },
+                  ...borderColor
+                }}
+              />
+              <p
+                style={
+                  isSkuInputError
+                    ? {
+                        color: "red",
+                        visibility: "visible",
+                        margin: "0px 0px 0px 32px"
+                      }
+                    : skuInputSuccess
+                    ? {
+                        color: "#00FF00",
+                        visibility: "visible",
+                        margin: "0px 0px 0px 32px"
+                      }
+                    : { visibility: "hidden", margin: "0px 0px 0px 32px" }
+                }
+              >
+                {skuInputSuccess
+                  ? "Pomyślnie dodano pozycję"
+                  : "Błędny numer SKU"}
+              </p>
               <ResponsiveTable className={classes.table}>
                 <TableHead>
                   <TableRow>
