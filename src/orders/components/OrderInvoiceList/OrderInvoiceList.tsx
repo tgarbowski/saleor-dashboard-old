@@ -13,7 +13,7 @@ import Skeleton from "@saleor/components/Skeleton";
 import { InvoiceFragment } from "@saleor/fragments/types/InvoiceFragment";
 import { Button, makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
-import React, { useState } from "react";
+import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { buttonMessages } from "@saleor/intl";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
@@ -69,6 +69,8 @@ export interface OrderInvoiceListProps {
   onInvoiceClick: (invoiceId: string) => void;
   onInvoiceSend: (invoiceId: string) => void;
   order?: OrderDetails_order;
+  generating: boolean;
+  setGenerating: (boolean) => void;
 }
 
 const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
@@ -77,11 +79,12 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
     onInvoiceGenerate,
     onInvoiceClick,
     onInvoiceSend,
-    order
+    order,
+    generating,
+    setGenerating
   } = props;
   const classes = useStyles(props);
 
-  const [generating, setGenerating] = useState(false);
   const [correctionGenerate] = useMutation(ExtInvoiceCorrectionRequestMutation);
 
   const intl = useIntl();

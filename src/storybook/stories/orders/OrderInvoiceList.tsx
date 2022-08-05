@@ -11,7 +11,9 @@ const props: OrderInvoiceListProps = {
   invoices: undefined,
   onInvoiceClick: () => undefined,
   onInvoiceGenerate: () => undefined,
-  onInvoiceSend: () => undefined
+  onInvoiceSend: () => undefined,
+  generating: null,
+  setGenerating: () => undefined
 };
 
 storiesOf("Orders / OrderInvoiceList", module)
