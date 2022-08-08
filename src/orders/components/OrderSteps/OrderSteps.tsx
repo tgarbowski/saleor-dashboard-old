@@ -4,7 +4,9 @@ import {
   MuiThemeProvider,
   Step,
   StepButton,
-  Stepper
+  Stepper,
+  makeStyles,
+  StepLabel
 } from "@material-ui/core";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import React from "react";
@@ -30,6 +32,12 @@ const steps = [
   "Wydrukuj paragon lub fakturę"
 ];
 
+const useStyles = makeStyles({
+  customLabelStyle: {
+    fontSize: "16px"
+  }
+});
+
 export const OrderSteps: React.FC<OrderStepsProps> = props => {
   const {
     order,
@@ -51,6 +59,8 @@ export const OrderSteps: React.FC<OrderStepsProps> = props => {
       : false,
     3: !!order?.invoices.length
   };
+
+  const classes = useStyles();
 
   const handleStep = (step: number) => () => {
     switch (step) {
@@ -82,7 +92,12 @@ export const OrderSteps: React.FC<OrderStepsProps> = props => {
   const muiTheme = createMuiTheme({
     overrides: {
       MuiStepIcon: {
+        text: {
+          fontSize: "16px"
+        },
         root: {
+          width: "1.5em",
+          height: "1.5em",
           "&$active": {
             color: "blue"
           },
@@ -102,7 +117,9 @@ export const OrderSteps: React.FC<OrderStepsProps> = props => {
             {steps.map((label, index) => (
               <Step key={label} completed={completed[index]}>
                 <StepButton color="inherit" onClick={handleStep(index)}>
-                  {label}
+                  <StepLabel classes={{ label: classes.customLabelStyle }}>
+                    {label}
+                  </StepLabel>
                 </StepButton>
               </Step>
             ))}
