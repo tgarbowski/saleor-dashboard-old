@@ -1,4 +1,11 @@
-import { Box, Step, StepButton, Stepper } from "@material-ui/core";
+import {
+  Box,
+  createMuiTheme,
+  MuiThemeProvider,
+  Step,
+  StepButton,
+  Stepper
+} from "@material-ui/core";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import React from "react";
 
@@ -72,18 +79,35 @@ export const OrderSteps: React.FC<OrderStepsProps> = props => {
     }
   };
 
+  const muiTheme = createMuiTheme({
+    overrides: {
+      MuiStepIcon: {
+        root: {
+          "&$active": {
+            color: "blue"
+          },
+          "&$completed": {
+            color: "green"
+          }
+        }
+      }
+    }
+  });
+
   return (
     <div>
       <Box>
-        <Stepper nonLinear activeStep={null} alternativeLabel>
-          {steps.map((label, index) => (
-            <Step key={label} completed={completed[index]}>
-              <StepButton color="inherit" onClick={handleStep(index)}>
-                {label}
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
+        <MuiThemeProvider theme={muiTheme}>
+          <Stepper nonLinear activeStep={null} alternativeLabel>
+            {steps.map((label, index) => (
+              <Step key={label} completed={completed[index]}>
+                <StepButton color="inherit" onClick={handleStep(index)}>
+                  {label}
+                </StepButton>
+              </Step>
+            ))}
+          </Stepper>
+        </MuiThemeProvider>
       </Box>
       <CardSpacer />
     </div>
