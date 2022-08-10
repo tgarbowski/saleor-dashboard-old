@@ -296,7 +296,7 @@ export function getProductUpdatePageFormData(
     globalSoldUnits: variant?.preorder?.globalSoldUnits || 0,
     hasPreorderEndDate: !!variant?.preorder?.endDate,
     preorderEndDateTime: variant?.preorder?.endDate,
-    variants: product?.variants[0]?.privateMetadata?.map(mapMetadataItemToInput)
+    variants
   };
 }
 

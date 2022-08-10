@@ -40,7 +40,7 @@ import { ICONBUTTON_SIZE } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
 import createNonNegativeValueChangeHandler from "@saleor/utils/handlers/nonNegativeValueChangeHandler";
-import React, { useEffect } from "react";
+import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { ProductCreateData } from "../ProductCreatePage";
@@ -226,9 +226,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
     onFormDataChange
   );
 
-  useEffect(() => {
-    if (!!data?.variants?.length) console.log(data?.variants[0]);
-  });
   return (
     <Card>
       <CardTitle
@@ -348,31 +345,29 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
       )}
       <Hr />
       <CardContent>
-        <Typography>
-          <div>
-            <span>
-              <FormattedMessage
-                defaultMessage="Lokacje magazynowe"
-                description="header"
-              />
-            </span>
-          </div>
-        </Typography>
-        <p>
-          {!!data?.variants?.length
-            ? data?.variants?.map(variant => {
-                const { key, value } = variant;
-                console.log(key, "", value);
-                variant.privateMetadata?.map(data => {
-                  console.log(data);
-                  if (data.key === "Location") {
-                    console.log(data.value);
-                    return <p>{data.value}</p>;
-                  }
-                });
-              })
-            : null}
-        </p>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Typography>
+            <div>
+              <span>
+                <FormattedMessage
+                  defaultMessage="Lokacje magazynowe"
+                  description="header"
+                />
+              </span>
+            </div>
+          </Typography>
+          <Typography style={{ marginLeft: "auto", fontWeight: "bold" }}>
+            <div>
+              {!!data?.variants?.length
+                ? data?.variants[0].privateMetadata.map(data => {
+                    if (data.key === "location") {
+                      return <p>{data.value}</p>;
+                    }
+                  })
+                : null}
+            </div>
+          </Typography>
+        </div>
       </CardContent>
       <Hr />
       {warehouses?.length > 0 && !data.isPreorder && (

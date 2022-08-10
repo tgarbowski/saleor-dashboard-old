@@ -599,6 +599,7 @@ export const product: (
       __typename: "ProductVariant",
       channelListings: [],
       id: "pv75934",
+      privateMetadata: [],
       quantityLimitPerCustomer: 30,
       margin: 2,
       media: [
@@ -645,6 +646,7 @@ export const product: (
     },
     {
       __typename: "ProductVariant",
+      privateMetadata: [],
       quantityLimitPerCustomer: null,
       channelListings: [
         {
@@ -786,7 +788,7 @@ export const products = (
           }
         },
         publicationDate: "2020-07-14",
-        visibleInListings: true,
+        visibleInListings: true
       },
       {
         __typename: "ProductChannelListing",
@@ -822,8 +824,7 @@ export const products = (
           }
         },
         publicationDate: "2020-07-30",
-        visibleInListings: true,
-        
+        visibleInListings: true
       }
     ],
     id: "UHJvZHVjdDo2MQ==",
