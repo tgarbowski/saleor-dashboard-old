@@ -370,6 +370,10 @@ const productVariantList = gql`
     product(id: $id) {
       id
       variants {
+        privateMetadata {
+          key
+          value
+        }
         id
         name
         sku

@@ -268,6 +268,11 @@ export interface ProductDetails_product_variants_channelListings {
   preorderThreshold: ProductDetails_product_variants_channelListings_preorderThreshold | null;
 }
 
+export interface ProductVariant_privateMetadata {
+  __typename: "MetadataItem";
+  key: string;
+  value: string;
+}
 export interface ProductDetails_product_variants {
   __typename: "ProductVariant";
   id: string;
@@ -280,6 +285,7 @@ export interface ProductDetails_product_variants {
   preorder: ProductDetails_product_variants_preorder | null;
   channelListings: ProductDetails_product_variants_channelListings[] | null;
   quantityLimitPerCustomer: number | null;
+  privateMetadata: (ProductVariant_privateMetadata | null)[] | null;
 }
 
 export interface ProductDetails_product_weight {

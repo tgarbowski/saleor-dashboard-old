@@ -232,6 +232,10 @@ const productDetailsQuery = gql`
     $beforeValues: String
   ) {
     product(id: $id, channel: $channel) {
+      privateMetadata {
+        key
+        value
+      }
       ...Product
     }
     taxTypes {
@@ -295,6 +299,10 @@ const productVariantQuery = gql`
     $beforeValues: String
   ) {
     productVariant(id: $id) {
+      privateMetadata {
+        key
+        value
+      }
       ...ProductVariant
     }
   }
@@ -345,6 +353,10 @@ const productVariantCreateQuery = gql`
         url
       }
       variants {
+        privateMetadata {
+          key
+          value
+        }
         id
         name
         sku

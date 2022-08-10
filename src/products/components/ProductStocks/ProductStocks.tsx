@@ -40,13 +40,18 @@ import { ICONBUTTON_SIZE } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
 import createNonNegativeValueChangeHandler from "@saleor/utils/handlers/nonNegativeValueChangeHandler";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { ProductCreateData } from "../ProductCreatePage";
 import { ProductUpdateSubmitData } from "../ProductUpdatePage/form";
 import { ProductVariantCreateData } from "../ProductVariantCreatePage/form";
 import { ProductVariantUpdateData } from "../ProductVariantPage/form";
+
+import {
+  ProductDetails_product,
+  ProductDetails_product_variants
+} from "@saleor/products/types/ProductDetails";
 
 export interface ProductStockFormsetData {
   quantityAllocated: number;
@@ -63,6 +68,7 @@ export interface ProductStockFormData {
   globalSoldUnits: number;
   hasPreorderEndDate: boolean;
   preorderEndDateTime?: string;
+  variants?: ProductDetails_product_variants[];
 }
 
 export interface ProductStocksProps {
@@ -89,6 +95,7 @@ export interface ProductStocksProps {
   onWarehouseStockAdd: (warehouseId: string) => void;
   onWarehouseStockDelete: (warehouseId: string) => void;
   onWarehouseConfigure: () => void;
+  product?: ProductDetails_product;
 }
 
 const useStyles = makeStyles(
@@ -219,6 +226,9 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
     onFormDataChange
   );
 
+  useEffect(() => {
+    if (!!data?.variants?.length) console.log(data?.variants[0]);
+  });
   return (
     <Card>
       <CardTitle
@@ -336,6 +346,35 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
           )}
         </CardContent>
       )}
+      <Hr />
+      <CardContent>
+        <Typography>
+          <div>
+            <span>
+              <FormattedMessage
+                defaultMessage="Lokacje magazynowe"
+                description="header"
+              />
+            </span>
+          </div>
+        </Typography>
+        <p>
+          {!!data?.variants?.length
+            ? data?.variants?.map(variant => {
+                const { key, value } = variant;
+                console.log(key, "", value);
+                variant.privateMetadata?.map(data => {
+                  console.log(data);
+                  if (data.key === "Location") {
+                    console.log(data.value);
+                    return <p>{data.value}</p>;
+                  }
+                });
+              })
+            : null}
+        </p>
+      </CardContent>
+      <Hr />
       {warehouses?.length > 0 && !data.isPreorder && (
         <Table>
           <colgroup>
@@ -565,7 +604,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
           </div>
         </CardContent>
       )}
-
       {productVariantChannelListings?.length > 0 && data.isPreorder && (
         <Table>
           <colgroup>

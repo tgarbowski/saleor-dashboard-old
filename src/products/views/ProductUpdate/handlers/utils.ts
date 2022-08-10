@@ -159,6 +159,7 @@ export const getChannelsVariables = (
   return {
     variables: {
       id,
+      variants,
       input: {
         updateChannels: channelsToBeUpdated,
         removeChannels: channelsIdsToBeRemoved
@@ -182,6 +183,7 @@ export const getSimpleChannelsVariables = (
   return {
     variables: {
       id: product.id,
+      variants: product.variants,
       input: {
         updateChannels: getAvailabilityVariables(data.channelListings),
         removeChannels: removedChannelIDs
