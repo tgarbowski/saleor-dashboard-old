@@ -107,7 +107,7 @@ export const productBulkPublishMutation = gql`
     $publishHour: String!
     $filter: ProductFilterInput
     $channel: String!
-    $mode: String! 
+    $mode: String!
   ) {
     productBulkPublish(
       ids: $ids
@@ -222,6 +222,10 @@ const productVariantSetDefault = gql`
           name
         }
         variants {
+          privateMetadata {
+            key
+            value
+          }
           id
           name
         }

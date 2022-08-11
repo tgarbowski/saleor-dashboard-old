@@ -69,6 +69,7 @@ import { useIntl } from "react-intl";
 import { createPreorderEndDateChangeHandler } from "../../utils/handlers";
 import { ProductStockFormsetData, ProductStockInput } from "../ProductStocks";
 import { deleteSkusFieldFromPrivateMetadata } from "./utils";
+import { ProductDetails_product_variants } from "@saleor/products/types/ProductDetails";
 
 export interface ProductCreateFormData extends MetadataFormData {
   category: string;
@@ -95,6 +96,7 @@ export interface ProductCreateFormData extends MetadataFormData {
   preorderEndDateTime: string;
   weight: string;
   megaPackProduct: string;
+  variants: ProductDetails_product_variants[];
 }
 export interface ProductCreateData extends ProductCreateFormData {
   attributes: AttributeInput[];
@@ -208,7 +210,8 @@ function useProductCreateForm(
     globalThreshold: "",
     isPreorder: false,
     hasPreorderEndDate: false,
-    preorderEndDateTime: ""
+    preorderEndDateTime: "",
+    variants: []
   };
 
   const form = useForm(
