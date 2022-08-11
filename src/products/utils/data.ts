@@ -26,7 +26,10 @@ import { mapEdgesToItems, mapMetadataItemToInput } from "@saleor/utils/maps";
 import moment from "moment";
 
 import { ProductStockInput } from "../components/ProductStocks";
-import { ProductType_productType, ProductType_productType_productAttributes } from "../types/ProductType";
+import {
+  ProductType_productType,
+  ProductType_productType_productAttributes
+} from "../types/ProductType";
 import { ProductVariantCreateData_product } from "../types/ProductVariantCreateData";
 import { ChannelsWithVariantsData } from "../views/ProductUpdate/types";
 
@@ -235,6 +238,7 @@ export interface ProductUpdatePageFormData extends MetadataFormData {
   globalSoldUnits: number;
   hasPreorderEndDate: boolean;
   preorderEndDateTime?: string;
+  variants: any;
 }
 
 function getSkusFromMetadata(metadata: MetadataItem[]): string {
@@ -291,7 +295,8 @@ export function getProductUpdatePageFormData(
     globalThreshold: variant?.preorder?.globalThreshold?.toString() || "",
     globalSoldUnits: variant?.preorder?.globalSoldUnits || 0,
     hasPreorderEndDate: !!variant?.preorder?.endDate,
-    preorderEndDateTime: variant?.preorder?.endDate
+    preorderEndDateTime: variant?.preorder?.endDate,
+    variants
   };
 }
 

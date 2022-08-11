@@ -112,6 +112,13 @@ export const productFragment = gql`
       name
       hasVariants
     }
+    variants {
+      id
+      privateMetadata {
+        value
+        key
+      }
+    }
     channelListings {
       ...ChannelListingProductWithoutPricingFragment
       pricing @include(if: $hasChannel) {
@@ -218,6 +225,10 @@ export const productFragmentDetails = gql`
     }
     isAvailable
     variants {
+      privateMetadata {
+        key
+        value
+      }
       id
       sku
       name
@@ -339,6 +350,10 @@ export const fragmentVariant = gql`
         }
       }
       variants {
+        privateMetadata {
+          key
+          value
+        }
         id
         name
         sku

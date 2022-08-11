@@ -262,7 +262,9 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
       })
   });
 
-  const [retrieveProductImageFromBackup] = useProductMediaRetrievefromBackupMutation({
+  const [
+    retrieveProductImageFromBackup
+  ] = useProductMediaRetrievefromBackupMutation({
     onCompleted: () =>
       notify({
         status: "success",
@@ -417,7 +419,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
 
   const handleImageRetrieveFromBackup = (id: string) => () =>
     retrieveProductImageFromBackup({ variables: { id } });
-    
+
   const handleImageEdit = (imageId: string) => () =>
     navigate(productImageUrl(id, imageId));
 

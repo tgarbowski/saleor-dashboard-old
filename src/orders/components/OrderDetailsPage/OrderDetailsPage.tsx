@@ -17,7 +17,6 @@ import { makeStyles } from "@saleor/macaw-ui";
 import OrderChannelSectionCard from "@saleor/orders/components/OrderChannelSectionCard";
 import { mapMetadataItemToInput } from "@saleor/utils/maps";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
-import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
 import { getMutationErrors, maybe } from "../../../misc";
@@ -38,6 +37,9 @@ import OrderReceiptCard from "../OrderReceiptCard";
 import OrderUnfulfilledProductsCard from "../OrderUnfulfilledProductsCard";
 import Title from "./Title";
 import { filteredConditionalItems, hasAnyItemsReplaceable } from "./utils";
+import * as React from "react";
+import { useState } from "react";
+import OrderSteps from "../OrderSteps";
 
 const useStyles = makeStyles(
   theme => ({
@@ -232,6 +234,9 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
 
   const isInvoiceRequired = checkInvoice();
 
+  const [print, setPrint] = useState<boolean>(false);
+  const [generating, setGenerating] = useState(false);
+
   return (
     <Form confirmLeave initial={initial} onSubmit={handleSubmit}>
       {({ change, data, hasChanged, submit }) => {
@@ -257,6 +262,16 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                 <Skeleton style={{ width: "10em" }} />
               )}
             </div>
+            <OrderSteps
+              order={order}
+              setPrint={setPrint}
+              generating={generating}
+              setGenerating={setGenerating}
+              onOrderFulfill={onOrderFulfill}
+              onParcelDetails={onParcelDetails}
+              onInvoiceGenerate={onInvoiceGenerate}
+              isInvoiceRequired={isInvoiceRequired}
+            />
             <Grid>
               <div data-test-id="order-fulfillment">
                 {!isOrderUnconfirmed ? (
@@ -343,12 +358,16 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                         onInvoiceGenerate={onInvoiceGenerate}
                         onInvoiceSend={onInvoiceSend}
                         order={order}
+                        generating={generating}
+                        setGenerating={setGenerating}
                       />
                     ) : (
                       <OrderReceiptCard
                         order={order}
                         onInvoiceClick={onInvoiceClick}
                         onInvoiceSend={onInvoiceSend}
+                        print={print}
+                        setPrint={setPrint}
                       />
                     )}
 

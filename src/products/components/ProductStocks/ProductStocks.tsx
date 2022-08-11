@@ -48,6 +48,11 @@ import { ProductUpdateSubmitData } from "../ProductUpdatePage/form";
 import { ProductVariantCreateData } from "../ProductVariantCreatePage/form";
 import { ProductVariantUpdateData } from "../ProductVariantPage/form";
 
+import {
+  ProductDetails_product,
+  ProductDetails_product_variants
+} from "@saleor/products/types/ProductDetails";
+
 export interface ProductStockFormsetData {
   quantityAllocated: number;
 }
@@ -63,6 +68,7 @@ export interface ProductStockFormData {
   globalSoldUnits: number;
   hasPreorderEndDate: boolean;
   preorderEndDateTime?: string;
+  variants?: ProductDetails_product_variants[];
 }
 
 export interface ProductStocksProps {
@@ -89,6 +95,7 @@ export interface ProductStocksProps {
   onWarehouseStockAdd: (warehouseId: string) => void;
   onWarehouseStockDelete: (warehouseId: string) => void;
   onWarehouseConfigure: () => void;
+  product?: ProductDetails_product;
 }
 
 const useStyles = makeStyles(
@@ -336,6 +343,33 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
           )}
         </CardContent>
       )}
+      <Hr />
+      <CardContent>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Typography>
+            <div>
+              <span>
+                <FormattedMessage
+                  defaultMessage="Lokalizacja magazynowa"
+                  description="header"
+                />
+              </span>
+            </div>
+          </Typography>
+          <Typography style={{ marginLeft: "auto", fontWeight: "bold" }}>
+            <div>
+              {!!data?.variants?.length
+                ? data?.variants[0].privateMetadata.map(data => {
+                    if (data.key === "location") {
+                      return <p>{data.value}</p>;
+                    }
+                  })
+                : null}
+            </div>
+          </Typography>
+        </div>
+      </CardContent>
+      <Hr />
       {warehouses?.length > 0 && !data.isPreorder && (
         <Table>
           <colgroup>
@@ -565,7 +599,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
           </div>
         </CardContent>
       )}
-
       {productVariantChannelListings?.length > 0 && data.isPreorder && (
         <Table>
           <colgroup>
