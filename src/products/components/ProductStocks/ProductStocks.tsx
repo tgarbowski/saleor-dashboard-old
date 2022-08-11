@@ -350,7 +350,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
             <div>
               <span>
                 <FormattedMessage
-                  defaultMessage="Lokacje magazynowe"
+                  defaultMessage="Lokalizacja magazynowa"
                   description="header"
                 />
               </span>
