@@ -75,10 +75,12 @@ export interface OrderReceiptCardProps {
   order: OrderDetails_order;
   onInvoiceClick: (invoiceId: string) => void;
   onInvoiceSend: (invoiceId: string) => void;
+  print: boolean;
+  setPrint: (boolean) => void;
 }
 
 export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
-  const { order, onInvoiceClick, onInvoiceSend } = props;
+  const { order, onInvoiceClick, onInvoiceSend, print, setPrint } = props;
   const [printing, setPrinting] = useState(false);
   const [pluginError, setPluginError] = useState(false);
   const [printserverError, setPrintserverError] = useState(false);
@@ -199,6 +201,13 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
     setPrintserverError(false);
     setOrderStatusError(false);
   };
+
+  if (print) {
+    if (!printing) {
+      printReceipt();
+    }
+    setPrint(false);
+  }
 
   const formattedMessage = !order.invoices.length ? (
     <FormattedMessage
