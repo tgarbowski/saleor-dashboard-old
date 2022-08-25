@@ -168,6 +168,10 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
     thirdDimension: ""
   });
 
+  const [weight, setWeight] = useState({
+    weightKg: ""
+  });
+
   const DefaultDimentions = [
     {
       firstDimension: "38",
@@ -197,7 +201,11 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   const intl = useIntl();
 
   const onParcelChange = (index, value, inputType) => {
-    packageData[index][inputType] = value;
+    packageData[index][inputType] = parseFloat(value);
+  };
+
+  const onWeightChange = (index, value, inputType) => {
+    packageData[index][inputType] = parseFloat(value);
   };
 
   const getDimension = e => {
@@ -393,13 +401,15 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           }}
                           name={`${nameInputPrefix}${nameSeparator}${element.fieldIndex}`}
                           fullWidth
-                          onChange={event =>
-                            onParcelChange(
-                              element.fieldIndex,
-                              event.target.value,
-                              "weight"
-                            )
-                          }
+                          onChange={event => {
+                            const value = event.target.value;
+                            setWeight(prevWeight => ({
+                              ...prevWeight,
+                              weightKg: value
+                            }));
+                            onWeightChange(element.fieldIndex, value, "weight");
+                          }}
+                          value={weight.weightKg}
                         />
                       </TableCell>
                       <TableCell className={classes.colName}>
