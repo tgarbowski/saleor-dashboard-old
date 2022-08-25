@@ -201,7 +201,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
   const intl = useIntl();
 
   const onParcelChange = (index, value, inputType) => {
-    packageData[index][inputType] = parseFloat(value);
+    packageData[index][inputType] = value;
   };
 
   const onWeightChange = (index, value, inputType) => {
