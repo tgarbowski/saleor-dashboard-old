@@ -60,9 +60,13 @@ export interface AppListViewSettings {
   [ListViews.TRANSLATION_ATTRIBUTE_VALUE_LIST]: ListSettings;
   [ListViews.WMS_DOCUMENTS_LIST]: ListSettings<WMSDocumentsListColumns>;
   [ListViews.GIFT_CARD_LIST]: ListSettings;
+  [ListViews.TALLIES_LIST]: ListSettings;
 }
 
 export const defaultListSettings: AppListViewSettings = {
+  [ListViews.TALLIES_LIST]: {
+    rowNumber: PAGINATE_BY
+  },
   [ListViews.APPS_LIST]: {
     rowNumber: 10
   },

@@ -3,7 +3,7 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import { sectionNames } from "@saleor/intl";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 
 import Container from "../components/Container";
@@ -14,12 +14,20 @@ import {
   useExtMigloCsvMutation,
   useExtTallyCsvMutation
 } from "./queries";
-import { parse as parseQs } from "qs";
-import { asSortParams } from "@saleor/utils/sort";
 import TalliesList from "./components/TalliesList";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import TalliesGenerationCard from "./components/TalliesGenerationCard";
 import CardSpacer from "@saleor/components/CardSpacer";
+import useListSettings from "@saleor/hooks/useListSettings";
+import { talliesListUrl, TalliesListUrlQueryParams } from "./urls";
+import { ListViews } from "@saleor/types";
+import { maybe } from "@saleor/misc";
+
+import {
+  DEFAULT_INITIAL_PAGINATION_DATA,
+  defaultListSettings
+} from "@saleor/config";
+import useNavigator from "@saleor/hooks/useNavigator";
 
 export interface MenuItem {
   description: string;
@@ -35,31 +43,53 @@ export interface MenuSection {
   menuItems: MenuItem[];
 }
 
-export const TalliesPage: React.FC = () => {
+interface TalliesListProps {
+  params?: TalliesListUrlQueryParams;
+}
+
+export interface TalliesListVariables {
+  first?: number | null;
+  after?: string | null;
+  last?: number | null;
+  before?: string | null;
+}
+
+export const TalliesPage: React.FC<TalliesListProps> = ({ params }) => {
   const intl = useIntl();
+  const { updateListSettings, settings } = useListSettings(
+    ListViews.TALLIES_LIST
+  );
+  const navigate = useNavigator();
   const paginate = usePaginator();
 
-  const qs = parseQs(location.search.substr(1));
-  const params: any = asSortParams(qs, null);
+  const paginationState = createPaginationState(settings.rowNumber, params);
+  useEffect(() => {
+    navigate(
+      talliesListUrl({
+        ...params,
+        ...DEFAULT_INITIAL_PAGINATION_DATA
+      })
+    );
+  }, [settings.rowNumber]);
 
-  const paginationState = createPaginationState(20, params);
-
-  const queryVariables = React.useMemo(
+  const queryVariables = React.useMemo<TalliesListVariables>(
     () => ({
       ...paginationState
     }),
-    [params]
+    [params, settings.rowNumber]
   );
+
   const { data, loading } = useExportFilesQuery({
     displayLoader: true,
     variables: queryVariables
   });
 
   const { loadNextPage, loadPreviousPage, pageInfo } = paginate(
-    data?.exportFiles?.pageInfo,
+    maybe(() => data?.exportFiles?.pageInfo),
     paginationState,
     params
   );
+
   const [generateTallyCsv] = useExtTallyCsvMutation({});
   const [generateMigloCsv] = useExtMigloCsvMutation({});
   const date = new Date();
@@ -180,6 +210,9 @@ export const TalliesPage: React.FC = () => {
         onRowClick={null}
         pageInfo={pageInfo}
         disabled={loading}
+        onUpdateListSettings={updateListSettings}
+        settings={settings}
+        defaultSettings={defaultListSettings[ListViews.TALLIES_LIST]}
       />
     </Container>
   );

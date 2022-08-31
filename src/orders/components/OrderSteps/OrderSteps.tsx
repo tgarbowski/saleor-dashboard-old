@@ -73,8 +73,9 @@ export const OrderSteps: React.FC<OrderStepsProps> = props => {
         if (
           !!order?.fulfillments?.length &&
           !order?.fulfillments[0].trackingNumber
-        )
+        ) {
           onParcelDetails();
+        }
         break;
       case 3:
         if (!order.invoices.length) {

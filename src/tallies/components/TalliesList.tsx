@@ -19,28 +19,26 @@ import React from "react";
 import { ExportFiles_exportFilse_edges_node } from "../types/ExportFiles";
 import { ListProps } from "@saleor/types";
 import CardTitle from "@saleor/components/CardTitle";
-
 export interface TalliesListProps extends ListProps {
   exportFiles: ExportFiles_exportFilse_edges_node[];
 }
 
-const TalliesList: React.FC<TalliesListProps> = props => {
-  const {
-    exportFiles,
-    disabled,
-    settings,
-    pageInfo,
-    onPreviousPage,
-    onNextPage,
-    onUpdateListSettings
-  } = props;
+const TalliesList: React.FC<TalliesListProps> = ({
+  exportFiles,
+  disabled,
+  settings,
+  pageInfo,
+  onPreviousPage,
+  onNextPage,
+  onUpdateListSettings
+}) => {
   const intl = useIntl();
 
   return (
     <Card>
       <CardTitle
         title={intl.formatMessage({
-          defaultMessage: "Files list",
+          defaultMessage: "Lista zestawień",
           description: "section header"
         })}
       />
@@ -49,21 +47,21 @@ const TalliesList: React.FC<TalliesListProps> = props => {
           <TableHead>
             <TableRow>
               <TableCellHeader style={{ width: "20%" }}>
-                <FormattedMessage defaultMessage="No. of File" />
+                <FormattedMessage defaultMessage="Nr." />
               </TableCellHeader>
               <TableCellHeader style={{ width: "20%" }}>
                 <FormattedMessage
-                  defaultMessage="Date"
+                  defaultMessage="Data"
                   description="date when order was placed"
                 />
               </TableCellHeader>
               <TableCellHeader style={{ width: "20%" }}>
                 <FormattedMessage
-                  defaultMessage="Url"
+                  defaultMessage="URL"
                   description="date when order was placed"
                 />
               </TableCellHeader>
-              <TableCellHeader style={{ width: "20%" }}>
+              <TableCellHeader style={{ width: "40%" }}>
                 <FormattedMessage
                   defaultMessage="Message"
                   description="date when order was placed"
@@ -72,34 +70,43 @@ const TalliesList: React.FC<TalliesListProps> = props => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {exportFiles?.map(file => (
-              <TableRow data-test-id="order-table-row">
-                <TableCell>
-                  {maybe(() => file.id) ? (
-                    atob(file.id).split(":")[1]
-                  ) : (
-                    <Skeleton />
-                  )}
-                </TableCell>
-                <TableCell>
-                  {maybe(() => file.createdAt) ? (
-                    <DateTime date={file.createdAt} />
-                  ) : (
-                    <Skeleton />
-                  )}
-                </TableCell>
-                <TableCell>
-                  {maybe(() => file.url) ? (
-                    <a href={file.url}>pobierz</a>
-                  ) : (
-                    <Skeleton />
-                  )}
-                </TableCell>
-                <TableCell>
-                  {maybe(() => file.message) ? file.message : <Skeleton />}
-                </TableCell>
-              </TableRow>
-            ))}
+            {exportFiles?.map(
+              file => (
+                <TableRow data-test-id="order-table-row">
+                  <TableCell>
+                    {maybe(() => file.id) ? (
+                      atob(file.id).split(":")[1]
+                    ) : (
+                      <Skeleton />
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {maybe(() => file.createdAt) ? (
+                      <DateTime date={file.createdAt} />
+                    ) : (
+                      <Skeleton />
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {maybe(() => file.url) ? (
+                      <a href={file.url}>Pobierz</a>
+                    ) : (
+                      <Skeleton />
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {maybe(() => file.message) ? file.message : <Skeleton />}
+                  </TableCell>
+                </TableRow>
+              ),
+              () => (
+                <TableRow>
+                  <TableCell>
+                    <FormattedMessage defaultMessage="No tallies found" />
+                  </TableCell>
+                </TableRow>
+              )
+            )}
           </TableBody>
           <TableFooter>
             <TableRow>
@@ -122,5 +129,4 @@ const TalliesList: React.FC<TalliesListProps> = props => {
     </Card>
   );
 };
-
 export default TalliesList;

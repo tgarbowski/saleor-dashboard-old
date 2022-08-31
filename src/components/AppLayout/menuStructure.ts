@@ -9,6 +9,7 @@ import ordersIcon from "@assets/images/menu-orders-icon.svg";
 import pagesIcon from "@assets/images/menu-pages-icon.svg";
 import translationIcon from "@assets/images/menu-translation-icon.svg";
 import warehouseIcon from "@assets/images/warehouse-icon.svg";
+import talliesIcon from "@assets/images/tallies.svg";
 import {
   extensionMountPoints,
   useExtensions
@@ -272,7 +273,7 @@ function useMenuStructure(
     },
     {
       ariaLabel: "tallies",
-      iconSrc: configurationIcon,
+      iconSrc: talliesIcon,
       label: intl.formatMessage(sectionNames.tallies),
       permissions: [PermissionEnum.MANAGE_ORDERS],
       id: "tallies",
