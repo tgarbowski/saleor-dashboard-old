@@ -67,6 +67,7 @@ import errorTracker from "./services/errorTracking";
 import ShippingSection from "./shipping";
 import SiteSettingsSection from "./siteSettings";
 import StaffSection from "./staff";
+import { TalliesSection, talliesSection } from "./tallies";
 import TaxesSection from "./taxes";
 import themeOverrides from "./themeOverrides";
 import TranslationsSection from "./translations";
@@ -315,6 +316,11 @@ const Routes: React.FC = () => {
                 permissions={[PermissionEnum.MANAGE_CHANNELS]}
                 path={channelsSection}
                 component={ChannelsSection}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_ORDERS]}
+                path={talliesSection}
+                component={TalliesSection}
               />
               <SectionRoute
                 matchPermission="any"

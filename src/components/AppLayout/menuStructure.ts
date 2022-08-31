@@ -36,6 +36,7 @@ import { productListUrl } from "../../products/urls";
 import { languageListUrl } from "../../translations/urls";
 import { PermissionEnum } from "../../types/globalTypes";
 import { getMenuItemExtension, mapToExtensionsItems } from "./utils";
+import { talliesSection } from "@saleor/tallies";
 
 export interface FilterableMenuItem extends Omit<SidebarMenuItem, "children"> {
   children?: FilterableMenuItem[];
@@ -267,7 +268,15 @@ function useMenuStructure(
           id: "wms_documents",
           url: wmsDocumentsListPath
         }
-      ],
+      ]
+    },
+    {
+      ariaLabel: "tallies",
+      iconSrc: configurationIcon,
+      label: intl.formatMessage(sectionNames.tallies),
+      permissions: [PermissionEnum.MANAGE_ORDERS],
+      id: "tallies",
+      url: talliesSection
     }
   ];
 
