@@ -54,7 +54,6 @@ export const TalliesPage: React.FC<TalliesListProps> = ({ params }) => {
     ListViews.TALLIES_LIST
   );
 
-  // There is a problem. Showing a error Cannot read properties of undefined (reading: before)
   usePaginationReset(talliesListUrl, params, settings.rowNumber);
 
   const navigate = useNavigator();
