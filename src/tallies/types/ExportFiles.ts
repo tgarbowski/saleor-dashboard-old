@@ -6,7 +6,7 @@ export interface ExportFiles_exportFilse_edges_node {
 }
 
 export interface ExportFiles_exportFilse_edges {
-    __typename: "OrderCountableEdge";
+    __typename: "TalliesCountableEdge";
     node: ExportFiles_exportFilse_edges_node;
 }
 
@@ -24,10 +24,12 @@ export interface ExportFiles_exportFilse{
 }
 
 export interface ExportFiles{
-    exportFiles: ExportFiles_exportFilse
+    exportFiles: ExportFiles_exportFilse;
 }
 
 export interface ExportFilesVariables {
     first?: number | null;
     after?: string | null;
+    last?: number | null;
+    before?: string | null;
   }

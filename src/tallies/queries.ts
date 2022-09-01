@@ -5,11 +5,12 @@ import makeMutation from "@saleor/hooks/makeMutation";
 import { ExtTallyCsv, ExtTallyCsvVariables } from "./types/ExtTallyCsv";
 import { ExtMigloCsv, ExtMigloCsvVariables } from "./types/ExtMigloCsv";
 
-export const orderListQuery = gql`
-  query ExportFiles($first: Int, $after: String, $last: Int) {
+export const talliesListQuery = gql`
+  query ExportFiles($first: Int, $after: String, $last: Int, $before: String) {
     exportFiles(
       first: $first
       after: $after
+      before: $before
       last: $last
       sortBy: { direction: DESC, field: CREATED_AT }
     ) {
@@ -32,7 +33,7 @@ export const orderListQuery = gql`
 `;
 
 export const useExportFilesQuery = makeQuery<ExportFiles, ExportFilesVariables>(
-  orderListQuery
+  talliesListQuery
 );
 
 export const extTallyCsvMutationMutation = gql`

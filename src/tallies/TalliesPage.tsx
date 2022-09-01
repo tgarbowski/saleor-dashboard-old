@@ -28,6 +28,7 @@ import {
   defaultListSettings
 } from "@saleor/config";
 import useNavigator from "@saleor/hooks/useNavigator";
+import { usePaginationReset } from "@saleor/hooks/usePaginationReset";
 
 export interface MenuItem {
   description: string;
@@ -43,15 +44,8 @@ export interface MenuSection {
   menuItems: MenuItem[];
 }
 
-interface TalliesListProps {
-  params?: TalliesListUrlQueryParams;
-}
-
-export interface TalliesListVariables {
-  first?: number | null;
-  after?: string | null;
-  last?: number | null;
-  before?: string | null;
+export interface TalliesListProps {
+  params: TalliesListUrlQueryParams;
 }
 
 export const TalliesPage: React.FC<TalliesListProps> = ({ params }) => {
@@ -59,10 +53,13 @@ export const TalliesPage: React.FC<TalliesListProps> = ({ params }) => {
   const { updateListSettings, settings } = useListSettings(
     ListViews.TALLIES_LIST
   );
+
+  // There is a problem. Showing a error Cannot read properties of undefined (reading: before)
+  usePaginationReset(talliesListUrl, params, settings.rowNumber);
+
   const navigate = useNavigator();
   const paginate = usePaginator();
 
-  const paginationState = createPaginationState(settings.rowNumber, params);
   useEffect(() => {
     navigate(
       talliesListUrl({
@@ -72,7 +69,9 @@ export const TalliesPage: React.FC<TalliesListProps> = ({ params }) => {
     );
   }, [settings.rowNumber]);
 
-  const queryVariables = React.useMemo<TalliesListVariables>(
+  const paginationState = createPaginationState(settings.rowNumber, params);
+
+  const queryVariables = React.useMemo(
     () => ({
       ...paginationState
     }),
@@ -180,7 +179,6 @@ export const TalliesPage: React.FC<TalliesListProps> = ({ params }) => {
       });
     }
   };
-
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.tallies)} />

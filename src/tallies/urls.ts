@@ -1,11 +1,11 @@
 import { stringify as stringifyQs } from "qs";
 import urlJoin from "url-join";
 
-import { ActiveTab, Pagination, SingleAction } from "../types";
+import { Pagination, SingleAction } from "../types";
 
-export const talliesListPath = "/tallies/";
+export const talliesListPath = "/tallies";
 
-export type TalliesListUrlQueryParams = ActiveTab & Pagination & SingleAction;
+export type TalliesListUrlQueryParams = Pagination & SingleAction;
 
 export const talliesListUrl = (params?: TalliesListUrlQueryParams): string => {
   if (params === undefined) {
