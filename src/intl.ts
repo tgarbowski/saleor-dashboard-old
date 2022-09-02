@@ -37,6 +37,9 @@ export const commonMessages = defineMessages({
   drafts: {
     defaultMessage: "Drafts"
   },
+  tallies: {
+    defaultMessage: "Tallies"
+  },
   email: {
     defaultMessage: "Email address"
   },
@@ -338,6 +341,10 @@ export const sectionNames = defineMessages({
   staff: {
     defaultMessage: "Staff Members",
     description: "staff section name"
+  },
+  tallies: {
+    defaultMessage: "Tallies",
+    description: "tallies section name"
   },
   taxes: {
     defaultMessage: "Taxes",
