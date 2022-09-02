@@ -21,6 +21,7 @@ export interface ListSettings<TColumn extends string = string> {
 }
 
 export enum ListViews {
+  TALLIES_LIST = "TALLIES_LIST",
   APPS_LIST = "APPS_LIST",
   ATTRIBUTE_LIST = "ATTRIBUTE_LIST",
   ATTRIBUTE_VALUE_LIST = "ATTRIBUTE_VALUE_LIST",
@@ -55,6 +56,7 @@ export interface ListProps<TColumns extends string = string> {
     hasPreviousPage: boolean;
   };
   settings?: ListSettings<TColumns>;
+  defaultSettings?: ListSettings<TColumns>;
   onNextPage: () => void;
   onPreviousPage: () => void;
   onRowClick: (id: string) => () => void;

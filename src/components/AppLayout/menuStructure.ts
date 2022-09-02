@@ -9,6 +9,7 @@ import ordersIcon from "@assets/images/menu-orders-icon.svg";
 import pagesIcon from "@assets/images/menu-pages-icon.svg";
 import translationIcon from "@assets/images/menu-translation-icon.svg";
 import warehouseIcon from "@assets/images/warehouse-icon.svg";
+import talliesIcon from "@assets/images/tallies.svg";
 import {
   extensionMountPoints,
   useExtensions
@@ -36,6 +37,7 @@ import { productListUrl } from "../../products/urls";
 import { languageListUrl } from "../../translations/urls";
 import { PermissionEnum } from "../../types/globalTypes";
 import { getMenuItemExtension, mapToExtensionsItems } from "./utils";
+import { talliesSection } from "@saleor/tallies";
 
 export interface FilterableMenuItem extends Omit<SidebarMenuItem, "children"> {
   children?: FilterableMenuItem[];
@@ -267,7 +269,15 @@ function useMenuStructure(
           id: "wms_documents",
           url: wmsDocumentsListPath
         }
-      ],
+      ]
+    },
+    {
+      ariaLabel: "tallies",
+      iconSrc: talliesIcon,
+      label: intl.formatMessage(sectionNames.tallies),
+      permissions: [PermissionEnum.MANAGE_ORDERS],
+      id: "tallies",
+      url: talliesSection
     }
   ];
 
