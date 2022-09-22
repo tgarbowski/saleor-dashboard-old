@@ -1,8 +1,7 @@
 import React from "react";
 import { Button } from "@saleor/macaw-ui";
-import { Card, CardContent } from "@material-ui/core";
-import CardTitle from "@saleor/components/CardTitle";
-import { FormattedMessage, useIntl } from "react-intl";
+import { Card, CardContent, Typography } from "@material-ui/core";
+import { FormattedMessage } from "react-intl";
 import CardSpacer from "@saleor/components/CardSpacer";
 import { createUseStyles } from "react-jss";
 
@@ -86,7 +85,6 @@ const TalliesGenerationCard: React.FC<TalliesGenerationCardProps> = props => {
     handleMigloYearInputChange,
     generateCustomDateMiglo
   } = props;
-  const intl = useIntl();
   const classes = useStyles();
 
   const previousMonth = month === 1 ? 12 : month - 1;
@@ -95,12 +93,16 @@ const TalliesGenerationCard: React.FC<TalliesGenerationCardProps> = props => {
   return (
     <div>
       <Card>
-        <CardTitle
-          title={intl.formatMessage({
-            defaultMessage: "Tallies generation",
-            description: "section header"
-          })}
-        />
+        <Typography
+          variant="h3"
+          style={{ padding: "2rem 3.2rem 0 3.2rem", fontWeight: "bold" }}
+        >
+          <FormattedMessage
+            defaultMessage="Tallies generation"
+            description="section header"
+            id="talliesGenerationSectionHeader"
+          />
+        </Typography>
         <CardContent>
           <Button
             className={classes.generateButton}
@@ -141,12 +143,16 @@ const TalliesGenerationCard: React.FC<TalliesGenerationCardProps> = props => {
       </Card>
       <CardSpacer />
       <Card>
-        <CardTitle
-          title={intl.formatMessage({
-            defaultMessage: "Miglo generation",
-            description: "section header"
-          })}
-        />
+        <Typography
+          variant="h3"
+          style={{ padding: "2rem 3.2rem 0 3.2rem", fontWeight: "bold" }}
+        >
+          <FormattedMessage
+            defaultMessage="Miglo generation"
+            description="section header"
+            id="migloGenerationSectionHeader"
+          />
+        </Typography>
         <CardContent>
           <Button
             className={classes.generateButton}

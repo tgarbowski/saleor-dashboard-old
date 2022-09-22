@@ -10107,5 +10107,17 @@
   "will become published on": {
     "context": "product publication date label",
     "string": "zostanie opublikowane {date}"
+  },
+  "src_dot_tallies": {
+    "context": "tallies section name",
+    "string": "Raporty"
+  },
+  "talliesGenerationSectionHeader": {
+    "context": "header",
+    "string": "Raport kontrahentów"
+  },
+  "migloGenerationSectionHeader": {
+    "context": "header",
+    "string": "Raport sprzedaży"
   }
 }
