@@ -9869,9 +9869,13 @@
     "context": "WarehousesSection select field placeholder",
     "string": "Wybierz magazyn"
   },
-  "src_dot_shipping_dot_components_dot_ShippingZoneSettingsCard_dot_subtitle": {
+  "shippingZoneSettingsCardSubtitle": {
+    "context": "ChannelsSection subtitle",
+    "string": "Przypisz kanały do tej strefy wysyłki, abyśmy wiedzieli, które zamówienia będą obsługiwane"
+  },
+  "warehouseSettingsCardSubtitle": {
     "context": "WarehousesSection subtitle",
-    "string": "Wybierz magazyn, z którego będą wysyłane produkty dla tej strefy wysyłkowej. Ten adres magazynu będzie także używany do obliczania podatków."
+    "string": "Wybierz magazyn, z którego będziesz wysyłać produkty dla tej strefy wysyłkowej. Ten adres magazynu będzie również używany do obliczania podatków."
   },
   "src_dot_shipping_dot_components_dot_ShippingZoneSettingsCard_dot_title": {
     "context": "ShippingZoneSettingsCard title",
@@ -10107,5 +10111,17 @@
   "will become published on": {
     "context": "product publication date label",
     "string": "zostanie opublikowane {date}"
+  },
+  "src_dot_tallies": {
+    "context": "tallies section name",
+    "string": "Raporty"
+  },
+  "talliesGenerationSectionHeader": {
+    "context": "header",
+    "string": "Raport kontrahentów"
+  },
+  "migloGenerationSectionHeader": {
+    "context": "header",
+    "string": "Raport sprzedaży"
   }
 }
