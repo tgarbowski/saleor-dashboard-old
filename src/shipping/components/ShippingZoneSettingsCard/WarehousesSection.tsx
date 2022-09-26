@@ -12,7 +12,8 @@ const messages = defineMessages({
   subtitle: {
     defaultMessage:
       "Select warehouse from which you will ship products for this shipping zone. This warehouse address will also be used to calculate taxes.",
-    description: "WarehousesSection subtitle"
+    description: "WarehousesSection subtitle",
+    id: "warehouseSettingsCardSubtitle"
   },
   selectFieldAddText: {
     defaultMessage: "Add New Warehouse",

@@ -14,7 +14,8 @@ const messages = defineMessages({
   subtitle: {
     defaultMessage:
       "Assign channels to this shipping zone so we know which orders will be supported",
-    description: "ChannelsSection subtitle"
+    description: "ChannelsSection subtitle",
+    id: "shippingZoneSettingsCardSubtitle"
   },
   selectFieldLabel: {
     defaultMessage: "Channel",
