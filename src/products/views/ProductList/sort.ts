@@ -42,6 +42,7 @@ export function getSortQueryField(
     case ProductListUrlSortField.rank:
       return ProductOrderField.RANK;
     case ProductListUrlSortField.created:
+      return ProductOrderField.CREATED;
     case ProductListUrlSortField.date:
       return ProductOrderField.DATE;
     default:
