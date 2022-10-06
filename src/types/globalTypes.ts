@@ -1673,6 +1673,7 @@ export enum ProductMediaType {
 
 export enum ProductOrderField {
   COLLECTION = "COLLECTION",
+  CREATED = "CREATED",
   DATE = "DATE",
   MINIMAL_PRICE = "MINIMAL_PRICE",
   NAME = "NAME",
