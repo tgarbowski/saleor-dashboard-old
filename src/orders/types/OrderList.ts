@@ -42,6 +42,11 @@ export interface OrderList_orders_edges_node_total {
   gross: OrderList_orders_edges_node_total_gross;
 }
 
+export interface OrderList_orders_edges_node_wmsDocuments {
+  number: string;
+}
+
+
 export interface OrderList_orders_edges_node {
   __typename: "Order";
   billingAddress: OrderList_orders_edges_node_billingAddress | null;
@@ -52,6 +57,7 @@ export interface OrderList_orders_edges_node {
   status: OrderStatus;
   total: OrderList_orders_edges_node_total;
   userEmail: string | null;
+  wmsDocuments?: OrderList_orders_edges_node_wmsDocuments[];
 }
 
 export interface OrderList_orders_edges {

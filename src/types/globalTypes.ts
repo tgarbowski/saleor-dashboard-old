@@ -1507,6 +1507,7 @@ export enum OrderSortField {
   FULFILLMENT_STATUS = "FULFILLMENT_STATUS",
   NUMBER = "NUMBER",
   PAYMENT = "PAYMENT",
+  WMSDOCUMENT = "WMSDOCUMENT"
 }
 
 export enum OrderStatus {
@@ -2428,6 +2429,7 @@ export interface OrderFilterInput {
   ids?: (string | null)[] | null;
   giftCardUsed?: boolean | null;
   giftCardBought?: boolean | null;
+  wmsDocument?: boolean | null;
 }
 
 export interface OrderFulfillInput {

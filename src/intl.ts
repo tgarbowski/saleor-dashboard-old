@@ -134,6 +134,10 @@ export const commonMessages = defineMessages({
   cannotFullfillUnpaidOrder: {
     defaultMessage: "Can’t fulfill until payment is captured",
     description: "disabled option description"
+  },
+  wzNumber: {
+    defaultMessage: "GIN number",
+    description: "Number of GIN document"
   }
 });
 
