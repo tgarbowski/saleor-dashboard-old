@@ -10129,7 +10129,7 @@
     "string": "Raport sprzedaży"
   },
   "wzNumber": {
-    "context": "Number of WZ document",
-    "string": "Numer dokumentu"
+    "context": "Number of GIN document",
+    "string": "Numer dokumentu WZ"
   }
 }

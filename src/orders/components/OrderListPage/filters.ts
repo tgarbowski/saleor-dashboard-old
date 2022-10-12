@@ -82,7 +82,7 @@ const messages = defineMessages({
     description: "order"
   },
   wmsDocument: {
-    defaultMessage: "WZ document",
+    defaultMessage: "GIN document",
     description: "order"
   }
 });

@@ -180,7 +180,7 @@ export const OrderList: React.FC<OrderListProps> = props => {
             onClick={() => onSort(OrderListUrlSortField.wmsDocument)}
             className={classes.colWmsDocument}
           >
-            <FormattedMessage defaultMessage="WZ number" id="wzNumber" />
+            <FormattedMessage defaultMessage="GIN number" id="wzNumber" />
           </TableCellHeader>
           <TableCellHeader textAlign="right" className={classes.colTotal}>
             <FormattedMessage

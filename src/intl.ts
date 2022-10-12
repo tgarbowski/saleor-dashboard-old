@@ -136,8 +136,8 @@ export const commonMessages = defineMessages({
     description: "disabled option description"
   },
   wzNumber: {
-    defaultMessage: "WZ number",
-    description: "Number of WZ document"
+    defaultMessage: "GIN number",
+    description: "Number of GIN document"
   }
 });
 
