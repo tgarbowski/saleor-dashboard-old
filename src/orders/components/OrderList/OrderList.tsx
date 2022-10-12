@@ -63,6 +63,7 @@ const useStyles = makeStyles(
       colTotal: {
         textAlign: "right"
       },
+      colWmsDocument: {},
       link: {
         cursor: "pointer"
       }
@@ -170,6 +171,17 @@ export const OrderList: React.FC<OrderListProps> = props => {
           >
             <FormattedMessage defaultMessage="Fulfillment status" />
           </TableCellHeader>
+          <TableCellHeader
+            direction={
+              sort.sort === OrderListUrlSortField.wmsDocument
+                ? getArrowDirection(sort.asc)
+                : undefined
+            }
+            onClick={() => onSort(OrderListUrlSortField.wmsDocument)}
+            className={classes.colWmsDocument}
+          >
+            <FormattedMessage defaultMessage="WZ number" id="wzNumber" />
+          </TableCellHeader>
           <TableCellHeader textAlign="right" className={classes.colTotal}>
             <FormattedMessage
               defaultMessage="Total"
@@ -247,6 +259,13 @@ export const OrderList: React.FC<OrderListProps> = props => {
                     color={order.status.status}
                     label={order.status.localized}
                   />
+                ) : (
+                  <Skeleton />
+                )}
+              </TableCell>
+              <TableCell className={classes.colWmsDocument}>
+                {maybe(() => order.wmsDocuments) ? (
+                  <>{order.wmsDocuments[0]?.number}</>
                 ) : (
                   <Skeleton />
                 )}

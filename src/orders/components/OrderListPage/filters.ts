@@ -27,7 +27,8 @@ export enum OrderFilterKeys {
   clickAndCollect = "clickAndCollect",
   preorder = "preorder",
   channel = "channel",
-  giftCard = "giftCard"
+  giftCard = "giftCard",
+  wmsDocument = "wmsDocument"
 }
 
 export enum OrderFilterGiftCard {
@@ -44,6 +45,7 @@ export interface OrderListFilterOpts {
   clickAndCollect: FilterOpts<boolean>;
   preorder: FilterOpts<boolean>;
   giftCard: FilterOpts<OrderFilterGiftCard[]>;
+  wmsDocument?: FilterOpts<boolean>;
 }
 
 const messages = defineMessages({
@@ -78,6 +80,10 @@ const messages = defineMessages({
   giftCardOrdered: {
     defaultMessage: "Gift Card ordered",
     description: "order"
+  },
+  wmsDocument: {
+    defaultMessage: "WZ document",
+    description: "order"
   }
 });
 
@@ -97,6 +103,18 @@ export function createFilterStructure(
         }
       ),
       active: opts.clickAndCollect.active
+    },
+    {
+      ...createBooleanField(
+        OrderFilterKeys.wmsDocument,
+        intl.formatMessage(messages.wmsDocument),
+        opts.wmsDocument.value,
+        {
+          negative: intl.formatMessage(commonMessages.no),
+          positive: intl.formatMessage(commonMessages.yes)
+        }
+      ),
+      active: opts.wmsDocument.active
     },
     {
       ...createBooleanField(

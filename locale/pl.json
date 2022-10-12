@@ -8942,6 +8942,10 @@
     "context": "order",
     "string": "Zamówiona karta podarunkowa"
   },
+  "src_dot_orders_dot_components_dot_OrderListPage_dot_wmsDocument": {
+    "context": "order",
+    "string": "Dokument WZ"
+  },
   "src_dot_orders_dot_components_dot_OrderListPage_dot_giftCardPaid": {
     "context": "order",
     "string": "Zapłacono kartą podarunkową"
@@ -10123,5 +10127,9 @@
   "migloGenerationSectionHeader": {
     "context": "header",
     "string": "Raport sprzedaży"
+  },
+  "wzNumber": {
+    "context": "Number of WZ document",
+    "string": "Numer dokumentu"
   }
 }
