@@ -197,9 +197,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
   };
 
   const closeDialog = () => {
-    setPluginError(false);
-    setPrintserverError(false);
-    setOrderStatusError(false);
+    window.location.reload();
   };
 
   if (print) {
@@ -230,7 +228,10 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
         })}
         toolbar={
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Button onClick={printReceipt} disabled={printing}>
+            <Button
+              onClick={printReceipt}
+              disabled={printing || !order.invoices[0]?.number}
+            >
               {formattedMessage}
             </Button>
             {!!order.invoices.length && (
