@@ -230,7 +230,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Button
               onClick={printReceipt}
-              disabled={printing || !order.invoices[0]?.number}
+              disabled={printing || order.invoices[0]?.number === null}
             >
               {formattedMessage}
             </Button>
