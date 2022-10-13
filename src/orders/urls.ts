@@ -26,7 +26,8 @@ export enum OrderListUrlFiltersEnum {
   payment = "payment",
   query = "query",
   clickAndCollect = "clickAndCollect",
-  preorder = "preorder"
+  preorder = "preorder",
+  wmsDocument = "wmsDocument"
 }
 export enum OrderListUrlFiltersWithMultipleValues {
   status = "status",
@@ -44,7 +45,8 @@ export enum OrderListUrlSortField {
   date = "date",
   fulfillment = "status",
   payment = "payment",
-  total = "total"
+  total = "total",
+  wmsDocument = "wmsDocument"
 }
 export type OrderListUrlSort = Sort<OrderListUrlSortField>;
 export type OrderListUrlQueryParams = BulkAction &

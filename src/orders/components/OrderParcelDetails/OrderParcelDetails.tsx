@@ -240,6 +240,13 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
             secondDimension: "",
             thirdDimension: ""
           });
+          setWeight({
+            weightKg: ""
+          });
+          onParcelChange(packageData[0].fieldIndex, null, "size1");
+          onParcelChange(packageData[0].fieldIndex, null, "size2");
+          onParcelChange(packageData[0].fieldIndex, null, "size3");
+          onParcelChange(packageData[0].fieldIndex, null, "weight");
         }}
         style={{ overflowY: "auto" }}
       >
@@ -403,10 +410,9 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
                           fullWidth
                           onChange={event => {
                             const value = event.target.value;
-                            setWeight(prevWeight => ({
-                              ...prevWeight,
+                            setWeight({
                               weightKg: value
-                            }));
+                            });
                             onWeightChange(element.fieldIndex, value, "weight");
                           }}
                           value={weight.weightKg}

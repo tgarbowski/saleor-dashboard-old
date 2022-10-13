@@ -14,6 +14,8 @@ export function getSortQueryField(sort: OrderListUrlSortField): OrderSortField {
       return OrderSortField.FULFILLMENT_STATUS;
     case OrderListUrlSortField.payment:
       return OrderSortField.PAYMENT;
+    case OrderListUrlSortField.wmsDocument:
+    // return OrderSortField.WMSDOCUMENT;
     default:
       return undefined;
   }

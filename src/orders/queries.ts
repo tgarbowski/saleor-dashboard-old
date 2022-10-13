@@ -71,6 +71,9 @@ export const orderListQuery = gql`
             }
           }
           userEmail
+          wmsDocuments {
+            number
+          }
         }
       }
       pageInfo {

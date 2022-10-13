@@ -86,6 +86,10 @@ export function getFilterOpts(
           findValueInEnum(paymentStatus, PaymentChargeStatusEnum)
         ) || []
       )
+    },
+    wmsDocument: {
+      active: params?.wmsDocument !== undefined,
+      value: parseBoolean(params.wmsDocument, true)
     }
   };
 }
@@ -120,7 +124,11 @@ export function getFilterVariables(
       undefined,
     giftCardUsed:
       params?.giftCard?.some(param => param === OrderFilterGiftCard.paid) ||
-      undefined
+      undefined,
+    wmsDocument:
+      params.wmsDocument !== undefined
+        ? parseBoolean(params.wmsDocument, false)
+        : undefined
   };
 }
 
@@ -173,6 +181,11 @@ export function getFilterQueryParam(
         filter,
         OrderListUrlFiltersWithMultipleValues.giftCard,
         OrderFilterGiftCard
+      );
+    case OrderFilterKeys.wmsDocument:
+      return getSingleValueQueryParam(
+        filter,
+        OrderListUrlFiltersEnum.wmsDocument
       );
   }
 }
