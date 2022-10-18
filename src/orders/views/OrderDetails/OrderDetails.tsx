@@ -226,12 +226,12 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
             }
           };
 
-          const handleLabelDownloadOnButton = async () => {
+          const handleLabelDownloadOnButton = async (fulfillmentId: string) => {
             setLabelPrinting(true);
             const serverUrl =
               pluginData.plugin.globalConfiguration.configuration[0].value;
             const packageIdentifier = JSON.parse(
-              order?.fulfillments[0]?.privateMetadata
+              order?.fulfillments?.find(item => item.id === fulfillmentId).privateMetadata
                 ?.find(item => item.key === "package")
                 .value.replace(/'/g, '"')
             ).id;
