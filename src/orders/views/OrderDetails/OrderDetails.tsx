@@ -15,7 +15,7 @@ import {
   usePrivateMetadataUpdate
 } from "@saleor/utils/metadata/updateMetadata";
 import React, { useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 import { JobStatusEnum, OrderStatus } from "../../../types/globalTypes";
 import OrderOperations from "../../containers/OrderOperations";
@@ -39,13 +39,6 @@ import {
   PackageData
 } from "@saleor/shipping/handlers";
 import { usePluginDetails } from "@saleor/plugins/queries";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent
-} from "@material-ui/core";
-import CardTitle from "@saleor/components/CardTitle";
 
 interface OrderDetailsProps {
   id: string;
@@ -83,7 +76,14 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
     }
   });
 
-  const [labelCreate] = useLabelCreateMutation({});
+  const [labelCreate] = useLabelCreateMutation({
+    onError() {
+      notify({
+        status: "error",
+        text: "Błąd tworzenia etykiety"
+      });
+    }
+  });
   const pluginId = "printservers";
   const { data: pluginData } = usePluginDetails({
     displayLoader: true,
@@ -91,14 +91,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   });
 
   const [packageCreate] = usePackageCreateMutation({});
-
-  const [packageCreateError, setPackageCreateError] = useState(false);
-  const [printingError, setPrintingError] = useState(false);
   const [labelPrinting, setLabelPrinting] = useState(false);
-  const closeDialog = () => {
-    setPackageCreateError(false);
-    setPrintingError(false);
-  };
 
   return (
     <>
@@ -146,6 +139,47 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
             }
           ];
 
+          const printLabel = async (packageIdentifier: number) => {
+            setLabelPrinting(true);
+            const serverUrl =
+              pluginData.plugin.globalConfiguration.configuration[0].value;
+            const labelCreated = await labelCreate({
+              variables: {
+                input: {
+                  packageId: packageIdentifier,
+                  order: "order.id"
+                }
+              }
+            });
+            if (serverUrl) {
+              const tempSocket = new WebSocket(`${serverUrl}`);
+              tempSocket.onopen = () => {
+                tempSocket.send(
+                  Buffer.from(
+                    labelCreated.data.labelCreate.label,
+                    "base64"
+                  ).toString()
+                );
+              };
+              tempSocket.onerror = () => {
+                notify({
+                  status: "error",
+                  text: "Błąd drukowania"
+                });
+                setLabelPrinting(false);
+              };
+              tempSocket.onclose = () => {
+                setLabelPrinting(false);
+              };
+            } else {
+              notify({
+                status: "error",
+                text: "Url drukarki etykiet jest błędnie skonfigurowany"
+              });
+              setLabelPrinting(false);
+            }
+          };
+
           const handlePackageCreateSubmit = async (
             formData: PackageData[],
             generateLabel: boolean
@@ -167,10 +201,9 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 }
               });
               if (!result.data.packageCreate.packageId) {
-                setPackageCreateError(true);
                 notify({
                   status: "error",
-                  text: "Dane do wysłania są niepoprawne"
+                  text: "Błędne wymiary lub waga wysyłki"
                 });
                 closeModal();
               } else {
@@ -180,39 +213,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
                 });
                 closeModal();
                 if (generateLabel) {
-                  setLabelPrinting(true);
-                  if (
-                    pluginData.plugin &&
-                    pluginData.plugin?.globalConfiguration
-                  ) {
-                    const serverUrl =
-                      pluginData.plugin.globalConfiguration.configuration[0]
-                        .value;
-                    const labelCreated = await labelCreate({
-                      variables: {
-                        input: {
-                          packageId: result.data.packageCreate.packageId,
-                          order: order.id
-                        }
-                      }
-                    });
-                    const tempSocket = new WebSocket(`${serverUrl}`);
-                    tempSocket.onopen = () => {
-                      tempSocket.send(
-                        Buffer.from(
-                          labelCreated.data.labelCreate.label,
-                          "base64"
-                        ).toString()
-                      );
-                    };
-                    tempSocket.onerror = () => {
-                      setPrintingError(true);
-                      setLabelPrinting(false);
-                    };
-                    tempSocket.onclose = () => {
-                      window.location.reload();
-                    };
-                  }
+                  printLabel(result.data.packageCreate.packageId);
                 } else {
                   window.location.reload();
                 }
@@ -227,37 +228,13 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           };
 
           const handleLabelDownloadOnButton = async (fulfillmentId: string) => {
-            setLabelPrinting(true);
-            const serverUrl =
-              pluginData.plugin.globalConfiguration.configuration[0].value;
             const packageIdentifier = JSON.parse(
-              order?.fulfillments?.find(item => item.id === fulfillmentId).privateMetadata
-                ?.find(item => item.key === "package")
+              order?.fulfillments
+                ?.find(item => item.id === fulfillmentId)
+                .privateMetadata?.find(item => item.key === "package")
                 .value.replace(/'/g, '"')
             ).id;
-            const labelCreated = await labelCreate({
-              variables: {
-                input: {
-                  packageId: packageIdentifier,
-                  order: order.id
-                }
-              }
-            });
-            const tempSocket = new WebSocket(`${serverUrl}`);
-            tempSocket.onopen = () => {
-              tempSocket.send(
-                Buffer.from(
-                  labelCreated.data.labelCreate.label,
-                  "base64"
-                ).toString()
-              );
-            };
-            tempSocket.onerror = () => {
-              setPrintingError(true);
-            };
-            tempSocket.onclose = () => {
-              setLabelPrinting(false);
-            };
+            printLabel(packageIdentifier);
           };
 
           return (
@@ -416,20 +393,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
           );
         }}
       </TypedOrderDetailsQuery>
-      <Dialog open={packageCreateError || printingError}>
-        <CardTitle title="Błąd" onClose={closeDialog} />
-        <DialogContent>
-          {printingError && (
-            <FormattedMessage defaultMessage="Błąd drukowania" />
-          )}
-          {packageCreateError && (
-            <FormattedMessage defaultMessage="Błędne wymiary lub waga wysyłki" />
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDialog}>Dalej</Button>
-        </DialogActions>
-      </Dialog>
     </>
   );
 };
