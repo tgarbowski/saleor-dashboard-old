@@ -84,7 +84,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
   const [printing, setPrinting] = useState(false);
   const [pluginError, setPluginError] = useState(false);
   const [printserverError, setPrintserverError] = useState(false);
-  const [orderStatusError, setOrderStatusError] = useState(false);
+  const [orderStatusError, setOrderStatusError] = useState<string>("");
   const [generating, setGenerating] = useState(false);
 
   const classes = useStyles(props);
@@ -114,7 +114,9 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
         http.setRequestHeader("Content-type", "application/json");
         receiptRequest({ variables: { orderId: order.id } }).then(response => {
           if (response.data.extReceiptRequest.errors.length) {
-            setOrderStatusError(true);
+            setOrderStatusError(
+              response.data.extReceiptRequest.errors[0]?.message
+            );
             setPrinting(false);
           } else {
             const params = response.data.extReceiptRequest.payload;
@@ -322,7 +324,7 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
           </ResponsiveTable>
         )}
       </CardContent>
-      <Dialog open={pluginError || printserverError || orderStatusError}>
+      <Dialog open={pluginError || printserverError || !!orderStatusError}>
         <CardTitle title="Błąd" onClose={closeDialog} />
         <DialogContent>
           {pluginError && (
@@ -331,8 +333,11 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
           {printserverError && (
             <FormattedMessage defaultMessage="Błąd serwera wydruku, odśwież stronę" />
           )}
-          {orderStatusError && (
-            <FormattedMessage defaultMessage="Zamówienie nie zostało zrealizowane" />
+          {!!orderStatusError && (
+            <>
+              <FormattedMessage defaultMessage="Zamówienie nie zostało zrealizowane" />
+              <p>Error message: {orderStatusError}</p>
+            </>
           )}
         </DialogContent>
         <DialogActions>

@@ -820,6 +820,10 @@ const PackageCreateMutation = gql`
   mutation PackageCreate($input: PackageCreateInput!) {
     packageCreate(input: $input) {
       packageId
+      errors {
+        message
+        code
+      }
     }
   }
 `;
@@ -832,6 +836,10 @@ const labelCreateMutation = gql`
   mutation LabelCreate($input: LabelCreateInput!) {
     labelCreate(input: $input) {
       label
+      errors {
+        message
+        code
+      }
     }
   }
 `;
