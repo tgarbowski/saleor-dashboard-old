@@ -47,7 +47,9 @@ function makeMutation<TData, TVariables>(
       onCompleted,
       refetchQueries,
       onError: (err: ApolloError) => {
-        if (hasError(err, GqlErrors.ReadOnlyException)) {
+        if (onError) {
+          onError(err);
+        } else if (hasError(err, GqlErrors.ReadOnlyException)) {
           notify({
             status: "error",
             text: intl.formatMessage(commonMessages.readOnly)
@@ -63,9 +65,6 @@ function makeMutation<TData, TVariables>(
             status: "error",
             text: intl.formatMessage(commonMessages.somethingWentWrong)
           });
-        }
-        if (onError) {
-          onError(err);
         }
       }
     });

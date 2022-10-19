@@ -56,7 +56,7 @@ interface OrderNormalDetailsProps {
   orderInvoiceRequest: any;
   handlePackageCreate: any;
   handleSubmit: any;
-  onParcelLabelDownload: () => void;
+  onParcelLabelDownload: any;
   printing?: boolean;
   orderUpdate: PartialMutationProviderOutput<OrderUpdate, OrderUpdateVariables>;
   orderCancel: any;
