@@ -81,7 +81,7 @@ export interface OrderDetailsPageProps {
   onFulfillmentTrackingNumberUpdate(id: string);
   onOrderFulfill();
   onParcelDetails();
-  onParcelLabelDownload(fulfillmentId: string);
+  onParcelLabelDownload();
   onProductClick?(id: string);
   onPaymentCapture();
   onPaymentPaid();
@@ -306,7 +306,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       onTrackingCodeAdd={() =>
                         onFulfillmentTrackingNumberUpdate(fulfillment.id)
                       }
-                      onParcelLabelDownload={() => onParcelLabelDownload(fulfillment.id)}
+                      onParcelLabelDownload={() => onParcelLabelDownload()}
                       printing={printing}
                       onParcelDetails={onParcelDetails}
                       onRefund={onPaymentRefund}

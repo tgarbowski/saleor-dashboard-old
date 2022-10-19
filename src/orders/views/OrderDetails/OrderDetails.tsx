@@ -147,7 +147,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
               variables: {
                 input: {
                   packageId: packageIdentifier,
-                  order: "order.id"
+                  order: order.id
                 }
               }
             });
@@ -227,15 +227,17 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
             }
           };
 
-          const handleLabelDownloadOnButton = async (fulfillmentId: string) => {
-            const packageIdentifier = JSON.parse(
-              order?.fulfillments
-                ?.find(item => item.id === fulfillmentId)
-                .privateMetadata?.find(item => item.key === "package")
-                .value.replace(/'/g, '"')
-            ).id;
-            printLabel(packageIdentifier);
-          };
+          const handleLabelDownloadOnButton = async () =>
+            // TODO: fulfillmentId: string
+            {
+              const packageIdentifier = JSON.parse(
+                order?.fulfillments[0].privateMetadata
+                  ?.find(item => item.key === "package")
+                  .value.replace(/'/g, '"')
+                // TODO: ?.find(item => item.id === fulfillmentId)
+              ).id;
+              printLabel(packageIdentifier);
+            };
 
           return (
             <OrderDetailsMessages id={id} params={params}>
