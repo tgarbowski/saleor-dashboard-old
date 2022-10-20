@@ -104,7 +104,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
         <ActionButtons
           classes={classes}
           status={fulfillment?.status}
-          trackingNumber={order.fulfillments[0]?.trackingNumber}
+          trackingNumber={fulfillment?.trackingNumber}
           orderIsPaid={order?.isPaid}
           fulfillmentAllowUnpaid={fulfillmentAllowUnpaid}
           onTrackingCodeAdd={onTrackingCodeAdd}

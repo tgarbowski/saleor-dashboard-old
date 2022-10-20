@@ -80,8 +80,8 @@ export interface OrderDetailsPageProps {
   onFulfillmentCancel(id: string);
   onFulfillmentTrackingNumberUpdate(id: string);
   onOrderFulfill();
-  onParcelDetails();
-  onParcelLabelDownload();
+  onParcelDetails(fulfillmentId: string);
+  onParcelLabelDownload(fulfillmentId: string);
   onProductClick?(id: string);
   onPaymentCapture();
   onPaymentPaid();
@@ -268,7 +268,12 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
               generating={generating}
               setGenerating={setGenerating}
               onOrderFulfill={onOrderFulfill}
-              onParcelDetails={onParcelDetails}
+              onParcelDetails={() => {
+                const firstFulfilledId = order.fulfillments.filter(
+                  fulfillment => fulfillment.status === "FULFILLED"
+                )[0]?.id;
+                onParcelDetails(firstFulfilledId);
+              }}
               onInvoiceGenerate={onInvoiceGenerate}
               isInvoiceRequired={isInvoiceRequired}
             />
@@ -280,7 +285,6 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                     notAllowedToFulfillUnpaid={notAllowedToFulfillUnpaid}
                     lines={unfulfilled}
                     onFulfill={onOrderFulfill}
-                    onParcelDetails={onParcelDetails}
                   />
                 ) : (
                   <>
@@ -306,9 +310,11 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       onTrackingCodeAdd={() =>
                         onFulfillmentTrackingNumberUpdate(fulfillment.id)
                       }
-                      onParcelLabelDownload={() => onParcelLabelDownload()}
+                      onParcelLabelDownload={() =>
+                        onParcelLabelDownload(fulfillment.id)
+                      }
                       printing={printing}
-                      onParcelDetails={onParcelDetails}
+                      onParcelDetails={() => onParcelDetails(fulfillment.id)}
                       onRefund={onPaymentRefund}
                       onOrderFulfillmentApprove={() =>
                         onFulfillmentApprove(fulfillment.id)

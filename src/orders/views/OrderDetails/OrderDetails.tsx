@@ -182,14 +182,15 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
 
           const handlePackageCreateSubmit = async (
             formData: PackageData[],
-            generateLabel: boolean
+            generateLabel: boolean,
+            fulfillmentId: string
           ) => {
             const dataCorrect = checkIfParcelDialogCorrect(formData);
             if (dataCorrect) {
               const result = await packageCreate({
                 variables: {
                   input: {
-                    fulfillment: order?.fulfillments[0]?.id,
+                    fulfillment: fulfillmentId,
                     order: order.id,
                     packageData: formData.map(data => ({
                       sizeX: data.size1,
@@ -227,17 +228,15 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
             }
           };
 
-          const handleLabelDownloadOnButton = async () =>
-            // TODO: fulfillmentId: string
-            {
-              const packageIdentifier = JSON.parse(
-                order?.fulfillments[0].privateMetadata
-                  ?.find(item => item.key === "package")
-                  .value.replace(/'/g, '"')
-                // TODO: ?.find(item => item.id === fulfillmentId)
-              ).id;
-              printLabel(packageIdentifier);
-            };
+          const handleLabelDownloadOnButton = async (fulfillmentId: string) => {
+            const packageIdentifier = JSON.parse(
+              order?.fulfillments
+                ?.find(item => item.id === fulfillmentId)
+                .privateMetadata?.find(item => item.key === "package")
+                .value.replace(/'/g, '"')
+            ).id;
+            printLabel(packageIdentifier);
+          };
 
           return (
             <OrderDetailsMessages id={id} params={params}>
