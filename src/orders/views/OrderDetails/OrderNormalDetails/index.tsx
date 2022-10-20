@@ -205,7 +205,9 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
             })
           )
         }
-        onParcelDetails={() => openModal("parcel")}
+        onParcelDetails={fulfillmentId =>
+          openModal("parcel", { id: fulfillmentId })
+        }
         onParcelLabelDownload={onParcelLabelDownload}
         printing={printing}
         onPaymentCapture={() => openModal("capture")}
@@ -352,6 +354,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
         productWeight={order?.lines}
         shopDetails={shopData?.companyAddress}
         onSubmit={handlePackageCreate}
+        fulfillmentId={params.id}
       />
       <OrderInvoiceEmailSendDialog
         confirmButtonState={orderInvoiceSend.opts.status}

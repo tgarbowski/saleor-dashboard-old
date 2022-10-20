@@ -146,8 +146,13 @@ export interface OrderParcelDetailsProps {
   productWeight: any;
   shopDetails: any;
   packageData: PackageData[];
-  onSubmit: (formData: PackageData[], generateLabel: boolean) => void;
+  onSubmit: (
+    formData: PackageData[],
+    generateLabel: boolean,
+    fulfillmentId: string
+  ) => void;
   onClose: () => void;
+  fulfillmentId?: string;
 }
 
 const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
@@ -158,7 +163,8 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
     packageData,
     onSubmit,
     open,
-    onClose
+    onClose,
+    fulfillmentId
   } = props;
   const classes = useStyles(props);
 
@@ -234,7 +240,7 @@ const OrderParcelDetails: React.FC<OrderParcelDetailsProps> = props => {
       <Form
         initial={orderDetails?.shippingAddress}
         onSubmit={() => {
-          onSubmit(packageData, state.generateReport);
+          onSubmit(packageData, state.generateReport, fulfillmentId);
           setDimentions({
             firstDimension: "",
             secondDimension: "",
