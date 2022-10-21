@@ -138,7 +138,12 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
                 description="table column header"
               />
             </TableCell>
-            <TableCell />
+            <TableCell>
+              <FormattedMessage
+                defaultMessage="SKU"
+                description="table column header"
+              />
+            </TableCell>
             <TableCell align="right">
               <FormattedMessage
                 defaultMessage="Price"
@@ -170,6 +175,7 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
                 thumbnail,
                 unitPrice,
                 productName,
+                productSku,
                 variant
               } = line;
               const isValueError = false;
@@ -196,7 +202,10 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
                   >
                     {productName || <Skeleton />}
                   </TableCellAvatar>
-                  <ProductErrorCell hasVariant={isReturnable} />
+                  {!isReturnable && (
+                    <ProductErrorCell hasVariant={isReturnable} />
+                  )}
+                  <TableCell>{productSku || <Skeleton />}</TableCell>
                   <TableCell align="right">
                     <Money
                       money={{
