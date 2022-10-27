@@ -21,18 +21,12 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import { getStringOrPlaceholder } from "@saleor/misc";
+import { warehouseListsGenerateQuery } from "@saleor/orders/extQueries/queries";
 import {
-  warehouseListPdfQuery,
-  wmsDocumentsListPdfQuery
-} from "@saleor/orders/extQueries/queries";
-import {
-  WarehouseListPdf,
-  WarehouseListPdfVariables
-} from "@saleor/orders/extTypes/WarehouseListPdf";
-import {
-  wmsDocumentsListPdf,
-  wmsDocumentsListPdfVariables
-} from "@saleor/orders/extTypes/WmsDocumentsListPdf";
+  warehouseListsGenerate,
+  warehouseListsGenerateVariables
+} from "@saleor/orders/extTypes/WarehouseListsGenerate";
+
 import { downloadBase64File } from "@saleor/shipping/handlers";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -174,71 +168,48 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   ] = useState<ApolloError>(null);
 
   const [
-    generateWarehouseListPdf,
+    warehouseListsGenerate,
     {
-      error: warehouseListError,
-      data: warehouseListData,
-      loading: warehouseListLoading
+      error: warehouseListsGenerateError,
+      data: warehouseListsGenerateData,
+      loading: warehouseListsGenerateLoading
     }
-  ] = useLazyQuery<WarehouseListPdf, WarehouseListPdfVariables>(
-    warehouseListPdfQuery
-  );
-
-  const [
-    generateWmsDocumentsListPdf,
-    { error: wmsListError, data: wmsListData, loading: wmsListLoading }
-  ] = useLazyQuery<wmsDocumentsListPdf, wmsDocumentsListPdfVariables>(
-    wmsDocumentsListPdfQuery
+  ] = useLazyQuery<warehouseListsGenerate, warehouseListsGenerateVariables>(
+    warehouseListsGenerateQuery
   );
 
   const onGenerateWarehouseList = () => {
-    generateWarehouseListPdf({
-      variables: { filters: getFilterVariables(params) }
-    });
-    generateWmsDocumentsListPdf({
+    warehouseListsGenerate({
       variables: { filters: getFilterVariables(params) }
     });
   };
 
   useEffect(() => {
-    if (warehouseListError) {
-      setWarehouseListGenerationError(warehouseListError);
+    if (warehouseListsGenerateError) {
+      setWarehouseListGenerationError(warehouseListsGenerateError);
     } else {
-      if (!warehouseListLoading) {
-        if (warehouseListData) {
-          const today = new Date();
-          const dd = String(today.getDate()).padStart(2, "0");
-          const mm = String(today.getMonth() + 1).padStart(2, "0");
-          const yyyy = today.getFullYear();
+      if (!warehouseListsGenerateLoading) {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const yyyy = today.getFullYear();
+        if (warehouseListsGenerateData?.warehouseListsGenerate?.warehouseList) {
           downloadBase64File(
             "application/pdf",
-            warehouseListData.warehouseListPdf,
+            warehouseListsGenerateData?.warehouseListsGenerate?.warehouseList,
             `Lista pobrania z magazynu ${dd}${mm}${yyyy}.pdf`
           );
         }
-      }
-    }
-  }, [warehouseListLoading]);
-
-  useEffect(() => {
-    if (wmsListError) {
-      setWarehouseListGenerationError(wmsListError);
-    } else {
-      if (!wmsListLoading) {
-        if (wmsListData) {
-          const today = new Date();
-          const dd = String(today.getDate()).padStart(2, "0");
-          const mm = String(today.getMonth() + 1).padStart(2, "0");
-          const yyyy = today.getFullYear();
+        if (warehouseListsGenerateData?.warehouseListsGenerate?.wmsList) {
           downloadBase64File(
             "application/pdf",
-            wmsListData.wmsDocumentsListPdf,
+            warehouseListsGenerateData?.warehouseListsGenerate?.wmsList,
             `Lista WZ ${dd}${mm}${yyyy}.pdf`
           );
         }
       }
     }
-  }, [wmsListLoading]);
+  }, [warehouseListsGenerateLoading]);
 
   return (
     <>
