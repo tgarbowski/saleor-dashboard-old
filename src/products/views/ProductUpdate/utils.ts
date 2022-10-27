@@ -32,7 +32,7 @@ export function createUpdatedChannels(
       ...acc,
       {
         id: channelId,
-        name: channels.find(channel => channel.id === channelId).name,
+        name: channels.find(channel => channel.id === channelId)?.name,
         variantsIds
       } as ChannelData
     ],
