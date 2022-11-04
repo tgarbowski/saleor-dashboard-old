@@ -151,10 +151,11 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
         http.open("POST", url, true);
         http.setRequestHeader("Content-type", "application/json");
         const invoiceNumber = order.invoices[0].number;
+        const invoiceDate = order.invoices[0].createdAt.split("T");
         const params = [
           {
             cmd: "ecprndoc",
-            params: `sd,0\nty,0\nfn,${invoiceNumber}\ntn,${invoiceNumber}`
+            params: `sd,0\nty,0\nfn,${invoiceNumber}\ntn,${invoiceNumber}\nfd,${invoiceDate[0]};00:00\ntd,${invoiceDate[0]};23:59`
           }
         ];
         http.onreadystatechange = function() {
