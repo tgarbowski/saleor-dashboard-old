@@ -41,9 +41,8 @@ export async function handleQueryAuthError(
   ) {
     notify({
       status: "error",
-      text: error.graphQLErrors[0].message
+      text: error.graphQLErrors[0]?.message
     });
-
   } else if (
     !error.graphQLErrors.every(
       err => err.extensions?.exception?.code === "PermissionDenied"
