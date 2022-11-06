@@ -128,6 +128,7 @@ export const fragmentRefundOrderLine = gql`
   fragment RefundOrderLineFragment on OrderLine {
     id
     productName
+    productSku
     quantity
     variant {
       id

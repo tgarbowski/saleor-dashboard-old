@@ -123,6 +123,12 @@ const OrderRefundUnfulfilledProducts: React.FC<OrderRefundUnfulfilledProductsPro
             </TableCell>
             <TableCell>
               <FormattedMessage
+                defaultMessage="SKU"
+                description="table column header"
+              />
+            </TableCell>
+            <TableCell>
+              <FormattedMessage
                 defaultMessage="Price"
                 description="tabel column header"
               />
@@ -170,6 +176,7 @@ const OrderRefundUnfulfilledProducts: React.FC<OrderRefundUnfulfilledProductsPro
                   >
                     {line?.productName ? line?.productName : <Skeleton />}
                   </TableCellAvatar>
+                  <TableCell>{line?.productSku || <Skeleton />}</TableCell>
                   <TableCell>
                     {line?.unitPrice ? (
                       <Money money={line?.unitPrice.gross} />
