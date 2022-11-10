@@ -2,7 +2,7 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { WMSDocumentsFilterInput } from "./../../types/globalTypes";
+import { AttributeSortingInput, WMSDocumentsFilterInput } from "./../../types/globalTypes";
 import { WarehouseList_warehouses_edges_node } from "./WarehouseList";
 
 
@@ -41,10 +41,28 @@ export interface WMSDocumentList {
   wmsDocuments: WMSDocumentList_documents | null;
 }
 
+export enum AttributeSortField {
+  NUMBER = "NUMBER",
+  STATUS = "STATUS",
+  CREATED_AT = "CREATED_AT",
+  DOCUMENT_TYPE = "DOCUMENT_TYPE",
+  WAREHOUSE = "WAREHOUSE",
+}
+
+export enum OrderDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+export interface WMSDocumentOrder {
+  direction: OrderDirection;
+  field: AttributeSortField;
+}
+
 export interface WMSDocumentListVariables {
   first?: number | null;
   after?: string | null;
   last?: number | null;
   before?: string | null;
   filter?: WMSDocumentsFilterInput | null;
+  sortBy?: WMSDocumentOrder | null;
 }
