@@ -117,7 +117,7 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
             <CardTitle className={classes.cardTitle} title="Użytkownik" />
             <CardContent className={classes.content}>
               <Typography color="textPrimary">
-                {document?.wmsDocument?.createdBy?.email}
+                {document?.wmsDocument?.createdBy?.email || <Skeleton />}
               </Typography>
             </CardContent>
           </Card>
@@ -209,7 +209,11 @@ const WarehouseDocumentDetails: React.FC<WarehouseDocumentDetailsPageProps> = ({
             />
             <CardContent className={classes.content}>
               {document?.wmsDocument?.documentType === "GIN" &&
-                "Odbiorca: " + document?.wmsDocument.recipient.email}
+                (document?.wmsDocument?.recipient?.email ? (
+                  "Odbiorca: " + document?.wmsDocument.recipient.email
+                ) : (
+                  <Skeleton />
+                ))}
               {document?.wmsDocument?.documentType === "GRN" &&
                 "Nadawca: " + document?.wmsDocument.deliverer?.companyName}
               {document?.wmsDocument?.documentType === "FGTN" &&

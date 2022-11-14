@@ -80,6 +80,7 @@ const WMSDocumentsList = gql`
     $last: Int
     $before: String
     $filter: WmsDocumentFilterInput
+    $sortBy: WmsDocumentSortingInput
   ) {
     wmsDocuments(
       before: $before
@@ -87,6 +88,7 @@ const WMSDocumentsList = gql`
       first: $first
       last: $last
       filter: $filter
+      sortBy: $sortBy
     ) {
       edges {
         node {

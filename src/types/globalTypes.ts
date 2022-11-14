@@ -3121,7 +3121,7 @@ export interface WMSDocumentsFilterInput {
 export interface WMSDocumentOrder {
   direction: OrderDirection;
   attributeId?: string | null;
-  field?: ProductOrderField | null;
+  field?: WMSDocumentsOrderField | null;
 }
 
 
