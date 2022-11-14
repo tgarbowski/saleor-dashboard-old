@@ -2,7 +2,7 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { WMSDocumentsFilterInput } from "./../../types/globalTypes";
+import { WMSDocumentOrder, WMSDocumentsFilterInput } from "./../../types/globalTypes";
 import { WarehouseList_warehouses_edges_node } from "./WarehouseList";
 
 
@@ -47,4 +47,5 @@ export interface WMSDocumentListVariables {
   last?: number | null;
   before?: string | null;
   filter?: WMSDocumentsFilterInput | null;
+  sortBy?: WMSDocumentOrder | null;
 }

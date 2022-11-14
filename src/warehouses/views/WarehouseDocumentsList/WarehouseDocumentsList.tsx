@@ -54,6 +54,7 @@ import {
   getFilterVariables,
   saveFilterTab
 } from "./filters";
+import { getSortQueryVariables } from "./sort";
 
 interface WMSDocumentsListProps {
   params: WMSDocumentsListUrlQueryParams;
@@ -62,6 +63,7 @@ interface WMSDocumentsListProps {
 export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
   params
 }) => {
+  console.log(params);
   const navigate = useNavigator();
   const paginate = usePaginator();
   const shop = useShop();
@@ -142,10 +144,12 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
   const paginationState = createPaginationState(settings.rowNumber, params);
   const currencySymbol = maybe(() => shop.defaultCurrency, "USD");
   const filter = getFilterVariables(params);
+  const sortBy = getSortQueryVariables(params);
   const queryVariables = React.useMemo<WMSDocumentListVariables>(
     () => ({
       ...paginationState,
-      filter
+      filter,
+      sortBy
     }),
     [params, settings.rowNumber]
   );

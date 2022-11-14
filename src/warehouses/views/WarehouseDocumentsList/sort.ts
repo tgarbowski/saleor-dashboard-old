@@ -31,7 +31,7 @@ export function getSortQueryVariables(
   params: WMSDocumentsListUrlQueryParams
 ): WMSDocumentOrder {
   return {
-    direction: getOrderDirection(params.asc)
-    // field: getSortQueryField(params.sort)
+    direction: getOrderDirection(params.asc),
+    field: getSortQueryField(params.sort)
   };
 }
