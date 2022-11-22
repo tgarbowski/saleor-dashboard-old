@@ -1,8 +1,11 @@
 /* eslint-disable */
+import { DialogContentText } from "@material-ui/core";
+import ActionDialog from "@saleor/components/ActionDialog";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData
 } from "@saleor/components/SaveFilterTabDialog";
+import { useShopLimitsQuery } from "@saleor/components/Shop/query";
 import {
   DEFAULT_INITIAL_PAGINATION_DATA,
   DEFAULT_INITIAL_SEARCH_DATA,
@@ -12,10 +15,12 @@ import {
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
+import useNotifier from "@saleor/hooks/useNotifier";
 import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import useShop from "@saleor/hooks/useShop";
+import { commonMessages } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
 import {
   getAttributeIdFromColumnValue,
@@ -30,10 +35,12 @@ import { getSortUrlVariables } from "@saleor/utils/sort";
 import WMSDocumentsListPage from "@saleor/warehouses/components/WarehouseDocumentsListPage";
 import {
   useInitialFilterWMSDocuments,
+  useWMSDocumentQuery,
   useWMSDocumentsList
 } from "@saleor/warehouses/queries";
 import { WMSDocumentListVariables } from "@saleor/warehouses/types/WMSDocumentsList";
 import React from "react";
+import { FormattedMessage } from "react-intl";
 
 import { useAvailableInGridAttributesQuery } from "../../../products/queries";
 import {
@@ -66,6 +73,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
   console.log(params);
   const navigate = useNavigator();
   const paginate = usePaginator();
+  const notify = useNotifier();
   const shop = useShop();
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
     []
@@ -203,6 +211,29 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
     params
   );
 
+  const limitOpts = useShopLimitsQuery({
+    variables: {
+      productVariants: true
+    }
+  });
+
+  const [
+    wmsDocumentBulkDelete,
+    wmsDocumentBulkDeleteOpts
+  ] = useWmsDocumentBulkDeleteMutation({
+    onCompleted: data => {
+      if (data.wmsDocumentBulkDelete.errors.length === 0) {
+        closeModal();
+        notify({
+          status: "success",
+          text: intl.formatMessage(commonMessages.savedChanges)
+        });
+        reset();
+        limitOpts.refetch();
+      }
+    }
+  });
+
   return (
     <>
       <WMSDocumentsListPage
@@ -282,6 +313,32 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
         tabs={getFilterTabs().map(tab => tab.name)}
         onExport={() => openModal("save-search")}
       />
+      <ActionDialog
+        open={params.action === "delete"}
+        confirmButtonState={wmsDocumentBulkDeleteOpts.status}
+        onClose={closeModal}
+        onConfirm={() =>
+          wmsDocumentBulkDelete({
+            variables: { ids: params.ids }
+          })
+        }
+        title={intl.formatMessage({
+          defaultMessage: "Delete Products",
+          description: "dialog header"
+        })}
+        variant="delete"
+      >
+        <DialogContentText>
+          <FormattedMessage
+            defaultMessage="{counter,plural,one{Are you sure you want to delete this WZ document?} other{Are you sure you want to delete {displayQuantity} WZ documents?}}"
+            description="dialog content"
+            values={{
+              counter: params?.ids?.length,
+              displayQuantity: <strong>{params?.ids?.length}</strong>
+            }}
+          />
+        </DialogContentText>
+      </ActionDialog>
       <SaveFilterTabDialog
         open={params.action === "save-search"}
         confirmButtonState="default"
