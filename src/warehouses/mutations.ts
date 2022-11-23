@@ -1,5 +1,8 @@
 import { gql } from "@apollo/client";
-import { warehouseErrorFragment } from "@saleor/fragments/errors";
+import {
+  warehouseErrorFragment,
+  wmsDocumentErrorFragment
+} from "@saleor/fragments/errors";
 import { warehouseDetailsFragment } from "@saleor/fragments/warehouses";
 import makeMutation from "@saleor/hooks/makeMutation";
 
@@ -15,6 +18,11 @@ import {
   WarehouseUpdate,
   WarehouseUpdateVariables
 } from "./types/WarehouseUpdate";
+
+import {
+  wmsDocumentBulkDelete,
+  wmsDocumentBulkDeleteVariables
+} from "./types/WMSBulkDelete";
 
 const deleteWarehouse = gql`
   ${warehouseErrorFragment}
@@ -68,3 +76,18 @@ export const useWarehouseUpdate = makeMutation<
   WarehouseUpdate,
   WarehouseUpdateVariables
 >(updateWarehouse);
+
+export const wmsDocumentBulkDeleteMutation = gql`
+  ${wmsDocumentErrorFragment}
+  mutation wmsDocumentBulkDelete($ids: [ID!]!) {
+    wmsDocumentBulkDelete(ids: $ids) {
+      errors {
+        ...WmsDocumentErrorFragment
+      }
+    }
+  }
+`;
+export const useWmsDocumentBulkDeleteMutation = makeMutation<
+  wmsDocumentBulkDelete,
+  wmsDocumentBulkDeleteVariables
+>(wmsDocumentBulkDeleteMutation);
