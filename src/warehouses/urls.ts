@@ -8,7 +8,8 @@ import {
   Pagination,
   SingleAction,
   Sort,
-  TabActionDialog
+  TabActionDialog,
+  BulkAction
 } from "../types";
 export const warehouseSection = "/warehouses/";
 
@@ -42,7 +43,7 @@ export type WMSDocumentsListUrlFilters = Filters<
 >;
 export type WarehouseListUrlFilters = Filters<WarehouseListUrlFiltersEnum>;
 export type WarehouseListUrlDialog = "delete" | TabActionDialog;
-export type WMSDocumentUrlDialog = "save-search" | TabActionDialog;
+export type WMSDocumentUrlDialog = "save-search" | "delete" | TabActionDialog;
 export enum WarehouseListUrlSortField {
   name = "name"
 }
@@ -58,7 +59,8 @@ export type WarehouseListUrlSort = Sort<WarehouseListUrlSortField>;
 export type WMSDocumentsListUrlSort = Sort<WMSDocumentsListUrlSortField>;
 
 export interface WarehouseListUrlQueryParams
-  extends SingleAction,
+  extends BulkAction,
+    SingleAction,
     Dialog<WarehouseListUrlDialog>,
     Pagination,
     WarehouseListUrlFilters,
@@ -66,13 +68,18 @@ export interface WarehouseListUrlQueryParams
     ActiveTab {
   attributeId?: string;
 }
+export interface WMSDocumentsListUrlQueryParams
+  extends BulkAction,
+    Dialog<WMSDocumentUrlDialog>,
+    WMSDocumentsListUrlFilters,
+    Pagination,
+    WMSDocumentsListUrlSort,
+    Pagination,
+    SingleAction,
+    ActiveTab {
+  attributeId?: string;
+}
 
-export type WMSDocumentsListUrlQueryParams = ActiveTab &
-  Dialog<WMSDocumentUrlDialog> &
-  Pagination &
-  WMSDocumentsListUrlFilters &
-  WMSDocumentsListUrlSort &
-  SingleAction;
 export const warehouseListUrl = (params?: WarehouseListUrlQueryParams) =>
   warehouseListPath + "?" + stringifyQs(params);
 
@@ -87,8 +94,10 @@ export type WarehouseUrlQueryParams = Dialog<WarehouseUrlDialog> & SingleAction;
 export const warehouseUrl = (id: string, params?: WarehouseUrlQueryParams) =>
   warehousePath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
-export type WMSDocumentUrlQueryparams = Dialog<WMSDocumentUrlDialog> &
+export type WMSDocumentUrlQueryparams = BulkAction &
+  Dialog<WMSDocumentUrlDialog> &
   SingleAction;
+
 export const wmsDocumentUrl = (
   id: string,
   params?: WMSDocumentUrlQueryparams
