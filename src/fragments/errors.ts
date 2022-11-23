@@ -14,6 +14,13 @@ export const productErrorFragment = gql`
   }
 `;
 
+export const wmsDocumentErrorFragment = gql`
+  fragment WmsDocumentErrorFragment on WmsDocumentError {
+    code
+    field
+  }
+`;
+
 export const productErrorWithAttributesFragment = gql`
   ${productErrorFragment}
   fragment ProductErrorWithAttributesFragment on ProductError {

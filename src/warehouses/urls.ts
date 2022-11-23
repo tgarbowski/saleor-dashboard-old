@@ -68,14 +68,18 @@ export interface WarehouseListUrlQueryParams
     ActiveTab {
   attributeId?: string;
 }
+export interface WMSDocumentsListUrlQueryParams
+  extends BulkAction,
+    Dialog<WMSDocumentUrlDialog>,
+    WMSDocumentsListUrlFilters,
+    Pagination,
+    WMSDocumentsListUrlSort,
+    Pagination,
+    SingleAction,
+    ActiveTab {
+  attributeId?: string;
+}
 
-export type WMSDocumentsListUrlQueryParams = ActiveTab &
-  Dialog<WMSDocumentUrlDialog> &
-  BulkAction &
-  Pagination &
-  WMSDocumentsListUrlFilters &
-  WMSDocumentsListUrlSort &
-  SingleAction;
 export const warehouseListUrl = (params?: WarehouseListUrlQueryParams) =>
   warehouseListPath + "?" + stringifyQs(params);
 
@@ -93,6 +97,7 @@ export const warehouseUrl = (id: string, params?: WarehouseUrlQueryParams) =>
 export type WMSDocumentUrlQueryparams = BulkAction &
   Dialog<WMSDocumentUrlDialog> &
   SingleAction;
+
 export const wmsDocumentUrl = (
   id: string,
   params?: WMSDocumentUrlQueryparams

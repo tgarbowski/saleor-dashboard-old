@@ -20,7 +20,7 @@ import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
 import useShop from "@saleor/hooks/useShop";
-import { commonMessages } from "@saleor/intl";
+import { IconButton, DeleteIcon } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
 import {
   getAttributeIdFromColumnValue,
@@ -33,9 +33,9 @@ import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandl
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { getSortUrlVariables } from "@saleor/utils/sort";
 import WMSDocumentsListPage from "@saleor/warehouses/components/WarehouseDocumentsListPage";
+import { useWmsDocumentBulkDeleteMutation } from "@saleor/warehouses/mutations";
 import {
   useInitialFilterWMSDocuments,
-  useWMSDocumentQuery,
   useWMSDocumentsList
 } from "@saleor/warehouses/queries";
 import { WMSDocumentListVariables } from "@saleor/warehouses/types/WMSDocumentsList";
@@ -226,8 +226,11 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
         closeModal();
         notify({
           status: "success",
-          text: intl.formatMessage(commonMessages.savedChanges)
+          text: "Zapisano"
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2200);
         reset();
         limitOpts.refetch();
       }
@@ -299,7 +302,20 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
         onRowClick={id => () => navigate(wmsDocumentUrl(id))}
         onAll={resetFilters}
         onSort={handleSort}
-        toolbar={null}
+        toolbar={
+          <>
+            <IconButton
+              color="primary"
+              onClick={() =>
+                openModal("delete", {
+                  ids: listElements
+                })
+              }
+            >
+              <DeleteIcon />
+            </IconButton>
+          </>
+        }
         isChecked={isSelected}
         selected={listElements.length}
         toggle={toggle}
@@ -322,10 +338,7 @@ export const WMSDocumentsList: React.FC<WMSDocumentsListProps> = ({
             variables: { ids: params.ids }
           })
         }
-        title={intl.formatMessage({
-          defaultMessage: "Delete Products",
-          description: "dialog header"
-        })}
+        title="Delete WMS Documents"
         variant="delete"
       >
         <DialogContentText>
