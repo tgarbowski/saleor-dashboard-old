@@ -173,7 +173,7 @@ export const TalliesPage: React.FC<TalliesListProps> = ({ params }) => {
       0 < parseInt(migloMonthInput, 10) &&
       parseInt(migloMonthInput, 10) <= 12
     ) {
-      generateTallyCsv({
+      generateMigloCsv({
         variables: { month: migloMonthInput, year: migloYearInput }
       });
     }
