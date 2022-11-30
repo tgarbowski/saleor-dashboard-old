@@ -427,7 +427,7 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
                           </TableCell>
                           <TableCell className={classes.colQuantityTotal}>
                             {line?.variant?.privateMetadata[0] === undefined ? (
-                              <p>Brak lokalizacji</p>
+                              <FormattedMessage {...messages.noLocation} />
                             ) : (
                               line?.variant.privateMetadata.map(data => (
                                 <p>{data.value}</p>
