@@ -63,6 +63,12 @@ export interface OrderFulfillData_order_lines_variant_stocks {
   quantityAllocated: number;
 }
 
+export interface OrderFulfillData_order_lines_variant_privateMetadata {
+  __typename: "MetadataItem";
+  key: string;
+  value: string;
+}
+
 export interface OrderFulfillData_order_lines_variant {
   __typename: "ProductVariant";
   id: string;
@@ -72,6 +78,7 @@ export interface OrderFulfillData_order_lines_variant {
   attributes: OrderFulfillData_order_lines_variant_attributes[];
   stocks: (OrderFulfillData_order_lines_variant_stocks | null)[] | null;
   trackInventory: boolean;
+  privateMetadata: (OrderFulfillData_order_lines_variant_privateMetadata | null)[] | null;
 }
 
 export interface OrderFulfillData_order_lines_thumbnail {
