@@ -78,11 +78,11 @@ const useStyles = makeStyles(
       },
       colSku: {
         textAlign: "center",
-        textOverflow: "ellipsis"
+        width: 230
       },
       colLocation: {
         textAlign: "center",
-        textOverflow: "ellipsis"
+        width: 180
       },
       error: {
         color: theme.palette.error.main
@@ -425,12 +425,19 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
                           <TableCell className={classes.colSku}>
                             {line.variant?.sku}
                           </TableCell>
-                          <TableCell className={classes.colLocation}>
-                            {line?.variant.privateMetadata.map(data => {
+                          <TableCell className={classes.colQuantityTotal}>
+                            {line?.variant?.privateMetadata[0] === undefined ? (
+                              <p>Brak lokalizacji</p>
+                            ) : (
+                              line?.variant.privateMetadata.map(data => (
+                                <p>{data.value}</p>
+                              ))
+                            )}
+                            {/* {line?.variant.privateMetadata.map(data => {
                               if (data.key === "location") {
                                 return <p>{data.value}</p>;
                               }
-                            })}
+                            })} */}
                           </TableCell>
                           {warehouses?.map(warehouse => {
                             if (isPreorder) {
