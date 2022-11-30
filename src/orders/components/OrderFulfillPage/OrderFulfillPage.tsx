@@ -433,11 +433,6 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
                                 <p>{data.value}</p>
                               ))
                             )}
-                            {/* {line?.variant.privateMetadata.map(data => {
-                              if (data.key === "location") {
-                                return <p>{data.value}</p>;
-                              }
-                            })} */}
                           </TableCell>
                           {warehouses?.map(warehouse => {
                             if (isPreorder) {
