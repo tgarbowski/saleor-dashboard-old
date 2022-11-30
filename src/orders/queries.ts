@@ -270,6 +270,10 @@ const orderFulfillData = gql`
         quantityToFulfill
         variant {
           id
+          privateMetadata {
+            key
+            value
+          }
           name
           sku
           preorder {

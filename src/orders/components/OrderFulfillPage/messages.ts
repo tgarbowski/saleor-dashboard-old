@@ -33,6 +33,14 @@ export const messages = defineMessages({
     defaultMessage: "SKU",
     description: "product's sku"
   },
+  location: {
+    defaultMessage: "Lokalizacja magazynowa",
+    description: "product's warehouse location"
+  },
+  noLocation: {
+    defaultMessage: "Brak lokalizacji",
+    description: "product's warehouse no location"
+  },
   quantityToFulfill: {
     defaultMessage: "Quantity to fulfill",
     description: "quantity of fulfilled products"

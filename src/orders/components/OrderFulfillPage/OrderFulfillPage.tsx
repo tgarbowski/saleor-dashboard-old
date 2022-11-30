@@ -80,6 +80,10 @@ const useStyles = makeStyles(
         textAlign: "center",
         textOverflow: "ellipsis"
       },
+      colLocation: {
+        textAlign: "center",
+        textOverflow: "ellipsis"
+      },
       error: {
         color: theme.palette.error.main
       },
@@ -339,6 +343,9 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
                     <TableCell className={classes.colSku}>
                       <FormattedMessage {...messages.sku} />
                     </TableCell>
+                    <TableCell className={classes.colLocation}>
+                      <FormattedMessage {...messages.location} />
+                    </TableCell>
                     {warehouses?.map(warehouse => (
                       <TableCell
                         key={warehouse.id}
@@ -366,6 +373,9 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
                               <Skeleton />
                             </TableCellAvatar>
                             <TableCell className={classes.colSku}>
+                              <Skeleton />
+                            </TableCell>
+                            <TableCell className={classes.colLocation}>
                               <Skeleton />
                             </TableCell>
                             {warehouses?.map(warehouse => (
@@ -414,6 +424,13 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
                           </TableCellAvatar>
                           <TableCell className={classes.colSku}>
                             {line.variant?.sku}
+                          </TableCell>
+                          <TableCell className={classes.colLocation}>
+                            {line?.variant.privateMetadata.map(data => {
+                              if (data.key === "location") {
+                                return <p>{data.value}</p>;
+                              }
+                            })}
                           </TableCell>
                           {warehouses?.map(warehouse => {
                             if (isPreorder) {

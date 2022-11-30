@@ -25,6 +25,13 @@ export const orderToFulfill: OrderFulfillData_order = {
         name: "S",
         sku: "62783187",
         preorder: null,
+        privateMetadata: [
+          {
+            __typename: "MetadataItem",
+            key: "location",
+            value: "#R04K041"
+          }
+        ],
         attributes: [
           {
             __typename: "SelectedAttribute",
@@ -89,6 +96,13 @@ export const orderToFulfill: OrderFulfillData_order = {
         name: "2.5l",
         sku: "998323583",
         preorder: null,
+        privateMetadata: [
+          {
+            __typename: "MetadataItem",
+            key: "location",
+            value: "#R04K041"
+          }
+        ],
         attributes: [
           {
             __typename: "SelectedAttribute",
@@ -144,6 +158,13 @@ export const orderToFulfill: OrderFulfillData_order = {
         __typename: "ProductVariant",
         id: "UHJvZHVjdFZhcmlhbnQ6MTgy",
         name: "5l",
+        privateMetadata: [
+          {
+            __typename: "MetadataItem",
+            key: "location",
+            value: "#R04K041"
+          }
+        ],
         sku: "998323584",
         preorder: null,
         attributes: [
