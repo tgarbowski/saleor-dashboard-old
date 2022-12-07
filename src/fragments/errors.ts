@@ -174,6 +174,7 @@ export const webhookErrorFragment = gql`
 
 export const invoiceErrorFragment = gql`
   fragment InvoiceErrorFragment on InvoiceError {
+    message
     code
     field
   }
