@@ -740,7 +740,7 @@ export const useOrderFulfill = makeMutation<
   FulfillOrderVariables
 >(fulfillOrder);
 
-const invoiceRequestMutation = gql`
+export const invoiceRequestMutation = gql`
   ${invoiceErrorFragment}
   ${invoiceFragment}
   mutation InvoiceRequest($orderId: ID!) {

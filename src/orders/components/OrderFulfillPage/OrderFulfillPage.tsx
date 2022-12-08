@@ -41,6 +41,7 @@ import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { messages } from "./messages";
+import { ProductDetails_product_variants } from "@saleor/products/types/ProductDetails";
 
 const useStyles = makeStyles(
   theme => {
@@ -113,6 +114,7 @@ const useStyles = makeStyles(
 
 interface OrderFulfillFormData {
   sendInfo: boolean;
+  variants?: ProductDetails_product_variants[];
 }
 export interface OrderFulfillSubmitData extends OrderFulfillFormData {
   items: FormsetData<null, OrderFulfillStockInput[]>;
@@ -426,12 +428,14 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
                             {line.variant?.sku}
                           </TableCell>
                           <TableCell className={classes.colQuantityTotal}>
-                            {line?.variant?.privateMetadata[0] === undefined ? (
-                              <FormattedMessage {...messages.noLocation} />
-                            ) : (
+                            {line?.variant?.privateMetadata[0].key ===
+                              "location" &&
+                            line?.variant?.privateMetadata[0].value !== "" ? (
                               line?.variant.privateMetadata.map(data => (
                                 <p>{data.value}</p>
                               ))
+                            ) : (
+                              <FormattedMessage {...messages.noLocation} />
                             )}
                           </TableCell>
                           {warehouses?.map(warehouse => {

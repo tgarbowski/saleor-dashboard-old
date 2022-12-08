@@ -1,6 +1,9 @@
 import {
   Card,
   CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
   TableBody,
   TableCell,
   TableRow,
@@ -13,12 +16,13 @@ import Skeleton from "@saleor/components/Skeleton";
 import { InvoiceFragment } from "@saleor/fragments/types/InvoiceFragment";
 import { Button, makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
-import React from "react";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { buttonMessages } from "@saleor/intl";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { useMutation } from "@apollo/client";
 import { ExtInvoiceCorrectionRequestMutation } from "@saleor/orders/extMutations/mutations";
+import { invoiceRequestMutation } from "@saleor/orders/mutations";
 
 const useStyles = makeStyles(
   () => ({
@@ -65,7 +69,7 @@ const useStyles = makeStyles(
 
 export interface OrderInvoiceListProps {
   invoices: InvoiceFragment[];
-  onInvoiceGenerate: () => void;
+  onInvoiceGenerate?: () => void;
   onInvoiceClick: (invoiceId: string) => void;
   onInvoiceSend: (invoiceId: string) => void;
   order?: OrderDetails_order;
@@ -76,7 +80,6 @@ export interface OrderInvoiceListProps {
 const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
   const {
     invoices,
-    onInvoiceGenerate,
     onInvoiceClick,
     onInvoiceSend,
     order,
@@ -86,6 +89,9 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
   const classes = useStyles(props);
 
   const [correctionGenerate] = useMutation(ExtInvoiceCorrectionRequestMutation);
+  const [invoiceRequest] = useMutation(invoiceRequestMutation);
+
+  const [orderStatusError, setOrderStatusError] = useState<string>("");
 
   const intl = useIntl();
 
@@ -105,11 +111,19 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
   };
 
   const invoiceGenerateToolbar = !generatedInvoices?.length ? (
-    onInvoiceGenerate && (
+    invoiceRequest && (
       <Button
         onClick={() => {
           setGenerating(true);
-          onInvoiceGenerate();
+          invoiceRequest({ variables: { orderId: order.id } }).then(
+            response => {
+              if (response.data.invoiceRequest.errors.length) {
+                setOrderStatusError(
+                  response.data.invoiceRequest.errors[0]?.message
+                );
+              }
+            }
+          );
         }}
         disabled={!!generatedInvoices?.length || generating}
       >
@@ -199,6 +213,21 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
           </ResponsiveTable>
         )}
       </CardContent>
+
+      <Dialog open={!!orderStatusError}>
+        <CardTitle title="Błąd" onClose={() => window.location.reload()} />
+        <DialogContent>
+          {!!orderStatusError && (
+            <>
+              <FormattedMessage defaultMessage="Zamówienie nie zostało zrealizowane" />
+              <p>Error message: {orderStatusError}</p>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => window.location.reload()}>Dalej</Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };
