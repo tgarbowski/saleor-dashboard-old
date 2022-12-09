@@ -428,9 +428,9 @@ const OrderFulfillPage: React.FC<OrderFulfillPageProps> = props => {
                             {line.variant?.sku}
                           </TableCell>
                           <TableCell className={classes.colQuantityTotal}>
-                            {line?.variant?.privateMetadata[0].key ===
+                            {line?.variant?.privateMetadata[0]?.key ===
                               "location" &&
-                            line?.variant?.privateMetadata[0].value !== "" ? (
+                            line?.variant?.privateMetadata[0]?.value !== "" ? (
                               line?.variant.privateMetadata.map(data => (
                                 <p>{data.value}</p>
                               ))
