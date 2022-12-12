@@ -6973,7 +6973,7 @@
   },
   "event title draft reissued": {
     "context": "draft created from replace event title",
-    "string": "Projekt został ponownie wydany z polecenia"
+    "string": "Projekt został ponownie wydany z zamówienia"
   },
   "event title marked as paid": {
     "context": "order marked as paid event title",
