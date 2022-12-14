@@ -82,5 +82,5 @@ export interface UpdatePrivateMetadata {
 export interface UpdatePrivateMetadataVariables {
   id: string;
   input: MetadataInput[];
-  keysToDelete: string[];
+  keysToDelete?: string[];
 }
