@@ -55,10 +55,8 @@ import useAttributeValueSearchHandler from "@saleor/utils/handlers/attributeValu
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createMetadataUpdateHandler from "@saleor/utils/handlers/metadataUpdateHandler";
 import { mapEdgesToItems } from "@saleor/utils/maps";
-import {
-  useMetadataUpdate,
-  usePrivateMetadataUpdate
-} from "@saleor/utils/metadata/updateMetadata";
+import { useMegapackPrivateMetadataUpdate } from "@saleor/utils/metadata/updateMegapackPrivateMetadata";
+import { useMetadataUpdate } from "@saleor/utils/metadata/updateMetadata";
 import { useWarehouseList } from "@saleor/warehouses/queries";
 import { warehouseAddPath } from "@saleor/warehouses/urls";
 import React from "react";
@@ -163,7 +161,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
   });
   const shop = useShop();
   const [updateMetadata] = useMetadataUpdate({});
-  const [updatePrivateMetadata] = usePrivateMetadataUpdate({
+  const [updatePrivateMetadata] = useMegapackPrivateMetadataUpdate({
     onCompleted: data => {
       const megaPackError = data.updatePrivateMetadata.errors.find(
         error => error.code === "MEGAPACK_ASSIGNED"

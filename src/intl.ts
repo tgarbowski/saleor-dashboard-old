@@ -1,6 +1,9 @@
 import { defineMessages, IntlShape } from "react-intl";
 
 export const commonMessages = defineMessages({
+  assignedSkusToMegapack: {
+    defaultMessage: "Przypisano produkty do megapaki"
+  },
   availability: {
     defaultMessage: "Availability"
   },
