@@ -41,10 +41,8 @@ import useAttributeValueSearchHandler from "@saleor/utils/handlers/attributeValu
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createMetadataCreateHandler from "@saleor/utils/handlers/metadataCreateHandler";
 import { mapEdgesToItems } from "@saleor/utils/maps";
-import {
-  useMetadataUpdate,
-  usePrivateMetadataUpdate
-} from "@saleor/utils/metadata/updateMetadata";
+import { useMegapackPrivateMetadataUpdate } from "@saleor/utils/metadata/updateMegapackPrivateMetadata";
+import { useMetadataUpdate } from "@saleor/utils/metadata/updateMetadata";
 import { useWarehouseList } from "@saleor/warehouses/queries";
 import { warehouseAddPath } from "@saleor/warehouses/urls";
 import React from "react";
@@ -52,6 +50,7 @@ import { useIntl } from "react-intl";
 
 import { PRODUCT_CREATE_FORM_ID } from "./consts";
 import { createHandler } from "./handlers";
+import { commonMessages } from "@saleor/intl";
 
 interface ProductCreateProps {
   params: ProductCreateUrlQueryParams;
@@ -122,8 +121,12 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({ params }) => {
     }
   });
   const [updateMetadata] = useMetadataUpdate({});
-  const [updatePrivateMetadata] = usePrivateMetadataUpdate({
+  const [updatePrivateMetadata] = useMegapackPrivateMetadataUpdate({
     onCompleted: data => {
+      notify({
+        status: "success",
+        text: intl.formatMessage(commonMessages.savedChanges)
+      });
       const megaPackError = data.updatePrivateMetadata.errors.find(
         error => error.code === "MEGAPACK_ASSIGNED"
       );

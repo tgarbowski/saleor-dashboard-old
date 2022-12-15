@@ -1,4 +1,9 @@
-import { Button, DialogActions, TextField } from "@material-ui/core";
+import {
+  Button,
+  DialogActions,
+  TableContainer,
+  TextField
+} from "@material-ui/core";
 import { Dialog, DialogContent, DialogContentText } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TableBody from "@material-ui/core/TableBody";
@@ -24,9 +29,11 @@ import {
 } from "@saleor/products/types/ProductPrivateMetadata";
 import { ProductsSkusData } from "@saleor/products/types/ProductSkus";
 import { DialogProps, FetchMoreProps } from "@saleor/types";
-import { usePrivateMetadataUpdate } from "@saleor/utils/metadata/updateMetadata";
+import { useMegapackPrivateMetadataUpdate } from "@saleor/utils/metadata/updateMegapackPrivateMetadata";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import useNavigator from "@saleor/hooks/useNavigator";
+import { productListUrl } from "@saleor/products/urls";
 
 const useStyles = makeStyles(
   theme => ({
@@ -34,7 +41,9 @@ const useStyles = makeStyles(
       background: theme.palette.primary.main
     },
     table: {
-      minWidth: 650
+      minWidth: 650,
+      maxHeight: 400,
+      overflowY: "auto"
     }
   }),
   { name: "ProductAddToMegaPackDialog" }
@@ -82,7 +91,7 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
   open
 }) => {
   const intl = useIntl();
-
+  const navigate = useNavigator();
   const notify = useNotifier();
 
   const [selectedProduct, setSelectedProduct] = React.useState(null);
@@ -137,8 +146,13 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
     skip: !selectedProduct
   });
 
-  const [updatePrivateMetadata] = usePrivateMetadataUpdate({
+  const [updatePrivateMetadata] = useMegapackPrivateMetadataUpdate({
     onCompleted: data => {
+      notify({
+        status: "success",
+        text: intl.formatMessage(commonMessages.assignedSkusToMegapack)
+      });
+      navigate(productListUrl());
       const megaPackError = data.updatePrivateMetadata.errors.find(
         error => error.code === "MEGAPACK_ASSIGNED"
       );
@@ -148,12 +162,7 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
           text: megaPackError.message
         });
       }
-      notify({
-        status: "success",
-        text: intl.formatMessage(commonMessages.savedChanges)
-      });
-
-      onClose();
+      navigate(productListUrl());
     }
   });
   const classes = useStyles(params);
@@ -188,31 +197,33 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
           onChange={event => handleSearch(event.target.value)}
         />
         <FormSpacer />
-        <ResponsiveTable className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Nazwa</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data?.products.edges.map(node => (
-              <TableRow
-                className={
-                  selectedProduct === node.node.id
-                    ? classes.selectedProduct
-                    : ""
-                }
-                key={node.node.id}
-                onClick={() => handleProductSelect(node.node.id)}
-                hover
-              >
-                <TableCell component="th" scope="row">
-                  {node.node.name}
-                </TableCell>
+        <TableContainer className={classes.table}>
+          <ResponsiveTable className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Nazwa</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </ResponsiveTable>
+            </TableHead>
+            <TableBody>
+              {data?.products.edges.map(node => (
+                <TableRow
+                  className={
+                    selectedProduct === node.node.id
+                      ? classes.selectedProduct
+                      : ""
+                  }
+                  key={node.node.id}
+                  onClick={() => handleProductSelect(node.node.id)}
+                  hover
+                >
+                  <TableCell component="th" scope="row">
+                    {node.node.name}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </ResponsiveTable>
+        </TableContainer>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>
@@ -228,8 +239,7 @@ const ProductAddToMegaPackDialog: React.FC<ProductAddToMegaPackDialogProps> = ({
                 input: getPrivateMetadataUpdateInput(
                   productsSkus.data,
                   megaPackMetadata.data
-                ),
-                keysToDelete: []
+                )
               }
             })
           }
