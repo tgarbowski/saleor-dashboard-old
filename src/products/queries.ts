@@ -261,6 +261,7 @@ const productTypeQuery = gql`
     productType(id: $id) {
       id
       name
+      slug
       hasVariants
       productAttributes {
         id

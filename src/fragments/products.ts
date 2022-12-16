@@ -111,6 +111,7 @@ export const productFragment = gql`
       id
       name
       hasVariants
+      slug
     }
     variants {
       id

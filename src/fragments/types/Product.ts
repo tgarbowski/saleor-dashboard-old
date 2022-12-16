@@ -148,6 +148,7 @@ export interface Product_productType {
   id: string;
   variantAttributes: (Product_productType_variantAttributes | null)[] | null;
   name: string;
+  slug: string;
   hasVariants: boolean;
   taxType: Product_productType_taxType | null;
 }
