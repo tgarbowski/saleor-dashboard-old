@@ -56,7 +56,10 @@ import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandl
 import createMetadataUpdateHandler from "@saleor/utils/handlers/metadataUpdateHandler";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { useMegapackPrivateMetadataUpdate } from "@saleor/utils/metadata/updateMegapackPrivateMetadata";
-import { useMetadataUpdate } from "@saleor/utils/metadata/updateMetadata";
+import {
+  useMetadataUpdate,
+  usePrivateMetadataUpdate
+} from "@saleor/utils/metadata/updateMetadata";
 import { useWarehouseList } from "@saleor/warehouses/queries";
 import { warehouseAddPath } from "@saleor/warehouses/urls";
 import React from "react";
@@ -159,21 +162,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
       first: 50
     }
   });
-  const shop = useShop();
-  const [updateMetadata] = useMetadataUpdate({});
-  const [updatePrivateMetadata] = useMegapackPrivateMetadataUpdate({
-    onCompleted: data => {
-      const megaPackError = data.updatePrivateMetadata.errors.find(
-        error => error.code === "MEGAPACK_ASSIGNED"
-      );
-      if (megaPackError) {
-        notify({
-          status: "error",
-          text: megaPackError.message
-        });
-      }
-    }
-  });
+
   const [
     productVariantCreate,
     productVariantCreateOpts
@@ -186,6 +175,38 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
       firstValues: VALUES_PAGINATE_BY
     }
   });
+
+  const shop = useShop();
+  const [updateMetadata] = useMetadataUpdate({});
+
+  const [updatePrivateMetadata] =
+    data?.product.productType?.slug === "mega-paka"
+      ? useMegapackPrivateMetadataUpdate({
+          onCompleted: data => {
+            const megaPackError = data.updatePrivateMetadata.errors.find(
+              error => error.code === "MEGAPACK_ASSIGNED"
+            );
+            if (megaPackError) {
+              notify({
+                status: "error",
+                text: megaPackError.message
+              });
+            }
+          }
+        })
+      : usePrivateMetadataUpdate({
+          onCompleted: data => {
+            const megaPackError = data.updatePrivateMetadata.errors.find(
+              error => error.code === "MEGAPACK_ASSIGNED"
+            );
+            if (megaPackError) {
+              notify({
+                status: "error",
+                text: megaPackError.message
+              });
+            }
+          }
+        });
 
   const isSimpleProduct = !data?.product?.productType?.hasVariants;
 
