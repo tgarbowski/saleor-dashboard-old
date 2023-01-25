@@ -11,8 +11,23 @@ import {
 const updateMegapackPrivateMetadata = gql`
   ${metadataFragment}
   ${metadataErrorFragment}
-  mutation UpdateMegapackPrivateMetadata($id: ID!, $input: [MetadataInput!]!) {
+  mutation UpdateMegapackPrivateMetadata(
+    $id: ID!
+    $input: [MetadataInput!]!
+    $keysToDelete: [String!]!
+  ) {
     updateMegapackPrivateMetadata(id: $id, input: $input) {
+      errors {
+        ...MetadataErrorFragment
+      }
+      item {
+        ...MetadataFragment
+        ... on Node {
+          id
+        }
+      }
+    }
+    deleteMegapackPrivateMetadata(id: $id, keys: $keysToDelete) {
       errors {
         ...MetadataErrorFragment
       }
