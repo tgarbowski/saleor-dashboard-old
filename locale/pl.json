@@ -3773,7 +3773,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundPage_dot_194531545": {
     "context": "page header",
-    "string": "Nr zamówienia. {orderNumber} - Refundacja"
+    "string": "Zamówienie nr {orderNumber} - Zwrot środków"
   },
   "src_dot_orders_dot_components_dot_OrderRefundPage_dot_3620521256": {
     "context": "page header",
@@ -3820,7 +3820,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefund_dot_1275363773": {
     "context": "section header",
-    "string": "Zamówienie zwrotu pieniędzy"
+    "string": "Zwróć środki"
   },
   "src_dot_orders_dot_components_dot_OrderRefund_dot_refundMiscellaneous": {
     "context": "refund type",
@@ -3828,7 +3828,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefund_dot_refundProducts": {
     "context": "refund type",
-    "string": "Zwrócone produkty"
+    "string": "Zwróć za produkty"
   },
   "src_dot_orders_dot_components_dot_OrderSettingsPage_dot_1149215359": {
     "context": "header",
@@ -6861,7 +6861,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_refund": {
     "context": "refund button",
-    "string": "Zwróć"
+    "string": "Zwróć środki"
   },
   "src_dot_customers_dot_components_dot_CustomerInfo_dot_4121042904": {
     "context": "account information, header",
@@ -6873,7 +6873,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderDetailsPage_dot_returnOrder": {
     "context": "return button",
-    "string": "Zwrot / wymiana zamówienia"
+    "string": "Zwrot / wymiana towaru"
   },
   "PageTypeDeleteWarningDialog multiple assigned items description": {
     "context": "PageTypeDeleteWarningDialog multiple assigned items description",
