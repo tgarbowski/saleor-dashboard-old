@@ -8980,7 +8980,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderPayment_dot_refund": {
     "context": "button",
-    "string": "Zwróć"
+    "string": "Zwróć środki"
   },
   "src_dot_orders_dot_components_dot_OrderPayment_dot_shipping": {
     "context": "order shipping method name",
@@ -9078,7 +9078,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_amountTooBig": {
     "context": "Amount error message",
-    "string": "Kwota nie może być większa niż maksymalna refundacja"
+    "string": "Kwota nie może być większa niż maksymalna zwrot"
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_amountTooSmall": {
     "context": "Amount error message",
