@@ -3696,7 +3696,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundAmountValues_dot_2907874606": {
     "context": "order refund amount",
-    "string": "Wartość wybranych produktów"
+    "string": "Wartość wybranych prod."
   },
   "src_dot_orders_dot_components_dot_OrderRefundAmountValues_dot_79173946": {
     "context": "order refund amount",
@@ -3800,11 +3800,11 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundUnfulfilledProducts_dot_2271032876": {
     "context": "section notice",
-    "string": "Produkty w pełni niezrealizowane zostaną uzupełnione"
+    "string": "Produkty niezrealizowane zostaną zwrócone na magazyn"
   },
   "src_dot_orders_dot_components_dot_OrderRefundUnfulfilledProducts_dot_3536696555": {
     "context": "tabel column header",
-    "string": "Zwrócona ilość"
+    "string": "Zwracana ilość"
   },
   "src_dot_orders_dot_components_dot_OrderRefundUnfulfilledProducts_dot_3988345170": {
     "context": "button",
@@ -9078,7 +9078,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_amountTooBig": {
     "context": "Amount error message",
-    "string": "Kwota nie może być większa niż maksymalna zwrot"
+    "string": "Kwota nie może być większa niż maksymalny zwrot"
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_amountTooSmall": {
     "context": "Amount error message",
@@ -9118,7 +9118,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_replacedProductsValue": {
     "context": "order refund amount",
-    "string": "Wartość produktów zastąpionych"
+    "string": "Wartość zastąpionych prod."
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_returnButton": {
     "context": "order return amount button",
@@ -9130,7 +9130,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_selectedProductsValue": {
     "context": "order refund amount",
-    "string": "Wartość wybranych produktów"
+    "string": "Wartość wybranych prod."
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_shipmentCost": {
     "context": "order refund amount",
