@@ -3696,7 +3696,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundAmountValues_dot_2907874606": {
     "context": "order refund amount",
-    "string": "Wartość wybranych produktów"
+    "string": "Wartość wybranych prod."
   },
   "src_dot_orders_dot_components_dot_OrderRefundAmountValues_dot_79173946": {
     "context": "order refund amount",
@@ -3773,7 +3773,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundPage_dot_194531545": {
     "context": "page header",
-    "string": "Nr zamówienia. {orderNumber} - Refundacja"
+    "string": "Zamówienie nr {orderNumber} - Zwrot środków"
   },
   "src_dot_orders_dot_components_dot_OrderRefundPage_dot_3620521256": {
     "context": "page header",
@@ -3800,11 +3800,11 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundUnfulfilledProducts_dot_2271032876": {
     "context": "section notice",
-    "string": "Produkty w pełni niezrealizowane zostaną uzupełnione"
+    "string": "Produkty niezrealizowane zostaną zwrócone na magazyn"
   },
   "src_dot_orders_dot_components_dot_OrderRefundUnfulfilledProducts_dot_3536696555": {
     "context": "tabel column header",
-    "string": "Zwrócona ilość"
+    "string": "Zwracana ilość"
   },
   "src_dot_orders_dot_components_dot_OrderRefundUnfulfilledProducts_dot_3988345170": {
     "context": "button",
@@ -3820,7 +3820,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefund_dot_1275363773": {
     "context": "section header",
-    "string": "Zamówienie zwrotu pieniędzy"
+    "string": "Zwróć środki"
   },
   "src_dot_orders_dot_components_dot_OrderRefund_dot_refundMiscellaneous": {
     "context": "refund type",
@@ -3828,7 +3828,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefund_dot_refundProducts": {
     "context": "refund type",
-    "string": "Zwrócone produkty"
+    "string": "Zwróć za produkty"
   },
   "src_dot_orders_dot_components_dot_OrderSettingsPage_dot_1149215359": {
     "context": "header",
@@ -6861,7 +6861,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderFulfilledProductsCard_dot_refund": {
     "context": "refund button",
-    "string": "Zwróć"
+    "string": "Zwróć środki"
   },
   "src_dot_customers_dot_components_dot_CustomerInfo_dot_4121042904": {
     "context": "account information, header",
@@ -6873,7 +6873,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderDetailsPage_dot_returnOrder": {
     "context": "return button",
-    "string": "Zwrot / wymiana zamówienia"
+    "string": "Zwrot / wymiana towaru"
   },
   "PageTypeDeleteWarningDialog multiple assigned items description": {
     "context": "PageTypeDeleteWarningDialog multiple assigned items description",
@@ -8980,7 +8980,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderPayment_dot_refund": {
     "context": "button",
-    "string": "Zwróć"
+    "string": "Zwróć środki"
   },
   "src_dot_orders_dot_components_dot_OrderPayment_dot_shipping": {
     "context": "order shipping method name",
@@ -9078,7 +9078,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_amountTooBig": {
     "context": "Amount error message",
-    "string": "Kwota nie może być większa niż maksymalna refundacja"
+    "string": "Kwota nie może być większa niż maksymalny zwrot"
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_amountTooSmall": {
     "context": "Amount error message",
@@ -9118,7 +9118,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_replacedProductsValue": {
     "context": "order refund amount",
-    "string": "Wartość produktów zastąpionych"
+    "string": "Wartość zastąpionych prod."
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_returnButton": {
     "context": "order return amount button",
@@ -9130,7 +9130,7 @@
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_selectedProductsValue": {
     "context": "order refund amount",
-    "string": "Wartość wybranych produktów"
+    "string": "Wartość wybranych prod."
   },
   "src_dot_orders_dot_components_dot_OrderRefundReturnAmount_dot_shipmentCost": {
     "context": "order refund amount",
