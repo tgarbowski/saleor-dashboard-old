@@ -141,7 +141,11 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
       }}
       disabled={
         generating ||
-        !(order.status === "RETURNED" || order.status === "PARTIALLY_RETURNED")
+        !(
+          order.status === "RETURNED" ||
+          order.status === "PARTIALLY_RETURNED" ||
+          order.paymentStatus === "PARTIALLY_REFUNDED"
+        )
       }
     >
       <FormattedMessage
