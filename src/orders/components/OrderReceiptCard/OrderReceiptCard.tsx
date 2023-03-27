@@ -247,7 +247,8 @@ export const OrderReceiptCard: React.FC<OrderReceiptCardProps> = props => {
                   generating ||
                   !(
                     order.status === "RETURNED" ||
-                    order.status === "PARTIALLY_RETURNED"
+                    order.status === "PARTIALLY_RETURNED" ||
+                    order.paymentStatus === "PARTIALLY_REFUNDED"
                   ) ||
                   !order.invoices[0]?.number
                 }
