@@ -150,6 +150,7 @@ const ProductBundleContent: React.FC<ProductBundleContentProps> = props => {
         onClick={() => openModal("submit")}
         data-test="button-bar-delete"
         className={classes.button}
+        disabled
       >
         Zatwierdź
       </Button>
